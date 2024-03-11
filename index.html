@@ -1,0 +1,498 @@
+<!DOCTYPE HTML>
+<script>
+function showMore() {
+
+    var listData = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.shown)')).slice(0, 9);
+
+  for (var i=0; i < listData.length; i++)
+  {
+    listData[i].className  = 'shown';
+    listData[i].style.display = 'list-item';
+  }
+  switchButtons();
+}
+
+
+function switchButtons() {
+    var hiddenElements = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.shown)'));
+  if(hiddenElements.length == 0)
+  {
+    document.getElementById('moreButton').style.display = 'none';
+  }
+  else
+  {
+    document.getElementById('moreButton').style.display = 'block';
+  }
+
+  var shownElements = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.hidden)'));
+  if(shownElements.length == 0)
+  {
+    document.getElementById('lessButton').style.display = 'none';
+  }
+  else
+  {
+    document.getElementById('lessButton').style.display = 'block';
+  }
+}
+
+onload= function(){
+    showMore();
+}
+</script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Thai Duong</title>
+  
+  <meta name="author" content="Thai Duong">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+
+<body>
+  <table style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <tr style="padding:0px">
+      <td style="padding:0px">
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr style="padding:0px">
+            <td style="padding:2.5%;width:63%;vertical-align:middle">
+              <p style="text-align:center">
+                <name>Thai Duong</name>
+              </p>
+              <p>I am a Ph.D. candidate in the <a href="https://www.ece.ucsd.edu/">Department of Electrical and Computer Engineering</a> at <a href="http://www.ucsd.edu/">University of California, San Diego</a>. I work at the <a href="https://existentialrobotics.org/">Existential Robotics Laboratory</a> and am fortunate to be advised by Prof. <a href="https://natanaso.github.io/">Nikolay Atanasov</a>.
+              </p>
+              <p>
+                  Before moving to San Diego, I worked as a software engineer at Microsoft. I obtained my M.S. degree from Oregon State University, Corvallis, Oregon and B.S. degree from Hanoi University of Science and Technology, Hanoi, Vietnam. 
+              </p>
+              <p style="text-align:center">
+                <a href="mailto:tduong@eng.ucsd.edu">Email</a> &nbsp/&nbsp
+                  <a href="https://scholar.google.com/citations?user=PI1acOcAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
+                <a href="https://github.com/thaipduong/">Github</a> <!-- &nbsp/&nbsp
+                  <a href="https://thaipduong.github.io/my2cents/">Blog</a>-->
+              </p>
+            </td>
+            <td style="padding:2.5%;width:40%;max-width:40%">
+              <a href="images/profile/thai.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile/thai_circled.jpg" class="hoverZoomLink"></a>
+            </td>
+          </tr>
+        </tbody></table>
+        
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <heading>Recent News</heading>
+                </td>
+            </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr>
+                <ul id="dataList">
+              <li class="hidden">[Nov 2022] Our paper on <a href="https://thaipduong.github.io/LieFVIN/">Lie Group Forced Variational Integrator Networks </a> has been submitted to <a href="https://l4dc.seas.upenn.edu/"> L4DC'23. </a> </li>
+              <li class="hidden">[Nov 2022] I served on the Program Commitee for the <a href="https://aaai.org/Conferences/AAAI-23/"> AAAI'23 </a> workshop  <a href="https://machinelearning-dynamic.github.io/"> "When Machine Learning meets Dynamical Systems". </a> </li>
+              <li class="hidden">[Sep 2022] I gave a talk on "Learning and Control of Hamiltonian Dynamics on the SE(3) Manifold" at <a href="https://www.siam.org/conferences/cm/conference/mds22"> SIAM MDS'22. </a> </li>
+              <li class="hidden">[Sep 2022] Our paper on <a href="https://eduardosebastianrodriguez.github.io/LEMURS/">Learning Distributed Multi-Robot Interactions From Demonstrations
+ </a> has been submitted to <a href="https://www.icra2023.org/"> ICRA'23. </a> </li>
+              <li class="hidden">[Aug 2022] Our paper on <a href="https://thaipduong.github.io/refgovham/">Robust and Safe Navigation with Learned SE(3) Hamiltonian Dynamics
+ </a> has been accepted to <a href="http://ieeecss.org/publication/open-journal-control-systems/special-sections"> OJ-CSYS. </a> </li>
+              <li class="hidden">[Jun 2022] I started my internship with Amazon Robotics</li>
+              <li class="hidden">[Jun 2022] I have passed my qualifying exam and advanced to candidacy. &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[May 2022] Our paper on <a href="https://thaipduong.github.io/hamadapt/">Adaptive Control of Hamiltonian Dynamics with Learned Disturbance Features
+ </a> has been accepted to <a href="http://ieee-cssletters.dei.unipd.it/index.php"> L-CSS 2022 </a>.&#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[Apr 2022] Our paper on <a href="https://thaipduong.github.io/refgovham/">Robust and Safe Navigation with Learned SE(3) Hamiltonian Dynamics
+ </a> has been submitted to <a href="http://ieeecss.org/publication/open-journal-control-systems/special-sections"> OJ-CSYS. </a> </li>
+              <li class="hidden">[Apr 2022] Our paper on <a href="https://thaipduong.github.io/sbkm/">Sparse <i >Bayesian</i> Kernel-based Mapping</a> has been accepted to T-RO.&#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[Mar 2022] Our paper on <a href="https://thaipduong.github.io/refgovham/">Safe Navigation with Learned SE(3) Hamiltonian Dynamics
+ </a> has been accepted to <a href="https://l4dc.stanford.edu/"> L4DC 2022 </a>.&#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[Dec 2021] Our paper on <a href="https://thaipduong.github.io/refgovham/">Safe Navigation with Learned SE(3) Hamiltonian Dynamics
+ </a> has been submitted to <a href="https://l4dc.stanford.edu/"> L4DC 2022 </a>.</li>
+              <li class="hidden">[Oct 2021] Our paper on <a href="https://thaipduong.github.io/hamadapt/">Physics-guided Learning-based Adaptive Control</a> has been accepted to <a href="https://physical-reasoning.github.io/"> Physical Reasoning and Inductive Biases workshop </a>  at <a href="https://neurips.cc/"> NeurIPS 2021 </a>.&#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[May 2021] Our paper on <a href="https://thaipduong.github.io/SE3HamDL/">Hamiltonian-based dynamics learning and control</a> has been accepted to <a href="https://roboticsconference.org/"> RSS 2021 </a>. &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[Mar 2021] I TA'ed <a href="https://natanaso.github.io/ece276b/">ECE276B: Planning &amp; Learning in Robotics</a>. </li>
+              <li class="hidden">[Sep 2020] Our paper on <a href="https://thaipduong.github.io/sbkm/">Sparse <i >Bayesian</i> Kernel-based Mapping</a> has been submited to T-RO.</li>
+              <li class="hidden">[Jan 2020] Our paper on <a href="https://thaipduong.github.io/kernelbasedmap/">Sparse Kernel-based Mapping</a> has been accepted to <a href="https://www.ieee-ras.org/students/events/event/1144-icra-2020-ieee-international-conference-on-robotics-and-automation-icra/">ICRA 2020</a>. &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+              <li class="hidden">[Jan 2020] I TA'ed <a href="https://natanaso.github.io/ece276a/">ECE276A: Sensing &amp; Estimation in Robotics</a>. </li>
+              <li class="hidden">[Apr 2019] I presented our work on <a href="https://thaipduong.github.io/kernelbasedmap/">sparse map representations</a> at UCSD Research Expo 2019.</li>
+              <li class="hidden">[Sep 2018] I am honored to receive Jacobs Fellowship and ECE Department Fellowship from the <a href="https://www.ece.ucsd.edu/">ECE Department</a>.</li>
+              <li class="hidden">[Sep 2018] I started my Ph.D. journey in the <a href="https://www.ece.ucsd.edu/">ECE Department</a> at <a href="http://www.ucsd.edu/">University of California, San Diego</a>.</li>
+<input id="moreButton" type="button" value="More..." onclick="showMore()"/>
+            </ul>
+            
+          </td>
+        </tr>
+        </tbody></table>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+            <td style="padding:10px;width:100%;vertical-align:middle">
+              <heading>Research Interests</heading>
+              <p>
+                I am interested in robotics, machine learning, control theory, and optimization. My work focuses on robots' understanding of the environments, e.g. probablistic mapping, navigation and exploration; and of their own dynamics model, e.g. robot dynamics learning, model-based reinforcement learning, and learning from demonstration. I am also interested in modeling uncertainty in map representations and robots' dynamics for safe and active planning and control.
+              </p>
+            </td>
+          </tr>
+        </tbody></table>
+            
+        
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <heading>Publications</heading>
+                </td>
+            </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <b>Projects for robot dynamics learning and control</b>
+                </td>
+            </tr>
+        </tbody></table>
+                <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+             <td style="padding:20px;width:30%;vertical-align:top">
+              <img src='images/lemurs/FixedSwapping.png' style="float: right; margin-right: 15px;" width="215">
+            <img src='images/lemurs/FixedSwappingLearned.gif' style="float: right; margin-right: 15px;" width="200">
+            </td>
+               
+            <td style="padding:20px;width:80%;vertical-align:middle">
+              <a href="https://eduardosebastianrodriguez.github.io/LEMURS/">
+                  <papertitle>LEMURS: Learning Distributed Multi-Robot Interactions</papertitle>
+              </a>
+              <br>
+              <a href="https://eduardosebastianrodriguez.github.io/">Eduardo Sebastian</a>, <strong>Thai Duong</strong>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>, <a href="https://sites.google.com/unizar.es/eduardo-montijano"> Eduardo Montijano </a>, <a href="https://webdiis.unizar.es/~csagues/english/Home_english.html"> Carlos Sagues </a>
+            
+              <br>
+              <em>Under review.</em><br> 
+              <a href="https://eduardosebastianrodriguez.github.io/LEMURS/">website</a> /
+              <a href="https://arxiv.org/pdf/2209.09702.pdf">arXiv</a>
+              <p></p>
+              <p>We develop LEMURS, an algorithm for learning scalable multi-robot control policies from cooperative task demonstrations. We propose a port-Hamiltonian description of the multi-robot system to exploit universal physical constraints in interconnected systems and achieve closed-loop stability. We represent a multi-robot control policy using an architecture that combines self-attention mechanisms and neural ordinary differential equations. The former handles time-varying communication in the robot team, while the latter respects the continuous-time robot dynamics. Our representation is distributed by construction, enabling the learned control policies to be deployed in robot teams of different sizes. </p>
+              <p><left>Figures: Learn distributed control policy for swapping with 4 robots (top) and deploy with 64 robots (bottom)</left></p>
+            </td>
+          </tr>
+
+          </tbody></table>   
+           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+             <td style="padding:20px;width:30%;vertical-align:top">
+              <img src='images/refgovham/gif/demo_forest.gif' width="220">
+            </td>
+               
+            <td style="padding:20px;width:80%;vertical-align:middle">
+              <a href="https://thaipduong.github.io/refgovham/">
+                  <papertitle>Robust and Safe Autonomous Navigation for Systems with Learned SE(3) Hamiltonian Dynamics</papertitle>
+              </a>
+              <br>
+              <a href="https://zhl355.github.io/">Zhichao Li*</a>, <strong>Thai Duong*</strong>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>Learning for Dynamics and Control (L4DC), 2022. *Equal contribution.</em><br> 
+                <em>Journal version accepted to <a href="http://ieeecss.org/publication/open-journal-control-systems">OJ-CSYS Special Issue: Intersection of Machine Learning with Control</a>, 2022, as invited paper.</em>
+              <br>
+              <a href="https://thaipduong.github.io/refgovham/">website</a> /
+              <a href="https://thaipduong.github.io/refgovham/">video</a> /
+              <a href="https://arxiv.org/pdf/2112.04639.pdf">arXiv</a>
+              <p></p>
+              <p>This paper proposes techniques to learn the dynamics models of a mobile robot from trajectory data and synthesize a tracking controller with safety and stability guarantees. Instead of a hand-derived dynamics model, we use a dataset of state-control trajectories to train a translation-equivariant nonlinear Hamiltonian model represented as a neural ordinary differential equation (ODE) network. The learned Hamiltonian model is used to synthesize an energy-shaping passivity-based controller and derive conditions which guarantee safe regulation to a desired reference pose. Finally, we enable adaptive tracking of a desired path, subject to safety constraints obtained from obstacle distance measurements. Our safe adaptive controller is demonstrated on a simulated hexarotor robot navigating in unknown complex environments.</p>
+            </td>
+          </tr>
+
+          </tbody></table>
+                          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+             <td style="padding:20px;width:30%;vertical-align:top">
+              <img src='images/hamadapt/gif/quadrotor/32/video_exp1_adaptive32.gif' width="220">
+               <br>
+                 <img src='images/hamadapt/gif/quadrotor/32/exp1_adaptive_3d.gif' width="220">
+            </td>
+            <td style="padding:20px;width:80%;vertical-align:middle">
+              <a href="https://thaipduong.github.io/hamadapt/">
+                  <papertitle>Adaptive Control of SE(3) Hamiltonian Dynamics with Learned Disturbance Features</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>Accepted to L-CSS</em>, 2022.
+              <br>
+              <a href="https://thaipduong.github.io/hamadapt/">website</a> /
+              <a href="https://thaipduong.github.io/hamadapt/">video</a> /
+              <a href="https://arxiv.org/pdf/2109.09974.pdf">arXiv</a>
+              <p></p>
+              <p>This paper develops geometric adaptive control with a learned disturbance model for rigid-body systems, such as ground, aerial, and underwater vehicles, that satisfy Hamilton's equations of motion over the SE(3) manifold. Our design consists of an offline disturbance model identification stage, using a Hamiltonian-based neural ordinary differential equation (ODE) network trained from state-control trajectory data, and an online adaptive control stage, estimating and compensating the disturbances based on geometric tracking errors. We demonstrate our adaptive geometric controller in trajectory tracking simulations of fully-actuated pendulum and under-actuated quadrotor systems.</p>
+            </td>
+          </tr>
+
+          </tbody></table>
+          
+          
+                <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+             <td style="padding:20px;width:30%;vertical-align:top">
+              <img src='images/se3hamdl/gif/trajtracking.gif' width="220">
+               <br>
+                 <img src='images/se3hamdl/gif/tracking_3d.gif' width="220">
+                 <br>
+                 <img src='images/se3hamdl/gif/tracking_2d.gif' width="220">
+                 <p> <center> Trajectory tracking + learned dynamics</center></p>
+            </td>
+            <td style="padding:20px;width:80%;vertical-align:middle">
+              <a href="https://thaipduong.github.io/SE3HamDL/">
+                  <papertitle>Hamiltonian-based Neural ODE Networks on the SE(3) Manifold For Dynamics Learning and Control</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>Robotics: Science and Systems (RSS)</em>, 2021.
+              <br>
+              <a href="https://thaipduong.github.io/SE3HamDL/">website</a> /
+              <a href="https://thaipduong.github.io/SE3HamDL/">video</a> /
+              <a href="https://arxiv.org/abs/2106.12782">arXiv</a>
+              <p></p>
+              <p>The dynamics of many robots, including ground, aerial, and underwater vehicles, are described in terms of their SE(3) pose and generalized velocity, and satisfy conservation of energy principles. This paper proposes a Hamiltonian formulation over the SE(3) manifold of the structure of a neural ordinary differential equation (ODE) network to approximate the dynamics of a rigid body. In contrast to a black-box ODE network, our formulation guarantees total energy conservation by construction. We develop energy shaping and damping injection control for the learned, potentially underactuated SE(3) Hamiltonian dynamics to enable a unified approach for stabiliziation and trajectory tracking with various platforms, including pendulum, rigid-body, and quadrotor systems.</p>
+                <img src='images/se3hamdl/gif/data2.gif' width="180">
+                <img src='images/se3hamdl/gif/data11.gif' width="180">
+                <img src='images/se3hamdl/gif/data15.gif' width="180">
+                <br>
+                <img src='images/se3hamdl/gif/data14.gif' width="180">
+                <img src='images/se3hamdl/gif/data13.gif' width="180">
+                <img src='images/se3hamdl/gif/data3.gif' width="180">
+                <p><center>Data collection from manual flights</center></p>
+            </td>
+          </tr>
+
+          </tbody></table>
+          
+          
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <b>Projects for environment understanding</b>
+                </td>
+            </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <td style="padding:20px;width:30%;vertical-align:top">
+              <video  width="220" muted autoplay loop>
+                <source src="images/sbkm/sbkm_mapping.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+              <video  width="220" muted autoplay loop>
+                <source src="images/sbkm/sbkm_vid3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+              <video  width="220" muted autoplay loop>
+                <source src="images/sbkm/sbkm_map.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </td>
+            <td style="padding:20px;width:80%;vertical-align:middle">
+              <a href="https://thaipduong.github.io/sbkm/">
+                  <papertitle>Autonomous Navigation in Unknown Environments with Sparse <i style="color:green">Bayesian</i> Kernel-based Occupancy Mapping</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://yip.eng.ucsd.edu/">Michael Yip</a>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>Accepted to IEEE Transactions on Robotics (T-RO)</em>, 2022
+              <br>
+              <a href="https://thaipduong.github.io/sbkm/">website</a> /
+              <a href="https://youtu.be/rJ5N3jJlrGE">video</a> /
+              <a href="https://arxiv.org/abs/2009.07207">arXiv</a>
+              <p></p>
+              <p>This paper focuses on online occupancy mapping and real-time collision checking onboard an autonomous robot navigating in a large unknown environment. We develop a probabilistic formulation based on Relevance Vector Machines, allowing probabilistic occupancy classification and supporting autonomous navigation. We provide an online training algorithm, updating the sparse Bayesian map incrementally from streaming range data, and an efficient collision-checking method for general curves, representing potential robot trajectories.</p>
+            <img src='images/sbkm/demo.gif' width="550">
+            </td>
+          </tr>
+
+          <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+              <video  width="220" muted autoplay loop>
+                <source src="images/skm/skm_vid3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+              <video  width="220" muted autoplay loop>
+                <source src="images/skm/skm_map3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://thaipduong.github.io/kernelbasedmap/">
+                <papertitle>Autonomous Navigation in Unknown Environments using Sparse Kernel-based Occupancy Mapping</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://www.ucsdarclab.com/people">Nikhil Das</a>,
+              <a href="https://yip.eng.ucsd.edu/">Michael Yip</a>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>International Conference on Robotics and Automation (ICRA)</em>, 2020
+              <br>
+              <a href="https://thaipduong.github.io/kernelbasedmap/">website</a> /
+              <a href="https://youtu.be/FY_qDmXIaQE">video</a> /
+              <a href="https://arxiv.org/abs/2002.01921">arXiv</a>
+              <p></p>
+              <p>We propose a new map representation, in which occupied and free space are separated by the decision boundary of a kernel perceptron classifier. We develop an online training algorithm that maintains a very sparse set of support vectors to represent obstacle boundaries in configuration space. We also derive conditions that allow complete (without sampling) collision-checking for piecewise-linear and piecewise-polynomial robot trajectories.</p>
+            </td>
+          </tr>
+          </tbody></table>
+         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <b>Projects for robot safety</b>
+                </td>
+            </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+              <img src='images/safenav/racecar_governor.png' width="220">
+              <video  width="220" muted autoplay loop>
+                <source src="images/safenav/safenav.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2005.06694">
+                <papertitle>Safe Robot Navigation in Cluttered Environments using Invariant Ellipsoids and a Reference Governor</papertitle>
+              </a>
+              <br>
+              <a href="https://zhl355.github.io/">Zhichao Li</a>,
+              <strong>Thai Duong</strong>,
+              <a href="https://natanaso.github.io/">Nikolay Atanasov</a>
+              <br>
+              <em>ArXiv</em>, 2020
+              <br>
+              <a href="https://arxiv.org/abs/2005.06694">arXiv</a>
+              <p></p>
+              <p>We consider a control-affine nonlinear robot system subject to bounded input noise and rely on feedback linearization to determine ellipsoid output bounds on the closed-loop robot trajectory under stabilizing control. A virtual governor system is developed to adaptively track a desired navigation path, while relying on the robot trajectory bounds to slow down if safety is endangered and speed up otherwise. The main contribution is the derivation of theoretical guarantees for safe nonlinear system path-following control and its application to autonomous robot navigation in unknown environments.</p>
+            </td>
+          </tr>
+<!--
+          
+        </tbody></table>
+<br><br><br><br><br><br><br>
+       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                    <b>Projects from the old days</b>
+                </td>
+            </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+               <img src='images/old_projs/lac_code1.jpg' width="220">
+               <img src='images/old_projs/lac_code2.jpg' width="220">
+              </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://ieeexplore.ieee.org/document/7949060">
+                <papertitle>Location-assisted coding for FSO communication</papertitle>
+              </a>
+              <br>
+              <a href="https://scholar.google.com/citations?user=w6W7RqoAAAAJ&hl=en&oi=ao">Duong Nguyen-Huu</a>,
+              <strong>Thai Duong</strong>,
+              <a href="https://web.engr.oregonstate.edu/~thinhq/">Thinh Nguyen</a>
+              <br>
+              <em>IEEE Transactions on Communications</em>, 2017
+              <br>
+              <em>Q2SWinet</em>, 2015
+              <br>
+              <a href="https://ieeexplore.ieee.org/document/7949060">journal version</a> /
+              <a href="https://dl.acm.org/doi/abs/10.1145/2815317.2815335">conference version</a>
+              <p></p>
+              <p>We describe WiFO, a hybrid WiFi and FSO high-speed wireless local area network of femtocells that can provide high bit rates while maintaining seamless mobility. Importantly, we introduce a novel location-assisted coding (LAC) technique, based on which, the number of novel rate allocation algorithms is proposed to increase throughput and reduce interference for multiple users in a dense array of overlapped femtocells.</p>
+            </td>
+          </tr>
+            
+        <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+               <img src='images/old_projs/adiabatic_queueing.jpg' width="220">
+               <img src='images/old_projs/adiabatic_queueing2.jpg' width="220">
+              </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://asmedigitalcollection.asme.org/dynamicsystems/article-abstract/138/6/061009/384510/Adiabatic-Markov-Decision-Process-Convergence-of?redirectedFrom=fulltext">
+                <papertitle>Adiabatic Markov Decision Process: Convergence of Value Iteration Algorithm</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+                              <a href="https://scholar.google.com/citations?user=w6W7RqoAAAAJ&hl=en&oi=ao">Duong Nguyen-Huu</a>,
+              <a href="https://web.engr.oregonstate.edu/~thinhq/">Thinh Nguyen</a>
+              <br>
+              <em>Journal of Dynamic Systems, Measurement, and Control</em>, 2016
+              <br>
+              <em>CISS</em>, 2013
+              <br>
+              <a href="https://asmedigitalcollection.asme.org/dynamicsystems/article-abstract/138/6/061009/384510/Adiabatic-Markov-Decision-Process-Convergence-of?redirectedFrom=fulltext">journal version</a> /
+              <a href="https://ieeexplore.ieee.org/abstract/document/6552321">conference version</a>
+              <p></p>
+              <p>We study the performance of the classic value iteration algorithm for solving an MDP problem under nonstationary environments, characterized by an adiabatic evolution inspired from quantum mechanics. The performance is measured in terms of the convergence rate to the optimal average reward. We show two examples of queuing systems that make use of our analysis framework.</p>
+            </td>
+          </tr>
+            
+        <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+               <img src='images/old_projs/FMDP1.jpg' width="220">
+              </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://ieeexplore.ieee.org/document/7084681">
+                <papertitle>Data Collection in Sensor Networks via the Novel Fast Markov Decision Process Framework</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://web.engr.oregonstate.edu/~thinhq/">Thinh Nguyen</a>
+              <br>
+              <em>IEEE Transactions on Wireless Communications</em>, 2015
+              <br>
+              <em>ICCCN</em>, 2014
+              <br>
+              <a href="https://ieeexplore.ieee.org/document/7084681">journal version</a> /
+                <a href="https://ieeexplore.ieee.org/abstract/document/6911786">conference version</a>
+              <p></p>
+              <p>The goal is to find a “fast” optimal movement pattern/policy of data collection in a sensor networks that optimizes for the costs and rewards in non-stationary environments. We formulate and solve this problem using a novel optimization framework called fast Markov decision process (FMDP) that incorporates the notion of mixing time and allows for the trade-off between the optimality and the convergence rate to the optimality of a policy.</p>
+            </td>
+          </tr>
+        
+                    <tr onmouseout="nerv_stop()" onmouseover="nerv_start()">
+           <td style="padding:20px;width:30%;vertical-align:top">
+               <img src='images/old_projs/VMPlacementTree.jpg' width="220">
+               <img src='images/old_projs/VMPlacement2.jpg' width="220">
+              </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://ieeexplore.ieee.org/abstract/document/7417491">
+                <papertitle>Virtual machine placement via Q-learning with function approximation</papertitle>
+              </a>
+              <br>
+              <strong>Thai Duong</strong>,
+              <a href="https://www.engineering.uiowa.edu/faculty-staff/yu-jung-chu">Yu-jung Chu</a>,
+              <a href="https://web.engr.oregonstate.edu/~thinhq/">Thinh Nguyen</a>,
+              <a href="http://www.jakov.org/">Jacob Chakareski</a>
+              <br>
+              <em>GLOBECOM</em>, 2015
+              <br>
+              <a href="https://ieeexplore.ieee.org/abstract/document/7417491">pdf</a>
+              <p></p>
+              <p> This paper formalizes an optimization framework and develops corresponding algorithmic solutions using Markov Decision Process and Q-Learning for virtual machine/service placement and migration for distributed computing in time-varying environments. Importantly, the knowledge of the underlying topologies of the computing infrastructure, the interaction patterns between the virtual machines, and the dynamics of the supported applications will be formally characterized and incorporated into the proposed algorithms.</p>
+            </td>
+          </tr>
+      
+        </tbody></table>
+-->
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr>
+              <p style="text-align:right;font-size:small;">
+                <a href='https://clustrmaps.com/site/1b3ld'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=160&t=tt&d=w2RjAUmBU2UblwclHzT7CYrfKyZjpWjsOPSaxaDFbgI'/></a>
+                <br /> 
+                Template borrowed from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.
+              </p>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
