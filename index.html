@@ -1,257 +1,375 @@
 <!DOCTYPE HTML>
 <script>
-function showMore() {
+  function showMore() {
 
     var listData = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.shown)')).slice(0, 9);
 
-  for (var i=0; i < listData.length; i++)
-  {
-    listData[i].className  = 'shown';
-    listData[i].style.display = 'list-item';
+    for (var i = 0; i < listData.length; i++) {
+      listData[i].className = 'shown';
+      listData[i].style.display = 'list-item';
+    }
+    switchButtons();
   }
-  switchButtons();
-}
 
 
-function switchButtons() {
+  function switchButtons() {
     var hiddenElements = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.shown)'));
-  if(hiddenElements.length == 0)
-  {
-    document.getElementById('moreButton').style.display = 'none';
-  }
-  else
-  {
-    document.getElementById('moreButton').style.display = 'block';
+    if (hiddenElements.length == 0) {
+      document.getElementById('moreButton').style.display = 'none';
+    }
+    else {
+      document.getElementById('moreButton').style.display = 'block';
+    }
+
+    var shownElements = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.hidden)'));
+    if (shownElements.length == 0) {
+      document.getElementById('lessButton').style.display = 'none';
+    }
+    else {
+      document.getElementById('lessButton').style.display = 'block';
+    }
   }
 
-  var shownElements = Array.prototype.slice.call(document.querySelectorAll('#dataList li:not(.hidden)'));
-  if(shownElements.length == 0)
-  {
-    document.getElementById('lessButton').style.display = 'none';
-  }
-  else
-  {
-    document.getElementById('lessButton').style.display = 'block';
-  }
-}
-
-onload= function(){
+  onload = function () {
     showMore();
-}
+  }
 </script>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <title>Thanh Nguyen Canh</title>
-  
+
   <meta name="author" content="Thanh Nguyen Canh">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 
 <body>
-  <table style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Thanh Nguyen Canh</name>
-              </p>
-              <p>I am a PhD student in the <a href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information Science </a> at <a href="https://www.jaist.ac.jp/english/">Japan Advanced Institute of Science and Technology</a>. 
-                I work at the <a href="https://www.jaist.ac.jp/robot/"> Robotics Laboratory</a> and am fortunate to be advised by Prof. <a href="https://fp.jaist.ac.jp/public/Default2.aspx?id=352&l=1">Chong Nak Young</a>
-                on 3D Active Semantic SLAM.
-              </p>
-              <p>
-                  I obtained my Master degree from the <a href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>, Japan 
-                  and B.S. degree in Roboitics Engineering from <a href="https://uet.vnu.edu.vn/en/"> University of Engineering and Technology, Vietnam National University, Vietnam </a>.
-                  I worked on real-time semantic-aware simultaneous localization and mapping (SLAM) for Unmanned Aerial Vehicle (UAV). 
-                  During my Master, I am grateful to collaborate with Prof. <a href="https://sites.google.com/site/xiemhoang/home?authuser=0"> Xiem HoangVan</a>,
-                  Prof. <a href="https://aelibol.github.io/"> Armagan Elibol</a>,
-                  Prof. <a href="https://sites.google.com/view/manhduongphung/home?authuser=0"> Manh Duong Phung</a> and
-                  Prof. <a href="https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&hl=en&authuser=3"> Van-Truong Nguyen</a>.
-              </p>
-              <p style="text-align:center">
-                <a href="mailto:thanhnc.jaist.ac.jp">Email</a> &nbsp/&nbsp
-                  <a href="https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
-                <a href="https://github.com/thanhnguyencanh">Github</a> &nbsp/&nbsp
-                  <a href="https://www.linkedin.com/in/nguyencanhthanh/">LinkeIn</a> &nbsp/&nbsp
-                  <a href="https://orcid.org/0000-0001-6332-1002">ORCID</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/profile/thanh.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/profile/thanh_circle.png" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-        
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-                <td style="padding:10px;width:100%;vertical-align:middle">
-                    <heading>Recent News</heading>
+  <table
+    style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr style="padding:0px">
+        <td style="padding:0px">
+          <table
+            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr style="padding:0px">
+                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                  <p style="text-align:center">
+                    <name>Thanh Nguyen Canh</name>
+                  </p>
+                  <p>I am a PhD student in the <a href="https://www.jaist.ac.jp/english/areas/information-science.html">
+                      School of Information Science </a> at <a href="https://www.jaist.ac.jp/english/">Japan Advanced
+                      Institute of Science and Technology</a>.
+                    I work at the <a href="https://www.jaist.ac.jp/robot/"> Robotics Laboratory</a> and am fortunate to
+                    be advised by Prof. <a href="https://fp.jaist.ac.jp/public/Default2.aspx?id=352&l=1">Chong Nak
+                      Young</a>
+                    on 3D Active Semantic SLAM.
+                  </p>
+                  <p>
+                    I obtained my Master degree from the <a
+                      href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information
+                      Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>, Japan
+                    and B.S. degree in Roboitics Engineering from <a href="https://uet.vnu.edu.vn/en/"> University of
+                      Engineering and Technology, Vietnam National University, Vietnam </a>.
+                    I worked on real-time semantic-aware simultaneous localization and mapping (SLAM) for Unmanned
+                    Aerial Vehicle (UAV).
+                    During my Master, I am grateful to collaborate with Prof. <a
+                      href="https://sites.google.com/site/xiemhoang/home?authuser=0"> Xiem HoangVan</a>,
+                    Prof. <a href="https://aelibol.github.io/"> Armagan Elibol</a>,
+                    Prof. <a href="https://sites.google.com/view/manhduongphung/home?authuser=0"> Manh Duong Phung</a>
+                    and
+                    Prof. <a href="https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&hl=en&authuser=3">
+                      Van-Truong Nguyen</a>.
+                  </p>
+                  <p style="text-align:center">
+                    <a href="mailto:thanhnc.jaist.ac.jp">Email</a> &nbsp/&nbsp
+                    <a href="https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en">Google Scholar</a>
+                    &nbsp/&nbsp
+                    <a href="https://github.com/thanhnguyencanh">Github</a> &nbsp/&nbsp
+                    <a href="https://www.linkedin.com/in/nguyencanhthanh/">LinkeIn</a> &nbsp/&nbsp
+                    <a href="https://orcid.org/0000-0001-6332-1002">ORCID</a>
+                  </p>
                 </td>
-            </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-                <ul id="dataList">
-              <!-- <li >[Jun 2022] I started my internship with Amazon Robotics</li> -->
-              <li>[Mar 2025] I am honered to receive JST Spring Scholarship &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
-              <li>[Jan 2025] I am honered to receive KDDI Foundation Scholarship &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
-              <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">Design of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads </a> has been accepted to <a href="https://link.springer.com/journal/12469"> Public Transport</a>.</li>
-              <li>[Dec 2024] I TA'ed <a href="https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401">I213E: Discrete Signal Processing</a>. </li>
-              <li>[Nov 2024] Our paper on <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">M-Calib: A Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System </a> has been accepted to <a href="https://www.jamris.org/index.php/JAMRIS"> Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS)</a>.</li>
-              <li>[Oct 2024] I TA'ed <a href="https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401">I116E: Fundamentals of Programming</a>. </li>
-              <li>[Oct 2024] I started my Ph.D. journey in the <a href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>.</li>
-              <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/SGan-TEB/">Enhancing Social Robot Navigation with Integrated Motion Prediction and Trajectory Planning in Dynamic Human Environments </a> has been accepted to <a href="https://2024.iccas.org/"> ICCAS2024</a>.</li>
-              <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/ReliableLocalize/">Toward Integrating Semantic-aware Path Planning and Reliable Localization for UAV Operations </a> has been accepted to <a href="https://2024.iccas.org/"> ICCAS2024</a>.</li>
-              <li>[Aug 2024] Our paper on <a href="https://thanhnguyencanh.github.io/DualArmRobot">Optimal design and fabrication of frame structure for dual-arm service robots: An effective approach for human–robot interaction </a> has been publised to <a href="https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal"> Engineering Science and Technology, an International Journal (JESTECH)</a>.</li>
-              <li>[Aug 2024] I have passed my qualifying exam and advanced to Ph.D. candidacy. &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
-              <li>[Aug 2024] I sucessfully defened my <a href="https://dspace.jaist.ac.jp/dspace/handle/10119/19354?locale=en"> Msc. Thesis</a>.</li>            
-              <li>[Nov 2023] Our paper on <a href="https://ieeexplore.ieee.org/abstract/document/10608973">Underwater Image Enhancement for Depth Estimation via Various Image Processing Techniques </a> has been accepted to <a href="https://icsse2024.web.nycu.edu.tw/"> ICSSE2024</a>.</li>
-              <li>[Oct 2023] I started my Master journey in the <a href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>.</li>
-              <li>[Sep 2023] Our paper on <a href="https://ieeexplore.ieee.org/abstract/document/10471804">Machine Learning-Based Malicious Vehicle Detection for Security Threats and Attacks in Vehicle Ad-Hoc Network (VANET) Communications </a> has been accepted to <a href="https://ieeexplore.ieee.org/xpl/conhome/10471760/proceeding"> RIVF2023</a>.</li>
-              <li>[Sep 2023] Our paper on <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">S3M: Semantic Segmentation Sparse Mapping for UAVs with RGB-D Camera </a> has been accepted to <a href="https://sice-si.org/SII2024/"> SII2024</a>.</li>
-              <li>[Sep 2023] I am honered to receive VINIF Scholarship</li>
-              <li>[Sep 2023] Our paper on <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">Object-Oriented Semantic Mapping for Reliable UAVs Navigation </a> has been accepted to <a href="https://ieeexplore.ieee.org/xpl/conhome/1802677/all-proceedings"> ICCAIS2023</a>.</li>
-              <li>[Jul 2023] I am honered to receive Collaboration Scholarship from JAIST</li>
-              <li>[Dec 2023] I TA'ed <a href="https://fet.uet.vnu.edu.vn/">FET: Programming robot with ROS; Human Machine Interface; PLC and Its Application; &amp; Mechanical Drawing</a>. </li>
-              <li>[Dec 2022] I started my Master journey in the <a href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National University, Vietnam</a>.</li>
-              <li>[Nov 2023] I worked as a lecturer at the <a href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National University, Vietnam</a>.</li>
-              <li>[Sep 2022] Our paper on <a href="https://thanhnguyencanh.github.io/MulDF/">Multisensor Data Fusion for Reliable Obstacle Avoidance </a> has been accepted to <a href="https://ieeexplore.ieee.org/xpl/conhome/9989531/proceeding"> ICCAIS2022</a></li>
-              <li>[Sep 2022] I am honered to receive Best Student Thesis Awards and Exellent Student Award.</li>
-              <li>[Aug 2022] I sucessfully defened my B.S Thesis.</li>
-              <li>[Aug 2018] I started my B.S. journey in the <a href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National University, Vietnam</a>.</li>
-<!-- <input id="moreButton" type="button" value="More..." onclick="showMore()"/> -->
-            </ul>
-            
-          </td>
-        </tr>
-        </tbody></table>
+                <td style="padding:2.5%;width:40%;max-width:40%">
+                  <a href="images/profile/thanh.jpg"><img style="width:100%;max-width:100%" alt="profile photo"
+                      src="images/profile/thanh_circle.png" class="hoverZoomLink"></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:10px;width:100%;vertical-align:middle">
-              <heading>Research Interests</heading>
-              <p>
-                I am interested in robotics, machine learning, vision, and control. 
-                My work focuses on robots' simultaneous localization and mapping, e.g. probablistic mapping, navigation and exploration, semantic slam, active slam and life-long slam; 
-                and of their own dynamics model, e.g. robot dynamics learning, model-based reinforcement learning, and learning from demonstration. 
-                I am also interested in modeling uncertainty in map representations and robots' dynamics for safe and active planning and control.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
+          <table
+            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
+              <tr>
+                <td style="padding:10px;width:100%;vertical-align:middle">
+                  <heading>Recent News</heading>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table
+            style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+            <tbody>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-          <td style="padding:10px;width:100%;vertical-align:middle">
-            <heading>Awards & Professional Activities</heading>
-            <ul id="dataList">
-              <li> Best paper awards: 2023 IEEE International Conference on Research, Innovation and Vision for the Future (RIVF 2023) </li>
-              <li> Instruction students to win Second place, Students Research Competition, 2023 VNU-University of Engineering and Technology </li>
-              <li> Best Student Thesis Award, 2022 VNU-University of Engineering and Technology </li>
-              <li> REV-ECIT Best paper award, 2022 Radio and Electronics Association of Vietnam (REV-ECIT 2022)</li>
-              <li> First place, Students Research Competition, 2021 VNU-University of Engineering and Technology </li>
-              <li> Reviewer:
-                <a href="https://www.sciencedirect.com/journal/computers-and-electrical-engineering">Computers & electrical engineering</a>,
-                <a href="https://link.springer.com/journal/11042">Multimedia tools and applications</a>,
-                <a href="https://www.tandfonline.com/journals/tfls21"> All Life</a>,
-                <a href="https://www.jamris.org/index.php/JAMRIS"> Journal of Automation, Mobile Robotics and Intelligent Systems</a>,
-                <a href="https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal"> Engineering Science and Technology, an International Journal</a>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      </tbody></table>
+              <table
+                style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+                <tbody>
+                  <tr>
+                    <ul id="dataList">
+                      <!-- <li >[Jun 2022] I started my internship with Amazon Robotics</li> -->
+                      <li>[Mar 2025] I am honered to receive JST Spring Scholarship
+                        &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+                      <li>[Jan 2025] I am honered to receive KDDI Foundation Scholarship
+                        &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+                      <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">Design
+                          of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads
+                        </a> has been accepted to <a href="https://link.springer.com/journal/12469"> Public
+                          Transport</a>.</li>
+                      <li>[Dec 2024] I TA'ed <a
+                          href="https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401">I213E:
+                          Discrete Signal Processing</a>. </li>
+                      <li>[Nov 2024] Our paper on <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">M-Calib: A
+                          Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System </a>
+                        has been accepted to <a href="https://www.jamris.org/index.php/JAMRIS"> Journal of Automation,
+                          Mobile Robotics and Intelligent Systems (JAMRIS)</a>.</li>
+                      <li>[Oct 2024] I TA'ed <a
+                          href="https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401">I116E:
+                          Fundamentals of Programming</a>. </li>
+                      <li>[Oct 2024] I started my Ph.D. journey in the <a
+                          href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information
+                          Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>.</li>
+                      <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/SGan-TEB/">Enhancing Social
+                          Robot Navigation with Integrated Motion Prediction and Trajectory Planning in Dynamic Human
+                          Environments </a> has been accepted to <a href="https://2024.iccas.org/"> ICCAS2024</a>.</li>
+                      <li>[Sep 2024] Our paper on <a href="https://thanhnguyencanh.github.io/ReliableLocalize/">Toward
+                          Integrating Semantic-aware Path Planning and Reliable Localization for UAV Operations </a> has
+                        been accepted to <a href="https://2024.iccas.org/"> ICCAS2024</a>.</li>
+                      <li>[Aug 2024] Our paper on <a href="https://thanhnguyencanh.github.io/DualArmRobot">Optimal
+                          design and fabrication of frame structure for dual-arm service robots: An effective approach
+                          for human–robot interaction </a> has been publised to <a
+                          href="https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal">
+                          Engineering Science and Technology, an International Journal (JESTECH)</a>.</li>
+                      <li>[Aug 2024] I have passed my qualifying exam and advanced to Ph.D. candidacy.
+                        &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;</li>
+                      <li>[Aug 2024] I sucessfully defened my <a
+                          href="https://dspace.jaist.ac.jp/dspace/handle/10119/19354?locale=en"> Msc. Thesis</a>.</li>
+                      <li>[Nov 2023] Our paper on <a
+                          href="https://ieeexplore.ieee.org/abstract/document/10608973">Underwater Image Enhancement for
+                          Depth Estimation via Various Image Processing Techniques </a> has been accepted to <a
+                          href="https://icsse2024.web.nycu.edu.tw/"> ICSSE2024</a>.</li>
+                      <li>[Oct 2023] I started my Master journey in the <a
+                          href="https://www.jaist.ac.jp/english/areas/information-science.html"> School of Information
+                          Science </a> at <a href="https://www.jaist.ac.jp/english/"> JAIST</a>.</li>
+                      <li>[Sep 2023] Our paper on <a
+                          href="https://ieeexplore.ieee.org/abstract/document/10471804">Machine Learning-Based Malicious
+                          Vehicle Detection for Security Threats and Attacks in Vehicle Ad-Hoc Network (VANET)
+                          Communications </a> has been accepted to <a
+                          href="https://ieeexplore.ieee.org/xpl/conhome/10471760/proceeding"> RIVF2023</a>.</li>
+                      <li>[Sep 2023] Our paper on <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">S3M: Semantic
+                          Segmentation Sparse Mapping for UAVs with RGB-D Camera </a> has been accepted to <a
+                          href="https://sice-si.org/SII2024/"> SII2024</a>.</li>
+                      <li>[Sep 2023] I am honered to receive VINIF Scholarship</li>
+                      <li>[Sep 2023] Our paper on <a
+                          href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">Object-Oriented
+                          Semantic Mapping for Reliable UAVs Navigation </a> has been accepted to <a
+                          href="https://ieeexplore.ieee.org/xpl/conhome/1802677/all-proceedings"> ICCAIS2023</a>.</li>
+                      <li>[Jul 2023] I am honered to receive Collaboration Scholarship from JAIST</li>
+                      <li>[Dec 2023] I TA'ed <a href="https://fet.uet.vnu.edu.vn/">FET: Programming robot with ROS;
+                          Human Machine Interface; PLC and Its Application; &amp; Mechanical Drawing</a>. </li>
+                      <li>[Dec 2022] I started my Master journey in the <a
+                          href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a
+                          href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National
+                          University, Vietnam</a>.</li>
+                      <li>[Nov 2023] I worked as a lecturer at the <a
+                          href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a
+                          href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National
+                          University, Vietnam</a>.</li>
+                      <li>[Sep 2022] Our paper on <a href="https://thanhnguyencanh.github.io/MulDF/">Multisensor Data
+                          Fusion for Reliable Obstacle Avoidance </a> has been accepted to <a
+                          href="https://ieeexplore.ieee.org/xpl/conhome/9989531/proceeding"> ICCAIS2022</a></li>
+                      <li>[Sep 2022] I am honered to receive Best Student Thesis Awards and Exellent Student Award.</li>
+                      <li>[Aug 2022] I sucessfully defened my B.S Thesis.</li>
+                      <li>[Aug 2018] I started my B.S. journey in the <a
+                          href="https://sites.google.com/view/aimpuet/home">Robotics Department</a> at <a
+                          href="https://uet.vnu.edu.vn/en/">University of Engineering and Technology, Vietnam National
+                          University, Vietnam</a>.</li>
+                      <!-- <input id="moreButton" type="button" value="More..." onclick="showMore()"/> -->
+                    </ul>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <heading>Research Interests</heading>
+          <p>
+            I am interested in robotics, machine learning, vision, and control.
+            My work focuses on robots' simultaneous localization and mapping, e.g. probablistic mapping, navigation and
+            exploration, semantic slam, active slam and life-long slam;
+            and of their own dynamics model, e.g. robot dynamics learning, model-based reinforcement learning, and
+            learning from demonstration.
+            I am also interested in modeling uncertainty in map representations and robots' dynamics for safe and active
+            planning and control.
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <heading>Awards & Professional Activities</heading>
+          <ul id="dataList">
+            <li> Best paper awards: 2023 IEEE International Conference on Research, Innovation and Vision for the Future
+              (RIVF 2023) </li>
+            <li> Instruction students to win Second place, Students Research Competition, 2023 VNU-University of
+              Engineering and Technology </li>
+            <li> Best Student Thesis Award, 2022 VNU-University of Engineering and Technology </li>
+            <li> REV-ECIT Best paper award, 2022 Radio and Electronics Association of Vietnam (REV-ECIT 2022)</li>
+            <li> First place, Students Research Competition, 2021 VNU-University of Engineering and Technology </li>
+            <li> Reviewer:
+              <a href="https://www.sciencedirect.com/journal/computers-and-electrical-engineering">Computers &
+                electrical engineering</a>,
+              <a href="https://link.springer.com/journal/11042">Multimedia tools and applications</a>,
+              <a href="https://www.tandfonline.com/journals/tfls21"> All Life</a>,
+              <a href="https://www.jamris.org/index.php/JAMRIS"> Journal of Automation, Mobile Robotics and Intelligent
+                Systems</a>,
+              <a
+                href="https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal">
+                Engineering Science and Technology, an International Journal</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
         <td style="padding:10px;width:100%;vertical-align:middle">
           <heading>Scholarships & Research grants</heading>
           <ul id="dataList"></ul>
-            <li> JST Spring Scholarship, 2025-2027 </li>
-            <li> KDDI Foundation Scholarship, 2024-2025 </li>
-            <li> VinIF Scholarship for Master Programmer, Vingroup Innovation Foundation, 2022-2024 </li>
-        </ul>
+          <li> JST Spring Scholarship, 2025-2027 </li>
+          <li> KDDI Foundation Scholarship, 2024-2025 </li>
+          <li> VinIF Scholarship for Master Programmer, Vingroup Innovation Foundation, 2022-2024 </li>
+          </ul>
         </td>
       </tr>
-    </tbody></table>
+    </tbody>
+  </table>
 
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
       <tr>
-      <td style="padding:10px;width:100%;vertical-align:middle">
-        <heading>Teaching</heading>
-        <p> Robotics, Mobile Robotics, Algorithms for Intelligent Robots, Discrete Signal Processing </p>
-        <p> Programming robot with ROS, Robotic Control, Human Machine Interface </p>
-        <p> Mechanical Drawing, Electronics Engineering Practice, PLC and Its Application</p>
-      </td>
-    </tr>
-    </tbody></table>
-            
-        
-         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-                <td style="padding:10px;width:100%;vertical-align:middle">
-                    <heading>Publications</heading>
-                </td>
-            </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-                <td style="padding:10px;width:100%;vertical-align:middle">
-                    <b>Projects for active semantic slam</b>
-                </td>
-            </tr>
-        </tbody></table>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <heading>Teaching</heading>
+          <p> Robotics, Mobile Robotics, Algorithms for Intelligent Robots, Discrete Signal Processing </p>
+          <p> Programming robot with ROS, Robotic Control, Human Machine Interface </p>
+          <p> Mechanical Drawing, Electronics Engineering Practice, PLC and Its Application</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <td style="padding:20px;width:30%;vertical-align:top">
-          <video  width="220" muted autoplay loop>
-            <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
-            Your browser does not support the video tag.
-            </video>
-          <!-- <video  width="220" muted autoplay loop>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <heading>Publications</heading>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <b>Projects for active semantic slam</b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
+          <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
+          Your browser does not support the video tag.
+        </video>
+        <!-- <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
             Your browser does not support the video tag.
             </video>
           <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
-            Your browser does not support the video tag. -->
-            </video>
-        </td>
-        <td style="padding:20px;width:80%;vertical-align:middle">
-          <a href="https://thanhnguyencanh.github.io/IRAF-SLAM/">
-              <papertitle>IRAF-SLAM: An Illumination-Robust and Adaptive Feature-Culling Front-End for Visual SLAM in Challenging Environments</papertitle>
-          </a>
-          <br>
-          <strong>Thanh Nguyen Canh</strong>, Bao Nguyen Quoc, HaoLan Zhang, Bupesh Rethinam Veeraiah, Xiem HoangVan
-          <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>, 
-                        <br> 
-          <em>Conference version, submitted to ECMR </em>, 2025. <br>
-          <!-- <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
-          <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">video</a> /
-          <a href="https://arxiv.org/abs/2401.08132">arxiv</a> /
-          <a href="https://github.com/thanhnguyencanh/probabilistic_semantic_mapping">code</a> -->
-          <p></p>
-          <p> 
-            Robust Visual SLAM (vSLAM) is essential for autonomous systems operating in real-world environments, where challenges such as dynamic objects, low texture, and critically, varying illumination conditions often degrade performance. Existing feature-based SLAM systems rely on fixed front-end parameters, making them vulnerable to sudden lighting changes and unstable feature tracking. To address these challenges, we propose \textit{IRAF-SLAM}, an Illumination-Robust and Adaptive Feature-Culling front-end designed to enhance vSLAM resilience in complex and challenging environments. Our approach introduces: \textit{(1)} an image enhancement scheme to preprocess and adjust image quality under varying lighting conditions; \textit{(2)} an adaptive feature extraction mechanism that dynamically adjusts detection sensitivity based on image entropy, pixel intensity, and gradient analysis; and \textit{(3)} a feature culling strategy that filters out unreliable feature points using density distribution analysis and a lighting impact factor. Comprehensive evaluations on the TUM and European Robotics Challenge (EuRoC) datasets demonstrate that IRAF-SLAM significantly reduces tracking failures and achieves superior trajectory accuracy compared to state-of-the-art vSLAM methods under adverse illumination conditions. These results highlight the effectiveness of adaptive front-end strategies in improving vSLAM robustness without incurring significant computational overhead. The implementation of IRAF-SLAM is publicly available at~\url{https://thanhnguyencanh.github.io/IRAF-SLAM/}  
-          </td>
+            Your browser does not support the video tag. 
+        </video> -->
+        <a href="images/iraf/imgs/overview.png"><img src="images/iraf/imgs/overview.png" width="200px"></img></href>
+        </a><br>
+        <a href="images/iraf/imgs/euroc_traj.png"><img src="images/iraf/imgs/euroc_traj.png" width="200px"></img></href>
+        </a><br>
+        <a href="images/iraf/imgs/tum_traj.png"><img src="images/iraf/imgs/tum_traj.png" width="200px"></img></href>
+        </a><br>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/IRAF-SLAM/">
+          <papertitle>IRAF-SLAM: An Illumination-Robust and Adaptive Feature-Culling Front-End for Visual SLAM in
+            Challenging Environments</papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Bao Nguyen Quoc, HaoLan Zhang, Bupesh Rethinam Veeraiah, Xiem HoangVan
+        <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>,
+        <br>
+        <em>Conference version, submitted to ECMR </em>, 2025. <br>
+        <a href="https://thanhnguyencanh.github.io/IRAF-SLAM/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/IRAF-SLAM/">video</a> /
+        <!-- <a href="https://arxiv.org/abs/2401.08132">arxiv</a> / -->
+        <a href="https://github.com/thanhnguyencanh/IRAF-SLAM">code</a>
+        <p></p>
+        <p>
+          Robust Visual SLAM (vSLAM) is essential for autonomous systems operating in real-world environments, where
+          challenges such as dynamic objects, low texture, and critically, varying illumination conditions often degrade
+          performance. Existing feature-based SLAM systems rely on fixed front-end parameters, making them vulnerable to
+          sudden lighting changes and unstable feature tracking. To address these challenges, we propose
+          ``IRAF-SLAM'', an Illumination-Robust and Adaptive Feature-Culling front-end designed to enhance vSLAM
+          resilience in complex and challenging environments. Our approach introduces: (1) an image enhancement
+          scheme to preprocess and adjust image quality under varying lighting conditions; (2) an adaptive
+          feature extraction mechanism that dynamically adjusts detection sensitivity based on image entropy, pixel
+          intensity, and gradient analysis; and (3) a feature culling strategy that filters out unreliable
+          feature points using density distribution analysis and a lighting impact factor. Comprehensive evaluations on
+          the TUM and European Robotics Challenge (EuRoC) datasets demonstrate that IRAF-SLAM significantly reduces
+          tracking failures and achieves superior trajectory accuracy compared to state-of-the-art vSLAM methods under
+          adverse illumination conditions. These results highlight the effectiveness of adaptive front-end strategies in
+          improving vSLAM robustness without incurring significant computational overhead.
+      </td>
       </tr>
 
-      </tbody></table>
+    </tbody>
+  </table>
 
 
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
       <td style="padding:20px;width:30%;vertical-align:top">
-      <video  width="220" muted autoplay loop>
-        <source src="images/s3m/mp4/sim.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        <video width="220" muted autoplay loop>
+          <source src="images/s3m/mp4/sim.mp4" type="video/mp4">
+          Your browser does not support the video tag.
         </video>
-      <!-- <video  width="220" muted autoplay loop>
+        <!-- <video  width="220" muted autoplay loop>
         <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
         Your browser does not support the video tag.
         </video>
@@ -259,47 +377,47 @@ onload= function(){
         <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
         Your browser does not support the video tag. -->
         </video>
-          <p><center>3D Semantic-aware SLAM</center></p>
-    </td>
-    <td style="padding:20px;width:80%;vertical-align:middle">
-      <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">
+        <p>
+          <center>3D Semantic-aware SLAM</center>
+        </p>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">
           <papertitle>S3M: Semantic Segmentation Sparse Mapping for UAVs with RGB-D Camera</papertitle>
-      </a>
-      <br>
-      <strong>Thanh Nguyen Canh</strong>, Van-Truong Nguyen, Xiem HoangVan, Armagan Elibol,
-      <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>
-                    <br> 
-      <em>Conference version, accepted to <a href="https://sice-si.org/SII2024/"> SII </a></em>, 2024. <br>
-      <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">website</a> /
-      <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">video</a> /
-      <a href="https://arxiv.org/abs/2401.08134">arxiv</a> /
-      <a href="https://github.com/thanhnguyencanh/S3M_SLAM">code</a>
-      <p></p>
-      <p> This paper presents a novel approach to address challenges in semantic information extraction and utilization within UAV operations. Our system integrates state-of-the-art visual SLAM to estimate a comprehensive 6-DoF pose and advanced object segmentation methods at the back end. To improve the computational and storage efficiency of the framework, we adopt a streamlined voxel-based 3D map representation - OctoMap to build a working system. Furthermore, the fusion algorithm is incorporated to obtain the semantic information of each frame from the front-end SLAM task, and the corresponding point. By leveraging semantic information, our framework enhances the UAV's ability to perceive and navigate through indoor spaces, addressing challenges in pose estimation accuracy and uncertainty reduction. Through Gazebo simulations, we validate the efficacy of our proposed system and successfully embed our approach into a Jetson Xavier AGX unit for real-world applications.</p>
-      <!-- <video  width="180" muted autoplay loop>
-        <source src="images/se3hamdl/mp4/data_collection_fast1_small.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        </video>
-      <video  width="180" muted autoplay loop>
-        <source src="images/se3hamdl/mp4/data_collection_fast2_small.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        </video>
-      <video  width="180" muted autoplay loop>
-        <source src="images/se3hamdl/mp4/data_collection_fast3_small.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-        </video>
-        <p><center>Data collection from manual flights</center></p> -->
-    </td>
-  </tr>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Van-Truong Nguyen, Xiem HoangVan, Armagan Elibol,
+        <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>
+        <br>
+        <em>Conference version, accepted to <a href="https://sice-si.org/SII2024/"> SII </a></em>, 2024. <br>
+        <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/S3M_SLAM/">video</a> /
+        <a href="https://arxiv.org/abs/2401.08134">arxiv</a> /
+        <a href="https://github.com/thanhnguyencanh/S3M_SLAM">code</a>
+        <p></p>
+        <p> This paper presents a novel approach to address challenges in semantic information extraction and
+          utilization within UAV operations. Our system integrates state-of-the-art visual SLAM to estimate a
+          comprehensive 6-DoF pose and advanced object segmentation methods at the back end. To improve the
+          computational and storage efficiency of the framework, we adopt a streamlined voxel-based 3D map
+          representation - OctoMap to build a working system. Furthermore, the fusion algorithm is incorporated to
+          obtain the semantic information of each frame from the front-end SLAM task, and the corresponding point. By
+          leveraging semantic information, our framework enhances the UAV's ability to perceive and navigate through
+          indoor spaces, addressing challenges in pose estimation accuracy and uncertainty reduction. Through Gazebo
+          simulations, we validate the efficacy of our proposed system and successfully embed our approach into a Jetson
+          Xavier AGX unit for real-world applications.</p>
+      </td>
+      </tr>
 
-  </tbody></table>
+    </tbody>
+  </table>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <td style="padding:20px;width:30%;vertical-align:top">
-        <video  width="220" muted autoplay loop>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
           <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4">
           Your browser does not support the video tag.
-          </video>
+        </video>
         <!-- <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -307,237 +425,318 @@ onload= function(){
         <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag. -->
-          </video>
+        </video>
       </td>
       <td style="padding:20px;width:80%;vertical-align:middle">
         <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">
-            <papertitle>Object-Oriented Semantic Mapping for Reliable UAVs Navigation</papertitle>
+          <papertitle>Object-Oriented Semantic Mapping for Reliable UAVs Navigation</papertitle>
         </a>
         <br>
         <strong>Thanh Nguyen Canh</strong>, Armagan Elibol,
         <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>, Xiem HoangVan
-                      <br> 
+        <br>
         <em>Conference version, accepted to ICCAS </em>, 2023. <br>
         <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
         <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">video</a> /
         <a href="https://arxiv.org/abs/2401.08132">arxiv</a> /
         <a href="https://github.com/thanhnguyencanh/probabilistic_semantic_mapping">code</a>
         <p></p>
-        <p> To autonomously navigate in real-world environments, special in search and rescue operations, Unmanned Aerial Vehicles (UAVs) necessitate comprehensive maps to ensure safety. However, the prevalent metric map often lacks semantic information crucial for holistic scene comprehension. In this paper, we proposed a system to construct a probabilistic metric map enriched with object information extracted from the environment from RGB-D images. Our approach combines a state-of-the-art YOLOv8-based object detection framework at the front end and a 2D SLAM method - CartoGrapher at the back end. To effectively track and position semantic object classes extracted from the front-end interface, we employ the innovative BoT-SORT methodology. A novel association method is introduced to extract the position of objects and then project it with the metric map. Unlike previous research, our approach takes into reliable navigating in the environment with various hollow bottom objects. The output of our system is a probabilistic map, which significantly enhances the map's representation by incorporating object-specific attributes, encompassing class distinctions, accurate positioning, and object heights. A number of experiments have been conducted to evaluate our proposed approach. The results show that the robot can effectively produce augmented semantic maps containing several objects (notably chairs and desks). Furthermore, our system is evaluated within an embedded computer - Jetson Xavier AGX unit to demonstrate the use case in real-world applications.
-        </td>
-    </tr>
-
-    </tbody></table>
-
-
-  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <td style="padding:20px;width:30%;vertical-align:top">
-    <video  width="220" muted autoplay loop>
-      <source src="images/mulDF/demo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-      </video>
-    <!-- <video  width="220" muted autoplay loop>
-      <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-      </video>
-    <video  width="220" muted autoplay loop>
-      <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
-      Your browser does not support the video tag. -->
-      </video>
-  </td>
-  <td style="padding:20px;width:80%;vertical-align:middle">
-    <a href="https://thanhnguyencanh.github.io/MulDF/">
-        <papertitle>Multisensor Data Fusion for Reliable Obstacle Avoidance</papertitle>
-    </a>
-    <br>
-    <strong>Thanh Nguyen Canh</strong>, Truong Son Nguyen, Cong Hoang Quach, Xiem HoangVan, Manh Duong Phung
-                  <br> 
-    <em>Conference version, accepted to ICCAS </em>, 2022. <br>
-    <a href="https://thanhnguyencanh.github.io/MulDF/">website</a> /
-    <a href="https://arxiv.org/abs/2212.13218">arxiv</a> 
-    <p></p>
-    <p> In this work, we propose a new approach that combines data from multiple sensors for reliable obstacle avoidance. The sensors include two depth cameras and a LiDAR arranged so that they can capture the whole 3D area in front of the robot and a 2D slide around it. To fuse the data from these sensors, we first use an external camera as a reference to combine data from two depth cameras. A projection technique is then introduced to convert the 3D point cloud data of the cameras to its 2D correspondence. An obstacle avoidance algorithm is then developed based on the dynamic window approach. A number of experiments have been conducted to evaluate our proposed approach. The results show that the robot can effectively avoid static and dynamic obstacles of different shapes and sizes in different environments.</td>
-  </tr>
-
-  </tbody></table>
-
-
-
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-  <tr>
-      <td style="padding:10px;width:100%;vertical-align:middle">
-          <b>Projects for PCB defect detection</b>
+        <p> To autonomously navigate in real-world environments, special in search and rescue operations, Unmanned
+          Aerial Vehicles (UAVs) necessitate comprehensive maps to ensure safety. However, the prevalent metric map
+          often lacks semantic information crucial for holistic scene comprehension. In this paper, we proposed a system
+          to construct a probabilistic metric map enriched with object information extracted from the environment from
+          RGB-D images. Our approach combines a state-of-the-art YOLOv8-based object detection framework at the front
+          end and a 2D SLAM method - CartoGrapher at the back end. To effectively track and position semantic object
+          classes extracted from the front-end interface, we employ the innovative BoT-SORT methodology. A novel
+          association method is introduced to extract the position of objects and then project it with the metric map.
+          Unlike previous research, our approach takes into reliable navigating in the environment with various hollow
+          bottom objects. The output of our system is a probabilistic map, which significantly enhances the map's
+          representation by incorporating object-specific attributes, encompassing class distinctions, accurate
+          positioning, and object heights. A number of experiments have been conducted to evaluate our proposed
+          approach. The results show that the robot can effectively produce augmented semantic maps containing several
+          objects (notably chairs and desks). Furthermore, our system is evaluated within an embedded computer - Jetson
+          Xavier AGX unit to demonstrate the use case in real-world applications.
       </td>
-  </tr>
-</tbody></table>
+      </tr>
+
+    </tbody>
+  </table>
 
 
-<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-  <td style="padding:20px;width:30%;vertical-align:top">
-  <video  width="220" muted autoplay loop>
-    <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
-    Your browser does not support the video tag.
-    </video>
-  <!-- <video  width="220" muted autoplay loop>
-    <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-    </video>
-  <video  width="220" muted autoplay loop>
-    <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
-    Your browser does not support the video tag. -->
-    </video>
-</td>
-<td style="padding:20px;width:80%;vertical-align:middle">
-  <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">
-      <papertitle>ESRPCB: an Edge guided Super - Resolution model and Ensemble learning for tiny Printed Circuit Board Defect detection</papertitle>
-  </a>
-  <br>
-  Xiem HoangVan, <strong>Thanh Nguyen Canh</strong>, Dang Bui Dinh, Van-Truong Nguyen 
-                <br> 
-  <em>Journal version, accepted to EAAI </em>, 2025. <br>
-  <!-- <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
-  <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">video</a> /
-  <a href="https://arxiv.org/abs/2401.08132">arxiv</a> /
-  <a href="https://github.com/thanhnguyencanh/probabilistic_semantic_mapping">code</a> -->
-  <p></p>
-  <p> 
-    Printed Circuit Boards (PCBs) are critical components in modern electronics, which require stringent quality control to ensure proper functionality. However, the detection of defects in small-scale PCBs images poses significant challenges as a result of the low resolution of the captured images, leading to potential confusion between defects and noise. To overcome these challenges, this paper proposes a novel framework, named ESRPCB (edge-guided super-resolution for PCBs defect detection), which combines edge-guided super-resolution with ensemble learning to enhance PCBs defect detection. Our approach leverages the edge information to guide the EDSR (Enhanced Deep Super-Resolution) model with a novel ResCat (Residual Concatenation)  structure, enabling it to reconstruct high-resolution images from small PCBs inputs. By incorporating edge features, the super-resolution process preserves critical structural details, ensuring that tiny defects remain distinguishable in the enhanced image. Following this, a multi-modal defect detection model employs ensemble learning to analyze the super-resolved image, improving the accuracy of defect identification. \textcolor{blue}{Experimental results demonstrate that ESRPCB achieves superior performance compared to State-of-the-Art (SOTA) methods. Our model attains an average Peak Signal to Noise Ratio (PSNR) of $30.54 $ $dB(decibel)$, surpassing EDSR by $0.42 dB$. In defect detection, ESRPCB achieves a mAP50(mean average precision at an Intersection over Union threshold of 0.50) of $0.965$, surpassing EDSR ($0.905$) and traditional super-resolution models by over $5\%$. Furthermore, our ensemble-based detection approach further enhances performance, achieving a mAP50 of $0.977$}. These results highlight the effectiveness of ESRPCB in enhancing both image quality and defect detection accuracy, particularly in challenging low-resolution scenarios.
-  </td>
-</tr>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
+          <source src="images/mulDF/demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        </video>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/MulDF/">
+          <papertitle>Multisensor Data Fusion for Reliable Obstacle Avoidance</papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Truong Son Nguyen, Cong Hoang Quach, Xiem HoangVan, Manh Duong Phung
+        <br>
+        <em>Conference version, accepted to ICCAS </em>, 2022. <br>
+        <a href="https://thanhnguyencanh.github.io/MulDF/">website</a> /
+        <a href="https://arxiv.org/abs/2212.13218">arxiv</a>
+        <p></p>
+        <p> In this work, we propose a new approach that combines data from multiple sensors for reliable obstacle
+          avoidance. The sensors include two depth cameras and a LiDAR arranged so that they can capture the whole 3D
+          area in front of the robot and a 2D slide around it. To fuse the data from these sensors, we first use an
+          external camera as a reference to combine data from two depth cameras. A projection technique is then
+          introduced to convert the 3D point cloud data of the cameras to its 2D correspondence. An obstacle avoidance
+          algorithm is then developed based on the dynamic window approach. A number of experiments have been conducted
+          to evaluate our proposed approach. The results show that the robot can effectively avoid static and dynamic
+          obstacles of different shapes and sizes in different environments.
+      </td>
+      </tr>
 
-</tbody></table>
-
+    </tbody>
+  </table>
 
 
 
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <b>Projects for PCB defect detection</b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-       
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-                <td style="padding:10px;width:100%;vertical-align:middle">
-                    <b>Projects for robot learning</b>
-                </td>
-            </tr>
-        </tbody></table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <td style="padding:20px;width:30%;vertical-align:top">
-          <video  width="220" muted autoplay loop>
-            <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
-            Your browser does not support the video tag.
-            </video>
-          <!-- <video  width="220" muted autoplay loop>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <a href="images/esrpcb/imgs/esrpcb_model.png"><img src="images/esrpcb/imgs/esrpcb_model.png" width="200px"></img></href></a><br>
+        <a href="images/esrpcb/imgs/dfresults.png"><img src="images/esrpcb/imgs/dfresults.png" width="200px"></img></href></a><br>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">
+          <papertitle>ESRPCB: an Edge guided Super - Resolution model and Ensemble learning for tiny Printed Circuit
+            Board Defect detection</papertitle>
+        </a>
+        <br>
+        Xiem HoangVan, <strong>Thanh Nguyen Canh</strong>, Dang Bui Dinh, Van-Truong Nguyen
+        <br>
+        <em>Journal version, accepted to EAAI </em>, 2025. <br>
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">video</a> /
+        <a href="https://arxiv.org/abs/2506.13476">arxiv</a> /
+        <a href="https://github.com/thanhnguyencanh/ERSPCB">code</a>
+        <p></p>
+        <p>
+          Printed Circuit Boards (PCBs) are critical components in modern electron- ics, which require stringent quality
+          control to ensure proper functionality. However, the detection of defects in small-scale PCBs images poses
+          signif- icant challenges as a result of the low resolution of the captured images, leading to potential
+          confusion between defects and noise. To overcome these challenges, this paper proposes a novel framework,
+          named ESRPCB (edge- guided super-resolution for PCBs defect detection), which combines edge- guided
+          super-resolution with ensemble learning to enhance PCBs defect de- tection. Our approach leverages the edge
+          information to guide the EDSR (Enhanced Deep Super-Resolution) model with a novel ResCat (Residual
+          Concatenation) structure, enabling it to reconstruct high-resolution images from small PCBs inputs. By
+          incorporating edge features, the super-resolution process preserves critical structural details, ensuring that
+          tiny defects remain distinguishable in the enhanced image. Following this, a multi-modal defect detection
+          model employs ensemble learning to analyze the super-resolved image, improving the accuracy of defect
+          identification. Experimental re- sults demonstrate that ESRPCB achieves superior performance compared to
+          State-of-the-Art (SOTA) methods. Our model attains an average Peak Signal to Noise Ratio (PSNR) of 30.54
+          dB(decibel), surpassing EDSR by 0.42dB. In defect detection, ESRPCB achieves a mAP50(mean average pre- cision
+          at an Intersection over Union threshold of 0.50) of 0.965, surpassing EDSR (0.905) and traditional
+          super-resolution models by over 5%. Further- more, our ensemble-based detection approach further enhances
+          performance, achieving a mAP50 of 0.977. These results highlight the effectiveness of ESRPCB in enhancing both
+          image quality and defect detection accuracy, particularly in challenging low-resolution scenarios
+          scenarios.
+      </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+
+
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <b>Projects for robot learning</b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
+          <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
+          Your browser does not support the video tag.
+        </video>
+        <!-- <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
             Your browser does not support the video tag.
             </video>
           <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
             Your browser does not support the video tag. -->
-            </video>
-        </td>
-        <td style="padding:20px;width:80%;vertical-align:middle">
-          <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">
-              <papertitle>Human-to-Robot Interaction: Learning from Video Demonstration for Robot Imitation</papertitle>
-          </a>
-          <br>
-          <strong>Thanh Nguyen Canh</strong>, Tuan Thanh Tran, Anh Viet Lam,
-          <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>, Xiem HoangVan
-                        <br> 
-          <em>Journal version, submitted to TRO </em>, 2025. <br>
-          <!-- <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
+        </video>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">
+          <papertitle>Human-to-Robot Interaction: Learning from Video Demonstration for Robot Imitation</papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Tuan Thanh Tran, Anh Viet Lam,
+        <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>, Xiem HoangVan
+        <br>
+        <em>Journal version, submitted to TRO </em>, 2025. <br>
+        <!-- <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
           <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">video</a> /
           <a href="https://arxiv.org/abs/2401.08132">arxiv</a> /
           <a href="https://github.com/thanhnguyencanh/probabilistic_semantic_mapping">code</a> -->
-          <p></p>
-          <p> 
-            Robotic manipulation through learning from demonstration aims to enable robots to acquire various actions efficiently. Unlike traditional learning from observation-action pairs, which is time-consuming and requires proficiency in coding. Our approach is inspired by the way humans learn and imitate actions in a more flexible and efficient manner by simply "\textit{watching}" and "\textit{repeating}" the actions. Inspired by this, we propose a "Human-to-Robot" imitation learning pipeline, which enables robots to learn diverse actions from video demonstrations. Specifically, we explicitly represent each step as two key tasks: (1) understanding the demonstration video and (2) learning the demonstrated manipulations. First, the video description is achieved by focusing on two essential commonsense properties: action understanding and object understanding. We utilize deep Convolutional Neural Networks (CNNs) and Large Vision Models (VLMs) to extract meaningful features related to these properties. Then, for execution, we develop a robot manipulation system built upon a Language Vision-conditioned architectures and Deep Reinforcement Learning. Experiments with real-world video demonstrations. The results show the robustness and adaptability of the two frameworks in various scenarios using a real robotic arm UR5.
-          </td>
+        <p></p>
+        <p>
+          Robotic manipulation through learning from demonstration aims to enable robots to acquire various actions
+          efficiently. Unlike traditional learning from observation-action pairs, which is time-consuming and requires
+          proficiency in coding. Our approach is inspired by the way humans learn and imitate actions in a more flexible
+          and efficient manner by simply "\textit{watching}" and "\textit{repeating}" the actions. Inspired by this, we
+          propose a "Human-to-Robot" imitation learning pipeline, which enables robots to learn diverse actions from
+          video demonstrations. Specifically, we explicitly represent each step as two key tasks: (1) understanding the
+          demonstration video and (2) learning the demonstrated manipulations. First, the video description is achieved
+          by focusing on two essential commonsense properties: action understanding and object understanding. We utilize
+          deep Convolutional Neural Networks (CNNs) and Large Vision Models (VLMs) to extract meaningful features
+          related to these properties. Then, for execution, we develop a robot manipulation system built upon a Language
+          Vision-conditioned architectures and Deep Reinforcement Learning. Experiments with real-world video
+          demonstrations. The results show the robustness and adaptability of the two frameworks in various scenarios
+          using a real robotic arm UR5.
+      </td>
       </tr>
 
-      </tbody></table>
+    </tbody>
+  </table>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <td style="padding:20px;width:30%;vertical-align:top">
-            <a href="images/TSC/images/DRL.png"><img src = "images/TSC/images/DRL.png" width="200px"></img></href></a><br>
-            <a href="images/TSC/images/TW-SAC.png"><img src = "images/TSC/images/TW-SAC.png" width="200px"></img></href></a><br>
-            <a href="images/TSC/images/high_traffic.png"><img src = "images/TSC/images/high_traffic.png" width="200px"></img></href></a><br>
-          <!-- <video  width="220" muted autoplay loop>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <a href="images/TSC/images/DRL.png"><img src="images/TSC/images/DRL.png" width="200px"></img></href></a><br>
+        <a href="images/TSC/images/TW-SAC.png"><img src="images/TSC/images/TW-SAC.png" width="200px"></img></href>
+        </a><br>
+        <a href="images/TSC/images/high_traffic.png"><img src="images/TSC/images/high_traffic.png" width="200px"></img>
+          </href></a><br>
+        <!-- <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
             Your browser does not support the video tag.
             </video>
           <video  width="220" muted autoplay loop>
             <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
-            Your browser does not support the video tag. -->
-            </video>
+            Your browser does not support the video tag. 
+        </video> -->
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">
+          <papertitle> Design of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads
+          </papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Anh Pham Tuan, Xiem HoangVan
+        <br>
+        <em>Journal version, submitted to Public Transport </em>, 2025. <br>
+        <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">video</a> /
+        <a href="https://www.researchsquare.com/article/rs-3128875/v1">Research Square</a> /
+        <a href="https://github.com/thanhnguyencanh/DRL4Three-wayTSC">code</a>
+        <p></p>
+        <p> Traffic light control (TSC) is an important and challenging real-world problem with the aim of reducing
+          travel time as well as saving energy. Recent researches have numerous attempts to apply intelligent methods
+          for TSC at four-way crossroads to solve the traffic light scheduling problem. However, there is the limitation
+          of researches on efficient TSC at three-way crossroads. Therefore, this paper introduces a novel TSC solution
+          for three-way crossroad environment (TW-TSC). The proposed TSC method is designed based on a deep
+          reinforcement learning approach, namely Soft Actor-Critic (TWSAC). Firstly, we create a simulation environment
+          for three-way crossroads which consists of numerous transportation and two parallel lanes using Unity
+          framework. Secondly, to achieve practical movements of transportation in three-way crossroads, we carefully
+          design agents which have a high impact to the transportation movement, notably the time to wait for traffic
+          light, the velocity of transportation, and the number of transportation passing successfully. Finally, to
+          achieve TW-TSC efficiency, we propose a novel reward function together with a design of TWSAC algorithm.
+          Experimental results show that the proposed TWSAC in TW-TSC achieves higher performance than both fixed-time
+          TSC methods and relevant RL algorithms.
+      </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
+          <source src="images/DAR/mp4/ObsAvd.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <video width="220" muted autoplay loop>
+          <source src="images/DAR/mp4/HandReg.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <video width="220" muted autoplay loop>
+          <source src="images/DAR/mp4/ObjDet.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/DualArmRobot/">
+          <papertitle> Optimal design and fabrication of frame structure for dual-arm service robots: An effective
+            approach for human–robot interaction</papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Son Tran Duc, Huong Nguyen The, Trang Huyen Dao, Xiem HoangVan
+        <br>
+        <em>Journal version, accepted to Engineering Science and Technology, an International Journal </em>, 2024. <br>
+        <a href="https://thanhnguyencanh.github.io/DualArmRobot/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/DualArmRobot/">video</a> /
+        <p></p>
+        <p> Rapid advancement in robotics technology has paved the way for developing mobile service robots capable of
+          human interaction and assistance. In this paper, we propose a comprehensive approach to design, fabricate, and
+          optimize the overall structure of a dual-arm service robot. The conceptual design phase focuses on both
+          critical components, the mobile platform and the manipulation system, essential for seamless navigation and
+          effective task execution. In the proposed system, the distribution of the robot payload in terms of region,
+          maximum stress, and displacement is examined, comprehensively analyzed, and compared with the relevant works.
+          In addition, to enhance the system’s efficiency while minimizing its weight, we introduce a lightweight design
+          approach in which Finite Element Analysis is utilized to optimize the frame structure. Subsequently, we
+          fabricate a physical prototype based on the derived model. Finally, we provide a kinematic model for our
+          dual-arm service robot and demonstrate its efficacy in both control and human–robot interaction (HRI) tasks.
+          Experimental results indicate that the proposed dual arm design can achieve a significant weight reduction of
+          25% from the original design while still performing actions smoothly for HRI tasks.
+      </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <b>Projects for reliable localization and safety path planing</b>
         </td>
-        <td style="padding:20px;width:80%;vertical-align:middle">
-          <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">
-              <papertitle> Design of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads</papertitle>
-          </a>
-          <br>
-          <strong>Thanh Nguyen Canh</strong>, Anh Pham Tuan, Xiem HoangVan
-                        <br> 
-          <em>Journal version, submitted to Public Transprt </em>, 2025. <br>
-          <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">website</a> /
-          <a href="https://thanhnguyencanh.github.io/DRL4Three-wayTSC/">video</a> /
-          <a href="https://www.researchsquare.com/article/rs-3128875/v1">Research Square</a> /
-          <a href="https://github.com/thanhnguyencanh/DRL4Three-wayTSC">code</a>
-          <p></p>
-          <p> Traffic light control (TSC) is an important and challenging real-world problem with the aim of reducing travel time as well as saving energy. Recent researches have numerous attempts to apply intelligent methods for TSC at four-way crossroads to solve the traffic light scheduling problem. However, there is the limitation of researches on efficient TSC at three-way crossroads. Therefore, this paper introduces a novel TSC solution for three-way crossroad environment (TW-TSC). The proposed TSC method is designed based on a deep reinforcement learning approach, namely Soft Actor-Critic (TWSAC). Firstly, we create a simulation environment for three-way crossroads which consists of numerous transportation and two parallel lanes using Unity framework. Secondly, to achieve practical movements of transportation in three-way crossroads, we carefully design agents which have a high impact to the transportation movement, notably the time to wait for traffic light, the velocity of transportation, and the number of transportation passing successfully. Finally, to achieve TW-TSC efficiency, we propose a novel reward function together with a design of TWSAC algorithm. Experimental results show that the proposed TWSAC in TW-TSC achieves higher performance than both fixed-time TSC methods and relevant RL algorithms.
-          </td>
-        </tr>
-      
-        </tbody></table>
+      </tr>
+    </tbody>
+  </table>
 
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <td style="padding:20px;width:30%;vertical-align:top">
-          <video  width="220" muted autoplay loop>
-            <source src="images/DAR/mp4/ObsAvd.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video>
-          <video  width="220" muted autoplay loop>
-            <source src="images/DAR/mp4/HandReg.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video>
-          <video  width="220" muted autoplay loop>
-            <source src="images/DAR/mp4/ObjDet.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-            </video>
-        </td>
-        <td style="padding:20px;width:80%;vertical-align:middle">
-          <a href="https://thanhnguyencanh.github.io/DualArmRobot/">
-              <papertitle> Optimal design and fabrication of frame structure for dual-arm service robots: An effective approach for human–robot interaction</papertitle>
-          </a>
-          <br>
-          <strong>Thanh Nguyen Canh</strong>,  Son Tran Duc, Huong Nguyen The, Trang Huyen Dao, Xiem HoangVan
-                        <br> 
-          <em>Journal version, accepted to Engineering Science and Technology, an International Journal </em>, 2024. <br>
-          <a href="https://thanhnguyencanh.github.io/DualArmRobot/">website</a> /
-          <a href="https://thanhnguyencanh.github.io/DualArmRobot/">video</a> /
-          <p></p>
-          <p> Rapid advancement in robotics technology has paved the way for developing mobile service robots capable of human interaction and assistance. In this paper, we propose a comprehensive approach to design, fabricate, and optimize the overall structure of a dual-arm service robot. The conceptual design phase focuses on both critical components, the mobile platform and the manipulation system, essential for seamless navigation and effective task execution. In the proposed system, the distribution of the robot payload in terms of region, maximum stress, and displacement is examined, comprehensively analyzed, and compared with the relevant works. In addition, to enhance the system’s efficiency while minimizing its weight, we introduce a lightweight design approach in which Finite Element Analysis is utilized to optimize the frame structure. Subsequently, we fabricate a physical prototype based on the derived model. Finally, we provide a kinematic model for our dual-arm service robot and demonstrate its efficacy in both control and human–robot interaction (HRI) tasks. Experimental results indicate that the proposed dual arm design can achieve a significant weight reduction of 25% from the original design while still performing actions smoothly for HRI tasks.
-          </td>
-        </tr>
-      
-        </tbody></table>
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-              <td style="padding:10px;width:100%;vertical-align:middle">
-                  <b>Projects for reliable localization and safety path planing</b>
-              </td>
-          </tr>
-      </tbody></table>
-
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <td style="padding:20px;width:30%;vertical-align:top">
-        <video  width="220" muted autoplay loop>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <video width="220" muted autoplay loop>
           <source src="images/RealiableLocalization/mp4/RGB Image.mp4" type="video/mp4">
           Your browser does not support the video tag.
-          </video>
+        </video>
         <!-- <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -545,31 +744,47 @@ onload= function(){
         <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag. -->
-          </video>
+        </video>
       </td>
       <td style="padding:20px;width:80%;vertical-align:middle">
         <a href="https://thanhnguyencanh.github.io/ReliableLocalize/">
-            <papertitle>Toward Integrating Semantic-aware Path Planning and Reliable Localization for UAV Operations</papertitle>
+          <papertitle>Toward Integrating Semantic-aware Path Planning and Reliable Localization for UAV Operations
+          </papertitle>
         </a>
         <br>
         <strong>Thanh Nguyen Canh</strong>, Huy-Hoang Ngo, Xiem HoangVan,
         <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>
-                      <br> 
+        <br>
         <em>Conference version, accepted to ICCAS </em>, 2024. <br>
         <a href="https://thanhnguyencanh.github.io/ReliableLocalize/">website</a> /
         <a href="https://thanhnguyencanh.github.io/ReliableLocalize/">video</a> /
         <a href="https://arxiv.org/abs/2411.01816">arxiv</a> /
         <p></p>
-        <p> Localization is one of the most crucial tasks for Unmanned Aerial Vehicle systems (UAVs) directly impacting overall performance, which can be achieved with various sensors and applied to numerous tasks related to search and rescue operations, object tracking, construction, etc. However, due to the negative effects of challenging environments, UAVs may lose signals for localization. In this paper, we present an effective path-planning system leveraging semantic segmentation information to navigate around texture-less and problematic areas like lakes, oceans, and high-rise buildings using a monocular camera. We introduce a real-time semantic segmentation architecture and a novel keyframe decision pipeline to optimize image inputs based on pixel distribution, reducing processing time. A hierarchical planner based on the Dynamic Window Approach (DWA) algorithm, integrated with a cost map, is designed to facilitate efficient path planning. The system is implemented in a photo-realistic simulation environment using Unity, aligning with segmentation model parameters. Comprehensive qualitative and quantitative evaluations validate the effectiveness of our approach, showing significant improvements in the reliability and efficiency of UAV localization in challenging environments.
-        </td>
+        <p> Localization is one of the most crucial tasks for Unmanned Aerial Vehicle systems (UAVs) directly impacting
+          overall performance, which can be achieved with various sensors and applied to numerous tasks related to
+          search and rescue operations, object tracking, construction, etc. However, due to the negative effects of
+          challenging environments, UAVs may lose signals for localization. In this paper, we present an effective
+          path-planning system leveraging semantic segmentation information to navigate around texture-less and
+          problematic areas like lakes, oceans, and high-rise buildings using a monocular camera. We introduce a
+          real-time semantic segmentation architecture and a novel keyframe decision pipeline to optimize image inputs
+          based on pixel distribution, reducing processing time. A hierarchical planner based on the Dynamic Window
+          Approach (DWA) algorithm, integrated with a cost map, is designed to facilitate efficient path planning. The
+          system is implemented in a photo-realistic simulation environment using Unity, aligning with segmentation
+          model parameters. Comprehensive qualitative and quantitative evaluations validate the effectiveness of our
+          approach, showing significant improvements in the reliability and efficiency of UAV localization in
+          challenging environments.
+      </td>
       </tr>
-    
-      </tbody></table>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <td style="padding:20px;width:30%;vertical-align:top">
-          <a href="images/STEB/images/overview.png"><img src = "images/STEB/images/overview.png" width="200px"></img></href></a><br>
-          <a href="images/STEB/images/steb.png"><img src = "images/STEB/images/steb.png" width="200px"></img></href></a><br>
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <a href="images/STEB/images/overview.png"><img src="images/STEB/images/overview.png" width="200px"></img></href>
+        </a><br>
+        <a href="images/STEB/images/steb.png"><img src="images/STEB/images/steb.png" width="200px"></img></href></a><br>
         <!-- <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -577,42 +792,58 @@ onload= function(){
         <video  width="220" muted autoplay loop>
           <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
           Your browser does not support the video tag. -->
-          </video>
+        </video>
       </td>
       <td style="padding:20px;width:80%;vertical-align:middle">
         <a href="https://thanhnguyencanh.github.io/SGan-TEB/">
-            <papertitle> Enhancing Social Robot Navigation with Integrated Motion Prediction and Trajectory Planning in Dynamic Human Environments</papertitle>
+          <papertitle> Enhancing Social Robot Navigation with Integrated Motion Prediction and Trajectory Planning in
+            Dynamic Human Environments</papertitle>
         </a>
         <br>
-        <strong>Thanh Nguyen Canh</strong>,  Xiem HoangVan
+        <strong>Thanh Nguyen Canh</strong>, Xiem HoangVan
         <a href="https://www.jaist.ac.jp/robot/">Nak Young Chong</a>
-                      <br> 
+        <br>
         <em>Conference version, accepted to ICCAS </em>, 2024. <br>
         <a href="https://thanhnguyencanh.github.io/SGan-TEB/">website</a> /
         <a href="https://thanhnguyencanh.github.io/SGan-TEB/">video</a> /
         <a href="https://arxiv.org/abs/2411.01814">arxiv</a> /
         <a href="https://github.com/thanhnguyencanh/SGan-TEB">code</a>
         <p></p>
-        <p> Navigating safely in dynamic human environments is crucial for mobile service robots, and social navigation is a key aspect of this process. In this paper, we proposed an integrative approach that combines motion prediction and trajectory planning to enable safe and socially-aware robot navigation. The main idea of the proposed method is to leverage the advantages of Socially Acceptable trajectory prediction and Timed Elastic Band (TEB) by incorporating human interactive information including position, orientation, and motion into the objective function of the TEB algorithms. In addition, we designed social constraints to ensure the safety of robot navigation. The proposed system is evaluated through physical simulation using both quantitative and qualitative metrics, demonstrating its superior performance in avoiding human and dynamic obstacles, thereby ensuring safe navigation.
+        <p> Navigating safely in dynamic human environments is crucial for mobile service robots, and social navigation
+          is a key aspect of this process. In this paper, we proposed an integrative approach that combines motion
+          prediction and trajectory planning to enable safe and socially-aware robot navigation. The main idea of the
+          proposed method is to leverage the advantages of Socially Acceptable trajectory prediction and Timed Elastic
+          Band (TEB) by incorporating human interactive information including position, orientation, and motion into the
+          objective function of the TEB algorithms. In addition, we designed social constraints to ensure the safety of
+          robot navigation. The proposed system is evaluated through physical simulation using both quantitative and
+          qualitative metrics, demonstrating its superior performance in avoiding human and dynamic obstacles, thereby
+          ensuring safe navigation.
+      </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <td style="padding:10px;width:100%;vertical-align:middle">
+          <b>Projects for 3D robot calibration</b>
         </td>
       </tr>
-    
-      </tbody></table>
+    </tbody>
+  </table>
 
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-            <td style="padding:10px;width:100%;vertical-align:middle">
-                <b>Projects for 3D robot calibration</b>
-            </td>
-        </tr>
-    </tbody></table>
-
-    <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
       <td style="padding:20px;width:30%;vertical-align:top">
-        <a href="images/MCalib/images/overview system.png"><img src = "images/MCalib/images/overview system.png" width="200px"></img></href></a><br>
-        <a href="images/MCalib/images/Overview.png"><img src = "images/MCalib/images/Overview.png" width="200px"></img></href></a>
-        <a href="images/MCalib/images/problem.png"><img src="images/MCalib/images/problem.png"width="200px"></img></href></a> <br>
-      <!-- <video  width="220" muted autoplay loop>
+        <a href="images/MCalib/images/overview system.png"><img src="images/MCalib/images/overview system.png"
+            width="200px"></img></href></a><br>
+        <a href="images/MCalib/images/Overview.png"><img src="images/MCalib/images/Overview.png" width="200px"></img>
+          </href></a>
+        <a href="images/MCalib/images/problem.png"><img src="images/MCalib/images/problem.png" width="200px"></img>
+          </href></a> <br>
+        <!-- <video  width="220" muted autoplay loop>
         <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
         Your browser does not support the video tag.
         </video>
@@ -620,44 +851,60 @@ onload= function(){
         <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
         Your browser does not support the video tag. -->
         </video>
-    </td>
-    <td style="padding:20px;width:80%;vertical-align:middle">
-      <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">
-          <papertitle> M-Calib: A Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System</papertitle>
-      </a>
-      <br>
-      <strong>Thanh Nguyen Canh</strong>, Du Ngoc Trinh, Xiem HoangVan
-                    <br> 
-      <em>Journal version, accepted to Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS) </em>, 2024. <br>
-      <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">website</a> /
-      <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">video</a> /
-      <a href="https://www.researchsquare.com/article/rs-4019542/v1">Research Square</a> /
-      <a href="https://github.com/thanhnguyencanh/MonoCalibNet">code</a>
-      <p></p>
-      <p> 3D Object Localization has been emerging recently as one of the challenges of Machine Vision or Robot Vision tasks. In this paper, we proposed a novel method designed for the localization of isometric flat 3D objects, leveraging a blend of deep learning techniques primarily rooted in object detection, postimage processing algorithms, and pose estimation. Our approach involves the strategic application of 3D calibration methods tailored for low-cost industrial robotics systems, requiring only a single 2D image input. Initially, object detection is performed using the You Only Look Once (YOLO) model, followed by segmentation of the object into two distinct parts— the top face and the remainder— using the Mask R-CNN model. Subsequently, the center of the top face serves as the initialization position and a unique combination of postprocessing techniques and a novel calibration algorithm is employed to refine the object’s position. Experimental results demonstrate a notable reduction in localization error by 87.65% when compared to existing methodologies.
       </td>
-    </tr>
-  
-    </tbody></table>
-        
-        
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">
+          <papertitle> M-Calib: A Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System
+          </papertitle>
+        </a>
+        <br>
+        <strong>Thanh Nguyen Canh</strong>, Du Ngoc Trinh, Xiem HoangVan
+        <br>
+        <em>Journal version, accepted to Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS) </em>,
+        2024. <br>
+        <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/MonoCalibNet/">video</a> /
+        <a href="https://www.researchsquare.com/article/rs-4019542/v1">Research Square</a> /
+        <a href="https://github.com/thanhnguyencanh/MonoCalibNet">code</a>
+        <p></p>
+        <p> 3D Object Localization has been emerging recently as one of the challenges of Machine Vision or Robot Vision
+          tasks. In this paper, we proposed a novel method designed for the localization of isometric flat 3D objects,
+          leveraging a blend of deep learning techniques primarily rooted in object detection, postimage processing
+          algorithms, and pose estimation. Our approach involves the strategic application of 3D calibration methods
+          tailored for low-cost industrial robotics systems, requiring only a single 2D image input. Initially, object
+          detection is performed using the You Only Look Once (YOLO) model, followed by segmentation of the object into
+          two distinct parts— the top face and the remainder— using the Mask R-CNN model. Subsequently, the center of
+          the top face serves as the initialization position and a unique combination of postprocessing techniques and a
+          novel calibration algorithm is employed to refine the object’s position. Experimental results demonstrate a
+          notable reduction in localization error by 87.65% when compared to existing methodologies.
+      </td>
+      </tr>
+
+    </tbody>
+  </table>
 
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-              <p style="text-align:right;font-size:small;">
-                <!-- <a href="https://clustrmaps.com/site/1c4zm"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=rm753rwupA6UHa26bOIiChUOW8JBdRWgNGPCYKwaJuc&cl=ffffff" /></a> -->
-                <div style="position: fixed; right: 20px; top: 90%; transform: translateY(-50%); width: 200px; height: 200px; overflow: hidden;">  
-                  <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=rm753rwupA6UHa26bOIiChUOW8JBdRWgNGPCYKwaJuc"></script>
-                </div>
-                <br /> 
-                Template borrowed from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
+
+
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <tr>
+        <p style="text-align:right;font-size:small;">
+          <!-- <a href="https://clustrmaps.com/site/1c4zm"  title="ClustrMaps"><img src="//www.clustrmaps.com/map_v2.png?d=rm753rwupA6UHa26bOIiChUOW8JBdRWgNGPCYKwaJuc&cl=ffffff" /></a> -->
+        <div
+          style="position: fixed; right: 20px; top: 90%; transform: translateY(-50%); width: 200px; height: 200px; overflow: hidden;">
+          <script type="text/javascript" id="clstr_globe"
+            src="//clustrmaps.com/globe.js?d=rm753rwupA6UHa26bOIiChUOW8JBdRWgNGPCYKwaJuc"></script>
+        </div>
+        <br />
+        Template borrowed from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.
+        </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </td>
+  </tr>
   </table>
 </body>
 
