@@ -511,38 +511,48 @@
   </table>
 
 
-<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-  <td style="padding:20px;width:30%;vertical-align:top">
-  <video  width="220" muted autoplay loop>
-    <!-- <source src="images/ppm/mp4/video_demo.mp4" type="video/mp4"> -->
-    Your browser does not support the video tag.
-    </video>
-  <!-- <video  width="220" muted autoplay loop>
-    <source src="images/se3hamdl/mp4/lemniscate_learned_cut_fast_small.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-    </video>
-  <video  width="220" muted autoplay loop>
-    <source src="images/se3hamdl/mp4/circle_learned_cut_fast_small.mp4" type="video/mp4">
-    Your browser does not support the video tag. -->
-    </video>
-</td>
-<td style="padding:20px;width:80%;vertical-align:middle">
-  <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">
-      <papertitle>ESRPCB: an Edge guided Super - Resolution model and Ensemble learning for tiny Printed Circuit Board Defect detection</papertitle>
-  </a>
-  <br>
-  Xiem HoangVan, <strong>Thanh Nguyen Canh</strong>, Dang Bui Dinh, Van-Truong Nguyen 
-                <br> 
-  <em>Journal version, submitted to EAAI </em>, 2025. <br>
-  <!-- <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">website</a> /
-  <a href="https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/">video</a> /
-  <a href="https://arxiv.org/abs/2401.08132">arxiv</a> /
-  <a href="https://github.com/thanhnguyencanh/probabilistic_semantic_mapping">code</a> -->
-  <p></p>
-  <p> 
-    Printed Circuit Boards (PCBs) are critical components in modern electronics, which require stringent quality control to ensure proper functionality. However, the detection of defects in small-scale PCBs images poses significant challenges as a result of the low resolution of the captured images, leading to potential confusion between defects and noise. To overcome these challenges, this paper proposes a novel framework, named ESRPCB (edge-guided super-resolution for PCBs defect detection), which combines edge-guided super-resolution with ensemble learning to enhance PCBs defect detection. Our approach leverages the edge information to guide the EDSR (Enhanced Deep Super-Resolution) model with a novel ResCat (Residual Concatenation)  structure, enabling it to reconstruct high-resolution images from small PCBs inputs. By incorporating edge features, the super-resolution process preserves critical structural details, ensuring that tiny defects remain distinguishable in the enhanced image. Following this, a multi-modal defect detection model employs ensemble learning to analyze the super-resolved image, improving the accuracy of defect identification. \textcolor{blue}{Experimental results demonstrate that ESRPCB achieves superior performance compared to State-of-the-Art (SOTA) methods. Our model attains an average Peak Signal to Noise Ratio (PSNR) of $30.54 $ $dB(decibel)$, surpassing EDSR by $0.42 dB$. In defect detection, ESRPCB achieves a mAP50(mean average precision at an Intersection over Union threshold of 0.50) of $0.965$, surpassing EDSR ($0.905$) and traditional super-resolution models by over $5\%$. Furthermore, our ensemble-based detection approach further enhances performance, achieving a mAP50 of $0.977$}. These results highlight the effectiveness of ESRPCB in enhancing both image quality and defect detection accuracy, particularly in challenging low-resolution scenarios.
-  </td>
-</tr>
+  <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <tbody>
+      <td style="padding:20px;width:30%;vertical-align:top">
+        <a href="images/esrpcb/imgs/esrpcb_model.png"><img src="images/esrpcb/imgs/esrpcb_model.png" width="200px"></img></href></a><br>
+        <a href="images/esrpcb/imgs/dfresults.png"><img src="images/esrpcb/imgs/dfresults.png" width="200px"></img></href></a><br>
+      </td>
+      <td style="padding:20px;width:80%;vertical-align:middle">
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">
+          <papertitle>ESRPCB: an Edge guided Super - Resolution model and Ensemble learning for tiny Printed Circuit
+            Board Defect detection</papertitle>
+        </a>
+        <br>
+        Xiem HoangVan, <strong>Thanh Nguyen Canh</strong>, Dang Bui Dinh, Van-Truong Nguyen
+        <br>
+        <em>Journal version, accepted to EAAI </em>, 2025. <br>
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">website</a> /
+        <a href="https://thanhnguyencanh.github.io/ERSPCB/">video</a> /
+        <a href="https://arxiv.org/abs/2506.13476">arxiv</a> /
+        <a href="https://github.com/thanhnguyencanh/ERSPCB">code</a>
+        <p></p>
+        <p>
+          Printed Circuit Boards (PCBs) are critical components in modern electron- ics, which require stringent quality
+          control to ensure proper functionality. However, the detection of defects in small-scale PCBs images poses
+          signif- icant challenges as a result of the low resolution of the captured images, leading to potential
+          confusion between defects and noise. To overcome these challenges, this paper proposes a novel framework,
+          named ESRPCB (edge- guided super-resolution for PCBs defect detection), which combines edge- guided
+          super-resolution with ensemble learning to enhance PCBs defect de- tection. Our approach leverages the edge
+          information to guide the EDSR (Enhanced Deep Super-Resolution) model with a novel ResCat (Residual
+          Concatenation) structure, enabling it to reconstruct high-resolution images from small PCBs inputs. By
+          incorporating edge features, the super-resolution process preserves critical structural details, ensuring that
+          tiny defects remain distinguishable in the enhanced image. Following this, a multi-modal defect detection
+          model employs ensemble learning to analyze the super-resolved image, improving the accuracy of defect
+          identification. Experimental re- sults demonstrate that ESRPCB achieves superior performance compared to
+          State-of-the-Art (SOTA) methods. Our model attains an average Peak Signal to Noise Ratio (PSNR) of 30.54
+          dB(decibel), surpassing EDSR by 0.42dB. In defect detection, ESRPCB achieves a mAP50(mean average pre- cision
+          at an Intersection over Union threshold of 0.50) of 0.965, surpassing EDSR (0.905) and traditional
+          super-resolution models by over 5%. Further- more, our ensemble-based detection approach further enhances
+          performance, achieving a mAP50 of 0.977. These results highlight the effectiveness of ESRPCB in enhancing both
+          image quality and defect detection accuracy, particularly in challenging low-resolution scenarios
+          scenarios.
+      </td>
+      </tr>
 
     </tbody>
   </table>
