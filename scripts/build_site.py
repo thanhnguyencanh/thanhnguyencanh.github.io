@@ -4,8 +4,10 @@
 import html
 import json
 import re
-from collections import defaultdict
 from pathlib import Path
+
+from people_page import people_content
+from about_page import about_intro
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
@@ -14,6 +16,7 @@ PAGES = [
     ("", "About"), ("research", "Research"), ("publications", "Publications"),
     ("teaching", "Teaching"), ("funded-projects", "Funded Projects"),
     ("datasets-code", "Dataset & Code"), ("open-positions", "Open Positions"),
+    ("people", "People"), ("contact", "Contact"),
 ]
 SEARCH = []
 
@@ -87,9 +90,17 @@ def paper_card(paper, prefix="", compact=False):
 def render_page(slug, title, intro, content):
     prefix = "../" if slug else ""
     nav_links = []
-    for path, label in PAGES:
+    labels = dict(PAGES)
+    for path in ["", "research", "publications", "teaching", "people", "resources", "contact"]:
+        if path == "resources":
+            submenu = ""
+            for resource in ["funded-projects", "datasets-code", "open-positions"]:
+                current = ' aria-current="page"' if resource == slug else ""
+                submenu += f'<a href="{route(resource, prefix)}"{current}>{labels[resource]}</a>'
+            nav_links.append(f'<details class="nav-group"><summary>Resources</summary><div class="nav-submenu">{submenu}</div></details>')
+            continue
         current = ' aria-current="page"' if path == slug else ""
-        nav_links.append(f'<a href="{route(path, prefix)}"{current}>{label}</a>')
+        nav_links.append(f'<a href="{route(path, prefix)}"{current}>{labels[path]}</a>')
     nav = "".join(nav_links)
     search_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>'
     theme_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg>'
@@ -100,12 +111,12 @@ def render_page(slug, title, intro, content):
 <link rel="icon" href="{prefix}images/profile/thanh_circle.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css">
 <script src="{prefix}assets/search-index.js" defer></script><script src="{prefix}assets/site.js" defer></script></head>
 <body><a class="skip-link" href="#main-content">Skip to content</a>
-<header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span><span class="brand-role">Robotics · Perception · Learning</span></a>
+<header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span><span class="brand-role" title="{esc(PROFILE['lab_name'])}">{esc(PROFILE['lab_short_name'])}</span></a>
 <button class="nav-toggle icon-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
 <nav id="site-nav" class="site-nav" aria-label="Main navigation">{nav}</nav>
 <div class="header-actions"><button id="open-search" class="icon-button" type="button" aria-label="Search this website" title="Search (Ctrl/⌘ K)" hidden>{search_icon}</button><button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Change theme" hidden>{theme_icon}</button></div></div></header>
 <main class="page-shell" id="main-content" tabindex="-1">{content}</main>
-<footer class="site-footer"><div class="footer-inner"><p>© {esc(PROFILE['name'])} <span aria-hidden="true">·</span> JAIST, Japan</p><div class="footer-links"><a href="mailto:{esc(PROFILE['email'])}">Email</a><a href="{prefix}CV_Thanh%20Nguyen%20Canh.pdf">CV</a><a href="https://github.com/thanhnguyencanh">GitHub</a></div><p class="footer-credit">Original template credits: <a href="https://jonbarron.info/">Jon Barron</a> and <a href="https://thaipduong.github.io/">Thai Duong</a>.</p></div></footer>
+<footer class="site-footer"><div class="footer-inner"><p>© {esc(PROFILE['name'])} <span aria-hidden="true">·</span> {esc(PROFILE['lab_short_name'])}</p><div class="footer-links"><a href="{route('contact', prefix)}">Contact</a><a href="mailto:{esc(PROFILE['email'])}">Email</a><a href="{prefix}CV_Thanh%20Nguyen%20Canh.pdf">CV</a><a href="https://github.com/thanhnguyencanh">GitHub</a></div><p class="footer-credit">Original template credits: <a href="https://jonbarron.info/">Jon Barron</a> and <a href="https://thaipduong.github.io/">Thai Duong</a>.</p></div></footer>
 <dialog id="site-search" class="search-dialog" aria-labelledby="search-title" data-root="{prefix}"><div class="dialog-topline"><h2 id="search-title">Search the website</h2><button id="close-search" class="icon-button" type="button" aria-label="Close search">×</button></div><form class="search-form" role="search"><label class="sr-only" for="site-query">Search publications, research, teaching and resources</label><input id="site-query" class="search-input" type="search" placeholder="Search publications, research, resources…" autocomplete="off"></form><p id="site-search-count" class="search-hint" role="status">Type a title, author, topic or keyword.</p><div id="site-search-results" class="search-results"></div><p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p></dialog>
 </body></html>'''
     target = ROOT / slug / "index.html" if slug else ROOT / "index.html"
@@ -115,10 +126,8 @@ def render_page(slug, title, intro, content):
 
 
 def home():
-    social = [("mailto:" + PROFILE["email"], "Email"), ("https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en", "Google Scholar"), ("https://github.com/thanhnguyencanh", "GitHub"), ("https://www.linkedin.com/in/nguyencanhthanh/", "LinkedIn"), ("https://orcid.org/0000-0001-6332-1002", "ORCID"), ("CV_Thanh%20Nguyen%20Canh.pdf", "Download CV")]
-    links = "".join(f'<a href="{esc(url)}">{label}</a>' for url, label in social)
     news = ""
-    for i, item in enumerate(PROFILE["news"]):
+    for i, item in enumerate(sorted(PROFILE["news"], key=lambda item: item["date"], reverse=True)):
         from datetime import datetime
         date = datetime.strptime(item["date"], "%Y-%m").strftime("%b %Y")
         news += f'<li class="news-item" id="news-{i}"><time class="news-date" datetime="{item["date"]}">{date}</time><div class="news-body">{item["html"]}</div></li>'
@@ -126,12 +135,14 @@ def home():
     selected = [p for p in PAPERS if p["id"] in ["iraf-slam", "esrpcb", "s3m"]]
     if len(selected) < 3:
         selected = sorted(PAPERS, key=lambda p: p["year"], reverse=True)[:3]
-    content = f'''<section class="profile-grid"><div class="profile-copy"><p class="eyebrow">Personal academic website</p><h1>Thanh <span>Nguyen Canh</span></h1><p class="profile-role">PhD student in Information Science</p><p class="profile-affiliation">Japan Advanced Institute of Science and Technology</p>{PROFILE['bio_html']}<div class="profile-links">{links}</div></div><aside class="profile-aside"><img class="profile-photo" src="images/profile/thanh.jpg" alt="Thanh Nguyen Canh" width="320" height="320"><p class="profile-caption">Robotics Laboratory<br>JAIST · Ishikawa, Japan</p><div class="research-tags"><span class="tag">Semantic SLAM</span><span class="tag">Robot learning</span><span class="tag">Autonomous navigation</span></div></aside></section>
-<section class="content-section">{section_heading('Research', 'research/', 'Explore research')}<p>I study how robots perceive, represent and navigate the world. My work connects semantic mapping, robust localization and learning with safe, autonomous behavior.</p><div class="research-tags"><a class="tag" href="research/#semantic-slam">Active & semantic SLAM</a><a class="tag" href="research/#robot-learning">Learning & interaction</a><a class="tag" href="research/#navigation">Planning & navigation</a></div></section>
+    content = about_intro(PROFILE) + f'''
 <section class="content-section" id="news">{section_heading('Recent news')}<ul class="news-list">{news}</ul><button id="toggle-news" class="resource-link" type="button" aria-expanded="false" hidden>Show all news</button></section>
 <section class="content-section">{section_heading('Selected publications', 'publications/', 'All publications')}{''.join(paper_card(p, compact=True) for p in selected)}</section>
-<section class="content-section" id="awards">{section_heading('Awards & professional activities')}<ul class="service-list">{''.join('<li>' + x + '</li>' for x in PROFILE['awards'])}</ul><details class="abstract"><summary>Peer review & professional service</summary>{PROFILE['service_html']}</details></section>'''
-    render_page("", "About", "Thanh Nguyen Canh is a PhD student at JAIST working on semantic SLAM, robot learning and autonomous navigation.", content)
+<section class="content-section" id="awards">{section_heading('Awards & professional activities')}<ul class="service-list">{''.join('<li>' + x + '</li>' for x in PROFILE['awards'])}</ul><details class="abstract"><summary>Peer review & professional service</summary>{PROFILE['service_html']}</details></section>
+<section class="content-section contact-inline" id="contact">{section_heading('Contact', 'contact/', 'Contact details')}<p>For research collaboration, student inquiries and questions about my work, contact me at <a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a>.</p><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><div class="publication-links"><a class="resource-link" href="people/">People ↗</a><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Email me ↗</a></div></section>'''
+    render_page("", "About", "Thanh Nguyen Canh is a PhD candidate at JAIST working on semantic SLAM, robot learning and autonomous navigation.", content)
+    add_search(PROFILE['lab_short_name'], "About", "index.html", PROFILE['lab_name'] + " " + PROFILE['name'])
+    add_search("Peer review & professional service", "Service", "index.html#awards", PROFILE['service_html'] + " " + " ".join(PROFILE['awards']))
 
 
 TOPICS = [
@@ -181,8 +192,10 @@ def teaching():
         title = esc(item["title"])
         if item.get("url"):
             title = f'<a href="{esc(item["url"])}">{title}</a>'
-        courses = "".join(f'<li>{esc(course)}</li>' for course in item.get("courses", []))
-        items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2><p>{esc(item["institution"])}</p><ul class="course-list">{courses}</ul></div></article>'
+        courses = [course for course in item.get("courses", []) if course.casefold() not in item["title"].casefold()]
+        course_summary = '<p class="course-summary">' + ' · '.join(esc(course) for course in courses) + '</p>' if courses else ""
+        institution = f'<p>{esc(item["institution"])}</p>' if item["institution"] else ""
+        items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2>{institution}{course_summary}</div></article>'
         add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *item.get("courses", [])]))
     supervision = ""
     for i, group in enumerate(PROFILE.get("supervision", [])):
@@ -199,7 +212,8 @@ def funding():
     for i, p in enumerate(PROFILE["funded_projects"]):
         projects += f'<article class="funding-card" id="project-{i}"><p class="funding-label">{esc(p["program"])}</p><h2>{esc(p["title"])}</h2><p>{esc(p["description"])}</p><dl class="funding-meta"><dt>Programme / call</dt><dd>{esc(p["grant"])}</dd><dt>Participation</dt><dd>{esc(p["role"])}</dd><dt>Appointment</dt><dd>{esc(p["period"])}</dd></dl><a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Details in CV ↗</a></article>'
         add_search(p["title"], "Funded project", f"funded-projects/#project-{i}", " ".join(p.values()))
-    support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in PROFILE["support"])
+    support_items = sorted(PROFILE["support"], key=lambda p: tuple(int(year) for year in re.findall(r"\d{4}", p["period"])), reverse=True)
+    support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in support_items)
     content = heading("Funded Projects", "Research project participation, fellowships and academic support.", "Projects & research support") + f'<section class="content-section">{section_heading("Research projects")}{projects}</section><section class="content-section">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>'
     render_page("funded-projects", "Funded Projects", "Research project participation, including SOLARIS, and academic scholarships and fellowships.", content)
     for p in PROFILE["support"]:
@@ -222,6 +236,24 @@ def positions():
     render_page("open-positions", "Open Positions", "Research collaboration and prospective student inquiries in SLAM, robotics and autonomous navigation.", content)
 
 
+def people():
+    content = people_content(PROFILE, add_search)
+    render_page("people", "People", "Researchers and student mentees associated with Thanh Nguyen Canh's research and teaching.", content)
+
+
+def contact():
+    profiles = [
+        ("Google Scholar", "https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en"),
+        ("GitHub", "https://github.com/thanhnguyencanh"),
+        ("LinkedIn", "https://www.linkedin.com/in/nguyencanhthanh/"),
+        ("ORCID", "https://orcid.org/0000-0001-6332-1002"),
+    ]
+    links = "".join(f'<a class="resource-link" href="{esc(url)}">{label} ↗</a>' for label, url in profiles)
+    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p><p>Ishikawa, Japan</p><a class="text-link" href="https://www.jaist.ac.jp/english/">University website ↗</a></div><div><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p><p>Hanoi, Vietnam</p><a class="text-link" href="https://uet.vnu.edu.vn/en/">University website ↗</a></div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and student mentoring before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
+    render_page("contact", "Contact", "Contact Thanh Nguyen Canh at PAIRS Lab for research collaboration and student inquiries.", content)
+    add_search(PROFILE['email'], "Contact", "contact/#email", PROFILE['name'] + " " + PROFILE['lab_name'] + " JAIST " + PROFILE['lecturer_department'] + " " + PROFILE['lecturer_institution'])
+
+
 def main():
     home()
     research()
@@ -230,6 +262,8 @@ def main():
     funding()
     resources()
     positions()
+    people()
+    contact()
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)
     (assets / "search-index.js").write_text("// Generated by scripts/build_site.py\nwindow.siteSearch = " + json.dumps(SEARCH, ensure_ascii=False).replace("</", "<\\/") + ";\n", encoding="utf-8")

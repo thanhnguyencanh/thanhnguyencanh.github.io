@@ -10,6 +10,7 @@
   const menu = document.querySelector(".nav-toggle");
   const closeMenu = () => {
     navigation.classList.remove("is-open");
+    navigation.querySelectorAll(".nav-group").forEach((group) => { group.open = false; });
     menu.setAttribute("aria-expanded", "false");
     menu.setAttribute("aria-label", "Open navigation");
   };

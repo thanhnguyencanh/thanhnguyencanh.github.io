@@ -1,11 +1,19 @@
 {
   "email": "thanhnc@jaist.ac.jp",
   "name": "Thanh Nguyen Canh",
-  "role": "Ph.D. student",
+  "role": "Ph.D. candidate",
   "affiliation": "Japan Advanced Institute of Science and Technology",
   "research_focus": "Active semantic SLAM, robot perception, navigation, and learning",
-  "bio_html": "<p>I am a Ph.D. student in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at the <a href=\"https://www.jaist.ac.jp/english/\">Japan Advanced Institute of Science and Technology (JAIST)</a>. I work at the <a href=\"https://www.jaist.ac.jp/robot/\">Robotics Laboratory</a>, advised by Prof. <a href=\"https://fp.jaist.ac.jp/public/Default2.aspx?id=352&amp;l=1\">Nak Young Chong</a>, on 3D active semantic SLAM.</p><p>I received my master's degree in Information Science from JAIST, Japan, and my B.S. degree in Robotics Engineering from the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. My master's work focused on real-time semantic-aware simultaneous localization and mapping (SLAM) for unmanned aerial vehicles (UAVs).</p><p>During my master's studies, I collaborated with Prof. <a href=\"https://sites.google.com/site/xiemhoang/home?authuser=0\">Xiem HoangVan</a>, Prof. <a href=\"https://aelibol.github.io/\">Armagan Elibol</a>, Prof. <a href=\"https://sites.google.com/view/manhduongphung/home?authuser=0\">Manh Duong Phung</a>, and Prof. <a href=\"https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&amp;hl=en&amp;authuser=3\">Van-Truong Nguyen</a>.</p><p>I am also a lecturer at VNU-University of Engineering and Technology. In 2026, my visiting research at the University of Genoa focuses on the SOLARIS project with Prof. Antonio Sgorbissa, developing drone teams for solar-panel monitoring.</p>",
+  "bio_html": "<p>I am a Ph.D. candidate in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at the <a href=\"https://www.jaist.ac.jp/english/\">Japan Advanced Institute of Science and Technology (JAIST)</a>. I work at the <a href=\"https://www.jaist.ac.jp/robot/\">Robotics Laboratory</a>, advised by Prof. <a href=\"https://fp.jaist.ac.jp/public/Default2.aspx?id=352&amp;l=1\">Nak Young Chong</a>, on 3D active semantic SLAM.</p><p>I received my master's degree in Information Science from JAIST, Japan, and my B.S. degree in Robotics Engineering from the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. My master's work focused on real-time semantic-aware simultaneous localization and mapping (SLAM) for unmanned aerial vehicles (UAVs).</p><p>During my master's studies, I collaborated with Prof. <a href=\"https://sites.google.com/site/xiemhoang/home?authuser=0\">Xiem HoangVan</a>, Prof. <a href=\"https://aelibol.github.io/\">Armagan Elibol</a>, Prof. <a href=\"https://sites.google.com/view/manhduongphung/home?authuser=0\">Manh Duong Phung</a>, and Prof. <a href=\"https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&amp;hl=en&amp;authuser=3\">Van-Truong Nguyen</a>.</p><p>I am also a lecturer in the Robotics Department at the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. In 2026, my visiting research at the University of Genoa focuses on the SOLARIS project with Prof. Antonio Sgorbissa, developing drone teams for solar-panel monitoring.</p>",
   "news": [
+    {
+      "date": "2026-10",
+      "html": "Research update: Our 2026 research includes <a href=\"publications/#bayesian-probabilistic-data-association\">BPDA-GMM</a>, <a href=\"publications/#semantic-visual-slam-survey\">Semantic Visual SLAM: A survey on state of the art, challenges, and future directions</a>, and <a href=\"publications/#sr-slam\">SR-SLAM</a>."
+    },
+    {
+      "date": "2026-10",
+      "html": "Research support update: Research support includes JSPS Fellowship (2027–2029), KDDI Foundation Scholarship (2024–2025 and 2027–2028), and UniGe Scholarship, University of Genoa (2026). See <a href=\"funded-projects/\">research projects, scholarships and fellowships</a>."
+    },
     {
       "date": "2025-06",
       "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/IRAF-SLAM/\">IRAF-SLAM: An Illumination-Robust and Adaptive Feature-Culling Front-End for Visual SLAM in Challenging Environments</a> has been accepted to <a href=\"https://ecmr2025.dei.unipd.it/\">European Conference on Mobile Robots (ECMR2025)</a>."
@@ -162,7 +170,7 @@
       "date": "VNU-UET",
       "title": "Robotics and Engineering",
       "role": "Lecturer",
-      "institution": "VNU-University of Engineering and Technology",
+      "institution": "Robotics Department, University of Engineering and Technology, Vietnam National University",
       "courses": [
         "Programming Robots with ROS",
         "Introduction to Human Machine Interface",
@@ -196,6 +204,21 @@
   ],
   "support": [
     {
+      "name": "JSPS Fellowship, Japan Society for the Promotion of Science",
+      "period": "2027–2029",
+      "kind": "Fellowship"
+    },
+    {
+      "name": "KDDI Foundation Scholarship",
+      "period": "2027–2028",
+      "kind": "Scholarship"
+    },
+    {
+      "name": "UniGe Scholarship, University of Genoa",
+      "period": "2026",
+      "kind": "Scholarship"
+    },
+    {
       "name": "JST SPRING Scholarship",
       "period": "2025–2027",
       "kind": "Scholarship"
@@ -211,6 +234,11 @@
       "kind": "Doctoral research fellowship"
     },
     {
+      "name": "Monbukagakusho Honors Scholarship",
+      "period": "2023–2024",
+      "kind": "Scholarship"
+    },
+    {
       "name": "VINIF Scholarship, Vingroup Innovation Foundation",
       "period": "2022–2024",
       "kind": "Master's scholarship"
@@ -218,16 +246,6 @@
     {
       "name": "Vallet Scholarship, Vallet Foundation",
       "period": "2021–2022",
-      "kind": "Scholarship"
-    },
-    {
-      "name": "JSPS Scholarship, Japan Society for the Promotion of Science",
-      "period": "2027–2029",
-      "kind": "Scholarship"
-    },
-    {
-      "name": "Monbukagakusho Honors Scholarship",
-      "period": "2023–2024",
       "kind": "Scholarship"
     }
   ],
@@ -240,7 +258,7 @@
     "REV-ECIT Best Paper Award, Radio and Electronics Association of Vietnam, 2022.",
     "First place, Student Research Competition, VNU-University of Engineering and Technology, 2021."
   ],
-  "service_html": "<p>I review for journals and conferences in robotics, artificial intelligence, and engineering.</p><ul><li><strong>IEEE:</strong> <a href=\"https://www.ieee-ras.org/publications/ra-l\">IEEE Robotics and Automation Letters</a>, <a href=\"https://www.ieee-ras.org/publications/t-ro\">IEEE Transactions on Robotics</a>, and <a href=\"https://www.ieee-ras.org/publications/t-ase\">IEEE Transactions on Automation Science and Engineering</a>.</li><li><strong>Elsevier:</strong> <a href=\"https://www.sciencedirect.com/journal/knowledge-based-systems\">Knowledge-Based Systems</a>, <a href=\"https://www.sciencedirect.com/journal/engineering-applications-of-artificial-intelligence\">Engineering Applications of Artificial Intelligence</a>, <a href=\"https://www.sciencedirect.com/journal/isa-transactions\">ISA Transactions</a>, Expert Systems with Applications, <a href=\"https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal\">Engineering Science and Technology, an International Journal</a>, and <a href=\"https://www.sciencedirect.com/journal/computers-and-electrical-engineering\">Computers &amp; Electrical Engineering</a>.</li><li><strong>Springer:</strong> <a href=\"https://www.springer.com/journal/11042\">Multimedia Tools and Applications</a>.</li><li><strong>Other journals and conferences:</strong> <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10382256/proceeding\">ICCAIS 2023</a>, <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10813991/proceeding\">ICCAIS 2024</a>, <a href=\"https://2024.iccas.org/\">ICCAS 2024</a>, <a href=\"http://2025.iccas.org/\">ICCAS 2025</a>, <a href=\"https://www.simpar2025.org/\">IEEE SIMPAR 2025</a>, <a href=\"https://www.tandfonline.com/journals/tfls21\">All Life</a>, and <a href=\"https://www.jamris.org/index.php/JAMRIS\">Journal of Automation, Mobile Robotics and Intelligent Systems</a>.</li></ul>",
+  "service_html": "<p>I review for journals and conferences in robotics, artificial intelligence, and engineering.</p><ul><li><strong>IEEE:</strong> <a href=\"https://www.ieee-ras.org/publications/ra-l\">IEEE Robotics and Automation Letters</a>, <a href=\"https://www.ieee-ras.org/publications/t-ro\">IEEE Transactions on Robotics</a>, <a href=\"https://www.ieee-ras.org/publications/t-ase\">IEEE Transactions on Automation Science and Engineering</a>, and <a href=\"https://ieee-ims.org/publication/ieee-tim\">IEEE Transactions on Instrumentation &amp; Measurement</a>.</li><li><strong>Elsevier:</strong> <a href=\"https://www.sciencedirect.com/journal/knowledge-based-systems\">Knowledge-Based Systems</a>, <a href=\"https://www.sciencedirect.com/journal/engineering-applications-of-artificial-intelligence\">Engineering Applications of Artificial Intelligence</a>, <a href=\"https://www.sciencedirect.com/journal/isa-transactions\">ISA Transactions</a>, Expert Systems with Applications, <a href=\"https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal\">Engineering Science and Technology, an International Journal</a>, <a href=\"https://www.sciencedirect.com/journal/computers-and-electrical-engineering\">Computers &amp; Electrical Engineering</a>, <a href=\"https://www.sciencedirect.com/journal/applied-soft-computing\">Applied Soft Computing Journal</a>, <a href=\"https://www.sciencedirect.com/journal/neurocomputing\">Neurocomputing</a>, <a href=\"https://www.sciencedirect.com/journal/robotics-and-autonomous-systems\">Robotics and Autonomous Systems</a>, <a href=\"https://www.sciencedirect.com/journal/measurement\">Measurement</a>, and <a href=\"https://www.sciencedirect.com/journal/results-in-engineering\">Results in Engineering</a>.</li><li><strong>Springer:</strong> <a href=\"https://www.springer.com/journal/11042\">Multimedia Tools and Applications</a>.</li><li><strong>Nature:</strong> <a href=\"https://www.nature.com/srep/\">Scientific Reports</a>.</li><li><strong>Other journals and conferences:</strong> <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10382256/proceeding\">ICCAIS 2023</a>, <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10813991/proceeding\">ICCAIS 2024</a>, <a href=\"https://2024.iccas.org/\">ICCAS 2024</a>, <a href=\"http://2025.iccas.org/\">ICCAS 2025</a>, <a href=\"https://www.simpar2025.org/\">IEEE SIMPAR 2025</a>, <a href=\"https://www.tandfonline.com/journals/tfls21\">All Life</a>, and <a href=\"https://www.jamris.org/index.php/JAMRIS\">Journal of Automation, Mobile Robotics and Intelligent Systems</a>.</li></ul>",
   "supervision": [
     {
       "level": "Master's students",
@@ -325,7 +343,10 @@
   ],
   "source_notes": [
     "Funding period, VNU-UET lecturer role, supervision, scholarship updates, and IEEE student representative activity are transcribed from the latest owner-authored CV supplied during this session.",
-    "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim."
+    "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim.",
+    "Owner instructions clarify JSPS as a Fellowship (2027–2029), KDDI Foundation Scholarship periods as 2024–2025 and 2027–2028, and UniGe Scholarship at University of Genoa for 2026. The October 2026 news items are website research/support updates, not dated acceptance or award announcements.",
+    "Owner explicitly adds seven reviewer journals and specifies the lecturer affiliation as Robotics Department, University of Engineering and Technology, Vietnam National University. Journal links point to publisher or society pages; reviewer service claims are owner-supplied.",
+    "Owner explicitly updates their current academic role from Ph.D. student to Ph.D. candidate; historical student awards and student supervision remain unchanged."
   ],
   "research_projects": [
     {
@@ -349,5 +370,9 @@
       "description": "Multi-robot collaboration, humanoid perception and interaction using vision-language and large language models, with navigation in crowded environments.",
       "tools": "Python / C++ · ROS / ROS2"
     }
-  ]
+  ],
+  "lab_name": "Perception, Autonomy, and Intelligent Robotics Systems Lab",
+  "lab_short_name": "PAIRS Lab",
+  "lecturer_department": "Robotics Department",
+  "lecturer_institution": "University of Engineering and Technology, Vietnam National University"
 }
