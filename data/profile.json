@@ -8,27 +8,27 @@
   "news": [
     {
       "date": "2026-10",
-      "html": "Our 2026 research: <a href=\"publications/#bayesian-probabilistic-data-association\">BPDA-GMM: Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM</a>."
+      "html": "Our paper <a href=\"publications/#bayesian-probabilistic-data-association\">BPDA-GMM: Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM</a> has been accepted for publication in <a href=\"https://www.ieee-ras.org/publications/ra-l\">IEEE Robotics and Automation Letters (RA-L)</a>."
     },
     {
       "date": "2026-10",
-      "html": "Our 2026 research: <a href=\"publications/#semantic-visual-slam-survey\">Semantic Visual Simultaneous Localization and Mapping: A survey on state of the art, challenges, and future directions</a>."
+      "html": "Our paper <a href=\"publications/#semantic-visual-slam-survey\">Semantic Visual Simultaneous Localization and Mapping: A survey on state of the art, challenges, and future directions</a> has been accepted for publication in <a href=\"https://www.sciencedirect.com/journal/robotics-and-autonomous-systems\">Robotics and Autonomous Systems</a>."
     },
     {
       "date": "2026-10",
-      "html": "Our 2026 research: <a href=\"publications/#sr-slam\">SR-SLAM: Scene reliability-based RGB-D SLAM in diverse environments</a>."
+      "html": "Our paper <a href=\"publications/#sr-slam\">SR-SLAM: Scene reliability-based RGB-D SLAM in diverse environments</a> has been accepted for publication in <a href=\"https://www.sciencedirect.com/journal/robotics-and-autonomous-systems\">Robotics and Autonomous Systems</a>."
     },
     {
       "date": "2026-10",
-      "html": "Research support: <a href=\"funded-projects/\">JSPS Fellowship (2027–2029)</a>."
+      "html": "I am honored to receive the <a href=\"funded-projects/\">JSPS Fellowship</a> from the Japan Society for the Promotion of Science for 2027–2029."
     },
     {
       "date": "2026-10",
-      "html": "Research support: <a href=\"funded-projects/\">KDDI Foundation Scholarship (2024–2025 and 2027–2028)</a>."
+      "html": "I am honored to receive the <a href=\"funded-projects/\">KDDI Foundation Scholarship</a> for 2027–2028, following its support for 2024–2025."
     },
     {
       "date": "2026-10",
-      "html": "Research support: <a href=\"funded-projects/\">UniGe Scholarship, University of Genoa (2026)</a>."
+      "html": "I am honored to receive the <a href=\"funded-projects/\">UniGe Scholarship</a> from the University of Genoa for 2026."
     },
     {
       "date": "2025-06",
@@ -350,9 +350,9 @@
   "source_notes": [
     "Funding period, VNU-UET lecturer role, supervision, scholarship updates, and IEEE student representative activity are transcribed from the latest owner-authored CV supplied during this session.",
     "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim.",
-    "Owner instructions clarify JSPS as a Fellowship (2027–2029), KDDI Foundation Scholarship periods as 2024–2025 and 2027–2028, and UniGe Scholarship at University of Genoa for 2026. The October 2026 news items are website research/support updates, not dated acceptance or award announcements.",
     "Owner explicitly adds seven reviewer journals and specifies the lecturer affiliation as Robotics Department, University of Engineering and Technology, Vietnam National University. Journal links point to publisher or society pages; reviewer service claims are owner-supplied.",
-    "Owner explicitly updates their current academic role from Ph.D. student to Ph.D. candidate; historical student awards and student supervision remain unchanged."
+    "Owner explicitly updates their current academic role from Ph.D. student to Ph.D. candidate; historical student awards and student supervision remain unchanged.",
+    "The October 2026 news dates are posting dates. Paper acceptance wording is supported by published journal records at JAIST (BPDA: https://www.jaist.ac.jp/whatsnew/press/2026/09/03-1.html; survey: https://www.jaist.ac.jp/jisedai/results.html; SR-SLAM: https://www.jaist.ac.jp/jisedai/results2025.html). Fellowship and scholarship details follow owner instructions."
   ],
   "research_projects": [
     {
