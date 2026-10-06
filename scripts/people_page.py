@@ -1,4 +1,4 @@
-"""Render researcher and student mentee cards from the owner's profile data."""
+"""Render researcher and student cards from the owner's profile data."""
 
 from html import escape
 import re
@@ -29,7 +29,7 @@ def _section_heading(title):
 def people_content(profile, add_search) -> str:
     """Return main content and register person anchors with the site search index.
 
-    Student entries describe the mentoring relationships recorded in the CV.
+    Student entries use the student records provided in the CV.
     They do not assign lab membership, positions, photos, or research projects.
     """
     name = str(profile["name"])
@@ -61,7 +61,7 @@ def people_content(profile, add_search) -> str:
         '<header class="page-heading">'
         f'<p class="eyebrow">{escape(lab)}</p>'
         '<h1>People</h1>'
-        '<p class="page-intro">Researcher profile and student mentees in perception, '
+        '<p class="page-intro">Researcher profile, students, and alumni in perception, '
         'autonomy, and intelligent robotics.</p>'
         '</header>'
         '<section class="content-section">'
@@ -81,22 +81,12 @@ def people_content(profile, add_search) -> str:
         '</div></article></div></section>'
     )
 
+    records_by_name = {}
     for group in profile.get("supervision", []):
         level = str(group["level"])
-        if "master" in level.lower():
-            section_title = "Master's student mentees"
-            person_role = "Master's student mentee"
-        elif "undergraduate" in level.lower():
-            section_title = "Undergraduate student mentees"
-            person_role = "Undergraduate student mentee"
-        else:
-            section_title = level + " · student mentees"
-            person_role = "Student mentee"
-        cards = []
         for student in group.get("students", []):
             student_name = str(student["name"])
             institution = str(student["institution"])
-            period = str(student["period"])
             base_id = "person-" + _slug(level + " " + student_name + " " + institution)
             person_id = base_id
             suffix = 2
@@ -104,21 +94,58 @@ def people_content(profile, add_search) -> str:
                 person_id = f"{base_id}-{suffix}"
                 suffix += 1
             used_ids.add(person_id)
+            records_by_name.setdefault(student_name, []).append({
+                "name": student_name,
+                "institution": institution,
+                "period": str(student["period"]),
+                "level": level,
+                "id": person_id,
+            })
+
+    def record_priority(record):
+        years = [int(year) for year in re.findall(r"\b\d{4}\b", record["period"])]
+        return (
+            "present" in record["period"].lower(),
+            max(years, default=0),
+            min(years, default=0),
+        )
+
+    sections = {"Master students": [], "Undergraduate students": [], "Alumni": []}
+    for records in records_by_name.values():
+        selected = max(records, key=record_priority)
+        if "present" not in selected["period"].lower():
+            section_title = "Alumni"
+        elif "master" in selected["level"].lower():
+            section_title = "Master students"
+        else:
+            section_title = "Undergraduate students"
+        selected["aliases"] = [record["id"] for record in records if record is not selected]
+        sections[section_title].append(selected)
+
+    for section_title, students in sections.items():
+        cards = []
+        for student in students:
+            student_name = student["name"]
+            institution = student["institution"]
+            person_id = student["id"]
+            aliases = "".join(
+                f'<span class="visually-hidden" id="{escape(alias, quote=True)}" aria-hidden="true"></span>'
+                for alias in student["aliases"]
+            )
             cards.append(
                 f'<article class="person-card" id="{escape(person_id, quote=True)}">'
-                f'<div class="person-avatar" aria-hidden="true">{escape(_initials(student_name))}</div>'
+                + aliases
+                + f'<div class="person-avatar" aria-hidden="true">{escape(_initials(student_name))}</div>'
                 '<div class="person-info">'
                 f'<h3>{escape(student_name)}</h3>'
-                f'<p class="person-role">{escape(person_role)}</p>'
                 f'<p class="person-affiliation">{escape(institution)}</p>'
-                f'<p class="person-period">Mentoring · {escape(period)}</p>'
                 '</div></article>'
             )
             add_search(
                 student_name,
                 "People",
                 f"people/#{person_id}",
-                " ".join([person_role, institution, period]),
+                " ".join([section_title, institution]),
             )
         if cards:
             content += (

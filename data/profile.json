@@ -8,11 +8,27 @@
   "news": [
     {
       "date": "2026-10",
-      "html": "Research update: Our 2026 research includes <a href=\"publications/#bayesian-probabilistic-data-association\">BPDA-GMM</a>, <a href=\"publications/#semantic-visual-slam-survey\">Semantic Visual SLAM: A survey on state of the art, challenges, and future directions</a>, and <a href=\"publications/#sr-slam\">SR-SLAM</a>."
+      "html": "Our 2026 research: <a href=\"publications/#bayesian-probabilistic-data-association\">BPDA-GMM: Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM</a>."
     },
     {
       "date": "2026-10",
-      "html": "Research support update: Research support includes JSPS Fellowship (2027–2029), KDDI Foundation Scholarship (2024–2025 and 2027–2028), and UniGe Scholarship, University of Genoa (2026). See <a href=\"funded-projects/\">research projects, scholarships and fellowships</a>."
+      "html": "Our 2026 research: <a href=\"publications/#semantic-visual-slam-survey\">Semantic Visual Simultaneous Localization and Mapping: A survey on state of the art, challenges, and future directions</a>."
+    },
+    {
+      "date": "2026-10",
+      "html": "Our 2026 research: <a href=\"publications/#sr-slam\">SR-SLAM: Scene reliability-based RGB-D SLAM in diverse environments</a>."
+    },
+    {
+      "date": "2026-10",
+      "html": "Research support: <a href=\"funded-projects/\">JSPS Fellowship (2027–2029)</a>."
+    },
+    {
+      "date": "2026-10",
+      "html": "Research support: <a href=\"funded-projects/\">KDDI Foundation Scholarship (2024–2025 and 2027–2028)</a>."
+    },
+    {
+      "date": "2026-10",
+      "html": "Research support: <a href=\"funded-projects/\">UniGe Scholarship, University of Genoa (2026)</a>."
     },
     {
       "date": "2025-06",
@@ -180,16 +196,6 @@
         "PLC and Its Application in Agriculture"
       ],
       "url": "https://fet.uet.vnu.edu.vn/"
-    },
-    {
-      "date": "Additional courses",
-      "title": "Robotics course topics",
-      "role": "Teaching experience",
-      "institution": "",
-      "courses": [
-        "Mobile Robotics",
-        "Algorithms for Intelligent Robots"
-      ]
     }
   ],
   "funded_projects": [

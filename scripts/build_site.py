@@ -2,6 +2,7 @@
 """Render the academic site with Python's standard library; no runtime build needed."""
 
 import html
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -19,6 +20,23 @@ PAGES = [
     ("people", "People"), ("contact", "Contact"),
 ]
 SEARCH = []
+
+
+def asset_revision():
+    """Give generated pages fresh CSS and scripts whenever their sources change."""
+    sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js"]
+    sources += sorted((ROOT / "data").glob("*.json"))
+    sources += sorted((ROOT / "scripts").glob("*.py"))
+    digest = hashlib.sha256()
+    for path in sources:
+        digest.update(path.relative_to(ROOT).as_posix().encode())
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()[:12]
+
+
+ASSET_REVISION = asset_revision()
 
 
 def esc(value):
@@ -91,14 +109,7 @@ def render_page(slug, title, intro, content):
     prefix = "../" if slug else ""
     nav_links = []
     labels = dict(PAGES)
-    for path in ["", "research", "publications", "teaching", "people", "resources", "contact"]:
-        if path == "resources":
-            submenu = ""
-            for resource in ["funded-projects", "datasets-code", "open-positions"]:
-                current = ' aria-current="page"' if resource == slug else ""
-                submenu += f'<a href="{route(resource, prefix)}"{current}>{labels[resource]}</a>'
-            nav_links.append(f'<details class="nav-group"><summary>Resources</summary><div class="nav-submenu">{submenu}</div></details>')
-            continue
+    for path in ["", "research", "publications", "teaching", "people", "funded-projects", "datasets-code", "open-positions", "contact"]:
         current = ' aria-current="page"' if path == slug else ""
         nav_links.append(f'<a href="{route(path, prefix)}"{current}>{labels[path]}</a>')
     nav = "".join(nav_links)
@@ -108,10 +119,10 @@ def render_page(slug, title, intro, content):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title + ' | ' if slug else '')}{esc(PROFILE['name'])}</title><meta name="description" content="{esc(plain(intro))}"><meta name="author" content="{esc(PROFILE['name'])}">
 <meta name="color-scheme" content="light dark"><script>document.documentElement.classList.add('js');try{{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';}}catch(e){{}}</script>
-<link rel="icon" href="{prefix}images/profile/thanh_circle.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css">
-<script src="{prefix}assets/search-index.js" defer></script><script src="{prefix}assets/site.js" defer></script></head>
+<link rel="icon" href="{prefix}images/profile/thanh_circle.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css?v={ASSET_REVISION}">
+<script src="{prefix}assets/search-index.js?v={ASSET_REVISION}" defer></script><script src="{prefix}assets/site.js?v={ASSET_REVISION}" defer></script></head>
 <body><a class="skip-link" href="#main-content">Skip to content</a>
-<header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span><span class="brand-role" title="{esc(PROFILE['lab_name'])}">{esc(PROFILE['lab_short_name'])}</span></a>
+<header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span></a>
 <button class="nav-toggle icon-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
 <nav id="site-nav" class="site-nav" aria-label="Main navigation">{nav}</nav>
 <div class="header-actions"><button id="open-search" class="icon-button" type="button" aria-label="Search this website" title="Search (Ctrl/⌘ K)" hidden>{search_icon}</button><button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Change theme" hidden>{theme_icon}</button></div></div></header>
@@ -197,13 +208,7 @@ def teaching():
         institution = f'<p>{esc(item["institution"])}</p>' if item["institution"] else ""
         items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2>{institution}{course_summary}</div></article>'
         add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *item.get("courses", [])]))
-    supervision = ""
-    for i, group in enumerate(PROFILE.get("supervision", [])):
-        student_list = "".join(f'<li><strong>{esc(s["name"])}</strong> · {esc(s["institution"])} <span class="muted">({esc(s["period"])})</span></li>' for s in group["students"])
-        supervision += f'<section id="supervision-{i}"><h3>{esc(group["level"])}</h3><ul class="service-list">{student_list}</ul></section>'
-        add_search(group["level"], "Mentoring", f'teaching/#supervision-{i}', " ".join(" ".join(s.values()) for s in group["students"]))
-    supervision_html = f'<section class="content-section">{section_heading("Student mentoring")}<div class="two-column">{supervision}</div></section>' if supervision else ""
-    content = heading("Teaching & Mentoring", "Teaching experience and student research in robotics, programming and signal processing.", "Teaching & mentoring") + f'<div class="timeline">{items}</div>{supervision_html}<section class="content-section notice-card"><h2>Student research</h2><p>I have helped students with robotics research, including a team awarded second place in the 2023 Student Research Competition at VNU-University of Engineering and Technology.</p><a class="text-link" href="../open-positions/">Research inquiries ↗</a></section>'
+    content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>I have helped students with robotics research, including a team awarded second place in the 2023 Student Research Competition at VNU-University of Engineering and Technology.</p><a class="text-link" href="../open-positions/">Research inquiries ↗</a></section>'
     render_page("teaching", "Teaching", "Teaching experience at JAIST and VNU-University of Engineering and Technology.", content)
 
 
@@ -238,7 +243,7 @@ def positions():
 
 def people():
     content = people_content(PROFILE, add_search)
-    render_page("people", "People", "Researchers and student mentees associated with Thanh Nguyen Canh's research and teaching.", content)
+    render_page("people", "People", "Researchers and students associated with Thanh Nguyen Canh's research and teaching.", content)
 
 
 def contact():
@@ -249,7 +254,7 @@ def contact():
         ("ORCID", "https://orcid.org/0000-0001-6332-1002"),
     ]
     links = "".join(f'<a class="resource-link" href="{esc(url)}">{label} ↗</a>' for label, url in profiles)
-    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p><p>Ishikawa, Japan</p><a class="text-link" href="https://www.jaist.ac.jp/english/">University website ↗</a></div><div><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p><p>Hanoi, Vietnam</p><a class="text-link" href="https://uet.vnu.edu.vn/en/">University website ↗</a></div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and student mentoring before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
+    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p><p>Ishikawa, Japan</p><a class="text-link" href="https://www.jaist.ac.jp/english/">University website ↗</a></div><div><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p><p>Hanoi, Vietnam</p><a class="text-link" href="https://uet.vnu.edu.vn/en/">University website ↗</a></div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and people before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
     render_page("contact", "Contact", "Contact Thanh Nguyen Canh at PAIRS Lab for research collaboration and student inquiries.", content)
     add_search(PROFILE['email'], "Contact", "contact/#email", PROFILE['name'] + " " + PROFILE['lab_name'] + " JAIST " + PROFILE['lecturer_department'] + " " + PROFILE['lecturer_institution'])
 
