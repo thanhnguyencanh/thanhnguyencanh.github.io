@@ -107,11 +107,11 @@
   },
   {
     "id": "esrpcb",
-    "title": "ESRPCB: an Edge guided Super - Resolution model and Ensemble learning for tiny Printed Circuit Board Defect detection",
+    "title": "ESRPCB: an Edge guided Super-Resolution model and Ensemble learning for tiny Printed Circuit Board Defect detection",
     "authors": [
       "Xiem HoangVan",
-      "Thanh Nguyen Canh",
       "Dang Bui Dinh",
+      "Thanh Nguyen Canh",
       "Van-Truong Nguyen"
     ],
     "year": 2025,
@@ -130,7 +130,8 @@
       "website": "https://thanhnguyencanh.github.io/ESRPCB/",
       "paper": "https://www.sciencedirect.com/science/article/abs/pii/S0952197625015490",
       "code": "https://github.com/thanhnguyencanh/ESRPCB"
-    }
+    },
+    "source_note": "Title and author order follow the primary paper: https://arxiv.org/abs/2506.13476. All original website authors and full abstract are retained."
   },
   {
     "id": "human-to-robot",
@@ -138,9 +139,8 @@
     "authors": [
       "Thanh Nguyen Canh",
       "Tuan Thanh Tran",
-      "Anh Viet Lam",
-      "Nak Young Chong",
-      "Xiem HoangVan"
+      "Xiem HoangVan",
+      "Nak Young Chong"
     ],
     "year": 2026,
     "type": "preprint",
@@ -155,7 +155,7 @@
     "video": "",
     "links": {},
     "cv_reference": "P2",
-    "source_note": "Latest CV changes the venue/year and lists four authors; all five original website authors are retained pending clarification."
+    "source_note": "Submitted manuscript authors, venue and year follow the latest owner CV; abstract is retained from the original website."
   },
   {
     "id": "three-way-traffic-signal-control",
@@ -726,7 +726,7 @@
   },
   {
     "id": "bayesian-probabilistic-data-association",
-    "title": "Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM",
+    "title": "BPDA-GMM: Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM",
     "authors": [
       "Thanh Nguyen Canh",
       "Haolan Zhang",
@@ -751,7 +751,7 @@
       "code": "https://github.com/pairs-lab/BPDA-SLAM"
     },
     "cv_reference": "J8",
-    "source_note": "CV lists this under journals with two authors; linked arXiv title has the BPDA-GMM prefix and five authors. Full authors follow the primary paper. No journal acceptance status is supplied in the CV."
+    "source_note": "Title and full five-author list follow https://arxiv.org/abs/2606.04618. CV lists this under journals with two authors; no journal acceptance status is supplied."
   },
   {
     "id": "e2dsr",
@@ -780,7 +780,7 @@
   },
   {
     "id": "semantic-visual-slam-survey",
-    "title": "Semantic Visual Simultaneous Localization and Mapping: A Survey on State of the Art, Challenges and Future Directions",
+    "title": "Semantic Visual Simultaneous Localization and Mapping: A survey on state of the art, challenges, and future directions",
     "authors": [
       "Thanh Nguyen Canh",
       "Haolan Zhang",
@@ -803,11 +803,11 @@
       "paper": "https://www.sciencedirect.com/science/article/pii/S0921889026002071"
     },
     "cv_reference": "J5",
-    "source_note": "Full author list includes Haolan Zhang, confirmed by official JAIST publication records; CV omits this coauthor."
+    "source_note": "Title and full four-author list follow official JAIST records: https://www.jaist.ac.jp/jisedai/results.html. Published 16 May 2026; CV omits Haolan Zhang."
   },
   {
     "id": "sr-slam",
-    "title": "SR-SLAM: Scene Reliability-Based RGB-D SLAM in Diverse Environments",
+    "title": "SR-SLAM: Scene reliability-based RGB-D SLAM in diverse environments",
     "authors": [
       "Haolan Zhang",
       "Chenghao Li",
@@ -815,7 +815,7 @@
       "Lijun Wang",
       "Nak Young Chong"
     ],
-    "year": 2025,
+    "year": 2026,
     "type": "journal",
     "venue": "Robotics and Autonomous Systems",
     "status": "",
@@ -830,7 +830,7 @@
       "paper": "https://www.sciencedirect.com/science/article/pii/S0921889025004038"
     },
     "cv_reference": "J4",
-    "source_note": "Year follows CV (2025). Official JAIST publication records list March 2026 and include Lijun Wang; full author list follows that primary institutional source."
+    "source_note": "Publication year (March 2026) and full five-author list follow official JAIST records: https://www.jaist.ac.jp/jisedai/results2025.html. CV lists 2025 and omits Lijun Wang."
   },
   {
     "id": "decoupled-object-centric-video-understanding",
@@ -863,7 +863,7 @@
     "title": "OWaveSync: Constrained Wavefront Optimization for Synchronized Co-Speech Gestures in Humanoid Robots",
     "authors": [
       "Thanh Nguyen Canh",
-      "T.T. Viet",
+      "Thang Tran Viet",
       "G. H. Uong",
       "P. V. Dinh",
       "T. V. T. Nguyen",
@@ -889,7 +889,7 @@
     "title": "OSDAG: Online Scheduling for Efficient Multi-Robot Collaboration",
     "authors": [
       "Thanh Nguyen Canh",
-      "T.T. Viet",
+      "Thang Tran Viet",
       "P. V. Dinh",
       "Xiem HoangVan",
       "Nak Young Chong"
@@ -937,14 +937,14 @@
     "authors": [
       "Haolan Zhang",
       "Thanh Nguyen Canh",
-      "C. Li",
-      "R. Yang",
-      "Y. Ji",
+      "Chenghao Li",
+      "Ruidong Yang",
+      "Yonghoon Ji",
       "Nak Young Chong"
     ],
     "year": 2025,
     "type": "conference",
-    "venue": "IEEE International Conference on Robotic Computing (IRC)",
+    "venue": "International Conference on Robotic Computing and Communication (RoboticCC)",
     "status": "",
     "topics": [
       "SLAM",
@@ -953,17 +953,20 @@
     "abstract": "",
     "image": "",
     "video": "",
-    "links": {},
-    "cv_reference": "C15"
+    "links": {
+      "paper": "https://ieeexplore.ieee.org/document/11391948"
+    },
+    "cv_reference": "C15",
+    "source_note": "Venue and full author names follow official JAIST records: https://www.jaist.ac.jp/jisedai/results2025.html. CV abbreviates the venue as IRC."
   },
   {
     "id": "humanoid-gesture-voice-interaction",
     "title": "Development of a Humanoid Robot Prototype and Gesture and Voice-Based Interaction Approach",
     "authors": [
-      "T. T. Viet",
-      "P. D. Van",
-      "H. U. Gia",
-      "S. T. Duc",
+      "Thang Tran Viet",
+      "Phuc Dinh Van",
+      "Huy Uong Gia",
+      "Son Tran Duc",
       "Thanh Nguyen Canh",
       "Xiem HoangVan"
     ],
@@ -979,16 +982,17 @@
     "image": "",
     "video": "",
     "links": {},
-    "cv_reference": "C14"
+    "cv_reference": "C14",
+    "source_note": "Title and author list follow the CV. Official JAIST records list a RIVF 2025 work titled Development of a Humanoid Robot Prototype for Multimodal Human-Robot Interaction with a different author list; no merge or link is assumed."
   },
   {
     "id": "refined-monocular-3d-localization",
     "title": "Refined 3D Object Localization with Monocular Camera using Depth Estimation and Geometric Refinement",
     "authors": [
       "Thanh Nguyen Canh",
-      "Q. M. Trinh",
-      "T-V Dang",
-      "P. X. Tan",
+      "Quang Minh Trinh",
+      "Thai-Viet Dang",
+      "Phan Xuan Tan",
       "Xiem HoangVan"
     ],
     "year": 2025,
@@ -1010,11 +1014,11 @@
     "title": "Efficient Human-Robot Interaction via Deep Perception and flexible Motion Planning",
     "authors": [
       "Thanh Nguyen Canh",
-      "T. T. Viet",
-      "S. T. Duc",
-      "H. N. The",
-      "T. H. Dao",
-      "V-H. Nguyen",
+      "Thang Tran Viet",
+      "Son Tran Duc",
+      "Huong Nguyen The",
+      "Trang Huyen Dao",
+      "Viet-Ha Nguyen",
       "Xiem HoangVan"
     ],
     "year": 2025,
@@ -1038,7 +1042,7 @@
     "authors": [
       "Haolan Zhang",
       "Thanh Nguyen Canh",
-      "C. Li",
+      "Chenghao Li",
       "Nak Young Chong"
     ],
     "year": 2025,
@@ -1060,7 +1064,7 @@
     "title": "Context-aware LLM-based Human-Robot Interaction",
     "authors": [
       "Thanh Nguyen Canh",
-      "K. HoangVan",
+      "Kien HoangVan",
       "Xiem HoangVan"
     ],
     "year": 2025,

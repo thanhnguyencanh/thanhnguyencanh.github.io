@@ -4,7 +4,7 @@
   "role": "Ph.D. student",
   "affiliation": "Japan Advanced Institute of Science and Technology",
   "research_focus": "Active semantic SLAM, robot perception, navigation, and learning",
-  "bio_html": "<p>I am a Ph.D. student in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at the <a href=\"https://www.jaist.ac.jp/english/\">Japan Advanced Institute of Science and Technology (JAIST)</a>. I work at the <a href=\"https://www.jaist.ac.jp/robot/\">Robotics Laboratory</a>, advised by Prof. <a href=\"https://fp.jaist.ac.jp/public/Default2.aspx?id=352&amp;l=1\">Nak Young Chong</a>, on 3D active semantic SLAM.</p><p>I received my master's degree in Information Science from JAIST, Japan, and my B.S. degree in Robotics Engineering from the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. My master's work focused on real-time semantic-aware simultaneous localization and mapping (SLAM) for unmanned aerial vehicles (UAVs).</p><p>During my master's studies, I collaborated with Prof. <a href=\"https://sites.google.com/site/xiemhoang/home?authuser=0\">Xiem HoangVan</a>, Prof. <a href=\"https://aelibol.github.io/\">Armagan Elibol</a>, Prof. <a href=\"https://sites.google.com/view/manhduongphung/home?authuser=0\">Manh Duong Phung</a>, and Prof. <a href=\"https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&amp;hl=en&amp;authuser=3\">Van-Truong Nguyen</a>.</p>",
+  "bio_html": "<p>I am a Ph.D. student in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at the <a href=\"https://www.jaist.ac.jp/english/\">Japan Advanced Institute of Science and Technology (JAIST)</a>. I work at the <a href=\"https://www.jaist.ac.jp/robot/\">Robotics Laboratory</a>, advised by Prof. <a href=\"https://fp.jaist.ac.jp/public/Default2.aspx?id=352&amp;l=1\">Nak Young Chong</a>, on 3D active semantic SLAM.</p><p>I received my master's degree in Information Science from JAIST, Japan, and my B.S. degree in Robotics Engineering from the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. My master's work focused on real-time semantic-aware simultaneous localization and mapping (SLAM) for unmanned aerial vehicles (UAVs).</p><p>During my master's studies, I collaborated with Prof. <a href=\"https://sites.google.com/site/xiemhoang/home?authuser=0\">Xiem HoangVan</a>, Prof. <a href=\"https://aelibol.github.io/\">Armagan Elibol</a>, Prof. <a href=\"https://sites.google.com/view/manhduongphung/home?authuser=0\">Manh Duong Phung</a>, and Prof. <a href=\"https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&amp;hl=en&amp;authuser=3\">Van-Truong Nguyen</a>.</p><p>I am also a lecturer at VNU-University of Engineering and Technology. In 2026, my visiting research at the University of Genoa focuses on the SOLARIS project with Prof. Antonio Sgorbissa, developing drone teams for solar-panel monitoring.</p>",
   "news": [
     {
       "date": "2025-06",
@@ -326,5 +326,28 @@
   "source_notes": [
     "Funding period, VNU-UET lecturer role, supervision, scholarship updates, and IEEE student representative activity are transcribed from the latest owner-authored CV supplied during this session.",
     "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim."
+  ],
+  "research_projects": [
+    {
+      "id": "semantic-active-slam",
+      "title": "Semantic Active SLAM",
+      "period": "2022–present",
+      "description": "Semantic-aware mapping and active exploration for UAVs, with research on robust visual SLAM, data association and Gaussian splatting.",
+      "tools": "Python / C++ · ROS · UAVs"
+    },
+    {
+      "id": "delibot",
+      "title": "Delibot — Humanoid Robotics",
+      "period": "2020–2024",
+      "description": "Design and fabrication of a dual-arm service robot, visual 3D localization from 2D estimates and obstacle avoidance using multisensor fusion.",
+      "tools": "C++ / Python · ROS · MoveIt / Gazebo"
+    },
+    {
+      "id": "humanoid-interaction",
+      "title": "Humanoid Robot Interaction & Social Navigation",
+      "period": "2024–present",
+      "description": "Multi-robot collaboration, humanoid perception and interaction using vision-language and large language models, with navigation in crowded environments.",
+      "tools": "Python / C++ · ROS / ROS2"
+    }
   ]
 }
