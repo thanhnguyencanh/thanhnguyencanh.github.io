@@ -1,0 +1,330 @@
+{
+  "email": "thanhnc@jaist.ac.jp",
+  "name": "Thanh Nguyen Canh",
+  "role": "Ph.D. student",
+  "affiliation": "Japan Advanced Institute of Science and Technology",
+  "research_focus": "Active semantic SLAM, robot perception, navigation, and learning",
+  "bio_html": "<p>I am a Ph.D. student in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at the <a href=\"https://www.jaist.ac.jp/english/\">Japan Advanced Institute of Science and Technology (JAIST)</a>. I work at the <a href=\"https://www.jaist.ac.jp/robot/\">Robotics Laboratory</a>, advised by Prof. <a href=\"https://fp.jaist.ac.jp/public/Default2.aspx?id=352&amp;l=1\">Nak Young Chong</a>, on 3D active semantic SLAM.</p><p>I received my master's degree in Information Science from JAIST, Japan, and my B.S. degree in Robotics Engineering from the <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University</a>. My master's work focused on real-time semantic-aware simultaneous localization and mapping (SLAM) for unmanned aerial vehicles (UAVs).</p><p>During my master's studies, I collaborated with Prof. <a href=\"https://sites.google.com/site/xiemhoang/home?authuser=0\">Xiem HoangVan</a>, Prof. <a href=\"https://aelibol.github.io/\">Armagan Elibol</a>, Prof. <a href=\"https://sites.google.com/view/manhduongphung/home?authuser=0\">Manh Duong Phung</a>, and Prof. <a href=\"https://scholar.google.com.vn/citations?user=hZGzoFwAAAAJ&amp;hl=en&amp;authuser=3\">Van-Truong Nguyen</a>.</p>",
+  "news": [
+    {
+      "date": "2025-06",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/IRAF-SLAM/\">IRAF-SLAM: An Illumination-Robust and Adaptive Feature-Culling Front-End for Visual SLAM in Challenging Environments</a> has been accepted to <a href=\"https://ecmr2025.dei.unipd.it/\">European Conference on Mobile Robots (ECMR2025)</a>."
+    },
+    {
+      "date": "2025-06",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/ESRPCB/\">ESRPCB: An Edge-Guided Super-Resolution Model and Ensemble Learning for Tiny Printed Circuit Board Defect Detection</a> has been accepted to <a href=\"https://www.sciencedirect.com/journal/engineering-applications-of-artificial-intelligence\">Engineering Applications of Artificial Intelligence (EAAI)</a>."
+    },
+    {
+      "date": "2025-05",
+      "html": "Our paper on Adaptive Prior Scene-Object SLAM for Dynamic Environments has been accepted to <a href=\"https://smartconf.jp/content/rcar2025/\">The 2025 IEEE International Conference on Real-time Computing and Robotics</a>."
+    },
+    {
+      "date": "2025-03",
+      "html": "Our paper on Context-aware LLM-based Human-Robot Interaction has been accepted to <a href=\"https://www.icisn.com/\">International Conference on Intelligent Systems and Networks 2025</a>."
+    },
+    {
+      "date": "2025-03",
+      "html": "I am honored to receive JST SPRING Scholarship &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;"
+    },
+    {
+      "date": "2025-01",
+      "html": "I am honored to receive KDDI Foundation Scholarship &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;"
+    },
+    {
+      "date": "2024-12",
+      "html": "I served as a teaching assistant for <a href=\"https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401\">I213E: Discrete Signal Processing</a>."
+    },
+    {
+      "date": "2024-11",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/MonoCalibNet/\">M-Calib: A Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System</a> has been accepted to <a href=\"https://www.jamris.org/index.php/JAMRIS\">Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS)</a>."
+    },
+    {
+      "date": "2024-10",
+      "html": "I served as a teaching assistant for <a href=\"https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401\">I116E: Fundamentals of Programming</a>."
+    },
+    {
+      "date": "2024-10",
+      "html": "I started my Ph.D. journey in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at <a href=\"https://www.jaist.ac.jp/english/\">JAIST</a>."
+    },
+    {
+      "date": "2024-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/DRL4Three-wayTSC/\">Design of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads</a> has been accepted to <a href=\"https://link.springer.com/journal/12469\">Public Transport</a>."
+    },
+    {
+      "date": "2024-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/SGan-TEB/\">Enhancing Social Robot Navigation with Integrated Motion Prediction and Trajectory Planning in Dynamic Human Environments</a> has been accepted to <a href=\"https://2024.iccas.org/\">ICCAS2024</a>."
+    },
+    {
+      "date": "2024-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/ReliableLocalize/\">Toward Integrating Semantic-aware Path Planning and Reliable Localization for UAV Operations</a> has been accepted to <a href=\"https://2024.iccas.org/\">ICCAS2024</a>."
+    },
+    {
+      "date": "2024-08",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/DualArmRobot\">Optimal design and fabrication of frame structure for dual-arm service robots: An effective approach for human–robot interaction</a> has been published in <a href=\"https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal\">Engineering Science and Technology, an International Journal (JESTECH)</a>."
+    },
+    {
+      "date": "2024-08",
+      "html": "I have passed my qualifying exam and advanced to Ph.D. candidacy. &#x1F389;&#x1F389;&#x1F389;&#x1F389;&#x1F389;"
+    },
+    {
+      "date": "2024-08",
+      "html": "I successfully defended my <a href=\"https://dspace.jaist.ac.jp/dspace/handle/10119/19354?locale=en\">M.Sc. thesis</a>."
+    },
+    {
+      "date": "2023-12",
+      "html": "I served as a teaching assistant for <a href=\"https://fet.uet.vnu.edu.vn/\">FET: Programming robot with ROS; Human Machine Interface; PLC and Its Application; &amp; Mechanical Drawing</a>."
+    },
+    {
+      "date": "2023-11",
+      "html": "Our paper on <a href=\"https://ieeexplore.ieee.org/abstract/document/10608973\">Underwater Image Enhancement for Depth Estimation via Various Image Processing Techniques</a> has been accepted to <a href=\"https://icsse2024.web.nycu.edu.tw/\">ICSSE2024</a>."
+    },
+    {
+      "date": "2023-11",
+      "html": "I worked as a lecturer at the <a href=\"https://sites.google.com/view/aimpuet/home\">Robotics Department</a> at <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University, Vietnam</a>."
+    },
+    {
+      "date": "2023-10",
+      "html": "I started my master's studies in the <a href=\"https://www.jaist.ac.jp/english/areas/information-science.html\">School of Information Science</a> at <a href=\"https://www.jaist.ac.jp/english/\">JAIST</a>."
+    },
+    {
+      "date": "2023-09",
+      "html": "Our paper on <a href=\"https://ieeexplore.ieee.org/abstract/document/10471804\">Machine Learning-Based Malicious Vehicle Detection for Security Threats and Attacks in Vehicle Ad-Hoc Network (VANET) Communications</a> has been accepted to <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10471760/proceeding\">RIVF2023</a>."
+    },
+    {
+      "date": "2023-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/S3M_SLAM/\">S3M: Semantic Segmentation Sparse Mapping for UAVs with RGB-D Camera</a> has been accepted to <a href=\"https://sice-si.org/SII2024/\">SII2024</a>."
+    },
+    {
+      "date": "2023-09",
+      "html": "I am honored to receive VINIF Scholarship"
+    },
+    {
+      "date": "2023-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/probabilistic_semantic_mapping/\">Object-Oriented Semantic Mapping for Reliable UAVs Navigation</a> has been accepted to <a href=\"https://ieeexplore.ieee.org/xpl/conhome/1802677/all-proceedings\">ICCAIS2023</a>."
+    },
+    {
+      "date": "2023-07",
+      "html": "I am honored to receive Collaboration Scholarship from JAIST"
+    },
+    {
+      "date": "2022-12",
+      "html": "I started my master's studies in the <a href=\"https://sites.google.com/view/aimpuet/home\">Robotics Department</a> at <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University, Vietnam</a>."
+    },
+    {
+      "date": "2022-09",
+      "html": "Our paper on <a href=\"https://thanhnguyencanh.github.io/MulDF/\">Multisensor Data Fusion for Reliable Obstacle Avoidance</a> has been accepted to <a href=\"https://ieeexplore.ieee.org/xpl/conhome/9989531/proceeding\">ICCAIS2022</a>"
+    },
+    {
+      "date": "2022-09",
+      "html": "I am honored to receive Best Student Thesis Award and Excellent Student Award."
+    },
+    {
+      "date": "2022-08",
+      "html": "I successfully defended my B.S. thesis."
+    },
+    {
+      "date": "2018-08",
+      "html": "I started my B.S. journey in the <a href=\"https://sites.google.com/view/aimpuet/home\">Robotics Department</a> at <a href=\"https://uet.vnu.edu.vn/en/\">University of Engineering and Technology, Vietnam National University, Vietnam</a>."
+    }
+  ],
+  "teaching": [
+    {
+      "date": "December 2024",
+      "title": "I213E: Discrete Signal Processing",
+      "role": "Teaching Assistant",
+      "institution": "Japan Advanced Institute of Science and Technology",
+      "courses": [
+        "Discrete Signal Processing"
+      ],
+      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401"
+    },
+    {
+      "date": "October 2024",
+      "title": "I116E: Fundamentals of Programming",
+      "role": "Teaching Assistant",
+      "institution": "Japan Advanced Institute of Science and Technology",
+      "courses": [
+        "Fundamentals of Programming"
+      ],
+      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401"
+    },
+    {
+      "date": "JAIST",
+      "title": "Robotics and System Optimization",
+      "role": "Teaching Assistant",
+      "institution": "Japan Advanced Institute of Science and Technology",
+      "courses": [
+        "Robotics",
+        "System Optimization"
+      ]
+    },
+    {
+      "date": "VNU-UET",
+      "title": "Robotics and Engineering",
+      "role": "Lecturer",
+      "institution": "VNU-University of Engineering and Technology",
+      "courses": [
+        "Programming Robots with ROS",
+        "Introduction to Human Machine Interface",
+        "Robotic Control",
+        "Mechanical Drawing",
+        "Electronics Engineering Practice",
+        "PLC and Its Application in Agriculture"
+      ],
+      "url": "https://fet.uet.vnu.edu.vn/"
+    },
+    {
+      "date": "Additional courses",
+      "title": "Robotics course topics",
+      "role": "Teaching experience",
+      "institution": "",
+      "courses": [
+        "Mobile Robotics",
+        "Algorithms for Intelligent Robots"
+      ]
+    }
+  ],
+  "funded_projects": [
+    {
+      "title": "SOLARIS",
+      "program": "Horizon Europe",
+      "grant": "HORIZON-CL5-2023-D3-02-13",
+      "description": "Research on drone teams for monitoring solar panels and detecting defects and faults, with Prof. Antonio Sgorbissa at RICE Lab, DIBRIS, University of Genoa.",
+      "role": "Visiting researcher, University of Genoa",
+      "period": "2026"
+    }
+  ],
+  "support": [
+    {
+      "name": "JST SPRING Scholarship",
+      "period": "2025–2027",
+      "kind": "Scholarship"
+    },
+    {
+      "name": "KDDI Foundation Scholarship",
+      "period": "2024–2025",
+      "kind": "Scholarship"
+    },
+    {
+      "name": "JAIST Doctoral Research Fellowship (DRF), Special Type",
+      "period": "2024–2025",
+      "kind": "Doctoral research fellowship"
+    },
+    {
+      "name": "VINIF Scholarship, Vingroup Innovation Foundation",
+      "period": "2022–2024",
+      "kind": "Master's scholarship"
+    },
+    {
+      "name": "Vallet Scholarship, Vallet Foundation",
+      "period": "2021–2022",
+      "kind": "Scholarship"
+    },
+    {
+      "name": "JSPS Scholarship, Japan Society for the Promotion of Science",
+      "period": "2027–2029",
+      "kind": "Scholarship"
+    },
+    {
+      "name": "Monbukagakusho Honors Scholarship",
+      "period": "2023–2024",
+      "kind": "Scholarship"
+    }
+  ],
+  "awards": [
+    "Student Representative, IEEE Robotics and Automation Society, 2026–2027.",
+    "Local Committee, <a href=\"https://sites.google.com/view/awist2025/home?authuser=0\">13th ASEAN Workshop on Information Science and Technology (AWIST 2025)</a>.",
+    "Best Paper Award, IEEE International Conference on Research, Innovation and Vision for the Future (RIVF 2023).",
+    "Guided students who won second place in the 2023 Student Research Competition, VNU-University of Engineering and Technology.",
+    "Best Student Thesis Award, VNU-University of Engineering and Technology, 2022.",
+    "REV-ECIT Best Paper Award, Radio and Electronics Association of Vietnam, 2022.",
+    "First place, Student Research Competition, VNU-University of Engineering and Technology, 2021."
+  ],
+  "service_html": "<p>I review for journals and conferences in robotics, artificial intelligence, and engineering.</p><ul><li><strong>IEEE:</strong> <a href=\"https://www.ieee-ras.org/publications/ra-l\">IEEE Robotics and Automation Letters</a>, <a href=\"https://www.ieee-ras.org/publications/t-ro\">IEEE Transactions on Robotics</a>, and <a href=\"https://www.ieee-ras.org/publications/t-ase\">IEEE Transactions on Automation Science and Engineering</a>.</li><li><strong>Elsevier:</strong> <a href=\"https://www.sciencedirect.com/journal/knowledge-based-systems\">Knowledge-Based Systems</a>, <a href=\"https://www.sciencedirect.com/journal/engineering-applications-of-artificial-intelligence\">Engineering Applications of Artificial Intelligence</a>, <a href=\"https://www.sciencedirect.com/journal/isa-transactions\">ISA Transactions</a>, Expert Systems with Applications, <a href=\"https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal\">Engineering Science and Technology, an International Journal</a>, and <a href=\"https://www.sciencedirect.com/journal/computers-and-electrical-engineering\">Computers &amp; Electrical Engineering</a>.</li><li><strong>Springer:</strong> <a href=\"https://www.springer.com/journal/11042\">Multimedia Tools and Applications</a>.</li><li><strong>Other journals and conferences:</strong> <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10382256/proceeding\">ICCAIS 2023</a>, <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10813991/proceeding\">ICCAIS 2024</a>, <a href=\"https://2024.iccas.org/\">ICCAS 2024</a>, <a href=\"http://2025.iccas.org/\">ICCAS 2025</a>, <a href=\"https://www.simpar2025.org/\">IEEE SIMPAR 2025</a>, <a href=\"https://www.tandfonline.com/journals/tfls21\">All Life</a>, and <a href=\"https://www.jamris.org/index.php/JAMRIS\">Journal of Automation, Mobile Robotics and Intelligent Systems</a>.</li></ul>",
+  "supervision": [
+    {
+      "level": "Master's students",
+      "students": [
+        {
+          "name": "Pham Thi My Le",
+          "institution": "VNU-UET",
+          "period": "2026–present"
+        },
+        {
+          "name": "Quoc Bao Nguyen",
+          "institution": "VNU-UET",
+          "period": "2025–present"
+        },
+        {
+          "name": "Manh Do Duc",
+          "institution": "VNU-UET",
+          "period": "2025–present"
+        },
+        {
+          "name": "Hoang Ngo Huy",
+          "institution": "HUST",
+          "period": "2025–2026"
+        }
+      ]
+    },
+    {
+      "level": "Undergraduate students",
+      "students": [
+        {
+          "name": "Nguyen Duc Khanh Huyen",
+          "institution": "VNU-UET",
+          "period": "2024–present"
+        },
+        {
+          "name": "Duong Vu Viet Thang",
+          "institution": "VNU-UET",
+          "period": "2024–present"
+        },
+        {
+          "name": "Dinh Mang Quan",
+          "institution": "VNU-UET",
+          "period": "2024–present"
+        },
+        {
+          "name": "Nguyen Van Bang",
+          "institution": "VNU-UET",
+          "period": "2024–present"
+        },
+        {
+          "name": "Tuan Thanh Tran",
+          "institution": "VNU-UET",
+          "period": "2024–present"
+        },
+        {
+          "name": "Dang Minh Bui",
+          "institution": "VNU-UET",
+          "period": "2024–2025"
+        },
+        {
+          "name": "Manh Do Duc",
+          "institution": "VNU-UET",
+          "period": "2022–2024"
+        },
+        {
+          "name": "Hoang Ngo Huy",
+          "institution": "VNU-UET",
+          "period": "2022–2024"
+        },
+        {
+          "name": "Quan Nguyen",
+          "institution": "VNU-UET",
+          "period": "2022–2024"
+        },
+        {
+          "name": "Kien Hoang",
+          "institution": "VNU-UET",
+          "period": "2022–2024"
+        }
+      ]
+    }
+  ],
+  "source_notes": [
+    "Funding period, VNU-UET lecturer role, supervision, scholarship updates, and IEEE student representative activity are transcribed from the latest owner-authored CV supplied during this session.",
+    "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim."
+  ]
+}
