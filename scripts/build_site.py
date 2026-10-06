@@ -143,9 +143,8 @@ def home():
         date = datetime.strptime(item["date"], "%Y-%m").strftime("%b %Y")
         news += f'<li class="news-item" id="news-{i}"><time class="news-date" datetime="{item["date"]}">{date}</time><div class="news-body">{item["html"]}</div></li>'
         add_search(plain(item["html"]), "News", f'index.html#news-{i}', date + " " + item["html"])
-    selected = [p for p in PAPERS if p["id"] in ["iraf-slam", "esrpcb", "s3m"]]
-    if len(selected) < 3:
-        selected = sorted(PAPERS, key=lambda p: p["year"], reverse=True)[:3]
+    papers_by_id = {paper["id"]: paper for paper in PAPERS}
+    selected = [papers_by_id[paper_id] for paper_id in PROFILE["selected_publications"]]
     content = about_intro(PROFILE) + f'''
 <section class="content-section" id="news">{section_heading('Recent news')}<ul class="news-list">{news}</ul><button id="toggle-news" class="resource-link" type="button" aria-expanded="false" hidden>Show all news</button></section>
 <section class="content-section">{section_heading('Selected publications', 'publications/', 'All publications')}{''.join(paper_card(p, compact=True) for p in selected)}</section>
