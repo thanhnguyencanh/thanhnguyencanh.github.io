@@ -263,7 +263,7 @@ button:focus:not(:focus-visible) { outline: none; }
 
 /* People and contact */
 .people-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
-.person-card { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 20px; align-items: center; min-width: 0; }
+.person-card { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 20px; align-items: center; min-width: 0; }
 .person-photo { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: center 28%; }
 .person-name { margin: 0; color: var(--accent); font-size: 1rem; font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; }
 .person-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 17px; }
@@ -319,7 +319,7 @@ kbd { padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; backg
 }
 @media (max-width: 960px) {
   .people-grid { gap: 28px 32px; }
-  .person-card { grid-template-columns: 112px minmax(0, 1fr); }
+  .person-card { grid-template-columns: 80px minmax(0, 1fr); }
   .profile-grid { grid-template-columns: minmax(0, 1fr) 205px; gap: 40px; }
   .topic-grid { gap: 16px; }
   .topic-card { padding: 22px 19px; }
@@ -348,7 +348,7 @@ kbd { padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; backg
   .topic-number { margin-bottom: 15px; }
   .resource-grid, .support-grid, .two-column { grid-template-columns: 1fr; gap: 22px; }
   .people-grid { grid-template-columns: 1fr; gap: 24px; }
-  .person-card { grid-template-columns: 96px minmax(0, 1fr); }
+  .person-card { grid-template-columns: 72px minmax(0, 1fr); }
   .contact-grid { grid-template-columns: 1fr; gap: 17px; }
   .contact-card { padding: 23px; }
   .year-group { grid-template-columns: 1fr; margin-top: 24px; }
@@ -405,7 +405,7 @@ kbd { padding: 1px 5px; border: 1px solid var(--line); border-radius: 3px; backg
   .social-icons { margin-top: 17px; }
 }
 @media (max-width: 400px) {
-  .person-card { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; }
+  .person-card { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
