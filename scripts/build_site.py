@@ -223,7 +223,7 @@ def teaching():
         institution = f'<p>{esc(item["institution"])}</p>' if item["institution"] else ""
         items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2>{institution}{course_summary}</div></article>'
         add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *item.get("courses", [])]))
-    content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>I have helped students with robotics research, including a team awarded second place in the 2023 Student Research Competition at VNU-University of Engineering and Technology.</p><a class="text-link" href="../open-positions/">Research inquiries ↗</a></section>'
+    content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>Student Research Competition, VNU-University of Engineering and Technology:</p><ul><li>Second place, 2023</li><li>Third place, 2025</li><li>Second place, 2026</li></ul><a class="text-link" href="../open-positions/">Research inquiries ↗</a></section>'
     render_page("teaching", "Teaching", "Teaching experience at JAIST and VNU-University of Engineering and Technology.", content)
 
 
