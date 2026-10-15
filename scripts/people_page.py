@@ -1,4 +1,4 @@
-"""Render researcher and student cards from the owner's profile data."""
+"""Render researcher and student portraits from the owner's profile data."""
 
 from html import escape
 import re
@@ -11,13 +11,6 @@ def _slug(value):
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "person"
 
 
-def _initials(name):
-    parts = str(name).split()
-    if not parts:
-        return ""
-    return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else "")).upper()
-
-
 def _section_heading(title):
     return (
         '<div class="section-heading">'
@@ -26,59 +19,53 @@ def _section_heading(title):
     )
 
 
+def _person_card(name, person_id, image="", url="", aliases=()):
+    """Use repository-relative image paths and optional profile URLs."""
+    image = str(image or "").strip()
+    if image and not image.startswith(("https://", "http://", "/", "./", "../")):
+        image = "../" + image
+    portrait = (
+        f'<img class="person-photo" src="{escape(image or "../images/profile/default.svg", quote=True)}" '
+        f'alt="{escape(name, quote=True) if image else ""}" width="144" height="144" '
+        'loading="lazy" decoding="async">'
+    )
+    name_markup = escape(name)
+    if url:
+        name_markup = f'<a href="{escape(str(url), quote=True)}">{name_markup}</a>'
+    alias_markup = "".join(
+        f'<span class="visually-hidden" id="{escape(alias, quote=True)}" aria-hidden="true"></span>'
+        for alias in aliases
+    )
+    return (
+        f'<article class="person-card" id="{escape(person_id, quote=True)}">'
+        + alias_markup + portrait
+        + f'<h3 class="person-name">{name_markup}</h3></article>'
+    )
+
+
 def people_content(profile, add_search) -> str:
     """Return main content and register person anchors with the site search index.
 
-    Student entries use the student records provided in the CV.
-    They do not assign lab membership, positions, photos, or research projects.
+    Student entries retain their groups and anchors from the CV records.
+    Optional image and url fields add a portrait and a linked name.
     """
     name = str(profile["name"])
-    email = str(profile["email"])
     lab = str(profile.get("lab_short_name", "PAIRS Lab"))
     owner_id = "person-" + _slug(name)
     used_ids = {owner_id}
-    owner_role = "PhD candidate and Research Assistant; Lecturer"
-    owner_affiliation = (
-        "Japan Advanced Institute of Science and Technology; "
-        + str(profile.get("lecturer_department", "Robotics Department")) + ", "
-        + str(profile.get("lecturer_institution", "University of Engineering and Technology, Vietnam National University"))
-    )
-    add_search(name, "People", f"people/#{owner_id}", owner_role + " " + owner_affiliation)
-
-    owner_links = [
-        ("mailto:" + email, "Email"),
-        ("https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en", "Google Scholar"),
-        ("https://github.com/thanhnguyencanh", "GitHub"),
-        ("https://www.linkedin.com/in/nguyencanhthanh/", "LinkedIn"),
-        ("https://orcid.org/0000-0001-6332-1002", "ORCID"),
-        ("../CV_Thanh%20Nguyen%20Canh.pdf", "CV"),
-    ]
-    links = "".join(
-        f'<a class="resource-link" href="{escape(url, quote=True)}">{escape(label)}</a>'
-        for url, label in owner_links
-    )
+    add_search(name, "People", f"people/#{owner_id}", "Research & teaching")
     content = (
         '<header class="page-heading">'
         f'<p class="eyebrow">{escape(lab)}</p>'
         '<h1>People</h1>'
         '<p class="page-intro">Researcher profile, students, and alumni in perception, '
-        'autonomy, and intelligent robotics.</p>'
+        'autonomy, and intelligent robotics lab.</p>'
         '</header>'
         '<section class="content-section">'
         + _section_heading("Research & teaching")
         + '<div class="people-grid">'
-        f'<article class="person-card lead-person" id="{escape(owner_id, quote=True)}">'
-        f'<img class="person-photo" src="../images/profile/thanh.jpg" alt="{escape(name, quote=True)}" '
-        'width="320" height="320" decoding="async">'
-        '<div class="person-info">'
-        f'<h3>{escape(name)}</h3>'
-        '<p class="person-role">PhD candidate &amp; Research Assistant</p>'
-        '<p class="person-affiliation">Japan Advanced Institute of Science and Technology (JAIST)</p>'
-        '<p class="person-role">Lecturer</p>'
-        f'<p class="person-affiliation">{escape(str(profile.get("lecturer_department", "Robotics Department")))}, '
-        f'{escape(str(profile.get("lecturer_institution", "University of Engineering and Technology, Vietnam National University")))}</p>'
-        f'<div class="person-links">{links}</div>'
-        '</div></article></div></section>'
+        + _person_card(name, owner_id, "images/profile/thanh.jpg", "../index.html")
+        + '</div></section>'
     )
 
     records_by_name = {}
@@ -100,6 +87,8 @@ def people_content(profile, add_search) -> str:
                 "period": str(student["period"]),
                 "level": level,
                 "id": person_id,
+                "image": student.get("image", ""),
+                "url": student.get("url", ""),
             })
 
     def record_priority(record):
@@ -126,26 +115,15 @@ def people_content(profile, add_search) -> str:
         cards = []
         for student in students:
             student_name = student["name"]
-            institution = student["institution"]
             person_id = student["id"]
-            aliases = "".join(
-                f'<span class="visually-hidden" id="{escape(alias, quote=True)}" aria-hidden="true"></span>'
-                for alias in student["aliases"]
-            )
             cards.append(
-                f'<article class="person-card" id="{escape(person_id, quote=True)}">'
-                + aliases
-                + f'<div class="person-avatar" aria-hidden="true">{escape(_initials(student_name))}</div>'
-                '<div class="person-info">'
-                f'<h3>{escape(student_name)}</h3>'
-                f'<p class="person-affiliation">{escape(institution)}</p>'
-                '</div></article>'
+                _person_card(student_name, person_id, student["image"], student["url"], student["aliases"])
             )
             add_search(
                 student_name,
                 "People",
                 f"people/#{person_id}",
-                " ".join([section_title, institution]),
+                section_title,
             )
         if cards:
             content += (

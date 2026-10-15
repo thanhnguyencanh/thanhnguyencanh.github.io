@@ -212,13 +212,18 @@ def teaching():
 
 
 def funding():
-    projects = ""
+    projects = {"active": [], "completed": []}
     for i, p in enumerate(PROFILE["funded_projects"]):
-        projects += f'<article class="funding-card" id="project-{i}"><p class="funding-label">{esc(p["program"])}</p><h2>{esc(p["title"])}</h2><p>{esc(p["description"])}</p><dl class="funding-meta"><dt>Programme / call</dt><dd>{esc(p["grant"])}</dd><dt>Participation</dt><dd>{esc(p["role"])}</dd><dt>Appointment</dt><dd>{esc(p["period"])}</dd></dl><a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Details in CV ↗</a></article>'
+        status = p.get("status", "active")
+        projects[status].append(f'<article class="funding-card" id="project-{i}"><p class="funding-label">{esc(p["program"])}</p><h2>{esc(p["title"])}</h2><p>{esc(p["description"])}</p><dl class="funding-meta"><dt>Programme / call</dt><dd>{esc(p["grant"])}</dd><dt>Participation</dt><dd>{esc(p["role"])}</dd><dt>Appointment</dt><dd>{esc(p["period"])}</dd></dl><a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Details in CV ↗</a></article>')
         add_search(p["title"], "Funded project", f"funded-projects/#project-{i}", " ".join(p.values()))
     support_items = sorted(PROFILE["support"], key=lambda p: tuple(int(year) for year in re.findall(r"\d{4}", p["period"])), reverse=True)
     support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in support_items)
-    content = heading("Funded Projects", "Research project participation, fellowships and academic support.", "Projects & research support") + f'<section class="content-section">{section_heading("Research projects")}{projects}</section><section class="content-section">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>'
+    project_sections = "".join(
+        f'<section class="content-section" id="{status}-projects">{section_heading(title)}{"".join(projects[status])}</section>'
+        for status, title in [("active", "Active projects"), ("completed", "Completed projects")]
+    )
+    content = heading("Funded Projects", "Research project participation, fellowships and academic support.", "Projects & research support") + project_sections + f'<section class="content-section">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>'
     render_page("funded-projects", "Funded Projects", "Research project participation, including SOLARIS, and academic scholarships and fellowships.", content)
     for p in PROFILE["support"]:
         add_search(p["name"], "Research support", "funded-projects/", " ".join(p.values()))

@@ -201,6 +201,7 @@
   "funded_projects": [
     {
       "title": "SOLARIS",
+      "status": "completed",
       "program": "Horizon Europe",
       "grant": "HORIZON-CL5-2023-D3-02-13",
       "description": "Research on drone teams for monitoring solar panels and detecting defects and faults, with Prof. Antonio Sgorbissa at RICE Lab, DIBRIS, University of Genoa.",
@@ -272,22 +273,30 @@
         {
           "name": "Pham Thi My Le",
           "institution": "VNU-UET",
-          "period": "2026–present"
+          "period": "2026–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Quoc Bao Nguyen",
           "institution": "VNU-UET",
-          "period": "2025–present"
+          "period": "2025–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Manh Do Duc",
           "institution": "VNU-UET",
-          "period": "2025–present"
+          "period": "2025–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Hoang Ngo Huy",
           "institution": "HUST",
-          "period": "2025–2026"
+          "period": "2025–2026",
+          "image": "",
+          "url": ""
         }
       ]
     },
@@ -297,52 +306,72 @@
         {
           "name": "Nguyen Duc Khanh Huyen",
           "institution": "VNU-UET",
-          "period": "2024–present"
+          "period": "2024–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Duong Vu Viet Thang",
           "institution": "VNU-UET",
-          "period": "2024–present"
+          "period": "2024–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Dinh Mang Quan",
           "institution": "VNU-UET",
-          "period": "2024–present"
+          "period": "2024–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Nguyen Van Bang",
           "institution": "VNU-UET",
-          "period": "2024–present"
+          "period": "2024–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Tuan Thanh Tran",
           "institution": "VNU-UET",
-          "period": "2024–present"
+          "period": "2024–present",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Dang Minh Bui",
           "institution": "VNU-UET",
-          "period": "2024–2025"
+          "period": "2024–2025",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Manh Do Duc",
           "institution": "VNU-UET",
-          "period": "2022–2024"
+          "period": "2022–2024",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Hoang Ngo Huy",
           "institution": "VNU-UET",
-          "period": "2022–2024"
+          "period": "2022–2024",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Quan Nguyen",
           "institution": "VNU-UET",
-          "period": "2022–2024"
+          "period": "2022–2024",
+          "image": "",
+          "url": ""
         },
         {
           "name": "Kien Hoang",
           "institution": "VNU-UET",
-          "period": "2022–2024"
+          "period": "2022–2024",
+          "image": "",
+          "url": ""
         }
       ]
     }
