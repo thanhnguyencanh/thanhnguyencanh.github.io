@@ -250,6 +250,22 @@ def people():
     render_page("people", "People", "Researchers and students associated with Thanh Nguyen Canh's research and teaching.", content)
 
 
+def office_details(key, title):
+    office = PROFILE["offices"][key]
+    add_search(title + " office", "Contact", f"contact/#{key}",
+               " ".join([title, "Room " + office["room"], office["building"], office["city"]]))
+    return (
+        f'<address class="office-address">Room {esc(office["room"])}, {esc(office["building"])}<br>{esc(office["city"])}</address>'
+        '<div class="affiliation-links">'
+        f'<a class="text-link" href="{esc(office["maps_url"])}">Open in Google Maps ↗</a>'
+        f'<a class="text-link" href="{esc(office["university_url"])}">University website ↗</a>'
+        '</div>'
+        f'<iframe class="affiliation-map" title="Google Maps location for {esc(title)}" '
+        f'src="{esc(office["embed_url"])}" width="480" height="280" loading="lazy" '
+        'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>'
+    )
+
+
 def contact():
     profiles = [
         ("Google Scholar", "https://scholar.google.com/citations?user=gnzxTKcAAAAJ&hl=en"),
@@ -258,7 +274,7 @@ def contact():
         ("ORCID", "https://orcid.org/0000-0001-6332-1002"),
     ]
     links = "".join(f'<a class="resource-link" href="{esc(url)}">{label} ↗</a>' for label, url in profiles)
-    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p><p>Ishikawa, Japan</p><a class="text-link" href="https://www.jaist.ac.jp/english/">University website ↗</a></div><div><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p><p>Hanoi, Vietnam</p><a class="text-link" href="https://uet.vnu.edu.vn/en/">University website ↗</a></div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and people before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
+    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div class="affiliation" id="jaist"><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p>{office_details("jaist", "JAIST")}</div><div class="affiliation" id="uet"><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p>{office_details("uet", "UET")}</div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and people before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
     render_page("contact", "Contact", "Contact Thanh Nguyen Canh at PAIRS Lab for research collaboration and student inquiries.", content)
     add_search(PROFILE['email'], "Contact", "contact/#email", PROFILE['name'] + " " + PROFILE['lab_name'] + " JAIST " + PROFILE['lecturer_department'] + " " + PROFILE['lecturer_institution'])
 

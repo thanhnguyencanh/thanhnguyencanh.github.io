@@ -410,6 +410,24 @@
   "lab_short_name": "PAIRS Lab",
   "lecturer_department": "Robotics Department",
   "lecturer_institution": "University of Engineering and Technology, Vietnam National University",
+  "offices": {
+    "jaist": {
+      "room": "i62",
+      "building": "School of Information Science I",
+      "city": "Ishikawa, Japan",
+      "maps_url": "https://maps.app.goo.gl/Nh1U64hMGcB9YLAX9",
+      "embed_url": "https://maps.google.com/maps?q=36.4447995,136.5924781&z=17&output=embed",
+      "university_url": "https://www.jaist.ac.jp/english/"
+    },
+    "uet": {
+      "room": "704",
+      "building": "E3 Building",
+      "city": "Hanoi, Vietnam",
+      "maps_url": "https://maps.app.goo.gl/f5X8RaNbiU7YKNjU8",
+      "embed_url": "https://maps.google.com/maps?q=21.0382325,105.7826814&z=17&output=embed",
+      "university_url": "https://uet.vnu.edu.vn/en/"
+    }
+  },
   "selected_publications": [
     "bayesian-probabilistic-data-association",
     "semantic-visual-slam-survey",
