@@ -1,0 +1,11 @@
+{
+  "name": "thanhnguyencanh-website",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"*.html\" \"*/index.html\" stylesheet.css \"assets/*.js\" \"data/*.json\" package.json .prettierrc.json",
+    "format:check": "prettier --check \"*.html\" \"*/index.html\" stylesheet.css \"assets/*.js\" \"data/*.json\" package.json .prettierrc.json"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

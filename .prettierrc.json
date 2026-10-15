@@ -1,0 +1,7 @@
+{
+  "tabWidth": 2,
+  "printWidth": 100,
+  "htmlWhitespaceSensitivity": "css",
+  "proseWrap": "preserve",
+  "endOfLine": "lf"
+}

@@ -2,7 +2,11 @@
 (() => {
   "use strict";
 
-  const normalize = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const normalize = (value) =>
+    value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
   const tokens = (value) => normalize(value).trim().split(/\s+/).filter(Boolean);
   const matches = (value, query) => tokens(query).every((word) => normalize(value).includes(word));
 
@@ -40,7 +44,11 @@
   themeButton.addEventListener("click", () => {
     const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem("theme", theme); } catch (_) { /* Storage may be unavailable. */ }
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (_) {
+      /* Storage may be unavailable. */
+    }
     updateThemeLabel();
   });
 
@@ -51,14 +59,19 @@
     let expanded = false;
     const updateNews = () => {
       const targetId = location.hash.slice(1);
-      items.forEach((item, index) => { item.hidden = !expanded && index >= visibleCount && item.id !== targetId; });
+      items.forEach((item, index) => {
+        item.hidden = !expanded && index >= visibleCount && item.id !== targetId;
+      });
       newsToggle.textContent = expanded ? "Show less news" : `Show all ${items.length} updates`;
       newsToggle.setAttribute("aria-expanded", String(expanded));
     };
     if (items.length > visibleCount) {
       newsToggle.hidden = false;
       updateNews();
-      newsToggle.addEventListener("click", () => { expanded = !expanded; updateNews(); });
+      newsToggle.addEventListener("click", () => {
+        expanded = !expanded;
+        updateNews();
+      });
       window.addEventListener("hashchange", updateNews);
     }
   }
@@ -77,41 +90,69 @@
     const applyFilters = (updateUrl = true) => {
       let visible = 0;
       cards.forEach((card) => {
-        const keep = matches(card.dataset.search, query.value)
-          && (year.value === "all" || year.value === card.dataset.year)
-          && (type.value === "all" || type.value === card.dataset.type)
-          && (topic === "all" || card.dataset.topics.split("|").some((tag) => normalize(tag).includes(normalize(topic))));
+        const keep =
+          matches(card.dataset.search, query.value) &&
+          (year.value === "all" || year.value === card.dataset.year) &&
+          (type.value === "all" || type.value === card.dataset.type) &&
+          (topic === "all" ||
+            card.dataset.topics
+              .split("|")
+              .some((tag) => normalize(tag).includes(normalize(topic))));
         card.hidden = !keep;
         if (keep) visible++;
       });
       document.querySelectorAll(".year-group, .publication-group").forEach((group) => {
-        group.hidden = ![...group.querySelectorAll(".publication-card")].some((card) => !card.hidden);
+        group.hidden = ![...group.querySelectorAll(".publication-card")].some(
+          (card) => !card.hidden,
+        );
       });
       count.textContent = `${visible} of ${cards.length} publication${cards.length === 1 ? "" : "s"}`;
       empty.hidden = visible !== 0;
-      chips.forEach((chip) => chip.setAttribute("aria-pressed", String(chip.dataset.topic === topic)));
+      chips.forEach((chip) =>
+        chip.setAttribute("aria-pressed", String(chip.dataset.topic === topic)),
+      );
       if (updateUrl) {
         const url = new URL(location.href);
-        for (const [key, value] of [["q", query.value.trim()], ["year", year.value], ["type", type.value], ["topic", topic]]) {
+        for (const [key, value] of [
+          ["q", query.value.trim()],
+          ["year", year.value],
+          ["type", type.value],
+          ["topic", topic],
+        ]) {
           if (value && value !== "all") url.searchParams.set(key, value);
           else url.searchParams.delete(key);
         }
-        try { history.replaceState(null, "", url); } catch (_) { /* Direct file previews may restrict history. */ }
+        try {
+          history.replaceState(null, "", url);
+        } catch (_) {
+          /* Direct file previews may restrict history. */
+        }
       }
     };
     const loadFilters = () => {
       const params = new URLSearchParams(location.search);
       query.value = params.get("q") || "";
-      year.value = [...year.options].some((option) => option.value === params.get("year")) ? params.get("year") : "all";
-      type.value = [...type.options].some((option) => option.value === params.get("type")) ? params.get("type") : "all";
-      topic = chips.some((chip) => chip.dataset.topic === params.get("topic")) ? params.get("topic") : "all";
+      year.value = [...year.options].some((option) => option.value === params.get("year"))
+        ? params.get("year")
+        : "all";
+      type.value = [...type.options].some((option) => option.value === params.get("type"))
+        ? params.get("type")
+        : "all";
+      topic = chips.some((chip) => chip.dataset.topic === params.get("topic"))
+        ? params.get("topic")
+        : "all";
       applyFilters(false);
     };
     filters.addEventListener("submit", (event) => event.preventDefault());
     query.addEventListener("input", () => applyFilters());
     year.addEventListener("change", () => applyFilters());
     type.addEventListener("change", () => applyFilters());
-    chips.forEach((chip) => chip.addEventListener("click", () => { topic = chip.dataset.topic; applyFilters(); }));
+    chips.forEach((chip) =>
+      chip.addEventListener("click", () => {
+        topic = chip.dataset.topic;
+        applyFilters();
+      }),
+    );
     document.getElementById("reset-publications").addEventListener("click", () => {
       query.value = "";
       year.value = "all";
@@ -140,7 +181,9 @@
         selection.addRange(range);
         button.textContent = "Select and copy the citation";
       }
-      setTimeout(() => { button.textContent = "Copy citation"; }, 2500);
+      setTimeout(() => {
+        button.textContent = "Copy citation";
+      }, 2500);
     });
   });
 
@@ -163,17 +206,31 @@
       status.textContent = "Type a title, author, topic or keyword.";
       return;
     }
-    const found = index.filter((entry) => matches(`${entry.title} ${entry.category} ${entry.text}`, siteQuery.value));
+    const found = index.filter((entry) =>
+      matches(`${entry.title} ${entry.category} ${entry.text}`, siteQuery.value),
+    );
     found.sort((a, b) => {
-      const score = (entry) => words.reduce((sum, word) => sum + (normalize(entry.title).includes(word) ? 3 : 0), 0) + (entry.category === "Publication" ? 1 : 0);
+      const score = (entry) =>
+        words.reduce((sum, word) => sum + (normalize(entry.title).includes(word) ? 3 : 0), 0) +
+        (entry.category === "Publication" ? 1 : 0);
       return score(b) - score(a);
     });
-    status.textContent = found.length ? `${found.length} results${found.length > 20 ? " · showing the first 20" : ""}` : "No results. Try another keyword.";
+    status.textContent = found.length
+      ? `${found.length} results${found.length > 20 ? " · showing the first 20" : ""}`
+      : "No results. Try another keyword.";
     found.slice(0, 20).forEach((entry) => {
       const link = document.createElement("a");
       link.className = "search-result";
       link.href = dialog.dataset.root + entry.url;
-      link.append(makeText("span", "search-result-type", entry.category), makeText("span", "search-result-title", entry.title), makeText("span", "search-result-excerpt", entry.text.slice(0, 170) + (entry.text.length > 170 ? "…" : "")));
+      link.append(
+        makeText("span", "search-result-type", entry.category),
+        makeText("span", "search-result-title", entry.title),
+        makeText(
+          "span",
+          "search-result-excerpt",
+          entry.text.slice(0, 170) + (entry.text.length > 170 ? "…" : ""),
+        ),
+      );
       results.append(link);
     });
   };
@@ -187,9 +244,18 @@
     document.getElementById("close-search").addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (event) => {
       const box = dialog.getBoundingClientRect();
-      if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) dialog.close();
+      if (
+        event.target === dialog &&
+        (event.clientX < box.left ||
+          event.clientX > box.right ||
+          event.clientY < box.top ||
+          event.clientY > box.bottom)
+      )
+        dialog.close();
     });
-    dialog.addEventListener("close", () => { searchButton.focus(); });
+    dialog.addEventListener("close", () => {
+      searchButton.focus();
+    });
     siteQuery.addEventListener("input", showResults);
     dialog.querySelector("form").addEventListener("submit", (event) => {
       event.preventDefault();
@@ -198,7 +264,10 @@
     });
     document.addEventListener("keydown", (event) => {
       const editing = event.target.closest("input, textarea, select, [contenteditable]");
-      if ((event.key.toLowerCase() === "k" && (event.ctrlKey || event.metaKey)) || (event.key === "/" && !editing && !event.ctrlKey && !event.metaKey && !event.altKey)) {
+      if (
+        (event.key.toLowerCase() === "k" && (event.ctrlKey || event.metaKey)) ||
+        (event.key === "/" && !editing && !event.ctrlKey && !event.metaKey && !event.altKey)
+      ) {
         event.preventDefault();
         searchButton.click();
       }

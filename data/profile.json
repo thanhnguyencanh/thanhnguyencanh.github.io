@@ -157,9 +157,7 @@
       "title": "I213E: Discrete Signal Processing",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": [
-        "Discrete Signal Processing"
-      ],
+      "courses": ["Discrete Signal Processing"],
       "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401"
     },
     {
@@ -167,9 +165,7 @@
       "title": "I116E: Fundamentals of Programming",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": [
-        "Fundamentals of Programming"
-      ],
+      "courses": ["Fundamentals of Programming"],
       "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401"
     },
     {
@@ -177,10 +173,7 @@
       "title": "Robotics and System Optimization",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": [
-        "Robotics",
-        "System Optimization"
-      ]
+      "courses": ["Robotics", "System Optimization"]
     },
     {
       "date": "VNU-UET",
