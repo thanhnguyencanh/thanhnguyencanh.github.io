@@ -258,54 +258,6 @@ window.siteSearch = [
     text: "I review for journals and conferences in robotics, artificial intelligence, and engineering. IEEE: IEEE Robotics and Automation Letters , IEEE Transactions on Robotics , IEEE Transactions on Automation Science and Engineering , and IEEE Transactions on Instrumentation & Measurement . Elsevier: Knowledge-Based Systems , Engineering Applications of Artificial Intelligence , ISA Transactions , Expert Systems with Applications, Engineering Science and Technology, an International Journal , Computers & Electrical Engineering , Applied Soft Computing Journal , Neurocomputing , Robotics and Autonomous Systems , Measurement , and Results in Engineering . Springer: Multimedia Tools and Applications . Nature: Scientific Reports . Other journals and conferences: ICCAIS 2023 , ICCAIS 2024 , ICCAS 2024 , ICCAS 2025 , IEEE SIMPAR 2025 , All Life , and Journal of Automation, Mobile Robotics and Intelligent Systems . Student Representative, IEEE Robotics and Automation Society, 2026–2027. Local Committee, 13th ASEAN Workshop on Information Science and Technology (AWIST 2025) . Best Paper Award, IEEE International Conference on Research, Innovation and Vision for the Future (RIVF 2023). Guided students who won second place in the 2023 Student Research Competition, VNU-University of Engineering and Technology. Best Student Thesis Award, VNU-University of Engineering and Technology, 2022. REV-ECIT Best Paper Award, Radio and Electronics Association of Vietnam, 2022. First place, Student Research Competition, VNU-University of Engineering and Technology, 2021.",
   },
   {
-    title: "Active & semantic SLAM",
-    category: "Research",
-    url: "research/#semantic-slam",
-    text: "Building meaningful representations of the world for autonomous robots. My research spans probabilistic semantic mapping, visual SLAM under challenging conditions, and active exploration with UAVs. SLAM Semantic mapping",
-  },
-  {
-    title: "Robot learning & interaction",
-    category: "Research",
-    url: "research/#robot-learning",
-    text: "Learning robot behavior from observations, demonstrations and interaction. I investigate imitation learning, reinforcement learning and the use of vision-language models for robotic manipulation and human–robot interaction. Robot learning Human–robot interaction Reinforcement learning",
-  },
-  {
-    title: "Reliable localization & navigation",
-    category: "Research",
-    url: "research/#navigation",
-    text: "Connecting perception with safe decisions. I work on semantic-aware path planning, multisensor fusion, and motion prediction for navigation around people and in challenging environments. Navigation Sensor fusion",
-  },
-  {
-    title: "Robot vision & industrial perception",
-    category: "Research",
-    url: "research/#robot-vision",
-    text: "Turning visual observations into useful information for robotics and inspection. Applications include monocular 3D object localization and super-resolution methods for detecting tiny defects on printed circuit boards. Computer vision Calibration Defect detection",
-  },
-  {
-    title: "Semantic Active SLAM",
-    category: "Research project",
-    url: "research/#semantic-active-slam",
-    text: "semantic-active-slam Semantic Active SLAM 2022–present Semantic-aware mapping and active exploration for UAVs, with research on robust visual SLAM, data association and Gaussian splatting. Python / C++ · ROS · UAVs",
-  },
-  {
-    title: "Delibot — Humanoid Robotics",
-    category: "Research project",
-    url: "research/#delibot",
-    text: "delibot Delibot — Humanoid Robotics 2020–2024 Design and fabrication of a dual-arm service robot, visual 3D localization from 2D estimates and obstacle avoidance using multisensor fusion. C++ / Python · ROS · MoveIt / Gazebo",
-  },
-  {
-    title: "Humanoid Robot Interaction & Social Navigation",
-    category: "Research project",
-    url: "research/#humanoid-interaction",
-    text: "humanoid-interaction Humanoid Robot Interaction & Social Navigation 2024–present Multi-robot collaboration, humanoid perception and interaction using vision-language and large language models, with navigation in crowded environments. Python / C++ · ROS / ROS2",
-  },
-  {
-    title: "Research",
-    category: "Page",
-    url: "research/",
-    text: "Research on active semantic SLAM, robot learning, reliable navigation and industrial robot vision.",
-  },
-  {
     title: "Publications",
     category: "Page",
     url: "publications/",
@@ -385,76 +337,10 @@ window.siteSearch = [
     text: "Thanh Nguyen Canh Du Ngoc Trinh Xiem HoangVan Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS) 2025 Machine vision Robot calibration Computer vision 3D Object Localization has been emerging recently as one of the challenges of Machine Vision or Robot Vision tasks. In this paper, we proposed a novel method designed for the localization of isometric flat 3D objects, leveraging a blend of deep learning techniques primarily rooted in object detection, postimage processing algorithms, and pose estimation. Our approach involves the strategic application of 3D calibration methods tailored for low-cost industrial robotics systems, requiring only a single 2D image input. Initially, object detection is performed using the You Only Look Once (YOLO) model, followed by segmentation of the object into two distinct parts— the top face and the remainder— using the Mask R-CNN model. Subsequently, the center of the top face serves as the initialization position and a unique combination of postprocessing techniques and a novel calibration algorithm is employed to refine the object’s position. Experimental results demonstrate a notable reduction in localization error by 87.65% when compared to existing methodologies.",
   },
   {
-    title: "Uncertainty-Guided 2:4 Dynamic Sparse Evidential Learning for Rare-Event Screening",
-    category: "Publication",
-    url: "publications/#sparse-evidential-rare-event-screening",
-    text: "K. H. Nguyen Thanh Nguyen Canh Xiem HoangVan Association for the Advancement of Artificial Intelligence (AAAI) 2027 Machine learning Uncertainty",
-  },
-  {
-    title: "Multi-head Evidential Deep Learning with Adaptive Prior Weight Fusion",
-    category: "Publication",
-    url: "publications/#multi-head-evidential-learning",
-    text: "K. H. Nguyen Thanh Nguyen Canh Xiem HoangVan Association for the Advancement of Artificial Intelligence (AAAI) 2027 Machine learning Uncertainty",
-  },
-  {
     title: "ROCC: Reliability-Gated Obstruction Reasoning with Certified DAG for Clutter Grasping",
     category: "Publication",
     url: "publications/#rocc",
     text: "Tuan Thanh Tran Thanh Nguyen Canh Xiem HoangVan Nak Young Chong IEEE International Conference on Robotics and Automation (ICRA) 2027 Robot learning Manipulation",
-  },
-  {
-    title: "From Semantic to Affordances: Hierarchical Evidential Semantic-Functional Mapping",
-    category: "Publication",
-    url: "publications/#hierarchical-evidential-semantic-functional-mapping",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong Preprint 2026 SLAM Semantic SLAM UAVs",
-  },
-  {
-    title:
-      "Compliance-Aware Reinforcement Learning for Active Semantic SLAM with a Soft Aerial Robot",
-    category: "Publication",
-    url: "publications/#compliance-aware-rl-active-semantic-slam",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Robot learning Reinforcement learning UAVs",
-  },
-  {
-    title:
-      "Contact-Aware Active SLAM with a Soft UAV: Exploiting Compliance for Frontier Goal Selection",
-    category: "Publication",
-    url: "publications/#contact-aware-active-slam",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Active SLAM UAVs",
-  },
-  {
-    title:
-      "Uncertainty-Aware Open-Vocabulary Semantic Gaussian Splatting for Robust Mapping in Dynamic Scenes",
-    category: "Publication",
-    url: "publications/#open-vocabulary-semantic-gaussian-splatting",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Gaussian splatting Computer vision",
-  },
-  {
-    title:
-      "HESFM-OV: Hierarchical Evidential Semantic-Functional Mapping with Open Vocabulary for Indoor UAV Navigation",
-    category: "Publication",
-    url: "publications/#hesfm-ov",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Navigation UAVs",
-  },
-  {
-    title:
-      "SeLiSLAM: Semantic Lifelong Simultaneous Localization and Mapping for UAVs via Continual Learning, Open-Vocabulary Ephemerality, and Object Re-Identification",
-    category: "Publication",
-    url: "publications/#selislam",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Continual learning UAVs",
-  },
-  {
-    title:
-      "Open-World Semantic SLAM: A Survey on Representations, Uncertainty, and Lifelong Adaptation",
-    category: "Publication",
-    url: "publications/#open-world-semantic-slam-survey",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Survey",
-  },
-  {
-    title: "USGLoc: Uncertainty-Aware Semantic Visual Localization from 3D Gaussian Splatting",
-    category: "Publication",
-    url: "publications/#usgloc",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Gaussian splatting Computer vision",
   },
   {
     title: "Con-DSO: Learning Short-Horizon Consistency Priors for RGB-D Direct Sparse Odometry",
@@ -470,35 +356,10 @@ window.siteSearch = [
     text: "D. M. Do V. B. Nguyen Thanh Nguyen Canh M. T. Thai Xiem HoangVan Robotics and Autonomous Systems 2026 SLAM Computer vision Survey",
   },
   {
-    title: "Path-Aware Frontier Selection for UAV-Based Autonomous 3D Exploration",
-    category: "Publication",
-    url: "publications/#path-aware-frontier-uav-exploration",
-    text: "D. M. Do Thanh Nguyen Canh N. M. Do M. T. Thai Xiem HoangVan International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Active SLAM UAVs Navigation",
-  },
-  {
-    title: "Efficient Continuous Semantic Mapping based on Spatio-Temporal Awareness",
-    category: "Publication",
-    url: "publications/#continuous-semantic-mapping",
-    text: "M. L. Pham D. T. Duong Xiem HoangVan Thanh Nguyen Canh International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Semantic SLAM",
-  },
-  {
-    title: "Semantic-Aware Autonomous Exploration for UAVs in Unknown Indoor Environments",
-    category: "Publication",
-    url: "publications/#semantic-aware-uav-exploration",
-    text: "D.T. Nguyen N. M. Do Xiem HoangVan Thanh Nguyen Canh International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Semantic SLAM UAVs Navigation",
-  },
-  {
     title: "A Survey on Collaborative SLAM with 3D Gaussian Splatting",
     category: "Publication",
     url: "publications/#collaborative-gaussian-splatting-slam-survey",
     text: "Thanh Nguyen Canh P. N. Xuan H. Nguyen Nak Young Chong Xiem HoangVan Autonomous Robots 2026 SLAM Gaussian splatting Survey",
-  },
-  {
-    title:
-      "HELIX: Hierarchical Evidential Loop-closure and Information eXploration for Active Semantic SLAM in GPS-Denied Environments",
-    category: "Publication",
-    url: "publications/#helix",
-    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Active SLAM UAVs",
   },
   {
     title:
@@ -644,233 +505,58 @@ window.siteSearch = [
     text: "Teaching experience at JAIST and VNU-University of Engineering and Technology.",
   },
   {
-    title: "SOLARIS",
-    category: "Funded project",
-    url: "funded-projects/#project-0",
-    text: "SOLARIS completed Horizon Europe HORIZON-CL5-2023-D3-02-13 Research on drone teams for monitoring solar panels and detecting defects and faults, with Prof. Antonio Sgorbissa at RICE Lab, DIBRIS, University of Genoa. Visiting researcher, University of Genoa 2026",
-  },
-  {
-    title: "Funded Projects",
-    category: "Page",
-    url: "funded-projects/",
-    text: "Research project participation, including SOLARIS, and academic scholarships and fellowships.",
-  },
-  {
     title: "JSPS Fellowship, Japan Society for the Promotion of Science",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "JSPS Fellowship, Japan Society for the Promotion of Science 2027–2029 Fellowship",
   },
   {
     title: "KDDI Foundation Scholarship",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "KDDI Foundation Scholarship 2027–2028 Scholarship",
   },
   {
     title: "UniGe Scholarship, University of Genoa",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "UniGe Scholarship, University of Genoa 2026 Scholarship",
   },
   {
     title: "JST SPRING Scholarship",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "JST SPRING Scholarship 2025–2027 Scholarship",
   },
   {
     title: "KDDI Foundation Scholarship",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "KDDI Foundation Scholarship 2024–2025 Scholarship",
   },
   {
     title: "JAIST Doctoral Research Fellowship (DRF), Special Type",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "JAIST Doctoral Research Fellowship (DRF), Special Type 2024–2025 Doctoral research fellowship",
   },
   {
     title: "Monbukagakusho Honors Scholarship",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "Monbukagakusho Honors Scholarship 2023–2024 Scholarship",
   },
   {
     title: "VINIF Scholarship, Vingroup Innovation Foundation",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "VINIF Scholarship, Vingroup Innovation Foundation 2022–2024 Master's scholarship",
   },
   {
     title: "Vallet Scholarship, Vallet Foundation",
     category: "Research support",
-    url: "funded-projects/",
+    url: "index.html#scholarships",
     text: "Vallet Scholarship, Vallet Foundation 2021–2022 Scholarship",
-  },
-  {
-    title:
-      "BPDA-GMM: Bayesian Probabilistic Data Association via Gaussian Mixture Models for Semantic SLAM",
-    category: "Code",
-    url: "datasets-code/#code-bayesian-probabilistic-data-association",
-    text: "SLAM Semantic SLAM Probabilistic learning",
-  },
-  {
-    title:
-      "IRAF-SLAM: An Illumination-Robust and Adaptive Feature-Culling Front-End for Visual SLAM in Challenging Environments",
-    category: "Code",
-    url: "datasets-code/#code-iraf-slam",
-    text: 'SLAM Robot perception Robust Visual SLAM (vSLAM) is essential for autonomous systems operating in real-world environments, where challenges such as dynamic objects, low texture, and critically, varying illumination conditions often degrade performance. Existing feature-based SLAM systems rely on fixed front-end parameters, making them vulnerable to sudden lighting changes and unstable feature tracking. To address these challenges, we propose "IRAF-SLAM", an Illumination-Robust and Adaptive Feature-Culling front-end designed to enhance vSLAM resilience in complex and challenging environments. Our approach introduces: (1) an image enhancement scheme to preprocess and adjust image quality under varying lighting conditions; (2) an adaptive feature extraction mechanism that dynamically adjusts detection sensitivity based on image entropy, pixel intensity, and gradient analysis; and (3) a feature culling strategy that filters out unreliable feature points using density distribution analysis and a lighting impact factor. Comprehensive evaluations on the TUM and European Robotics Challenge (EuRoC) datasets demonstrate that IRAF-SLAM significantly reduces tracking failures and achieves superior trajectory accuracy compared to state-of-the-art vSLAM methods under adverse illumination conditions. These results highlight the effectiveness of adaptive front-end strategies in improving vSLAM robustness without incurring significant computational overhead.',
-  },
-  {
-    title:
-      "ESRPCB: an Edge guided Super-Resolution model and Ensemble learning for tiny Printed Circuit Board Defect detection",
-    category: "Code",
-    url: "datasets-code/#code-esrpcb",
-    text: "Machine vision Defect detection Computer vision Printed Circuit Boards (PCBs) are critical components in modern electronics, which require stringent quality control to ensure proper functionality. However, the detection of defects in small-scale PCBs images poses significant challenges as a result of the low resolution of the captured images, leading to potential confusion between defects and noise. To overcome these challenges, this paper proposes a novel framework, named ESRPCB (edge-guided super-resolution for PCBs defect detection), which combines edge-guided super-resolution with ensemble learning to enhance PCBs defect detection. Our approach leverages the edge information to guide the EDSR (Enhanced Deep Super-Resolution) model with a novel ResCat (Residual Concatenation) structure, enabling it to reconstruct high-resolution images from small PCBs inputs. By incorporating edge features, the super-resolution process preserves critical structural details, ensuring that tiny defects remain distinguishable in the enhanced image. Following this, a multi-modal defect detection model employs ensemble learning to analyze the super-resolved image, improving the accuracy of defect identification. Experimental results demonstrate that ESRPCB achieves superior performance compared to State-of-the-Art (SOTA) methods. Our model attains an average Peak Signal to Noise Ratio (PSNR) of 30.54 dB(decibel), surpassing EDSR by 0.42dB. In defect detection, ESRPCB achieves a mAP50(mean average precision at an Intersection over Union threshold of 0.50) of 0.965, surpassing EDSR (0.905) and traditional super-resolution models by over 5%. Furthermore, our ensemble-based detection approach further enhances performance, achieving a mAP50 of 0.977. These results highlight the effectiveness of ESRPCB in enhancing both image quality and defect detection accuracy, particularly in challenging low-resolution scenarios.",
-  },
-  {
-    title:
-      "M-Calib: A Monocular 3D Object Localization using 2D Estimates for Industrial Robot Vision System",
-    category: "Code",
-    url: "datasets-code/#code-m-calib",
-    text: "Machine vision Robot calibration Computer vision 3D Object Localization has been emerging recently as one of the challenges of Machine Vision or Robot Vision tasks. In this paper, we proposed a novel method designed for the localization of isometric flat 3D objects, leveraging a blend of deep learning techniques primarily rooted in object detection, postimage processing algorithms, and pose estimation. Our approach involves the strategic application of 3D calibration methods tailored for low-cost industrial robotics systems, requiring only a single 2D image input. Initially, object detection is performed using the You Only Look Once (YOLO) model, followed by segmentation of the object into two distinct parts— the top face and the remainder— using the Mask R-CNN model. Subsequently, the center of the top face serves as the initialization position and a unique combination of postprocessing techniques and a novel calibration algorithm is employed to refine the object’s position. Experimental results demonstrate a notable reduction in localization error by 87.65% when compared to existing methodologies.",
-  },
-  {
-    title: "S3M: Semantic Segmentation Sparse Mapping for UAVs with RGB-D Camera",
-    category: "Code",
-    url: "datasets-code/#code-s3m",
-    text: "Semantic SLAM UAVs This paper presents a novel approach to address challenges in semantic information extraction and utilization within UAV operations. Our system integrates state-of-the-art visual SLAM to estimate a comprehensive 6-DoF pose and advanced object segmentation methods at the back end. To improve the computational and storage efficiency of the framework, we adopt a streamlined voxel-based 3D map representation - OctoMap to build a working system. Furthermore, the fusion algorithm is incorporated to obtain the semantic information of each frame from the front-end SLAM task, and the corresponding point. By leveraging semantic information, our framework enhances the UAV's ability to perceive and navigate through indoor spaces, addressing challenges in pose estimation accuracy and uncertainty reduction. Through Gazebo simulations, we validate the efficacy of our proposed system and successfully embed our approach into a Jetson Xavier AGX unit for real-world applications.",
-  },
-  {
-    title:
-      "Design of Deep Reinforcement Learning Approach for Traffic Signal Control at Three-way Crossroads",
-    category: "Code",
-    url: "datasets-code/#code-three-way-traffic-signal-control",
-    text: "Robot learning Reinforcement learning Traffic light control (TSC) is an important and challenging real-world problem with the aim of reducing travel time as well as saving energy. Recent researches have numerous attempts to apply intelligent methods for TSC at four-way crossroads to solve the traffic light scheduling problem. However, there is the limitation of researches on efficient TSC at three-way crossroads. Therefore, this paper introduces a novel TSC solution for three-way crossroad environment (TW-TSC). The proposed TSC method is designed based on a deep reinforcement learning approach, namely Soft Actor-Critic (TWSAC). Firstly, we create a simulation environment for three-way crossroads which consists of numerous transportation and two parallel lanes using Unity framework. Secondly, to achieve practical movements of transportation in three-way crossroads, we carefully design agents which have a high impact to the transportation movement, notably the time to wait for traffic light, the velocity of transportation, and the number of transportation passing successfully. Finally, to achieve TW-TSC efficiency, we propose a novel reward function together with a design of TWSAC algorithm. Experimental results show that the proposed TWSAC in TW-TSC achieves higher performance than both fixed-time TSC methods and relevant RL algorithms.",
-  },
-  {
-    title:
-      "Enhancing Social Robot Navigation with Integrated Motion Prediction and Trajectory Planning in Dynamic Human Environments",
-    category: "Code",
-    url: "datasets-code/#code-social-robot-navigation",
-    text: "Navigation Human–robot interaction Navigating safely in dynamic human environments is crucial for mobile service robots, and social navigation is a key aspect of this process. In this paper, we proposed an integrative approach that combines motion prediction and trajectory planning to enable safe and socially-aware robot navigation. The main idea of the proposed method is to leverage the advantages of Socially Acceptable trajectory prediction and Timed Elastic Band (TEB) by incorporating human interactive information including position, orientation, and motion into the objective function of the TEB algorithms. In addition, we designed social constraints to ensure the safety of robot navigation. The proposed system is evaluated through physical simulation using both quantitative and qualitative metrics, demonstrating its superior performance in avoiding human and dynamic obstacles, thereby ensuring safe navigation.",
-  },
-  {
-    title: "Object-Oriented Semantic Mapping for Reliable UAVs Navigation",
-    category: "Code",
-    url: "datasets-code/#code-object-oriented-semantic-mapping",
-    text: "Semantic SLAM UAVs To autonomously navigate in real-world environments, special in search and rescue operations, Unmanned Aerial Vehicles (UAVs) necessitate comprehensive maps to ensure safety. However, the prevalent metric map often lacks semantic information crucial for holistic scene comprehension. In this paper, we proposed a system to construct a probabilistic metric map enriched with object information extracted from the environment from RGB-D images. Our approach combines a state-of-the-art YOLOv8-based object detection framework at the front end and a 2D SLAM method - CartoGrapher at the back end. To effectively track and position semantic object classes extracted from the front-end interface, we employ the innovative BoT-SORT methodology. A novel association method is introduced to extract the position of objects and then project it with the metric map. Unlike previous research, our approach takes into reliable navigating in the environment with various hollow bottom objects. The output of our system is a probabilistic map, which significantly enhances the map's representation by incorporating object-specific attributes, encompassing class distinctions, accurate positioning, and object heights. A number of experiments have been conducted to evaluate our proposed approach. The results show that the robot can effectively produce augmented semantic maps containing several objects (notably chairs and desks). Furthermore, our system is evaluated within an embedded computer - Jetson Xavier AGX unit to demonstrate the use case in real-world applications.",
-  },
-  {
-    title:
-      "Machine Learning-Based Malicious Vehicle Detection for Security Threats and Attacks in Vehicle Ad-hoc Network (VANET) Communications",
-    category: "Code",
-    url: "datasets-code/#code-malicious-vehicle-detection",
-    text: "Machine learning Security",
-  },
-  {
-    title: "Dataset & Code",
-    category: "Page",
-    url: "datasets-code/",
-    text: "Explore code and research resources for Thanh Nguyen Canh's robotics and computer vision projects.",
-  },
-  {
-    title: "Dataset availability",
-    category: "Dataset",
-    url: "datasets-code/#datasets",
-    text: "Research datasets and data inquiries",
-  },
-  {
-    title: "Open Positions",
-    category: "Page",
-    url: "open-positions/",
-    text: "Research collaboration and prospective student inquiries in SLAM, robotics and autonomous navigation.",
-  },
-  {
-    title: "Thanh Nguyen Canh",
-    category: "People",
-    url: "people/#person-thanh-nguyen-canh",
-    text: "Research & teaching",
-  },
-  {
-    title: "Pham Thi My Le",
-    category: "People",
-    url: "people/#person-master-s-students-pham-thi-my-le-vnu-uet",
-    text: "Master students",
-  },
-  {
-    title: "Quoc Bao Nguyen",
-    category: "People",
-    url: "people/#person-master-s-students-quoc-bao-nguyen-vnu-uet",
-    text: "Master students",
-  },
-  {
-    title: "Manh Do Duc",
-    category: "People",
-    url: "people/#person-master-s-students-manh-do-duc-vnu-uet",
-    text: "Master students",
-  },
-  {
-    title: "Nguyen Duc Khanh Huyen",
-    category: "People",
-    url: "people/#person-undergraduate-students-nguyen-duc-khanh-huyen-vnu-uet",
-    text: "Undergraduate students",
-  },
-  {
-    title: "Duong Vu Viet Thang",
-    category: "People",
-    url: "people/#person-undergraduate-students-duong-vu-viet-thang-vnu-uet",
-    text: "Undergraduate students",
-  },
-  {
-    title: "Dinh Mang Quan",
-    category: "People",
-    url: "people/#person-undergraduate-students-dinh-mang-quan-vnu-uet",
-    text: "Undergraduate students",
-  },
-  {
-    title: "Nguyen Van Bang",
-    category: "People",
-    url: "people/#person-undergraduate-students-nguyen-van-bang-vnu-uet",
-    text: "Undergraduate students",
-  },
-  {
-    title: "Tuan Thanh Tran",
-    category: "People",
-    url: "people/#person-undergraduate-students-tuan-thanh-tran-vnu-uet",
-    text: "Undergraduate students",
-  },
-  {
-    title: "Hoang Ngo Huy",
-    category: "People",
-    url: "people/#person-master-s-students-hoang-ngo-huy-hust",
-    text: "Alumni",
-  },
-  {
-    title: "Dang Minh Bui",
-    category: "People",
-    url: "people/#person-undergraduate-students-dang-minh-bui-vnu-uet",
-    text: "Alumni",
-  },
-  {
-    title: "Quan Nguyen",
-    category: "People",
-    url: "people/#person-undergraduate-students-quan-nguyen-vnu-uet",
-    text: "Alumni",
-  },
-  {
-    title: "Kien Hoang",
-    category: "People",
-    url: "people/#person-undergraduate-students-kien-hoang-vnu-uet",
-    text: "Alumni",
-  },
-  {
-    title: "People",
-    category: "Page",
-    url: "people/",
-    text: "Researchers and students associated with Thanh Nguyen Canh's research and teaching.",
   },
   {
     title: "Contact",

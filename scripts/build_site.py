@@ -8,18 +8,13 @@ import re
 import subprocess
 from pathlib import Path
 
-from people_page import people_content
 from about_page import about_intro
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PAPERS = json.loads((ROOT / "data/publications.json").read_text())
-PAGES = [
-    ("", "About"), ("research", "Research"), ("publications", "Publications"),
-    ("teaching", "Teaching"), ("funded-projects", "Funded Projects"),
-    ("datasets-code", "Dataset & Code"), ("open-positions", "Open Positions"),
-    ("people", "People"), ("contact", "Contact"),
-]
+PAGES = [("", "About"), ("publications", "Publications"), ("teaching", "Teaching"), ("contact", "Contact")]
+LAB_URL = "https://pairs-lab.github.io/"  # research, people, projects, datasets and positions live on the lab site
 SEARCH = []
 
 
@@ -125,9 +120,10 @@ def render_page(slug, title, intro, content):
     prefix = "../" if slug else ""
     nav_links = []
     labels = dict(PAGES)
-    for path in ["", "research", "publications", "teaching", "people", "funded-projects", "datasets-code", "open-positions", "contact"]:
+    for path in ["", "publications", "teaching", "contact"]:
         current = ' aria-current="page"' if path == slug else ""
         nav_links.append(f'<a href="{route(path, prefix)}"{current}>{labels[path]}</a>')
+    nav_links.append(f'<a href="{LAB_URL}">PAIRS Lab <span aria-hidden="true">↗</span></a>')
     nav = "\n".join(nav_links)
     search_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>'
     theme_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg>'
@@ -161,37 +157,17 @@ def home():
         add_search(plain(item["html"]), "News", f'index.html#news-{i}', date + " " + item["html"])
     papers_by_id = {paper["id"]: paper for paper in PAPERS}
     selected = [papers_by_id[paper_id] for paper_id in PROFILE["selected_publications"]]
+    support_items = sorted(PROFILE["support"], key=lambda p: tuple(int(year) for year in re.findall(r"\d{4}", p["period"])), reverse=True)
+    support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in support_items)
     content = about_intro(PROFILE) + f'''
 <section class="content-section" id="news">{section_heading('Recent news')}<ul class="news-list">{news}</ul><button id="toggle-news" class="resource-link" type="button" aria-expanded="false" hidden>Show all news</button></section>
 <section class="content-section">{section_heading('Selected publications', 'publications/', 'All publications')}{''.join(paper_card(p, compact=True) for p in selected)}</section>
 <section class="content-section" id="awards">{section_heading('Awards & professional activities')}<ul class="service-list">{''.join('<li>' + x + '</li>' for x in PROFILE['awards'])}</ul><details class="abstract"><summary>Peer review & professional service</summary>{PROFILE['service_html']}</details></section>
-<section class="content-section contact-inline" id="contact">{section_heading('Contact', 'contact/', 'Contact details')}<p>For research collaboration, student inquiries and questions about my work, contact me at <a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a>.</p><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><div class="publication-links"><a class="resource-link" href="people/">People ↗</a><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Email me ↗</a></div></section>'''
+<section class="content-section" id="scholarships">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>
+<section class="content-section contact-inline" id="contact">{section_heading('Contact', 'contact/', 'Contact details')}<p>For research collaboration, student inquiries and questions about my work, contact me at <a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a>.</p><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><div class="publication-links"><a class="resource-link" href="{LAB_URL}">PAIRS Lab ↗</a><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Email me ↗</a></div></section>'''
     render_page("", "About", "Thanh Nguyen Canh is a PhD candidate at JAIST working on semantic SLAM, robot learning and autonomous navigation.", content)
     add_search(PROFILE['lab_short_name'], "About", "index.html", PROFILE['lab_name'] + " " + PROFILE['name'])
     add_search("Peer review & professional service", "Service", "index.html#awards", PROFILE['service_html'] + " " + " ".join(PROFILE['awards']))
-
-
-TOPICS = [
-    ("semantic-slam", "01", "Active & semantic SLAM", "Building meaningful representations of the world for autonomous robots. My research spans probabilistic semantic mapping, visual SLAM under challenging conditions, and active exploration with UAVs.", ["SLAM", "Semantic mapping"]),
-    ("robot-learning", "02", "Robot learning & interaction", "Learning robot behavior from observations, demonstrations and interaction. I investigate imitation learning, reinforcement learning and the use of vision-language models for robotic manipulation and human–robot interaction.", ["Robot learning", "Human–robot interaction", "Reinforcement learning"]),
-    ("navigation", "03", "Reliable localization & navigation", "Connecting perception with safe decisions. I work on semantic-aware path planning, multisensor fusion, and motion prediction for navigation around people and in challenging environments.", ["Navigation", "Sensor fusion"]),
-    ("robot-vision", "04", "Robot vision & industrial perception", "Turning visual observations into useful information for robotics and inspection. Applications include monocular 3D object localization and super-resolution methods for detecting tiny defects on printed circuit boards.", ["Computer vision", "Calibration", "Defect detection"]),
-]
-
-
-def research():
-    cards = ""
-    for slug, number, title, description, tags in TOPICS:
-        tag_html = "".join(f'<span class="tag">{esc(t)}</span>' for t in tags)
-        cards += f'<article class="topic-card" id="{slug}"><span class="topic-number">{number}</span><h2>{title}</h2><p>{description}</p><div class="research-tags">{tag_html}</div><a class="text-link" href="../publications/?q={esc(tags[0])}">Related publications <span aria-hidden="true">↗</span></a></article>'
-        add_search(title, "Research", f"research/#{slug}", description + " " + " ".join(tags))
-    project_cards = ""
-    for p in PROFILE.get("research_projects", []):
-        project_cards += f'<article class="timeline-item" id="{esc(p["id"])}"><div class="timeline-date">{esc(p["period"])}</div><div class="timeline-content"><h3>{esc(p["title"])}</h3><p>{esc(p["description"])}</p><p class="results-summary">{esc(p["tools"])}</p></div></article>'
-        add_search(p["title"], "Research project", f'research/#{p["id"]}', " ".join(p.values()))
-    projects_html = f'<section class="content-section">{section_heading("Research projects")}<div class="timeline">{project_cards}</div></section>' if project_cards else ""
-    content = heading("Research", "Perception, representation and learning for robots that operate in the real world.", "Research directions") + f'<div class="topic-grid">{cards}</div>{projects_html}<section class="content-section"><h2>Connected research interests</h2><p>I am also interested in lifelong SLAM, robot dynamics learning, model-based reinforcement learning and learning from demonstration. Modeling uncertainty in map representations and robot dynamics is central to my interests in safe, active planning and control.</p></section><section class="content-section notice-card"><h2>Research resources</h2><p>Explore the papers, implementations and demonstrations behind these research directions.</p><div class="publication-links"><a class="resource-link" href="../publications/">Publications ↗</a><a class="resource-link" href="../datasets-code/">Dataset & Code ↗</a></div></section>'
-    render_page("research", "Research", "Research on active semantic SLAM, robot learning, reliable navigation and industrial robot vision.", content)
 
 
 def publications():
@@ -223,47 +199,8 @@ def teaching():
         institution = f'<p>{esc(item["institution"])}</p>' if item["institution"] else ""
         items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2>{institution}{course_summary}</div></article>'
         add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *item.get("courses", [])]))
-    content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>Student Research Competition, VNU-University of Engineering and Technology:</p><ul><li>Second place, 2023</li><li>Third place, 2025</li><li>Second place, 2026</li></ul><a class="text-link" href="../open-positions/">Research inquiries ↗</a></section>'
+    content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>Student Research Competition, VNU-University of Engineering and Technology:</p><ul><li>Second place, 2023</li><li>Third place, 2025</li><li>Second place, 2026</li></ul><a class="text-link" href="{LAB_URL}join/">Research inquiries ↗</a></section>'
     render_page("teaching", "Teaching", "Teaching experience at JAIST and VNU-University of Engineering and Technology.", content)
-
-
-def funding():
-    projects = {"active": [], "completed": []}
-    for i, p in enumerate(PROFILE["funded_projects"]):
-        status = p.get("status", "active")
-        projects[status].append(f'<article class="funding-card" id="project-{i}"><p class="funding-label">{esc(p["program"])}</p><h2>{esc(p["title"])}</h2><p>{esc(p["description"])}</p><dl class="funding-meta"><dt>Programme / call</dt><dd>{esc(p["grant"])}</dd><dt>Participation</dt><dd>{esc(p["role"])}</dd><dt>Appointment</dt><dd>{esc(p["period"])}</dd></dl><a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Details in CV ↗</a></article>')
-        add_search(p["title"], "Funded project", f"funded-projects/#project-{i}", " ".join(p.values()))
-    support_items = sorted(PROFILE["support"], key=lambda p: tuple(int(year) for year in re.findall(r"\d{4}", p["period"])), reverse=True)
-    support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in support_items)
-    project_sections = "".join(
-        f'<section class="content-section" id="{status}-projects">{section_heading(title)}{"".join(projects[status])}</section>'
-        for status, title in [("active", "Active projects"), ("completed", "Completed projects")]
-    )
-    content = heading("Funded Projects", "Research project participation, fellowships and academic support.", "Projects & research support") + project_sections + f'<section class="content-section">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>'
-    render_page("funded-projects", "Funded Projects", "Research project participation, including SOLARIS, and academic scholarships and fellowships.", content)
-    for p in PROFILE["support"]:
-        add_search(p["name"], "Research support", "funded-projects/", " ".join(p.values()))
-
-
-def resources():
-    cards = ""
-    available = [p for p in PAPERS if p["links"].get("code")]
-    for p in sorted(available, key=lambda x: x["year"], reverse=True):
-        cards += f'<article class="resource-card" id="code-{esc(p["id"])}"><div class="publication-media">{media(p, "../")}</div><div class="resource-body"><p class="resource-type">Code · {esc(p["topics"][0])}</p><h3>{esc(p["title"])}</h3><p>{esc(p["venue"])} · {p["year"]}</p><div class="publication-links">{resource_links(p)}<a class="resource-link" href="../publications/#{esc(p["id"])}">Publication ↗</a></div></div></article>'
-        add_search(p["title"], "Code", f'datasets-code/#code-{p["id"]}', " ".join(p["topics"]) + " " + p["abstract"])
-    content = heading("Dataset & Code", "Implementations and research resources for semantic mapping, robot learning, navigation and computer vision.", "Open research resources") + f'<section class="content-section">{section_heading("Code & implementations", "https://github.com/thanhnguyencanh", "GitHub profile")}<div class="resource-grid">{cards}</div></section><section class="content-section" id="datasets">{section_heading("Datasets")}<div class="notice-card"><h3>Dataset releases</h3><p>Dataset download links will be listed here when available. For resources associated with an existing paper, see its project page and repository.</p><a class="text-link" href="mailto:{esc(PROFILE["email"])}?subject=Research%20dataset%20inquiry">Ask about research data ↗</a></div></section><section class="content-section"><p class="results-summary">Please consult each repository for its license, usage instructions and citation information.</p></section>'
-    render_page("datasets-code", "Dataset & Code", "Explore code and research resources for Thanh Nguyen Canh's robotics and computer vision projects.", content)
-    add_search("Dataset availability", "Dataset", "datasets-code/#datasets", "Research datasets and data inquiries")
-
-
-def positions():
-    content = heading("Open Positions", "Information for prospective students, research visitors and collaborators.", "Work together") + f'''<section class="notice-card"><p class="section-kicker">Position announcements</p><h2>Future opportunities</h2><p>Specific positions, funding details and application deadlines will be posted here when announced.</p></section><section class="content-section">{section_heading('Research collaboration & student inquiries')}<p>If you are interested in semantic SLAM, robot learning or autonomous navigation, you can contact me to discuss research interests and possible collaboration.</p><div class="two-column"><div><h3>Research topics</h3><ul class="course-list"><li>Active, semantic and lifelong SLAM</li><li>Robot perception and environment representation</li><li>Imitation learning and human–robot interaction</li><li>Safe navigation and multisensor fusion</li></ul></div><div><h3>In your inquiry</h3><p>A brief introduction, your research interests, and links to relevant projects or publications will help start the discussion.</p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration%20inquiry">Contact me ↗</a></div></div></section><section class="content-section"><p class="results-summary">For degree admission information, please consult <a href="https://www.jaist.ac.jp/english/admissions/">JAIST admissions</a>.</p></section>'''
-    render_page("open-positions", "Open Positions", "Research collaboration and prospective student inquiries in SLAM, robotics and autonomous navigation.", content)
-
-
-def people():
-    content = people_content(PROFILE, add_search)
-    render_page("people", "People", "Researchers and students associated with Thanh Nguyen Canh's research and teaching.", content)
 
 
 def office_details(key, title):
@@ -290,20 +227,15 @@ def contact():
         ("ORCID", "https://orcid.org/0000-0001-6332-1002"),
     ]
     links = "".join(f'<a class="resource-link" href="{esc(url)}">{label} ↗</a>' for label, url in profiles)
-    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div class="affiliation" id="jaist"><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p>{office_details("jaist", "JAIST")}</div><div class="affiliation" id="uet"><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p>{office_details("uet", "UET")}</div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and people before getting in touch.</p><div class="publication-links"><a class="resource-link" href="../research/">Research ↗</a><a class="resource-link" href="../people/">People ↗</a><a class="resource-link" href="../open-positions/">Open Positions ↗</a></div></section>'''
+    content = heading("Contact", "Get in touch about research, collaboration and student inquiries.", PROFILE['lab_short_name']) + f'''<div class="contact-grid"><section class="contact-card" id="email"><p class="contact-label">Email</p><h2>{esc(PROFILE['name'])}</h2><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><p><a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a></p><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Send an email ↗</a></section><section class="contact-card"><p class="contact-label">Online</p><h2>Research profiles</h2><div class="contact-links">{links}<a class="resource-link" href="../CV_Thanh%20Nguyen%20Canh.pdf">Download CV ↗</a></div></section></div><section class="content-section">{section_heading('Affiliations')}<div class="two-column"><div class="affiliation" id="jaist"><h3>JAIST</h3><p>PhD candidate and research assistant<br>School of Information Science<br>Japan Advanced Institute of Science and Technology</p>{office_details("jaist", "JAIST")}</div><div class="affiliation" id="uet"><h3>{esc(PROFILE["lecturer_institution"])}</h3><p>Lecturer<br>{esc(PROFILE["lecturer_department"])}</p>{office_details("uet", "UET")}</div></div></section><section class="content-section notice-card"><h2>Research & student inquiries</h2><p>A brief introduction and your research interests will help start the conversation. You can explore our research topics, publications and people before getting in touch.</p><div class="publication-links"><a class="resource-link" href="{LAB_URL}research/">Lab research ↗</a><a class="resource-link" href="{LAB_URL}people/">Lab members ↗</a><a class="resource-link" href="{LAB_URL}join/">Join the lab ↗</a></div></section>'''
     render_page("contact", "Contact", "Contact Thanh Nguyen Canh at PAIRS Lab for research collaboration and student inquiries.", content)
     add_search(PROFILE['email'], "Contact", "contact/#email", PROFILE['name'] + " " + PROFILE['lab_name'] + " JAIST " + PROFILE['lecturer_department'] + " " + PROFILE['lecturer_institution'])
 
 
 def main():
     home()
-    research()
     publications()
     teaching()
-    funding()
-    resources()
-    positions()
-    people()
     contact()
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)

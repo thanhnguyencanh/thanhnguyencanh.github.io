@@ -64,7 +64,7 @@ def about_intro(profile) -> str:
         '<header class="about-heading">'
         f'<h1>{escape(name)}</h1>'
         '<p class="about-contact">'
-        f'<a class="about-lab" href="people/" title="{escape(lab_name, quote=True)}">'
+        f'<a class="about-lab" href="https://pairs-lab.github.io/" title="{escape(lab_name, quote=True)}">'
         + _icon("building")
         + f'<span>{escape(lab_short_name)}</span></a>'
         '<span class="about-contact-separator" aria-hidden="true"> | </span>'

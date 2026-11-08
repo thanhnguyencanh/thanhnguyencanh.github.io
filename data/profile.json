@@ -20,15 +20,15 @@
     },
     {
       "date": "2026-10",
-      "html": "I am honored to receive the <a href=\"funded-projects/\">JSPS Fellowship</a> from the Japan Society for the Promotion of Science for 2027–2029."
+      "html": "I am honored to receive the <a href=\"#scholarships\">JSPS Fellowship</a> from the Japan Society for the Promotion of Science for 2027–2029."
     },
     {
       "date": "2026-10",
-      "html": "I am honored to receive the <a href=\"funded-projects/\">KDDI Foundation Scholarship</a> for 2027–2028, following its support for 2024–2025."
+      "html": "I am honored to receive the <a href=\"#scholarships\">KDDI Foundation Scholarship</a> for 2027–2028, following its support for 2024–2025."
     },
     {
       "date": "2026-10",
-      "html": "I am honored to receive the <a href=\"funded-projects/\">UniGe Scholarship</a> from the University of Genoa for 2026."
+      "html": "I am honored to receive the <a href=\"#scholarships\">UniGe Scholarship</a> from the University of Genoa for 2026."
     },
     {
       "date": "2025-06",
@@ -191,17 +191,6 @@
       "url": "https://fet.uet.vnu.edu.vn/"
     }
   ],
-  "funded_projects": [
-    {
-      "title": "SOLARIS",
-      "status": "completed",
-      "program": "Horizon Europe",
-      "grant": "HORIZON-CL5-2023-D3-02-13",
-      "description": "Research on drone teams for monitoring solar panels and detecting defects and faults, with Prof. Antonio Sgorbissa at RICE Lab, DIBRIS, University of Genoa.",
-      "role": "Visiting researcher, University of Genoa",
-      "period": "2026"
-    }
-  ],
   "support": [
     {
       "name": "JSPS Fellowship, Japan Society for the Promotion of Science",
@@ -219,9 +208,9 @@
       "kind": "Scholarship"
     },
     {
-      "name": "JST SPRING Scholarship",
+      "name": "JST SPRING Fellowship, Japan Science and Technology Agency",
       "period": "2025–2027",
-      "kind": "Scholarship"
+      "kind": "Fellowship"
     },
     {
       "name": "KDDI Foundation Scholarship",
@@ -231,7 +220,7 @@
     {
       "name": "JAIST Doctoral Research Fellowship (DRF), Special Type",
       "period": "2024–2025",
-      "kind": "Doctoral research fellowship"
+      "kind": "Fellowship"
     },
     {
       "name": "Monbukagakusho Honors Scholarship",
@@ -241,7 +230,7 @@
     {
       "name": "VINIF Scholarship, Vingroup Innovation Foundation",
       "period": "2022–2024",
-      "kind": "Master's scholarship"
+      "kind": "Scholarship"
     },
     {
       "name": "Vallet Scholarship, Vallet Foundation",
@@ -259,145 +248,12 @@
     "First place, Student Research Competition, VNU-University of Engineering and Technology, 2021."
   ],
   "service_html": "<p>I review for journals and conferences in robotics, artificial intelligence, and engineering.</p><ul><li><strong>IEEE:</strong> <a href=\"https://www.ieee-ras.org/publications/ra-l\">IEEE Robotics and Automation Letters</a>, <a href=\"https://www.ieee-ras.org/publications/t-ro\">IEEE Transactions on Robotics</a>, <a href=\"https://www.ieee-ras.org/publications/t-ase\">IEEE Transactions on Automation Science and Engineering</a>, and <a href=\"https://ieee-ims.org/publication/ieee-tim\">IEEE Transactions on Instrumentation &amp; Measurement</a>.</li><li><strong>Elsevier:</strong> <a href=\"https://www.sciencedirect.com/journal/knowledge-based-systems\">Knowledge-Based Systems</a>, <a href=\"https://www.sciencedirect.com/journal/engineering-applications-of-artificial-intelligence\">Engineering Applications of Artificial Intelligence</a>, <a href=\"https://www.sciencedirect.com/journal/isa-transactions\">ISA Transactions</a>, Expert Systems with Applications, <a href=\"https://www.sciencedirect.com/journal/engineering-science-and-technology-an-international-journal\">Engineering Science and Technology, an International Journal</a>, <a href=\"https://www.sciencedirect.com/journal/computers-and-electrical-engineering\">Computers &amp; Electrical Engineering</a>, <a href=\"https://www.sciencedirect.com/journal/applied-soft-computing\">Applied Soft Computing Journal</a>, <a href=\"https://www.sciencedirect.com/journal/neurocomputing\">Neurocomputing</a>, <a href=\"https://www.sciencedirect.com/journal/robotics-and-autonomous-systems\">Robotics and Autonomous Systems</a>, <a href=\"https://www.sciencedirect.com/journal/measurement\">Measurement</a>, and <a href=\"https://www.sciencedirect.com/journal/results-in-engineering\">Results in Engineering</a>.</li><li><strong>Springer:</strong> <a href=\"https://www.springer.com/journal/11042\">Multimedia Tools and Applications</a>.</li><li><strong>Nature:</strong> <a href=\"https://www.nature.com/srep/\">Scientific Reports</a>.</li><li><strong>Other journals and conferences:</strong> <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10382256/proceeding\">ICCAIS 2023</a>, <a href=\"https://ieeexplore.ieee.org/xpl/conhome/10813991/proceeding\">ICCAIS 2024</a>, <a href=\"https://2024.iccas.org/\">ICCAS 2024</a>, <a href=\"http://2025.iccas.org/\">ICCAS 2025</a>, <a href=\"https://www.simpar2025.org/\">IEEE SIMPAR 2025</a>, <a href=\"https://www.tandfonline.com/journals/tfls21\">All Life</a>, and <a href=\"https://www.jamris.org/index.php/JAMRIS\">Journal of Automation, Mobile Robotics and Intelligent Systems</a>.</li></ul>",
-  "supervision": [
-    {
-      "level": "Master's students",
-      "students": [
-        {
-          "name": "Pham Thi My Le",
-          "institution": "VNU-UET",
-          "period": "2026–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Quoc Bao Nguyen",
-          "institution": "VNU-UET",
-          "period": "2025–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Manh Do Duc",
-          "institution": "VNU-UET",
-          "period": "2025–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Hoang Ngo Huy",
-          "institution": "HUST",
-          "period": "2025–2026",
-          "image": "",
-          "url": ""
-        }
-      ]
-    },
-    {
-      "level": "Undergraduate students",
-      "students": [
-        {
-          "name": "Nguyen Duc Khanh Huyen",
-          "institution": "VNU-UET",
-          "period": "2024–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Duong Vu Viet Thang",
-          "institution": "VNU-UET",
-          "period": "2024–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Dinh Mang Quan",
-          "institution": "VNU-UET",
-          "period": "2024–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Nguyen Van Bang",
-          "institution": "VNU-UET",
-          "period": "2024–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Tuan Thanh Tran",
-          "institution": "VNU-UET",
-          "period": "2024–present",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Dang Minh Bui",
-          "institution": "VNU-UET",
-          "period": "2024–2025",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Manh Do Duc",
-          "institution": "VNU-UET",
-          "period": "2022–2024",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Hoang Ngo Huy",
-          "institution": "VNU-UET",
-          "period": "2022–2024",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Quan Nguyen",
-          "institution": "VNU-UET",
-          "period": "2022–2024",
-          "image": "",
-          "url": ""
-        },
-        {
-          "name": "Kien Hoang",
-          "institution": "VNU-UET",
-          "period": "2022–2024",
-          "image": "",
-          "url": ""
-        }
-      ]
-    }
-  ],
   "source_notes": [
     "Funding period, VNU-UET lecturer role, supervision, scholarship updates, and IEEE student representative activity are transcribed from the latest owner-authored CV supplied during this session.",
     "Dates ending in present reproduce the CV as supplied; future scholarship periods are listed without an active-status claim.",
     "Owner explicitly adds seven reviewer journals and specifies the lecturer affiliation as Robotics Department, University of Engineering and Technology, Vietnam National University. Journal links point to publisher or society pages; reviewer service claims are owner-supplied.",
     "Owner explicitly updates their current academic role from Ph.D. student to Ph.D. candidate; historical student awards and student supervision remain unchanged.",
     "The October 2026 news dates are posting dates. Paper acceptance wording is supported by published journal records at JAIST (BPDA: https://www.jaist.ac.jp/whatsnew/press/2026/09/03-1.html; survey: https://www.jaist.ac.jp/jisedai/results.html; SR-SLAM: https://www.jaist.ac.jp/jisedai/results2025.html). Fellowship and scholarship details follow owner instructions."
-  ],
-  "research_projects": [
-    {
-      "id": "semantic-active-slam",
-      "title": "Semantic Active SLAM",
-      "period": "2022–present",
-      "description": "Semantic-aware mapping and active exploration for UAVs, with research on robust visual SLAM, data association and Gaussian splatting.",
-      "tools": "Python / C++ · ROS · UAVs"
-    },
-    {
-      "id": "delibot",
-      "title": "Delibot — Humanoid Robotics",
-      "period": "2020–2024",
-      "description": "Design and fabrication of a dual-arm service robot, visual 3D localization from 2D estimates and obstacle avoidance using multisensor fusion.",
-      "tools": "C++ / Python · ROS · MoveIt / Gazebo"
-    },
-    {
-      "id": "humanoid-interaction",
-      "title": "Humanoid Robot Interaction & Social Navigation",
-      "period": "2024–present",
-      "description": "Multi-robot collaboration, humanoid perception and interaction using vision-language and large language models, with navigation in crowded environments.",
-      "tools": "Python / C++ · ROS / ROS2"
-    }
   ],
   "lab_name": "Perception, Autonomy, and Intelligent Robotics Systems Lab",
   "lab_short_name": "PAIRS Lab",
