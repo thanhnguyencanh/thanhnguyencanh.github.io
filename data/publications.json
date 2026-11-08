@@ -404,7 +404,9 @@
     "abstract": "",
     "image": "https://pairs-lab.github.io/images/publications/con-dso.jpg",
     "video": "",
-    "links": {},
+    "links": {
+      "website": "https://thanhnguyencanh.github.io/Con-DSO/"
+    },
     "cv_reference": "P8"
   },
   {
@@ -578,7 +580,8 @@
     "image": "https://pairs-lab.github.io/images/publications/sr-slam.jpg",
     "video": "",
     "links": {
-      "paper": "https://www.sciencedirect.com/science/article/pii/S0921889025004038"
+      "paper": "https://www.sciencedirect.com/science/article/pii/S0921889025004038",
+      "website": "https://thanhnguyencanh.github.io/sr-slam/"
     },
     "cv_reference": "J4",
     "source_note": "Publication year (March 2026) and full five-author list follow official JAIST records: https://www.jaist.ac.jp/jisedai/results2025.html. CV lists 2025 and omits Lijun Wang."
