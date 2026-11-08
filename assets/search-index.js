@@ -337,10 +337,76 @@ window.siteSearch = [
     text: "Thanh Nguyen Canh Du Ngoc Trinh Xiem HoangVan Journal of Automation, Mobile Robotics and Intelligent Systems (JAMRIS) 2025 Machine vision Robot calibration Computer vision 3D Object Localization has been emerging recently as one of the challenges of Machine Vision or Robot Vision tasks. In this paper, we proposed a novel method designed for the localization of isometric flat 3D objects, leveraging a blend of deep learning techniques primarily rooted in object detection, postimage processing algorithms, and pose estimation. Our approach involves the strategic application of 3D calibration methods tailored for low-cost industrial robotics systems, requiring only a single 2D image input. Initially, object detection is performed using the You Only Look Once (YOLO) model, followed by segmentation of the object into two distinct parts— the top face and the remainder— using the Mask R-CNN model. Subsequently, the center of the top face serves as the initialization position and a unique combination of postprocessing techniques and a novel calibration algorithm is employed to refine the object’s position. Experimental results demonstrate a notable reduction in localization error by 87.65% when compared to existing methodologies.",
   },
   {
+    title: "Uncertainty-Guided 2:4 Dynamic Sparse Evidential Learning for Rare-Event Screening",
+    category: "Publication",
+    url: "publications/#sparse-evidential-rare-event-screening",
+    text: "K. H. Nguyen Thanh Nguyen Canh Xiem HoangVan Association for the Advancement of Artificial Intelligence (AAAI) 2027 Machine learning Uncertainty",
+  },
+  {
+    title: "Multi-head Evidential Deep Learning with Adaptive Prior Weight Fusion",
+    category: "Publication",
+    url: "publications/#multi-head-evidential-learning",
+    text: "K. H. Nguyen Thanh Nguyen Canh Xiem HoangVan Association for the Advancement of Artificial Intelligence (AAAI) 2027 Machine learning Uncertainty",
+  },
+  {
     title: "ROCC: Reliability-Gated Obstruction Reasoning with Certified DAG for Clutter Grasping",
     category: "Publication",
     url: "publications/#rocc",
     text: "Tuan Thanh Tran Thanh Nguyen Canh Xiem HoangVan Nak Young Chong IEEE International Conference on Robotics and Automation (ICRA) 2027 Robot learning Manipulation",
+  },
+  {
+    title: "From Semantic to Affordances: Hierarchical Evidential Semantic-Functional Mapping",
+    category: "Publication",
+    url: "publications/#hierarchical-evidential-semantic-functional-mapping",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong Preprint 2026 SLAM Semantic SLAM UAVs",
+  },
+  {
+    title:
+      "Compliance-Aware Reinforcement Learning for Active Semantic SLAM with a Soft Aerial Robot",
+    category: "Publication",
+    url: "publications/#compliance-aware-rl-active-semantic-slam",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Robot learning Reinforcement learning UAVs",
+  },
+  {
+    title:
+      "Contact-Aware Active SLAM with a Soft UAV: Exploiting Compliance for Frontier Goal Selection",
+    category: "Publication",
+    url: "publications/#contact-aware-active-slam",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Active SLAM UAVs",
+  },
+  {
+    title:
+      "Uncertainty-Aware Open-Vocabulary Semantic Gaussian Splatting for Robust Mapping in Dynamic Scenes",
+    category: "Publication",
+    url: "publications/#open-vocabulary-semantic-gaussian-splatting",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Gaussian splatting Computer vision",
+  },
+  {
+    title:
+      "HESFM-OV: Hierarchical Evidential Semantic-Functional Mapping with Open Vocabulary for Indoor UAV Navigation",
+    category: "Publication",
+    url: "publications/#hesfm-ov",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Navigation UAVs",
+  },
+  {
+    title:
+      "SeLiSLAM: Semantic Lifelong Simultaneous Localization and Mapping for UAVs via Continual Learning, Open-Vocabulary Ephemerality, and Object Re-Identification",
+    category: "Publication",
+    url: "publications/#selislam",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Continual learning UAVs",
+  },
+  {
+    title:
+      "Open-World Semantic SLAM: A Survey on Representations, Uncertainty, and Lifelong Adaptation",
+    category: "Publication",
+    url: "publications/#open-world-semantic-slam-survey",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Survey",
+  },
+  {
+    title: "USGLoc: Uncertainty-Aware Semantic Visual Localization from 3D Gaussian Splatting",
+    category: "Publication",
+    url: "publications/#usgloc",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Gaussian splatting Computer vision",
   },
   {
     title: "Con-DSO: Learning Short-Horizon Consistency Priors for RGB-D Direct Sparse Odometry",
@@ -356,10 +422,35 @@ window.siteSearch = [
     text: "D. M. Do V. B. Nguyen Thanh Nguyen Canh M. T. Thai Xiem HoangVan Robotics and Autonomous Systems 2026 SLAM Computer vision Survey",
   },
   {
+    title: "Path-Aware Frontier Selection for UAV-Based Autonomous 3D Exploration",
+    category: "Publication",
+    url: "publications/#path-aware-frontier-uav-exploration",
+    text: "D. M. Do Thanh Nguyen Canh N. M. Do M. T. Thai Xiem HoangVan International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Active SLAM UAVs Navigation",
+  },
+  {
+    title: "Efficient Continuous Semantic Mapping based on Spatio-Temporal Awareness",
+    category: "Publication",
+    url: "publications/#continuous-semantic-mapping",
+    text: "M. L. Pham D. T. Duong Xiem HoangVan Thanh Nguyen Canh International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Semantic SLAM",
+  },
+  {
+    title: "Semantic-Aware Autonomous Exploration for UAVs in Unknown Indoor Environments",
+    category: "Publication",
+    url: "publications/#semantic-aware-uav-exploration",
+    text: "D.T. Nguyen N. M. Do Xiem HoangVan Thanh Nguyen Canh International Conference on Control, Automation, Robotics and Vision (ICARCV) 2026 SLAM Semantic SLAM UAVs Navigation",
+  },
+  {
     title: "A Survey on Collaborative SLAM with 3D Gaussian Splatting",
     category: "Publication",
     url: "publications/#collaborative-gaussian-splatting-slam-survey",
     text: "Thanh Nguyen Canh P. N. Xuan H. Nguyen Nak Young Chong Xiem HoangVan Autonomous Robots 2026 SLAM Gaussian splatting Survey",
+  },
+  {
+    title:
+      "HELIX: Hierarchical Evidential Loop-closure and Information eXploration for Active Semantic SLAM in GPS-Denied Environments",
+    category: "Publication",
+    url: "publications/#helix",
+    text: "Thanh Nguyen Canh Haolan Zhang Xiem HoangVan Nak Young Chong IEEE Robotics and Automation Letters (RA-L) 2026 SLAM Semantic SLAM Active SLAM UAVs",
   },
   {
     title:
@@ -505,58 +596,16 @@ window.siteSearch = [
     text: "Teaching experience at JAIST and VNU-University of Engineering and Technology.",
   },
   {
-    title: "JSPS Fellowship, Japan Society for the Promotion of Science",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "JSPS Fellowship, Japan Society for the Promotion of Science 2027–2029 Fellowship",
+    title: "JAIST office",
+    category: "Contact",
+    url: "contact/#jaist",
+    text: "JAIST Room i62 School of Information Science I Ishikawa, Japan",
   },
   {
-    title: "KDDI Foundation Scholarship",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "KDDI Foundation Scholarship 2027–2028 Scholarship",
-  },
-  {
-    title: "UniGe Scholarship, University of Genoa",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "UniGe Scholarship, University of Genoa 2026 Scholarship",
-  },
-  {
-    title: "JST SPRING Scholarship",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "JST SPRING Scholarship 2025–2027 Scholarship",
-  },
-  {
-    title: "KDDI Foundation Scholarship",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "KDDI Foundation Scholarship 2024–2025 Scholarship",
-  },
-  {
-    title: "JAIST Doctoral Research Fellowship (DRF), Special Type",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "JAIST Doctoral Research Fellowship (DRF), Special Type 2024–2025 Doctoral research fellowship",
-  },
-  {
-    title: "Monbukagakusho Honors Scholarship",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "Monbukagakusho Honors Scholarship 2023–2024 Scholarship",
-  },
-  {
-    title: "VINIF Scholarship, Vingroup Innovation Foundation",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "VINIF Scholarship, Vingroup Innovation Foundation 2022–2024 Master's scholarship",
-  },
-  {
-    title: "Vallet Scholarship, Vallet Foundation",
-    category: "Research support",
-    url: "index.html#scholarships",
-    text: "Vallet Scholarship, Vallet Foundation 2021–2022 Scholarship",
+    title: "UET office",
+    category: "Contact",
+    url: "contact/#uet",
+    text: "UET Room 704 E3 Building Hanoi, Vietnam",
   },
   {
     title: "Contact",
@@ -569,17 +618,5 @@ window.siteSearch = [
     category: "Contact",
     url: "contact/#email",
     text: "Thanh Nguyen Canh Perception, Autonomy, and Intelligent Robotics Systems Lab JAIST Robotics Department University of Engineering and Technology, Vietnam National University",
-  },
-  {
-    title: "JAIST office",
-    category: "Contact",
-    url: "contact/#jaist",
-    text: "JAIST Room i62 School of Information Science I Ishikawa, Japan",
-  },
-  {
-    title: "UET office",
-    category: "Contact",
-    url: "contact/#uet",
-    text: "UET Room 704 E3 Building Hanoi, Vietnam",
   },
 ];

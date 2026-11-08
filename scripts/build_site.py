@@ -66,11 +66,18 @@ def resource_links(paper):
     return "".join(f'<a class="resource-link" href="{esc(url)}">{labels.get(key, esc(key.title()))} <span aria-hidden="true">↗</span></a>' for key, url in paper["links"].items() if url)
 
 
+def media_url(path, prefix=""):
+    """Local paths are relative to the site root; full URLs (media hosted on the PAIRS Lab site) are used as they are."""
+    return path if path.startswith(("http://", "https://")) else prefix + path
+
+
 def media(paper, prefix=""):
     if paper.get("image"):
-        return f'<img src="{esc(prefix + paper["image"])}" alt="Research overview: {esc(paper["title"])}" loading="lazy" decoding="async">'
+        return f'<img src="{esc(media_url(paper["image"], prefix))}" alt="Research overview: {esc(paper["title"])}" loading="lazy" decoding="async">'
     if paper.get("video"):
-        return f'<video controls muted playsinline preload="none" aria-label="Research demonstration: {esc(paper["title"])}"><source src="{esc(prefix + paper["video"])}" type="video/mp4">Your browser does not support embedded video. <a href="{esc(prefix + paper["video"])}">Download the demonstration</a>.</video>'
+        src = esc(media_url(paper["video"], prefix))
+        poster = f' poster="{esc(media_url(paper["poster"], prefix))}"' if paper.get("poster") else ""
+        return f'<video controls muted playsinline preload="none"{poster} aria-label="Research demonstration: {esc(paper["title"])}"><source src="{src}" type="video/mp4">Your browser does not support embedded video. <a href="{src}">Download the demonstration</a>.</video>'
     return '<div class="resource-symbol" aria-hidden="true">◈</div>'
 
 
