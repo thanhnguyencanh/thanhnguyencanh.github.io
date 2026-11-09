@@ -455,7 +455,10 @@
     "abstract": "",
     "image": "https://pairs-lab.github.io/images/publications/continuous-semantic-mapping.jpg",
     "video": "",
-    "links": {},
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2606.22672",
+      "website": "https://thanhnguyencanh.github.io/Spatio-Temporal-Mapping/"
+    },
     "cv_reference": "P5"
   },
   {
