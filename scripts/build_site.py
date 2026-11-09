@@ -13,14 +13,14 @@ from about_page import about_intro
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PAPERS = json.loads((ROOT / "data/publications.json").read_text())
-PAGES = [("", "About"), ("publications", "Publications"), ("teaching", "Teaching"), ("contact", "Contact")]
+PAGES = [("", "About"), ("publications", "Publications"), ("blog", "Blog"), ("teaching", "Teaching"), ("contact", "Contact")]
 LAB_URL = "https://pairs-lab.github.io/"  # research, people, projects, datasets and positions live on the lab site
 SEARCH = []
 
 
 def asset_revision():
     """Give generated pages fresh CSS and scripts whenever their sources change."""
-    sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js"]
+    sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js", ROOT / "assets/blog.css", ROOT / "assets/blog.js"]
     sources += sorted((ROOT / "data").glob("*.json"))
     sources += sorted((ROOT / "scripts").glob("*.py"))
     digest = hashlib.sha256()
@@ -143,15 +143,20 @@ def support_ring(items):
             f'<div class="ring-dots">{dots}</div></div><div class="ring-details" aria-live="polite">{details}</div>')
 
 
-def social_meta(slug, title, intro):
-    """Canonical URL, link-preview tags and (home page) schema.org Person, so search engines and chat apps show the current photo."""
+def social_meta(slug, title, intro, image=None, kind=None):
+    """Canonical URL, link-preview tags and (home page) schema.org Person, so search engines and chat apps show the current photo.
+    A page with its own 1200 x 630 picture (image, relative to the site root) shows that instead, as a large preview."""
     url = SITE + (slug + "/" if slug else "")
     photo = SITE + "images/profile/thanh-800.jpg"
     full = (title + " | " if slug else "") + PROFILE["name"]
-    tags = (f'<link rel="canonical" href="{esc(url)}"><meta property="og:type" content="{"profile" if not slug else "website"}"><meta property="og:site_name" content="{esc(PROFILE["name"])}">'
-            f'<meta property="og:title" content="{esc(full)}"><meta property="og:description" content="{esc(plain(intro))}"><meta property="og:url" content="{esc(url)}">'
-            f'<meta property="og:image" content="{photo}"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="{esc(PROFILE["name"])}">'
-            f'<meta name="twitter:card" content="summary"><meta name="twitter:image" content="{photo}">')
+    if image:
+        picture = (f'<meta property="og:image" content="{esc(SITE + image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{esc(title)}">'
+                   f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(SITE + image)}">')
+    else:
+        picture = (f'<meta property="og:image" content="{photo}"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="{esc(PROFILE["name"])}">'
+                   f'<meta name="twitter:card" content="summary"><meta name="twitter:image" content="{photo}">')
+    tags = (f'<link rel="canonical" href="{esc(url)}"><meta property="og:type" content="{kind or ("profile" if not slug else "website")}"><meta property="og:site_name" content="{esc(PROFILE["name"])}">'
+            f'<meta property="og:title" content="{esc(full)}"><meta property="og:description" content="{esc(plain(intro))}"><meta property="og:url" content="{esc(url)}">' + picture)
     if not slug:
         person = {"@context": "https://schema.org", "@type": "Person", "name": PROFILE["name"], "url": SITE, "image": photo, "email": "mailto:" + PROFILE["email"],
                   "jobTitle": PROFILE["role"], "affiliation": [{"@type": "CollegeOrUniversity", "name": PROFILE["affiliation"]},
@@ -163,13 +168,13 @@ def social_meta(slug, title, intro):
     return tags
 
 
-def render_page(slug, title, intro, content):
-    prefix = "../" if slug else ""
+def render_page(slug, title, intro, content, head="", image=None, kind=None, search_category="Page"):
+    prefix = "../" * (slug.count("/") + 1) if slug else ""
+    section = slug.split("/")[0]
     nav_links = []
-    labels = dict(PAGES)
-    for path in ["", "publications", "teaching", "contact"]:
-        current = ' aria-current="page"' if path == slug else ""
-        nav_links.append(f'<a href="{route(path, prefix)}"{current}>{labels[path]}</a>')
+    for path, label in PAGES:
+        current = ' aria-current="page"' if path == section else ""
+        nav_links.append(f'<a href="{route(path, prefix)}"{current}>{label}</a>')
     nav_links.append(f'<a href="{LAB_URL}">PAIRS Lab <span aria-hidden="true">↗</span></a>')
     nav = "\n".join(nav_links)
     search_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>'
@@ -178,8 +183,8 @@ def render_page(slug, title, intro, content):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title + ' | ' if slug else '')}{esc(PROFILE['name'])}</title><meta name="description" content="{esc(plain(intro))}"><meta name="author" content="{esc(PROFILE['name'])}">
 <meta name="color-scheme" content="light dark"><script>document.documentElement.classList.add('js');try{{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';}}catch(e){{}}</script>
-<link rel="icon" href="{prefix}images/profile/thanh-icon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="{prefix}images/profile/thanh-icon-180.png">{social_meta(slug, title, intro)}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css?v={ASSET_REVISION}">
-<script src="{prefix}assets/search-index.js?v={ASSET_REVISION}" defer></script><script src="{prefix}assets/site.js?v={ASSET_REVISION}" defer></script></head>
+<link rel="icon" href="{prefix}images/profile/thanh-icon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="{prefix}images/profile/thanh-icon-180.png">{social_meta(slug, title, intro, image, kind)}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css?v={ASSET_REVISION}">
+<script src="{prefix}assets/search-index.js?v={ASSET_REVISION}" defer></script><script src="{prefix}assets/site.js?v={ASSET_REVISION}" defer></script>{head}</head>
 <body><a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span></a>
 <button class="nav-toggle icon-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -192,7 +197,8 @@ def render_page(slug, title, intro, content):
     target = ROOT / slug / "index.html" if slug else ROOT / "index.html"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(format_source(document, target), encoding="utf-8")
-    add_search(title, "Page", route(slug), intro)
+    if search_category:
+        add_search(title, search_category, route(slug), intro)
 
 
 def home():
@@ -250,6 +256,82 @@ def teaching():
     render_page("teaching", "Teaching", "Teaching experience at JAIST and VNU-University of Engineering and Technology.", content)
 
 
+# ---------- blog ----------
+# Posts are bilingual: each text exists as .t-en and .t-vi, and html[data-lang] shows one (assets/blog.css).
+# A post is data/blog/<slug>.html (its body) plus, for data posts, blog/<slug>/data.js and covers written by its generator
+# (e.g. scripts/make_blog_slam_tree.py).
+BLOG = sorted(json.loads((ROOT / "data/blog.json").read_text(encoding="utf-8")), key=lambda p: p["date"], reverse=True)
+BLOG_INTRO = {"en": "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
+              "vi": "Bản đồ tương tác về các lĩnh vực nghiên cứu, bài hướng dẫn và ghi chú về SLAM và học robot, bằng tiếng Anh và tiếng Việt."}
+LANG_SWITCH = ('<div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">'
+               '<button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">English</button>'
+               '<button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">Tiếng Việt</button></div>')
+
+
+def bi(text, markup=False):
+    """Both languages of a text; markup=True keeps the trusted HTML of data/blog.json."""
+    show = (lambda value: value) if markup else esc
+    return f'<span class="t-en">{show(text["en"])}</span><span class="t-vi">{show(text["vi"])}</span>'
+
+
+def bi_date(value):
+    import datetime
+    d = datetime.date.fromisoformat(value)
+    return bi({"en": f"{d.day} {d.strftime('%B %Y')}", "vi": f"{d.day} tháng {d.month}, {d.year}"})
+
+
+def bi_tags(tags):
+    return "".join(f'<div class="research-tags t-{lang}">' + "".join('<span class="tag">' + esc(t) + "</span>" for t in tags[lang]) + "</div>" for lang in ("en", "vi"))
+
+
+def blog_head(prefix):
+    """Blog stylesheet, and the reading language set before the first paint: ?lang= in the link, else the last choice, else English."""
+    return (f'<link rel="stylesheet" href="{prefix}assets/blog.css?v={ASSET_REVISION}">'
+            '<script>try{const q=new URLSearchParams(location.search).get("lang");let l=q==="vi"||q==="en"?q:localStorage.getItem("blog-lang");'
+            'l=l==="vi"?"vi":"en";document.documentElement.dataset.lang=l;document.documentElement.lang=l}catch(e){document.documentElement.dataset.lang="en"}</script>')
+
+
+def fingerprint(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+
+
+def blog():
+    entries = ""
+    for p in BLOG:
+        folder = ROOT / "blog" / p["slug"]
+        covers = "".join(f'<img class="cover-{theme}" src="{p["slug"]}/{name}?v={fingerprint(folder / name)}" alt="" width="1200" height="630" loading="lazy" decoding="async">'
+                         for theme, name in (("light", "cover.svg"), ("dark", "cover-dark.svg")) if (folder / name).is_file())
+        cover = f'<a class="blog-cover" href="{p["slug"]}/" tabindex="-1" aria-hidden="true">{covers}</a>' if covers else ""
+        entries += (f'<article class="blog-entry{"" if cover else " text-only"}" id="{esc(p["slug"])}">{cover}<div>'
+                    f'<div class="publication-venue"><span class="venue-badge">{bi(p["kind"])}</span><span class="publication-year">{bi_date(p["date"])}</span></div>'
+                    f'<h2><a href="{p["slug"]}/">{bi(p["title"])}</a></h2><p>{bi(p["summary"])}</p>{bi_tags(p["tags"])}</div></article>')
+    n = len(BLOG)
+    count = bi({"en": f"{n} post" + ("" if n == 1 else "s"), "vi": f"{n} bài viết"})
+    content = (f'<header class="page-heading"><p class="eyebrow">{bi({"en": "Notes and explainers", "vi": "Ghi chú và giải thích"})}</p><h1>Blog</h1>'
+               f'<p class="page-intro">{bi(BLOG_INTRO)}</p></header><div class="blog-toolbar"><span>{count}</span>{LANG_SWITCH}</div>{entries}'
+               f'<script src="../assets/blog.js?v={ASSET_REVISION}"></script>')
+    render_page("blog", "Blog", BLOG_INTRO["en"], content, head=blog_head("../"))
+    for p in BLOG:
+        slug = "blog/" + p["slug"]
+        folder = ROOT / slug
+        url = SITE + slug + "/"
+        image = slug + "/cover.png" if (folder / "cover.png").is_file() else None
+        post = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"]["en"], "alternativeHeadline": p["title"]["vi"],
+                "description": p["summary"]["en"], "datePublished": p["date"], "inLanguage": ["en", "vi"], "mainEntityOfPage": url,
+                "author": {"@type": "Person", "name": PROFILE["name"], "url": SITE}}
+        if image:
+            post["image"] = SITE + image
+        head = blog_head("../../") + '<script type="application/ld+json">' + json.dumps(post, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+        header = (f'<header class="page-heading post-heading"><p class="eyebrow"><a href="../">Blog</a> · {bi_date(p["date"])}</p>'
+                  f'<h1>{bi(p["title"])}</h1><p class="page-intro">{bi(p["lead"], markup=True)}</p>'
+                  f'<div class="post-byline"><span><a href="../../">{esc(PROFILE["name"])}</a> · <a href="{LAB_URL}">{esc(PROFILE["lab_short_name"])}</a></span>{LANG_SWITCH}</div></header>')
+        scripts = f'<script src="data.js?v={fingerprint(folder / "data.js")}"></script>' if (folder / "data.js").is_file() else ""
+        scripts += f'<script src="../../assets/blog.js?v={ASSET_REVISION}"></script>'
+        body = (ROOT / "data/blog" / (p["slug"] + ".html")).read_text(encoding="utf-8")
+        render_page(slug, p["title"]["en"], p["summary"]["en"], header + body + scripts, head=head, image=image, kind="article", search_category=None)
+        add_search(p["title"]["en"], "Blog", slug + "/", " ".join([p["title"]["vi"], p["summary"]["en"], p["summary"]["vi"], *p["tags"]["en"], *p["tags"]["vi"]]))
+
+
 def office_details(key, title):
     office = PROFILE["offices"][key]
     add_search(title + " office", "Contact", f"contact/#{key}",
@@ -289,7 +371,7 @@ def seo_files():
     projects = sorted({u for p in PAPERS for u in [p["links"].get("website", "")] if u.startswith(SITE) and u != SITE})
     lab = json.loads((ROOT.parent / "pairslab.github.io/data/publications.json").read_text()) if (ROOT.parent / "pairslab.github.io/data/publications.json").is_file() else []
     projects = sorted(set(projects) | {u for p in lab for u in [p["links"].get("website", "")] if u.startswith(SITE) and u != SITE})
-    urls = [SITE + (slug + "/" if slug else "") for slug, _ in PAGES] + projects
+    urls = [SITE + (slug + "/" if slug else "") for slug, _ in PAGES] + [SITE + "blog/" + p["slug"] + "/" for p in BLOG] + projects
     body = "".join(f"<url><loc>{html.escape(u)}</loc><lastmod>{today}</lastmod></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + body + "</urlset>\n", encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n", encoding="utf-8")
@@ -299,6 +381,7 @@ def seo_files():
 def main():
     home()
     publications()
+    blog()
     teaching()
     contact()
     assets = ROOT / "assets"

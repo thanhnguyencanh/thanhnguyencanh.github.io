@@ -566,6 +566,18 @@ window.siteSearch = [
     text: "Thanh Nguyen Canh Xiem HoangVan IEEE International Conference on Research, Innovation and Vision for the Future (RIVF) 2023 Machine learning Security",
   },
   {
+    title: "Blog",
+    category: "Page",
+    url: "blog/",
+    text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
+  },
+  {
+    title: "A family tree of visual SLAM",
+    category: "Blog",
+    url: "blog/slam-family-tree/",
+    text: "Cây phả hệ SLAM thị giác Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM. Tất cả hệ thống SLAM được so sánh trong bốn bài khảo sát của chúng tôi, trong một cây phả hệ tương tác gồm bảy dòng: từ bản đồ ngữ nghĩa và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi. SLAM Survey Interactive SLAM Khảo sát Tương tác",
+  },
+  {
     title: "I213E: Discrete Signal Processing",
     category: "Teaching",
     url: "teaching/#teaching-0",

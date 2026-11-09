@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A family tree of visual SLAM | Thanh Nguyen Canh</title>
+    <meta
+      name="description"
+      content="Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/slam-family-tree/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta property="og:title" content="A family tree of visual SLAM | Thanh Nguyen Canh" />
+    <meta
+      property="og:description"
+      content="Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM."
+    />
+    <meta property="og:url" content="https://thanhnguyencanh.github.io/blog/slam-family-tree/" />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/slam-family-tree/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A family tree of visual SLAM" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/slam-family-tree/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=9f3276296795" />
+    <script src="../../assets/search-index.js?v=9f3276296795" defer></script>
+    <script src="../../assets/site.js?v=9f3276296795" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=9f3276296795" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A family tree of visual SLAM",
+        "alternativeHeadline": "Cây phả hệ SLAM thị giác",
+        "description": "Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM.",
+        "datePublished": "2026-11-10",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/slam-family-tree/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/slam-family-tree/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow">
+          <a href="../">Blog</a> · <span class="t-en">10 November 2026</span
+          ><span class="t-vi">10 tháng 11, 2026</span>
+        </p>
+        <h1>
+          <span class="t-en">A family tree of visual SLAM</span
+          ><span class="t-vi">Cây phả hệ SLAM thị giác</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            ><span data-stat="items"></span> SLAM systems from our four surveys, in one tree of
+            seven lineages: from object-level semantic maps and neural fields to open-vocabulary,
+            collaborative and endoscopic SLAM.</span
+          ><span class="t-vi"
+            ><span data-stat="items"></span> hệ thống SLAM từ bốn bài khảo sát của chúng tôi, trong
+            một cây gồm bảy dòng: từ bản đồ ngữ nghĩa mức đối tượng và trường nơ-ron đến SLAM từ
+            vựng mở, SLAM cộng tác và SLAM nội soi.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body" id="ft">
+        <section>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">systems</span><span class="t-vi">hệ thống</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">lineages</span><span class="t-vi">dòng</span></dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+            <div>
+              <dt data-stat="sources"></dt>
+              <dd>
+                <span class="t-en">of our surveys</span
+                ><span class="t-vi">bài khảo sát của chúng tôi</span>
+              </dd>
+            </div>
+          </dl>
+          <div class="post-prose">
+            <p class="t-en">
+              Each of our SLAM surveys compares a set of systems inside its own taxonomy. Read
+              together, they cover a large part of how visual SLAM has grown over the last two
+              decades. This post puts all of them in one family tree, so you can see where a system
+              sits, what it is related to, and which survey discusses it.
+            </p>
+            <p class="t-vi">
+              Mỗi bài khảo sát SLAM của chúng tôi so sánh một tập hệ thống theo cách phân loại
+              riêng. Khi đọc cùng nhau, chúng bao quát phần lớn quá trình phát triển của SLAM thị
+              giác trong hai thập kỷ qua. Bài viết này đặt tất cả các hệ thống vào một cây phả hệ
+              chung, để bạn thấy mỗi hệ thống nằm ở đâu, gần với những hệ thống nào và được bàn đến
+              trong bài khảo sát nào.
+            </p>
+            <p class="t-en">
+              Pick a lineage or a branch to see its systems and how many appeared each year. Pick a
+              system to see its reference and the surveys that cover it. The search box filters the
+              whole page, and the address bar keeps your selection, so you can share a link to a
+              branch.
+            </p>
+            <p class="t-vi">
+              Chọn một dòng hoặc một nhánh để xem các hệ thống và số lượng xuất hiện mỗi năm. Chọn
+              một hệ thống để xem tài liệu tham khảo và các bài khảo sát có đề cập đến nó. Ô tìm
+              kiếm lọc toàn bộ trang, và thanh địa chỉ lưu lại lựa chọn của bạn, nên bạn có thể chia
+              sẻ đường dẫn đến một nhánh.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Seven lineages over time</span
+            ><span class="t-vi">Bảy dòng theo thời gian</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >Each dot is one system, in the year its survey cites. Dots fade when they do not
+              match the search or the selected branch. Click a dot to open it.</span
+            ><span class="t-vi"
+              >Mỗi chấm là một hệ thống, đặt theo năm được bài khảo sát trích dẫn. Chấm mờ đi khi
+              không khớp với tìm kiếm hoặc nhánh đang chọn. Nhấn vào một chấm để mở hệ thống
+              đó.</span
+            >
+          </p>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span>
+          </h2>
+          <ul class="post-prose">
+            <li data-fact="biggest"></li>
+            <li data-fact="recent"></li>
+            <li data-fact="oldest"></li>
+            <li data-fact="multi"></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">How this tree was built</span
+            ><span class="t-vi">Cách xây dựng cây</span>
+          </h2>
+          <div class="post-prose t-en">
+            <p><strong>Sources.</strong> The systems compared in our four surveys:</p>
+            <ul>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/Semantic-Slam-survey/"
+                  >Semantic visual SLAM</a
+                >
+                (Robotics and Autonomous Systems, 2026)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/open-semanticSLAM-survey/"
+                  >Open-world semantic SLAM</a
+                >
+                (preprint)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/3DCollabGS-SLAM-Survey/"
+                  >Collaborative SLAM in the era of 3D Gaussian splatting</a
+                >
+                (preprint)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/MonovSLAM4Colon/"
+                  >Monocular vSLAM for colonoscopy</a
+                >
+                (preprint)
+              </li>
+            </ul>
+            <p>
+              <strong>One place per system.</strong> A system that several surveys compare is placed
+              by the most specific one: the collaborative survey first, then open-world, then
+              semantic, then colonoscopy. The others are listed under "Covered in". Branches follow
+              each survey's own grouping; only H2-Mapping and H3-Mapping were placed by hand.
+            </p>
+            <p>
+              <strong>Same system or not.</strong> Two entries are merged when their names match,
+              their cited years are at most two years apart and the references share an author; the
+              earlier year is kept. Names alone are not enough: GSSLAM and GS-SLAM, or CoSLAM (2013)
+              and Co-SLAM (2023), are different papers.
+            </p>
+            <p>
+              <strong>Limits.</strong> The tree covers only the systems our surveys compare, so it
+              maps our reading of the field, not the whole field. Years are the years the surveys
+              cite.
+            </p>
+          </div>
+          <div class="post-prose t-vi">
+            <p>
+              <strong>Nguồn dữ liệu.</strong> Các hệ thống được so sánh trong bốn bài khảo sát của
+              chúng tôi:
+            </p>
+            <ul>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/Semantic-Slam-survey/"
+                  >SLAM thị giác ngữ nghĩa</a
+                >
+                (Robotics and Autonomous Systems, 2026)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/open-semanticSLAM-survey/"
+                  >SLAM ngữ nghĩa thế giới mở</a
+                >
+                (bản preprint)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/3DCollabGS-SLAM-Survey/"
+                  >SLAM cộng tác trong kỷ nguyên 3D Gaussian Splatting</a
+                >
+                (bản preprint)
+              </li>
+              <li>
+                <a href="https://thanhnguyencanh.github.io/MonovSLAM4Colon/"
+                  >vSLAM một camera cho nội soi đại tràng</a
+                >
+                (bản preprint)
+              </li>
+            </ul>
+            <p>
+              <strong>Mỗi hệ thống một vị trí.</strong> Hệ thống có trong nhiều bài khảo sát được
+              đặt theo bài cụ thể nhất: khảo sát SLAM cộng tác trước, rồi thế giới mở, rồi ngữ
+              nghĩa, rồi nội soi đại tràng. Các bài còn lại được liệt kê ở mục "Có trong". Các nhánh
+              theo đúng cách nhóm của từng bài khảo sát; chỉ H2-Mapping và H3-Mapping được xếp thủ
+              công.
+            </p>
+            <p>
+              <strong>Cùng một hệ thống hay không.</strong> Hai mục được gộp khi trùng tên, năm
+              trích dẫn cách nhau không quá hai năm và tài liệu tham khảo có chung tác giả; năm sớm
+              hơn được giữ lại. Chỉ trùng tên là chưa đủ: GSSLAM và GS-SLAM, hay CoSLAM (2013) và
+              Co-SLAM (2023), là các bài báo khác nhau.
+            </p>
+            <p>
+              <strong>Giới hạn.</strong> Cây chỉ gồm các hệ thống mà các bài khảo sát của chúng tôi
+              so sánh, nên nó phản ánh góc nhìn của chúng tôi chứ không phải toàn bộ lĩnh vực. Năm
+              là năm được các bài khảo sát trích dẫn.
+            </p>
+          </div>
+          <p class="post-note">
+            <span class="t-en"
+              >Inspired by the
+              <a href="https://gisbi-kim.github.io/slam-paper-phylogeny/">SLAM Paper Phylogeny</a>,
+              which arranges the references of the SLAM Handbook into a four-level tree. Here we use
+              our own surveys and our own seven lineages instead.</span
+            ><span class="t-vi"
+              >Bài viết lấy cảm hứng từ
+              <a href="https://gisbi-kim.github.io/slam-paper-phylogeny/">SLAM Paper Phylogeny</a>,
+              dự án sắp xếp tài liệu tham khảo của SLAM Handbook thành một cây bốn cấp. Ở đây, chúng
+              tôi dùng các bài khảo sát và bảy dòng phân loại của riêng mình.</span
+            >
+          </p>
+        </section>
+      </div>
+      <script src="data.js?v=0dff73a7"></script>
+      <script src="../../assets/blog.js?v=9f3276296795"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>
