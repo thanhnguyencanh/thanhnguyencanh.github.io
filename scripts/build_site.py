@@ -239,6 +239,23 @@ def contact():
     add_search(PROFILE['email'], "Contact", "contact/#email", PROFILE['name'] + " " + PROFILE['lab_name'] + " JAIST " + PROFILE['lecturer_department'] + " " + PROFILE['lecturer_institution'])
 
 
+SITE = "https://thanhnguyencanh.github.io/"
+
+
+def seo_files():
+    """sitemap.xml and robots.txt for this site and the project pages served under it (thanhnguyencanh.github.io/<repo>/)."""
+    import datetime
+    today = datetime.date.today().isoformat()
+    projects = sorted({u for p in PAPERS for u in [p["links"].get("website", "")] if u.startswith(SITE) and u != SITE})
+    lab = json.loads((ROOT.parent / "pairslab.github.io/data/publications.json").read_text()) if (ROOT.parent / "pairslab.github.io/data/publications.json").is_file() else []
+    projects = sorted(set(projects) | {u for p in lab for u in [p["links"].get("website", "")] if u.startswith(SITE) and u != SITE})
+    urls = [SITE + (slug + "/" if slug else "") for slug, _ in PAGES] + projects
+    body = "".join(f"<url><loc>{html.escape(u)}</loc><lastmod>{today}</lastmod></url>" for u in urls)
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + body + "</urlset>\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n", encoding="utf-8")
+    return len(urls)
+
+
 def main():
     home()
     publications()
@@ -253,7 +270,8 @@ def main():
         + ";\n"
     )
     search_index.write_text(format_source(search_source, search_index), encoding="utf-8")
-    print(f"Built {len(PAGES)} pages; indexed {len(SEARCH)} search entries.")
+    n = seo_files()
+    print(f"Built {len(PAGES)} pages; indexed {len(SEARCH)} search entries; sitemap lists {n} URLs.")
 
 
 if __name__ == "__main__":
