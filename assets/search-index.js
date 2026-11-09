@@ -614,15 +614,21 @@ window.siteSearch = [
     text: "Japan Advanced Institute of Science and Technology Teaching Assistant Fundamentals of Programming",
   },
   {
-    title: "Robotics and System Optimization",
+    title: "I214E: System Optimization",
     category: "Teaching",
     url: "teaching/#teaching-2",
-    text: "Japan Advanced Institute of Science and Technology Teaching Assistant Robotics System Optimization",
+    text: "Japan Advanced Institute of Science and Technology Teaching Assistant System Optimization",
+  },
+  {
+    title: "I615E: Robotics",
+    category: "Teaching",
+    url: "teaching/#teaching-3",
+    text: "Japan Advanced Institute of Science and Technology Teaching Assistant Robotics",
   },
   {
     title: "Robotics and Engineering",
     category: "Teaching",
-    url: "teaching/#teaching-3",
+    url: "teaching/#teaching-4",
     text: "Robotics Department, University of Engineering and Technology, Vietnam National University Lecturer Programming Robots with ROS Introduction to Human Machine Interface Robotic Control Mechanical Drawing Electronics Engineering Practice PLC and Its Application in Agriculture",
   },
   {

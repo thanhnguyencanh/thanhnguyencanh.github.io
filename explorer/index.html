@@ -48,10 +48,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
     />
-    <link rel="stylesheet" href="../stylesheet.css?v=06cbb96e9cf3" />
-    <script src="../assets/search-index.js?v=06cbb96e9cf3" defer></script>
-    <script src="../assets/site.js?v=06cbb96e9cf3" defer></script>
-    <link rel="stylesheet" href="../assets/explorer.css?v=06cbb96e9cf3" />
+    <link rel="stylesheet" href="../stylesheet.css?v=e8988ca37e3c" />
+    <script src="../assets/search-index.js?v=e8988ca37e3c" defer></script>
+    <script src="../assets/site.js?v=e8988ca37e3c" defer></script>
+    <link rel="stylesheet" href="../assets/explorer.css?v=e8988ca37e3c" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -154,6 +154,7 @@
             placeholder='Search titles and authors, e.g. evidential, "gaussian splatting", Chong'
           />
         </div>
+        <p class="px-hint" id="px-hint" role="status" hidden></p>
         <div class="px-filters">
           <div class="px-row">
             <span class="px-label">Field</span>
@@ -198,11 +199,14 @@
           ICML, ICLR. Data: the <a href="https://dblp.org/">dblp</a> computer science bibliography
           (CC0), downloaded <span data-px="date">2026-11-10</span>; workshop papers are not
           included.<span id="px-coverage"></span> Topics come from keywords in titles, so a paper
-          can be missing from a topic it belongs to.
+          can be missing from a topic it belongs to. Search matches words in titles and authors,
+          with common synonyms (LLM, large language model), UK and US spellings and small typos;
+          <b>Similar papers</b> lists the ten papers whose titles are closest in meaning, from
+          SPECTER title embeddings.
         </p>
       </div>
       <noscript><p>The Paper Explorer needs JavaScript.</p></noscript>
-      <script src="../assets/explorer.js?v=06cbb96e9cf3" defer></script>
+      <script src="../assets/explorer.js?v=e8988ca37e3c" defer></script>
     </main>
     <footer class="site-footer">
       <div class="footer-inner">

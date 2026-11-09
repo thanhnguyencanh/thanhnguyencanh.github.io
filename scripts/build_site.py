@@ -340,6 +340,7 @@ def explorer():
     sorts = [("year-desc", "Newest first"), ("year-asc", "Oldest first"), ("match", "Best match"), ("title", "Title A–Z")]
     content = heading("Paper Explorer", intro, "Robotics · Vision · Machine learning") + f'''<div class="px" id="px" data-base="data/">
 <div class="px-search search-field"><label class="sr-only" for="px-q">Search papers</label>{search_icon}<input id="px-q" type="search" autocomplete="off" placeholder="Search titles and authors, e.g. evidential, &quot;gaussian splatting&quot;, Chong"></div>
+<p class="px-hint" id="px-hint" role="status" hidden></p>
 <div class="px-filters">
 <div class="px-row"><span class="px-label">Field</span><div class="px-chips" id="px-fields"></div></div>
 <div class="px-row"><span class="px-label">Venue</span><div class="px-chips" id="px-venues"></div></div>
@@ -352,7 +353,7 @@ def explorer():
 <div class="px-overview"><div class="px-trend" id="px-trend"></div><div class="px-venuebars" id="px-venuebars"></div></div>
 <ol class="px-results" id="px-results"></ol>
 <div class="px-more"><button type="button" class="filter-chip" id="px-more" hidden>Show more</button></div>
-<p class="px-note">Venues: {esc(names)}. Data: the <a href="https://dblp.org/">dblp</a> computer science bibliography (CC0), downloaded <span data-px="date">{esc(index["generated"])}</span>; workshop papers are not included.<span id="px-coverage"></span> Topics come from keywords in titles, so a paper can be missing from a topic it belongs to.</p>
+<p class="px-note">Venues: {esc(names)}. Data: the <a href="https://dblp.org/">dblp</a> computer science bibliography (CC0), downloaded <span data-px="date">{esc(index["generated"])}</span>; workshop papers are not included.<span id="px-coverage"></span> Topics come from keywords in titles, so a paper can be missing from a topic it belongs to. Search matches words in titles and authors, with common synonyms (LLM, large language model), UK and US spellings and small typos; <b>Similar papers</b> lists the ten papers whose titles are closest in meaning, from SPECTER title embeddings.</p>
 </div><noscript><p>The Paper Explorer needs JavaScript.</p></noscript><script src="../assets/explorer.js?v={ASSET_REVISION}" defer></script>'''
     render_page("explorer", "Paper Explorer", f"Search {index['total']:,} papers from {names}, {y0}–{y1}, by title, author, venue, year and topic.",
                 content, head=f'<link rel="stylesheet" href="../assets/explorer.css?v={ASSET_REVISION}">')

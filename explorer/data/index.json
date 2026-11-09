@@ -527,5 +527,10 @@
    "group": "Vision",
    "count": 2664
   }
- ]
+ ],
+ "neighbors": {
+  "k": 10,
+  "model": "sentence-transformers/allenai-specter",
+  "bytes": 4
+ }
 }

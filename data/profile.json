@@ -153,7 +153,7 @@
   ],
   "teaching": [
     {
-      "date": "December 2024",
+      "date": "JAIST",
       "title": "I213E: Discrete Signal Processing",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
@@ -161,7 +161,7 @@
       "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401"
     },
     {
-      "date": "October 2024",
+      "date": "JAIST",
       "title": "I116E: Fundamentals of Programming",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
@@ -170,10 +170,19 @@
     },
     {
       "date": "JAIST",
-      "title": "Robotics and System Optimization",
+      "title": "I214E: System Optimization",
       "role": "Teaching Assistant",
       "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": ["Robotics", "System Optimization"]
+      "courses": ["System Optimization"],
+      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I214E500&P2=2026&P3=20260401"
+    },
+    {
+      "date": "JAIST",
+      "title": "I615E: Robotics",
+      "role": "Teaching Assistant",
+      "institution": "Japan Advanced Institute of Science and Technology",
+      "courses": ["Robotics"],
+      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I615E000&P2=2026&P3=20260401"
     },
     {
       "date": "VNU-UET",

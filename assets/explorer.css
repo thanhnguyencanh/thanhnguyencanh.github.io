@@ -16,6 +16,51 @@ html[data-theme="dark"] .px {
 .px-search input {
   font-size: 1.05rem;
 }
+.px-hint {
+  margin: -8px 0 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.px-hint b {
+  color: var(--heading);
+  font-weight: 500;
+}
+.px-simbtn {
+  padding: 0 2px;
+  margin-left: auto;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.px-simbtn:hover {
+  text-decoration: underline;
+}
+.px-tags {
+  align-items: center;
+}
+.px-sim {
+  margin: 8px 0 2px 2px;
+  padding: 8px 14px;
+  border-left: 2px solid var(--accent);
+  background: var(--surface-soft);
+}
+.px-sim ol {
+  margin: 4px 0 0;
+  padding-left: 1.3rem;
+  font-size: 0.88rem;
+}
+.px-sim li {
+  margin: 3px 0;
+}
+.px-sim li a {
+  color: var(--heading);
+}
+.px-sim li a:hover {
+  color: var(--accent);
+}
 .px-filters {
   display: grid;
   gap: 12px;

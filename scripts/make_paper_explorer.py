@@ -107,8 +107,17 @@ def topics_of(title):
     return bits
 
 
+PLACEHOLDER = re.compile(r"\[inline-graphic not available: see fulltext\]")  # dblp's stand-in for a logo in a title
+
+
+def tidy(t):
+    t = re.sub(r"\s+", " ", PLACEHOLDER.sub(" ", t)).strip()
+    t = re.sub(r"\s*-?\s+:", ":", t)  # "AdaThinking- : One-Token ..." -> "AdaThinking: One-Token ..."
+    return re.sub(r"^[:;,.\s]+", "", t)  # a title cannot start with punctuation left by a dropped symbol
+
+
 def clean_title(el):
-    t = re.sub(r"\s+", " ", "".join(el.itertext())).strip()
+    t = tidy("".join(el.itertext()))
     return t[:-1] if t.endswith(".") and not t.endswith("..") else t
 
 
