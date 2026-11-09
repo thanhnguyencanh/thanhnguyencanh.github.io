@@ -123,6 +123,26 @@ def format_source(source, target):
     ).stdout
 
 
+def social_meta(slug, title, intro):
+    """Canonical URL, link-preview tags and (home page) schema.org Person, so search engines and chat apps show the current photo."""
+    url = SITE + (slug + "/" if slug else "")
+    photo = SITE + "images/profile/thanh-800.jpg"
+    full = (title + " | " if slug else "") + PROFILE["name"]
+    tags = (f'<link rel="canonical" href="{esc(url)}"><meta property="og:type" content="{"profile" if not slug else "website"}"><meta property="og:site_name" content="{esc(PROFILE["name"])}">'
+            f'<meta property="og:title" content="{esc(full)}"><meta property="og:description" content="{esc(plain(intro))}"><meta property="og:url" content="{esc(url)}">'
+            f'<meta property="og:image" content="{photo}"><meta property="og:image:width" content="800"><meta property="og:image:height" content="800"><meta property="og:image:alt" content="{esc(PROFILE["name"])}">'
+            f'<meta name="twitter:card" content="summary"><meta name="twitter:image" content="{photo}">')
+    if not slug:
+        person = {"@context": "https://schema.org", "@type": "Person", "name": PROFILE["name"], "url": SITE, "image": photo, "email": "mailto:" + PROFILE["email"],
+                  "jobTitle": PROFILE["role"], "affiliation": [{"@type": "CollegeOrUniversity", "name": PROFILE["affiliation"]},
+                                                              {"@type": "CollegeOrUniversity", "name": PROFILE["lecturer_institution"]}],
+                  "worksFor": {"@type": "ResearchOrganization", "name": PROFILE["lab_short_name"], "url": LAB_URL},
+                  "sameAs": ["https://scholar.google.com/citations?user=gnzxTKcAAAAJ", "https://orcid.org/0000-0001-6332-1002",
+                             "https://github.com/thanhnguyencanh", "https://www.linkedin.com/in/nguyencanhthanh/", LAB_URL]}
+        tags += '<script type="application/ld+json">' + json.dumps(person, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+    return tags
+
+
 def render_page(slug, title, intro, content):
     prefix = "../" if slug else ""
     nav_links = []
@@ -138,7 +158,7 @@ def render_page(slug, title, intro, content):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title + ' | ' if slug else '')}{esc(PROFILE['name'])}</title><meta name="description" content="{esc(plain(intro))}"><meta name="author" content="{esc(PROFILE['name'])}">
 <meta name="color-scheme" content="light dark"><script>document.documentElement.classList.add('js');try{{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';}}catch(e){{}}</script>
-<link rel="icon" href="{prefix}images/profile/thanh.jpg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css?v={ASSET_REVISION}">
+<link rel="icon" href="{prefix}images/profile/thanh-icon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="{prefix}images/profile/thanh-icon-180.png">{social_meta(slug, title, intro)}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"><link rel="stylesheet" href="{prefix}stylesheet.css?v={ASSET_REVISION}">
 <script src="{prefix}assets/search-index.js?v={ASSET_REVISION}" defer></script><script src="{prefix}assets/site.js?v={ASSET_REVISION}" defer></script></head>
 <body><a class="skip-link" href="#main-content">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a class="brand" href="{route('', prefix)}"><span class="brand-name">{esc(PROFILE['name'])}</span></a>
