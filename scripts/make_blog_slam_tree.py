@@ -6,7 +6,7 @@ Source: the systems compared in our four SLAM surveys, read from the data files 
 Run: python3 scripts/make_blog_slam_tree.py   (then python3 scripts/build_site.py)
 Each system is placed once, in a seven-lineage tree whose branches follow the surveys' own groupings.
 
-Rules (also stated in the post):
+Rules:
   * The same paper in two surveys is merged when the names match and the two references share an author name;
     the earlier of the cited years is kept.
   * Placement follows the most specific survey that covers the system: collaborative survey, then open-world survey,
