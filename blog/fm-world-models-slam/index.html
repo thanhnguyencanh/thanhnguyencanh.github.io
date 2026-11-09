@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foundation models and world models for SLAM | Thanh Nguyen Canh</title>
+    <meta
+      name="description"
+      content="How CLIP, DUSt3R, VGGT, Segment Anything, language models and world models enter SLAM and mapping: a family tree of papers from 14 robotics, vision and machine learning venues."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/fm-world-models-slam/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta
+      property="og:title"
+      content="Foundation models and world models for SLAM | Thanh Nguyen Canh"
+    />
+    <meta
+      property="og:description"
+      content="How CLIP, DUSt3R, VGGT, Segment Anything, language models and world models enter SLAM and mapping: a family tree of papers from 14 robotics, vision and machine learning venues."
+    />
+    <meta
+      property="og:url"
+      content="https://thanhnguyencanh.github.io/blog/fm-world-models-slam/"
+    />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/fm-world-models-slam/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Foundation models and world models for SLAM" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/fm-world-models-slam/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=06cbb96e9cf3" />
+    <script src="../../assets/search-index.js?v=06cbb96e9cf3" defer></script>
+    <script src="../../assets/site.js?v=06cbb96e9cf3" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=06cbb96e9cf3" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Foundation models and world models for SLAM",
+        "alternativeHeadline": "Mô hình nền tảng và mô hình thế giới cho SLAM",
+        "description": "How CLIP, DUSt3R, VGGT, Segment Anything, language models and world models enter SLAM and mapping: a family tree of papers from 14 robotics, vision and machine learning venues.",
+        "datePublished": "2026-11-10",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/fm-world-models-slam/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/fm-world-models-slam/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en">Foundation models and world models for SLAM</span
+          ><span class="t-vi">Mô hình nền tảng và mô hình thế giới cho SLAM</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            ><span data-stat="items"></span> papers that bring foundation models and world models
+            into SLAM and mapping, in four lineages: language maps, geometry foundation models,
+            pretrained features, and world models.</span
+          ><span class="t-vi"
+            ><span data-stat="items"></span> bài báo đưa mô hình nền tảng và mô hình thế giới vào
+            SLAM và lập bản đồ, chia thành bốn dòng: bản đồ ngôn ngữ, mô hình nền tảng hình học, đặc
+            trưng tiền huấn luyện và mô hình thế giới.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body" id="ft">
+        <section>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">lineages</span><span class="t-vi">dòng</span></dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+            <div>
+              <dt>14</dt>
+              <dd>
+                <span class="t-en">venues searched</span
+                ><span class="t-vi">hội nghị và tạp chí</span>
+              </dd>
+            </div>
+          </dl>
+          <div class="post-prose">
+            <p class="t-en">
+              Large pretrained models are changing SLAM in four ways. Vision-language models such as
+              CLIP put words into maps, so a robot can find "the red mug" or let a language model
+              plan over its map. Geometry foundation models such as DUSt3R, MASt3R and VGGT predict
+              depth and 3D points directly from images. Pretrained features and masks from DINO and
+              Segment Anything make matching, place recognition and dynamic-object handling more
+              robust. And world models and generative models predict how a scene will look or
+              change, to complete maps, forecast occupancy or simulate.
+            </p>
+            <p class="t-vi">
+              Các mô hình tiền huấn luyện lớn đang thay đổi SLAM theo bốn cách. Mô hình thị
+              giác-ngôn ngữ như CLIP đưa từ ngữ vào bản đồ, để robot tìm được "chiếc cốc màu đỏ"
+              hoặc để mô hình ngôn ngữ lập kế hoạch trên bản đồ. Mô hình nền tảng hình học như
+              DUSt3R, MASt3R và VGGT dự đoán độ sâu và điểm 3D trực tiếp từ ảnh. Đặc trưng và mặt nạ
+              tiền huấn luyện từ DINO và Segment Anything giúp so khớp, nhận dạng địa điểm và xử lý
+              vật thể động bền vững hơn. Còn mô hình thế giới và mô hình sinh dự đoán cảnh sẽ trông
+              thế nào hoặc thay đổi ra sao, để hoàn thiện bản đồ, dự báo trạng thái chiếm chỗ hoặc
+              mô phỏng.
+            </p>
+            <p class="t-en">
+              This post collects the papers of the
+              <a href="../../explorer/">Paper Explorer</a> venues whose titles name both SLAM or
+              mapping and a foundation or world model, and places each in one of these four
+              lineages.
+            </p>
+            <p class="t-vi">
+              Bài viết này tập hợp các bài báo thuộc các hội nghị và tạp chí của
+              <a href="../../explorer/">Paper Explorer</a> có tiêu đề nhắc đến cả SLAM hoặc lập bản
+              đồ và một mô hình nền tảng hay mô hình thế giới, rồi xếp mỗi bài vào một trong bốn
+              dòng trên.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <p class="ft-note">
+            <span class="t-en"
+              >Papers and branches come from keyword rules on titles: in a hand check of 40 random
+              papers, about 9 in 10 fit the topic. Papers whose titles do not name a foundation or
+              world model are not included.</span
+            ><span class="t-vi"
+              >Bài báo và nhánh được chọn bằng quy tắc từ khóa trên tiêu đề: khi kiểm tra thủ công
+              40 bài ngẫu nhiên, khoảng 9/10 bài đúng chủ đề. Các bài có tiêu đề không nhắc đến mô
+              hình nền tảng hay mô hình thế giới thì không có ở đây.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Four lineages over time</span
+            ><span class="t-vi">Bốn dòng theo thời gian</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >Each dot is one paper. Dots fade when they do not match the search or the selected
+              branch. Click a dot to open it.</span
+            ><span class="t-vi"
+              >Mỗi chấm là một bài báo. Chấm mờ đi khi không khớp với tìm kiếm hoặc nhánh đang chọn.
+              Nhấn vào một chấm để mở bài đó.</span
+            >
+          </p>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span>
+          </h2>
+          <ul class="post-prose">
+            <li data-fact="recent"></li>
+            <li data-fact="biggest"></li>
+            <li data-fact="pointmap"></li>
+            <li data-fact="venue"></li>
+          </ul>
+          <p class="post-prose">
+            <span class="t-en"
+              >To look further, search the
+              <a href="../../explorer/?q=slam&amp;topics=llm">Paper Explorer</a>.</span
+            ><span class="t-vi"
+              >Để tìm thêm, hãy dùng
+              <a href="../../explorer/?q=slam&amp;topics=llm">Paper Explorer</a>.</span
+            >
+          </p>
+        </section>
+      </div>
+      <script src="data.js?v=242e50f5"></script>
+      <script src="../../assets/blog.js?v=06cbb96e9cf3"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

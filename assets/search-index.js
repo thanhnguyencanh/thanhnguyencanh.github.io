@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "Foundation models and world models for SLAM",
+    category: "Blog",
+    url: "blog/fm-world-models-slam/",
+    text: "Mô hình nền tảng và mô hình thế giới cho SLAM How CLIP, DUSt3R, VGGT, Segment Anything, language models and world models enter SLAM and mapping: a family tree of papers from 14 robotics, vision and machine learning venues. CLIP, DUSt3R, VGGT, Segment Anything, mô hình ngôn ngữ và mô hình thế giới đi vào SLAM và lập bản đồ như thế nào: cây phả hệ các bài báo từ 14 hội nghị và tạp chí về robot, thị giác máy tính và học máy. SLAM Foundation models World models SLAM Mô hình nền tảng Mô hình thế giới",
+  },
+  {
     title: "A family tree of robotics",
     category: "Blog",
     url: "blog/robotics-family-tree/",

@@ -1,5 +1,37 @@
 [
   {
+    "slug": "fm-world-models-slam",
+    "date": "2026-11-10",
+    "kind": {
+      "en": "Interactive map",
+      "vi": "Bản đồ tương tác"
+    },
+    "title": {
+      "en": "Foundation models and world models for SLAM",
+      "vi": "Mô hình nền tảng và mô hình thế giới cho SLAM"
+    },
+    "summary": {
+      "en": "How CLIP, DUSt3R, VGGT, Segment Anything, language models and world models enter SLAM and mapping: a family tree of papers from 14 robotics, vision and machine learning venues.",
+      "vi": "CLIP, DUSt3R, VGGT, Segment Anything, mô hình ngôn ngữ và mô hình thế giới đi vào SLAM và lập bản đồ như thế nào: cây phả hệ các bài báo từ 14 hội nghị và tạp chí về robot, thị giác máy tính và học máy."
+    },
+    "lead": {
+      "en": "<span data-stat=\"items\"></span> papers that bring foundation models and world models into SLAM and mapping, in four lineages: language maps, geometry foundation models, pretrained features, and world models.",
+      "vi": "<span data-stat=\"items\"></span> bài báo đưa mô hình nền tảng và mô hình thế giới vào SLAM và lập bản đồ, chia thành bốn dòng: bản đồ ngôn ngữ, mô hình nền tảng hình học, đặc trưng tiền huấn luyện và mô hình thế giới."
+    },
+    "tags": {
+      "en": [
+        "SLAM",
+        "Foundation models",
+        "World models"
+      ],
+      "vi": [
+        "SLAM",
+        "Mô hình nền tảng",
+        "Mô hình thế giới"
+      ]
+    }
+  },
+  {
     "slug": "robotics-family-tree",
     "date": "2026-11-10",
     "kind": {

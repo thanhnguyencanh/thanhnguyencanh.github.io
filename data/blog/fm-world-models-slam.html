@@ -1,0 +1,39 @@
+<div class="post-body" id="ft">
+  <section>
+    <dl class="ft-stats">
+      <div><dt data-stat="items"></dt><dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd></div>
+      <div><dt data-stat="lineages"></dt><dd><span class="t-en">lineages</span><span class="t-vi">dòng</span></dd></div>
+      <div><dt data-stat="branches"></dt><dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd></div>
+      <div><dt data-stat="span"></dt><dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd></div>
+      <div><dt>14</dt><dd><span class="t-en">venues searched</span><span class="t-vi">hội nghị và tạp chí</span></dd></div>
+    </dl>
+    <div class="post-prose">
+      <p class="t-en">Large pretrained models are changing SLAM in four ways. Vision-language models such as CLIP put words into maps, so a robot can find "the red mug" or let a language model plan over its map. Geometry foundation models such as DUSt3R, MASt3R and VGGT predict depth and 3D points directly from images. Pretrained features and masks from DINO and Segment Anything make matching, place recognition and dynamic-object handling more robust. And world models and generative models predict how a scene will look or change, to complete maps, forecast occupancy or simulate.</p>
+      <p class="t-vi">Các mô hình tiền huấn luyện lớn đang thay đổi SLAM theo bốn cách. Mô hình thị giác-ngôn ngữ như CLIP đưa từ ngữ vào bản đồ, để robot tìm được "chiếc cốc màu đỏ" hoặc để mô hình ngôn ngữ lập kế hoạch trên bản đồ. Mô hình nền tảng hình học như DUSt3R, MASt3R và VGGT dự đoán độ sâu và điểm 3D trực tiếp từ ảnh. Đặc trưng và mặt nạ tiền huấn luyện từ DINO và Segment Anything giúp so khớp, nhận dạng địa điểm và xử lý vật thể động bền vững hơn. Còn mô hình thế giới và mô hình sinh dự đoán cảnh sẽ trông thế nào hoặc thay đổi ra sao, để hoàn thiện bản đồ, dự báo trạng thái chiếm chỗ hoặc mô phỏng.</p>
+      <p class="t-en">This post collects the papers of the <a href="../../explorer/">Paper Explorer</a> venues whose titles name both SLAM or mapping and a foundation or world model, and places each in one of these four lineages.</p>
+      <p class="t-vi">Bài viết này tập hợp các bài báo thuộc các hội nghị và tạp chí của <a href="../../explorer/">Paper Explorer</a> có tiêu đề nhắc đến cả SLAM hoặc lập bản đồ và một mô hình nền tảng hay mô hình thế giới, rồi xếp mỗi bài vào một trong bốn dòng trên.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+    <div class="ft-controls">
+      <div class="search-field"><label class="sr-only" for="ft-q">Search / Tìm kiếm</label><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="ft-q" type="search" autocomplete="off"></div>
+      <span class="ft-count" id="ft-count" role="status"></span>
+    </div>
+    <div class="ft-grid"><nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav><div class="ft-panel" id="ft-panel" aria-live="polite"></div></div>
+    <p class="ft-note"><span class="t-en">Papers and branches come from keyword rules on titles: in a hand check of 40 random papers, about 9 in 10 fit the topic. Papers whose titles do not name a foundation or world model are not included.</span><span class="t-vi">Bài báo và nhánh được chọn bằng quy tắc từ khóa trên tiêu đề: khi kiểm tra thủ công 40 bài ngẫu nhiên, khoảng 9/10 bài đúng chủ đề. Các bài có tiêu đề không nhắc đến mô hình nền tảng hay mô hình thế giới thì không có ở đây.</span></p>
+  </section>
+
+  <section>
+    <h2><span class="t-en">Four lineages over time</span><span class="t-vi">Bốn dòng theo thời gian</span></h2>
+    <p class="post-prose"><span class="t-en">Each dot is one paper. Dots fade when they do not match the search or the selected branch. Click a dot to open it.</span><span class="t-vi">Mỗi chấm là một bài báo. Chấm mờ đi khi không khớp với tìm kiếm hoặc nhánh đang chọn. Nhấn vào một chấm để mở bài đó.</span></p>
+    <div class="ft-chart" id="ft-chart"></div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span></h2>
+    <ul class="post-prose"><li data-fact="recent"></li><li data-fact="biggest"></li><li data-fact="pointmap"></li><li data-fact="venue"></li></ul>
+    <p class="post-prose"><span class="t-en">To look further, search the <a href="../../explorer/?q=slam&amp;topics=llm">Paper Explorer</a>.</span><span class="t-vi">Để tìm thêm, hãy dùng <a href="../../explorer/?q=slam&amp;topics=llm">Paper Explorer</a>.</span></p>
+  </section>
+</div>
