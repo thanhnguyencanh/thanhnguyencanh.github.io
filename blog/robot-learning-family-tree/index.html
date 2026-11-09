@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A family tree of robot learning | Thanh Nguyen Canh</title>
+    <meta
+      name="description"
+      content="All 1,490 papers of the Conference on Robot Learning (CoRL), 2017–2025, sorted by method and by task: from reinforcement learning to foundation models."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link
+      rel="canonical"
+      href="https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta property="og:title" content="A family tree of robot learning | Thanh Nguyen Canh" />
+    <meta
+      property="og:description"
+      content="All 1,490 papers of the Conference on Robot Learning (CoRL), 2017–2025, sorted by method and by task: from reinforcement learning to foundation models."
+    />
+    <meta
+      property="og:url"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/"
+    />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A family tree of robot learning" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=e363094eb6f4" />
+    <script src="../../assets/search-index.js?v=e363094eb6f4" defer></script>
+    <script src="../../assets/site.js?v=e363094eb6f4" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=e363094eb6f4" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A family tree of robot learning",
+        "alternativeHeadline": "Cây phả hệ học máy cho robot",
+        "description": "All 1,490 papers of the Conference on Robot Learning (CoRL), 2017–2025, sorted by method and by task: from reinforcement learning to foundation models.",
+        "datePublished": "2026-11-10",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/robot-learning-family-tree/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en">A family tree of robot learning</span
+          ><span class="t-vi">Cây phả hệ học máy cho robot</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            ><span data-stat="items"></span> papers from nine years of the Conference on Robot
+            Learning (CoRL), sorted by the method each paper uses and by the task its robot
+            solves.</span
+          ><span class="t-vi"
+            ><span data-stat="items"></span> bài báo trong chín năm của hội nghị CoRL (Conference on
+            Robot Learning), sắp xếp theo phương pháp mà mỗi bài sử dụng và nhiệm vụ mà robot giải
+            quyết.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body" id="ft">
+        <section>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd>
+            </div>
+            <div>
+              <dt data-stat="editions"></dt>
+              <dd>
+                <span class="t-en">CoRL editions</span><span class="t-vi">kỳ hội nghị CoRL</span>
+              </dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd>
+                <span class="t-en">method groups</span><span class="t-vi">nhóm phương pháp</span>
+              </dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd>
+                <span class="t-en">method branches</span><span class="t-vi">nhánh phương pháp</span>
+              </dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <div class="post-prose">
+            <p class="t-en">
+              Since 2017, every paper of the Conference on Robot Learning has been published in open
+              proceedings. Together they give a year-by-year record of what robot learning studies.
+              This post sorts all of them in two ways: by the method a paper uses, and by the task
+              its robot solves.
+            </p>
+            <p class="t-vi">
+              Từ năm 2017, mọi bài báo của hội nghị CoRL đều được công bố trong kỷ yếu mở. Gộp lại,
+              chúng ghi lại từng năm những gì lĩnh vực học máy cho robot nghiên cứu. Bài viết này
+              sắp xếp tất cả các bài theo hai cách: theo phương pháp mà bài báo sử dụng, và theo
+              nhiệm vụ mà robot giải quyết.
+            </p>
+            <p class="t-en">
+              Switch between the method tree and the task tree, search for a word or an author, or
+              pick a cell in the method × task table to see where the two meet. The address bar
+              keeps your selection, so you can share a link to it.
+            </p>
+            <p class="t-vi">
+              Chuyển giữa cây phương pháp và cây nhiệm vụ, tìm theo từ khóa hoặc tác giả, hoặc chọn
+              một ô trong bảng phương pháp × nhiệm vụ để xem hai cây giao nhau ở đâu. Thanh địa chỉ
+              lưu lại lựa chọn của bạn, nên bạn có thể chia sẻ đường dẫn đó.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+          <div class="ft-controls">
+            <div class="ft-tabs" role="group" aria-label="Tree / Cây">
+              <button class="filter-chip" type="button" data-tree="0"></button
+              ><button class="filter-chip" type="button" data-tree="1"></button>
+            </div>
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <p class="ft-note">
+            <span class="t-en"
+              >Each paper has one method and one task, chosen by keyword rules on its title and
+              abstract. In a hand check of 40 random papers, about 4 in 5 methods and 9 in 10 tasks
+              were right.</span
+            ><span class="t-vi"
+              >Mỗi bài báo có một phương pháp và một nhiệm vụ, được chọn bằng quy tắc từ khóa trên
+              tiêu đề và tóm tắt. Khi kiểm tra thủ công 40 bài ngẫu nhiên, khoảng 4/5 phương pháp và
+              9/10 nhiệm vụ được xếp đúng.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">How the field shifted</span
+            ><span class="t-vi">Lĩnh vực đã thay đổi thế nào</span>
+          </h2>
+          <div class="ft-controls">
+            <p class="post-prose">
+              <span class="t-en"
+                >The share of each group in every year. The tabs above switch between methods and
+                tasks.</span
+              ><span class="t-vi"
+                >Tỷ lệ của mỗi nhóm trong từng năm. Các nút phía trên chuyển giữa phương pháp và
+                nhiệm vụ.</span
+              >
+            </p>
+            <div class="ft-tabs" role="group" aria-label="Share or count / Tỷ lệ hoặc số lượng">
+              <button class="filter-chip" type="button" data-chartmode="share"></button
+              ><button class="filter-chip" type="button" data-chartmode="count"></button>
+            </div>
+          </div>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Methods × tasks</span
+            ><span class="t-vi">Phương pháp × nhiệm vụ</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >Each cell counts the papers that use a method group for a task group. Click a cell to
+              filter the tree, the list and the chart; click it again to clear.</span
+            ><span class="t-vi"
+              >Mỗi ô đếm số bài dùng một nhóm phương pháp cho một nhóm nhiệm vụ. Nhấn vào một ô để
+              lọc cây, danh sách và biểu đồ; nhấn lại để bỏ lọc.</span
+            >
+          </p>
+          <div class="ft-matrix-wrap" id="ft-matrix"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span>
+          </h2>
+          <ul class="post-prose">
+            <li data-fact="fm"></li>
+            <li data-fact="rl"></li>
+            <li data-fact="task"></li>
+            <li data-fact="cell"></li>
+          </ul>
+        </section>
+      </div>
+      <script src="data.js?v=f267ee17"></script>
+      <script src="../../assets/blog.js?v=e363094eb6f4"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

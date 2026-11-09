@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "A family tree of robot learning",
+    category: "Blog",
+    url: "blog/robot-learning-family-tree/",
+    text: "Cây phả hệ học máy cho robot All 1,490 papers of the Conference on Robot Learning (CoRL), 2017–2025, sorted by method and by task: from reinforcement learning to foundation models. Toàn bộ 1.490 bài báo của hội nghị CoRL (Conference on Robot Learning) 2017–2025, sắp xếp theo phương pháp và nhiệm vụ: từ học tăng cường đến mô hình nền tảng. Robot learning CoRL Interactive Học máy cho robot CoRL Tương tác",
+  },
+  {
     title: "A family tree of visual SLAM",
     category: "Blog",
     url: "blog/slam-family-tree/",

@@ -1,13 +1,66 @@
 [
   {
+    "slug": "robot-learning-family-tree",
+    "date": "2026-11-10",
+    "kind": {
+      "en": "Interactive map",
+      "vi": "Bản đồ tương tác"
+    },
+    "title": {
+      "en": "A family tree of robot learning",
+      "vi": "Cây phả hệ học máy cho robot"
+    },
+    "summary": {
+      "en": "All 1,490 papers of the Conference on Robot Learning (CoRL), 2017–2025, sorted by method and by task: from reinforcement learning to foundation models.",
+      "vi": "Toàn bộ 1.490 bài báo của hội nghị CoRL (Conference on Robot Learning) 2017–2025, sắp xếp theo phương pháp và nhiệm vụ: từ học tăng cường đến mô hình nền tảng."
+    },
+    "lead": {
+      "en": "<span data-stat=\"items\"></span> papers from nine years of the Conference on Robot Learning (CoRL), sorted by the method each paper uses and by the task its robot solves.",
+      "vi": "<span data-stat=\"items\"></span> bài báo trong chín năm của hội nghị CoRL (Conference on Robot Learning), sắp xếp theo phương pháp mà mỗi bài sử dụng và nhiệm vụ mà robot giải quyết."
+    },
+    "tags": {
+      "en": [
+        "Robot learning",
+        "CoRL",
+        "Interactive"
+      ],
+      "vi": [
+        "Học máy cho robot",
+        "CoRL",
+        "Tương tác"
+      ]
+    }
+  },
+  {
     "slug": "slam-family-tree",
     "date": "2026-11-10",
-    "kind": {"en": "Interactive map", "vi": "Bản đồ tương tác"},
-    "title": {"en": "A family tree of visual SLAM", "vi": "Cây phả hệ SLAM thị giác"},
-    "summary": {"en": "Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM.",
-                "vi": "Tất cả hệ thống SLAM được so sánh trong bốn bài khảo sát của chúng tôi, trong một cây phả hệ tương tác gồm bảy dòng: từ bản đồ ngữ nghĩa và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi."},
-    "lead": {"en": "<span data-stat=\"items\"></span> SLAM systems from our four surveys, in one tree of seven lineages: from object-level semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM.",
-             "vi": "<span data-stat=\"items\"></span> hệ thống SLAM từ bốn bài khảo sát của chúng tôi, trong một cây gồm bảy dòng: từ bản đồ ngữ nghĩa mức đối tượng và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi."},
-    "tags": {"en": ["SLAM", "Survey", "Interactive"], "vi": ["SLAM", "Khảo sát", "Tương tác"]}
+    "kind": {
+      "en": "Interactive map",
+      "vi": "Bản đồ tương tác"
+    },
+    "title": {
+      "en": "A family tree of visual SLAM",
+      "vi": "Cây phả hệ SLAM thị giác"
+    },
+    "summary": {
+      "en": "Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM.",
+      "vi": "Tất cả hệ thống SLAM được so sánh trong bốn bài khảo sát của chúng tôi, trong một cây phả hệ tương tác gồm bảy dòng: từ bản đồ ngữ nghĩa và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi."
+    },
+    "lead": {
+      "en": "<span data-stat=\"items\"></span> SLAM systems from our four surveys, in one tree of seven lineages: from object-level semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM.",
+      "vi": "<span data-stat=\"items\"></span> hệ thống SLAM từ bốn bài khảo sát của chúng tôi, trong một cây gồm bảy dòng: từ bản đồ ngữ nghĩa mức đối tượng và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi."
+    },
+    "tags": {
+      "en": [
+        "SLAM",
+        "Survey",
+        "Interactive"
+      ],
+      "vi": [
+        "SLAM",
+        "Khảo sát",
+        "Tương tác"
+      ]
+    }
   }
 ]

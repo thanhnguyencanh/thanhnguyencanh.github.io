@@ -34,6 +34,7 @@
           clear: "Bỏ lọc", cell: "Lọc theo", subtree: "Bên trong" }
   };
   var t = function (k) { return S[lang()][k]; };
+  var num = function (n) { return Number(n).toLocaleString(lang() === "vi" ? "vi-VN" : "en-US"); };  // 1,490 / 1.490 (not for years)
   var word = function (n) { var w = (D.itemWord || { en: ["system", "systems"], vi: ["hệ thống", "hệ thống"] })[lang()]; return n === 1 ? w[0] : w[1]; };
   var label = function (o) { return o ? (o[lang()] || o.en) : ""; };
   var desc = function (o) { return o ? (lang() === "vi" ? o.dvi : o.den) || "" : ""; };
@@ -44,7 +45,7 @@
   var trees = D.trees.map(function (tr, ti) {
     var byId = {}, kids = { "": [] };
     tr.nodes.forEach(function (n) { byId[n.id] = n; (kids[n.parent || ""] = kids[n.parent || ""] || []).push(n); });
-    kids[""].forEach(function (n, i) { n.color = COLORS[i % COLORS.length]; });
+    kids[""].forEach(function (n, i) { n.color = n.color || COLORS[i % COLORS.length]; });  // a node may bring its own colour (grey for "Other")
     tr.nodes.forEach(function (n) { if (n.parent) n.color = byId[n.parent].color; });
     return { def: tr, byId: byId, kids: kids, top: kids[""], ti: ti };
   });
@@ -86,7 +87,7 @@
   // ---- stats ----
   function stats() {
     var tr = trees[0];
-    var set = { items: D.items.length, lineages: tr.top.length, branches: tr.def.nodes.length - tr.top.length, span: Y0 + "–" + Y1,
+    var set = { items: num(D.items.length), lineages: tr.top.length, branches: tr.def.nodes.length - tr.top.length, span: Y0 + "–" + Y1,
                 sources: D.sources ? Object.keys(D.sources).length : 0, editions: new Set(years).size };
     document.querySelectorAll("[data-stat]").forEach(function (el) { el.textContent = set[el.dataset.stat]; });
     document.querySelectorAll("[data-fact]").forEach(function (el) { var f = (D.facts || {})[el.dataset.fact]; if (f) el.innerHTML = esc(label(f)).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); });
@@ -102,7 +103,7 @@
       var expandable = kids.length || items.length;
       var h = '<li><button type="button" class="ft-row' + (n ? "" : " is-empty") + '" data-node="' + esc(node.id) + '" aria-current="' + (st.node === node.id && st.item === null) + '"' +
         (expandable ? ' aria-expanded="' + open + '"' : "") + '><span class="ft-caret">' + (expandable ? (open ? "▾" : "▸") : "") + '</span><span class="ft-dot" style="background:' + node.color +
-        '"></span><span class="ft-name">' + esc(label(node)) + '</span><span class="ft-n">' + n + "</span></button>";
+        '"></span><span class="ft-name">' + esc(label(node)) + '</span><span class="ft-n">' + num(n) + "</span></button>";
       if (open && kids.length) h += "<ul>" + kids.map(function (k) { return row(k, depth + 1); }).join("") + "</ul>";
       if (open && items.length) h += "<ul>" + items.map(function (it) {
         return '<li><button type="button" class="ft-row is-leaf" data-item="' + it.id + '" aria-current="' + (st.item === it.id) + '"><span class="ft-caret"></span><span class="ft-name">' +
@@ -112,7 +113,7 @@
     }
     var all = list.length;
     return '<ul><li><button type="button" class="ft-row" data-node="" aria-current="' + (st.node === null && st.item === null) + '"><span class="ft-caret">▾</span>' +
-      '<span class="ft-name"><b>' + esc(label(D.root)) + '</b></span><span class="ft-n">' + all + "</span></button><ul>" +
+      '<span class="ft-name"><b>' + esc(label(D.root)) + '</b></span><span class="ft-n">' + num(all) + "</span></button><ul>" +
       tr.top.map(function (n) { return row(n, 1); }).join("") + "</ul></li></ul>";
   }
 
@@ -155,20 +156,20 @@
     var nd = st.node ? tr.byId[st.node] : null, inside = list.filter(function (x) { return inNode(x, tr, nd); });
     var h2 = nd ? crumbs(nd) : "", ys = inside.map(function (x) { return x.year; });
     h2 += "<h3>" + esc(nd ? label(nd) : label(D.root)) + '</h3><p class="ft-desc">' + esc(nd ? desc(nd) : desc(D.root)) + "</p>";
-    h2 += '<div class="ft-metrics"><span><b>' + inside.length + "</b> " + esc(word(inside.length)) + (inside.length !== D.items.length && !nd ? " " + t("of") + " " + D.items.length : "") + "</span>" +
+    h2 += '<div class="ft-metrics"><span><b>' + num(inside.length) + "</b> " + esc(word(inside.length)) + (inside.length !== D.items.length && !nd ? " " + t("of") + " " + num(D.items.length) : "") + "</span>" +
       (ys.length ? "<span><b>" + Math.min.apply(null, ys) + "–" + Math.max.apply(null, ys) + "</b></span>" : "") +
       (st.cell ? '<span>' + t("cell") + ": <b>" + esc(label(trees[0].byId[st.cell[0]])) + " × " + esc(label(trees[1].byId[st.cell[1]])) + '</b> <button type="button" class="filter-chip" data-clearcell>' + t("clear") + "</button></span>" : "") + "</div>";
     if (inside.length) h2 += spark(inside);
     var kids = tr.kids[nd ? nd.id : ""] || [];
     if (kids.length) h2 += '<div class="ft-children">' + kids.map(function (k) {
-      return '<button type="button" class="filter-chip" data-node="' + esc(k.id) + '"><span class="ft-dot" style="background:' + k.color + '"></span>' + esc(label(k)) + " <b>" + countIn(k, tr, list) + "</b></button>";
+      return '<button type="button" class="filter-chip" data-node="' + esc(k.id) + '"><span class="ft-dot" style="background:' + k.color + '"></span>' + esc(label(k)) + " <b>" + num(countIn(k, tr, list)) + "</b></button>";
     }).join("") + "</div>";
     if (!inside.length) return h2 + '<p class="ft-desc">' + t("none") + "</p>";
     var sorted = inside.slice().sort(function (a, b) { return b.year - a.year || title(a).localeCompare(title(b)); });
     h2 += '<ul class="ft-list">' + sorted.slice(0, st.show).map(function (x) {
       return '<li><button type="button" class="ft-item" data-item="' + x.id + '"><span class="yr">' + x.year + "</span><span><strong>" + mark(title(x)) + "</strong><small>" + itemSub(x) + "</small></span></button></li>";
     }).join("") + "</ul>";
-    if (sorted.length > st.show) h2 += '<div class="ft-more"><button type="button" class="filter-chip" data-more>' + t("more") + " (" + (sorted.length - st.show) + ")</button></div>";
+    if (sorted.length > st.show) h2 += '<div class="ft-more"><button type="button" class="filter-chip" data-more>' + t("more") + " (" + num(sorted.length - st.show) + ")</button></div>";
     return h2;
   }
 
@@ -251,7 +252,7 @@
     $("#ft-tree").innerHTML = treeHTML();
     $("#ft-panel").innerHTML = panelHTML();
     var list = filtered();
-    $("#ft-count").textContent = (st.q || st.cell) ? list.length + " " + t("of") + " " + D.items.length + " " + word(D.items.length) : D.items.length + " " + word(D.items.length);
+    $("#ft-count").textContent = (st.q || st.cell) ? num(list.length) + " " + t("of") + " " + num(D.items.length) + " " + word(D.items.length) : num(D.items.length) + " " + word(D.items.length);
     var ch = $("#ft-chart");
     if (ch) ch.innerHTML = (D.chart === "stack" ? stackChart() : dotsChart()) + legend();
     var mt = $("#ft-matrix");

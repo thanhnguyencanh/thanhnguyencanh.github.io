@@ -85,3 +85,42 @@ def png(svg, out):
                         f"--window-size={W},{H}", f"--screenshot={Path(out).resolve()}", page.as_uri()],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=60)
     return True
+
+
+def smooth(points):
+    """Path through points with horizontal tangents at each point: smooth, no overshoot, and two layers that share
+    points share the exact same edge (so stacked areas never leave gaps)."""
+    d = f"{points[0][0]:.1f} {points[0][1]:.1f}"
+    for (x1, y1), (x2, y2) in zip(points, points[1:]):
+        xm = (x1 + x2) / 2
+        d += f"C{xm:.1f} {y1:.1f} {xm:.1f} {y2:.1f} {x2:.1f} {y2:.1f}"
+    return d
+
+
+def stack_cover(nodes, items, field, out_light, out_dark):
+    """Share of each top-level group per year as stacked areas (for posts with too many items for one dot each)."""
+    top = [n for n in nodes if not n["parent"]]
+    parent = {n["id"]: n["parent"] or n["id"] for n in nodes}
+    years = sorted({i["year"] for i in items})
+    X0, X1, T0, T1 = 70, 1130, 46, 540
+    xs = [X0 + (X1 - X0) * k / (len(years) - 1) for k in range(len(years))]
+    total = {y: sum(1 for i in items if i["year"] == y) for y in years}
+    cum, layers = [0.0] * len(years), []
+    for idx, t in enumerate(top):
+        part = [sum(1 for i in items if i["year"] == y and parent[i[field]] == t["id"]) / total[y] for y in years]
+        upper = [c + p for c, p in zip(cum, part)]
+        layers.append((t.get("color") or COLORS[idx % len(COLORS)], cum, upper))
+        cum = upper
+    ypos = lambda f: T1 - f * (T1 - T0)
+    for theme, out in (("light", out_light), ("dark", out_dark)):
+        c = THEMES[theme]
+        s = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">', f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/>']
+        for col, lower, upper in layers:
+            up = list(zip(xs, map(ypos, upper)))
+            lo = list(zip(xs, map(ypos, lower)))[::-1]
+            s.append(f'<path d="M{smooth(up)}L{smooth(lo)}Z" fill="{col}" stroke="{c["bg"]}" stroke-width="2" stroke-linejoin="round"/>')
+        for x, y in zip(xs, years):
+            s.append(f'<text x="{x:.1f}" y="{T1 + 44}" fill="{c["text"]}" font-family="system-ui, Segoe UI, Roboto, Arial, sans-serif" '
+                     f'font-size="19" font-weight="600" text-anchor="middle">{y}</text>')
+        s.append("</svg>")
+        Path(out).write_text("\n".join(s) + "\n", encoding="utf-8")

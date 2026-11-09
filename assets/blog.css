@@ -503,3 +503,15 @@ html:not([data-theme="dark"]) .blog-cover .cover-dark {
 .blog-entry.text-only {
   grid-template-columns: minmax(0, 1fr);
 }
+.ft-note {
+  max-width: 760px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.ft-matrix-wrap {
+  overflow-x: auto;
+}
+.ft-tabs .filter-chip {
+  white-space: nowrap;
+}

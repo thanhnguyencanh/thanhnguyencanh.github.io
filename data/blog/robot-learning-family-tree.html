@@ -1,0 +1,48 @@
+<div class="post-body" id="ft">
+  <section>
+    <dl class="ft-stats">
+      <div><dt data-stat="items"></dt><dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd></div>
+      <div><dt data-stat="editions"></dt><dd><span class="t-en">CoRL editions</span><span class="t-vi">kỳ hội nghị CoRL</span></dd></div>
+      <div><dt data-stat="lineages"></dt><dd><span class="t-en">method groups</span><span class="t-vi">nhóm phương pháp</span></dd></div>
+      <div><dt data-stat="branches"></dt><dd><span class="t-en">method branches</span><span class="t-vi">nhánh phương pháp</span></dd></div>
+      <div><dt data-stat="span"></dt><dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd></div>
+    </dl>
+    <div class="post-prose">
+      <p class="t-en">Since 2017, every paper of the Conference on Robot Learning has been published in open proceedings. Together they give a year-by-year record of what robot learning studies. This post sorts all of them in two ways: by the method a paper uses, and by the task its robot solves.</p>
+      <p class="t-vi">Từ năm 2017, mọi bài báo của hội nghị CoRL đều được công bố trong kỷ yếu mở. Gộp lại, chúng ghi lại từng năm những gì lĩnh vực học máy cho robot nghiên cứu. Bài viết này sắp xếp tất cả các bài theo hai cách: theo phương pháp mà bài báo sử dụng, và theo nhiệm vụ mà robot giải quyết.</p>
+      <p class="t-en">Switch between the method tree and the task tree, search for a word or an author, or pick a cell in the method × task table to see where the two meet. The address bar keeps your selection, so you can share a link to it.</p>
+      <p class="t-vi">Chuyển giữa cây phương pháp và cây nhiệm vụ, tìm theo từ khóa hoặc tác giả, hoặc chọn một ô trong bảng phương pháp × nhiệm vụ để xem hai cây giao nhau ở đâu. Thanh địa chỉ lưu lại lựa chọn của bạn, nên bạn có thể chia sẻ đường dẫn đó.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+    <div class="ft-controls">
+      <div class="ft-tabs" role="group" aria-label="Tree / Cây"><button class="filter-chip" type="button" data-tree="0"></button><button class="filter-chip" type="button" data-tree="1"></button></div>
+      <div class="search-field"><label class="sr-only" for="ft-q">Search / Tìm kiếm</label><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="ft-q" type="search" autocomplete="off"></div>
+      <span class="ft-count" id="ft-count" role="status"></span>
+    </div>
+    <div class="ft-grid"><nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav><div class="ft-panel" id="ft-panel" aria-live="polite"></div></div>
+    <p class="ft-note"><span class="t-en">Each paper has one method and one task, chosen by keyword rules on its title and abstract. In a hand check of 40 random papers, about 4 in 5 methods and 9 in 10 tasks were right.</span><span class="t-vi">Mỗi bài báo có một phương pháp và một nhiệm vụ, được chọn bằng quy tắc từ khóa trên tiêu đề và tóm tắt. Khi kiểm tra thủ công 40 bài ngẫu nhiên, khoảng 4/5 phương pháp và 9/10 nhiệm vụ được xếp đúng.</span></p>
+  </section>
+
+  <section>
+    <h2><span class="t-en">How the field shifted</span><span class="t-vi">Lĩnh vực đã thay đổi thế nào</span></h2>
+    <div class="ft-controls">
+      <p class="post-prose"><span class="t-en">The share of each group in every year. The tabs above switch between methods and tasks.</span><span class="t-vi">Tỷ lệ của mỗi nhóm trong từng năm. Các nút phía trên chuyển giữa phương pháp và nhiệm vụ.</span></p>
+      <div class="ft-tabs" role="group" aria-label="Share or count / Tỷ lệ hoặc số lượng"><button class="filter-chip" type="button" data-chartmode="share"></button><button class="filter-chip" type="button" data-chartmode="count"></button></div>
+    </div>
+    <div class="ft-chart" id="ft-chart"></div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">Methods × tasks</span><span class="t-vi">Phương pháp × nhiệm vụ</span></h2>
+    <p class="post-prose"><span class="t-en">Each cell counts the papers that use a method group for a task group. Click a cell to filter the tree, the list and the chart; click it again to clear.</span><span class="t-vi">Mỗi ô đếm số bài dùng một nhóm phương pháp cho một nhóm nhiệm vụ. Nhấn vào một ô để lọc cây, danh sách và biểu đồ; nhấn lại để bỏ lọc.</span></p>
+    <div class="ft-matrix-wrap" id="ft-matrix"></div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span></h2>
+    <ul class="post-prose"><li data-fact="fm"></li><li data-fact="rl"></li><li data-fact="task"></li><li data-fact="cell"></li></ul>
+  </section>
+</div>

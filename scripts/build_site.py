@@ -274,12 +274,6 @@ def bi(text, markup=False):
     return f'<span class="t-en">{show(text["en"])}</span><span class="t-vi">{show(text["vi"])}</span>'
 
 
-def bi_date(value):
-    import datetime
-    d = datetime.date.fromisoformat(value)
-    return bi({"en": f"{d.day} {d.strftime('%B %Y')}", "vi": f"{d.day} tháng {d.month}, {d.year}"})
-
-
 def bi_tags(tags):
     return "".join(f'<div class="research-tags t-{lang}">' + "".join('<span class="tag">' + esc(t) + "</span>" for t in tags[lang]) + "</div>" for lang in ("en", "vi"))
 
@@ -303,7 +297,7 @@ def blog():
                          for theme, name in (("light", "cover.svg"), ("dark", "cover-dark.svg")) if (folder / name).is_file())
         cover = f'<a class="blog-cover" href="{p["slug"]}/" tabindex="-1" aria-hidden="true">{covers}</a>' if covers else ""
         entries += (f'<article class="blog-entry{"" if cover else " text-only"}" id="{esc(p["slug"])}">{cover}<div>'
-                    f'<div class="publication-venue"><span class="venue-badge">{bi(p["kind"])}</span><span class="publication-year">{bi_date(p["date"])}</span></div>'
+                    f'<div class="publication-venue"><span class="venue-badge">{bi(p["kind"])}</span></div>'
                     f'<h2><a href="{p["slug"]}/">{bi(p["title"])}</a></h2><p>{bi(p["summary"])}</p>{bi_tags(p["tags"])}</div></article>')
     n = len(BLOG)
     count = bi({"en": f"{n} post" + ("" if n == 1 else "s"), "vi": f"{n} bài viết"})
@@ -322,7 +316,7 @@ def blog():
         if image:
             post["image"] = SITE + image
         head = blog_head("../../") + '<script type="application/ld+json">' + json.dumps(post, ensure_ascii=False).replace("</", "<\\/") + "</script>"
-        header = (f'<header class="page-heading post-heading"><p class="eyebrow"><a href="../">Blog</a> · {bi_date(p["date"])}</p>'
+        header = (f'<header class="page-heading post-heading"><p class="eyebrow"><a href="../">Blog</a></p>'
                   f'<h1>{bi(p["title"])}</h1><p class="page-intro">{bi(p["lead"], markup=True)}</p>'
                   f'<div class="post-byline"><span><a href="../../">{esc(PROFILE["name"])}</a> · <a href="{LAB_URL}">{esc(PROFILE["lab_short_name"])}</a></span>{LANG_SWITCH}</div></header>')
         scripts = f'<script src="data.js?v={fingerprint(folder / "data.js")}"></script>' if (folder / "data.js").is_file() else ""
