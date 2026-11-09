@@ -242,17 +242,28 @@ def publications():
         add_search(p["title"], "Publication", f'publications/#{p["id"]}', " ".join([*p["authors"], p["venue"], str(p["year"]), *p["topics"], p["abstract"]]))
 
 
+def course_name(course):
+    return course["name"] if isinstance(course, dict) else course
+
+
+def course_label(course):
+    """A course is a name, or {"name", "url"} for a course with a syllabus page."""
+    if isinstance(course, dict) and course.get("url"):
+        return f'<a href="{esc(course["url"])}">{esc(course["name"])}</a>'
+    return esc(course_name(course))
+
+
 def teaching():
     items = ""
     for i, item in enumerate(PROFILE["teaching"]):
         title = esc(item["title"])
         if item.get("url"):
             title = f'<a href="{esc(item["url"])}">{title}</a>'
-        courses = [course for course in item.get("courses", []) if course.casefold() not in item["title"].casefold()]
-        course_summary = '<p class="course-summary">' + ' · '.join(esc(course) for course in courses) + '</p>' if courses else ""
+        courses = [course for course in item.get("courses", []) if course_name(course).casefold() not in item["title"].casefold()]
+        course_summary = '<p class="course-summary">' + ' · '.join(course_label(course) for course in courses) + '</p>' if courses else ""
         institution = f'<p>{esc(item["institution"])}</p>' if item["institution"] else ""
         items += f'<article class="timeline-item" id="teaching-{i}"><div class="timeline-date">{esc(item["date"])}</div><div class="timeline-content"><p class="section-kicker">{esc(item["role"])}</p><h2>{title}</h2>{institution}{course_summary}</div></article>'
-        add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *item.get("courses", [])]))
+        add_search(item["title"], "Teaching", f"teaching/#teaching-{i}", " ".join([item["institution"], item["role"], *map(course_name, item.get("courses", []))]))
     content = heading("Teaching", "Teaching experience in robotics, programming and signal processing.", "Teaching experience") + f'<div class="timeline">{items}</div><section class="content-section notice-card"><h2>Student research</h2><p>Student Research Competition, VNU-University of Engineering and Technology:</p><ul><li>Second place, 2023</li><li>Third place, 2025</li><li>Second place, 2026</li></ul><a class="text-link" href="{LAB_URL}join/">Research inquiries ↗</a></section>'
     render_page("teaching", "Teaching", "Teaching experience at JAIST and VNU-University of Engineering and Technology.", content)
 

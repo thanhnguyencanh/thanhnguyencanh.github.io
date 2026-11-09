@@ -154,35 +154,17 @@
   "teaching": [
     {
       "date": "JAIST",
-      "title": "I213E: Discrete Signal Processing",
+      "title": "Robotics and Information Science",
       "role": "Teaching Assistant",
-      "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": ["Discrete Signal Processing"],
-      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401"
-    },
-    {
-      "date": "JAIST",
-      "title": "I116E: Fundamentals of Programming",
-      "role": "Teaching Assistant",
-      "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": ["Fundamentals of Programming"],
-      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401"
-    },
-    {
-      "date": "JAIST",
-      "title": "I214E: System Optimization",
-      "role": "Teaching Assistant",
-      "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": ["System Optimization"],
-      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I214E500&P2=2026&P3=20260401"
-    },
-    {
-      "date": "JAIST",
-      "title": "I615E: Robotics",
-      "role": "Teaching Assistant",
-      "institution": "Japan Advanced Institute of Science and Technology",
-      "courses": ["Robotics"],
-      "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I615E000&P2=2026&P3=20260401"
+      "institution": "School of Information Science, Japan Advanced Institute of Science and Technology",
+      "courses": [
+        {"name": "I116E Fundamentals of Programming", "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I116E400&P2=2024&P3=20240401"},
+        {"name": "I213E Discrete Signal Processing", "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I213E500&P2=2024&P3=20240401"},
+        {"name": "I214E System Optimization", "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I214E500&P2=2026&P3=20260401"},
+        {"name": "I484F Robotics (in Japanese)", "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I484F720&P2=2026&P3=20260401"},
+        {"name": "I615E Robotics", "url": "https://syllabus.jaist.ac.jp/public/web/Syllabus/WebSyllabusSansho/UI/WSL_SyllabusSansho.aspx?P1=I615E000&P2=2026&P3=20260401"}
+      ],
+      "url": "https://www.jaist.ac.jp/english/"
     },
     {
       "date": "VNU-UET",

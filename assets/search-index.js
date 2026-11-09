@@ -602,33 +602,15 @@ window.siteSearch = [
     text: "Search 139,002 papers from ICRA, IROS, RSS, CoRL, RA-L, T-RO, IJRR, Sci. Robotics, CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR, 2015–2026, by title, author, venue, year and topic.",
   },
   {
-    title: "I213E: Discrete Signal Processing",
+    title: "Robotics and Information Science",
     category: "Teaching",
     url: "teaching/#teaching-0",
-    text: "Japan Advanced Institute of Science and Technology Teaching Assistant Discrete Signal Processing",
-  },
-  {
-    title: "I116E: Fundamentals of Programming",
-    category: "Teaching",
-    url: "teaching/#teaching-1",
-    text: "Japan Advanced Institute of Science and Technology Teaching Assistant Fundamentals of Programming",
-  },
-  {
-    title: "I214E: System Optimization",
-    category: "Teaching",
-    url: "teaching/#teaching-2",
-    text: "Japan Advanced Institute of Science and Technology Teaching Assistant System Optimization",
-  },
-  {
-    title: "I615E: Robotics",
-    category: "Teaching",
-    url: "teaching/#teaching-3",
-    text: "Japan Advanced Institute of Science and Technology Teaching Assistant Robotics",
+    text: "School of Information Science, Japan Advanced Institute of Science and Technology Teaching Assistant I116E Fundamentals of Programming I213E Discrete Signal Processing I214E System Optimization I484F Robotics (in Japanese) I615E Robotics",
   },
   {
     title: "Robotics and Engineering",
     category: "Teaching",
-    url: "teaching/#teaching-4",
+    url: "teaching/#teaching-1",
     text: "Robotics Department, University of Engineering and Technology, Vietnam National University Lecturer Programming Robots with ROS Introduction to Human Machine Interface Robotic Control Mechanical Drawing Electronics Engineering Practice PLC and Its Application in Agriculture",
   },
   {
