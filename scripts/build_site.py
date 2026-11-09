@@ -123,6 +123,26 @@ def format_source(source, target):
     ).stdout
 
 
+SUPPORT_SHORT = [("JSPS", "JSPS"), ("KDDI", "KDDI"), ("UniGe", "UniGe"), ("JST SPRING", "JST SPRING"), ("JAIST", "JAIST DRF"),
+                 ("Monbukagakusho", "MEXT Honors"), ("VINIF", "VinIF"), ("Vallet", "Vallet")]
+
+
+def support_ring(items):
+    """Scholarships and fellowships as a 3D ring (like the PAIRS Lab member rings); a plain grid without JavaScript."""
+    def short(name):
+        return next((s for k, s in SUPPORT_SHORT if k in name), name.split(",")[0])
+    cards = "".join(
+        f'<button class="ring-card support-card kind-{esc(p["kind"].lower())}" type="button" data-card aria-label="Show {esc(p["name"])}, {esc(p["period"])}">'
+        f'<span class="ring-tile"><span class="section-kicker">{esc(p["kind"])}</span><strong>{esc(short(p["name"]))}</strong><span class="funding-label">{esc(p["period"])}</span>'
+        f'<span class="ring-full">{esc(p["name"])}</span></span></button>' for p in items)
+    dots = "".join(f'<button type="button" data-dot aria-label="Show {esc(p["name"])}, {esc(p["period"])}"></button>' for p in items)
+    details = "".join(f'<p class="ring-detail" data-detail><span class="section-kicker">{esc(p["kind"])} · {esc(p["period"])}</span><strong>{esc(p["name"])}</strong></p>' for p in items)
+    return (f'<div class="ring" data-ring tabindex="0" aria-roledescription="carousel" aria-label="Scholarships and fellowships"><div class="ring-stage">{cards}</div>'
+            f'<button class="ring-arrow ring-prev" type="button" data-prev aria-label="Previous">&#9664;</button>'
+            f'<button class="ring-arrow ring-next" type="button" data-next aria-label="Next">&#9654;</button>'
+            f'<div class="ring-dots">{dots}</div></div><div class="ring-details" aria-live="polite">{details}</div>')
+
+
 def social_meta(slug, title, intro):
     """Canonical URL, link-preview tags and (home page) schema.org Person, so search engines and chat apps show the current photo."""
     url = SITE + (slug + "/" if slug else "")
@@ -185,12 +205,12 @@ def home():
     papers_by_id = {paper["id"]: paper for paper in PAPERS}
     selected = [papers_by_id[paper_id] for paper_id in PROFILE["selected_publications"]]
     support_items = sorted(PROFILE["support"], key=lambda p: tuple(int(year) for year in re.findall(r"\d{4}", p["period"])), reverse=True)
-    support = "".join(f'<article class="support-card"><p class="section-kicker">{esc(p["kind"])}</p><h3>{esc(p["name"])}</h3><p class="funding-label">{esc(p["period"])}</p></article>' for p in support_items)
+    support = support_ring(support_items)
     content = about_intro(PROFILE) + f'''
 <section class="content-section" id="news">{section_heading('Recent news')}<ul class="news-list">{news}</ul><button id="toggle-news" class="resource-link" type="button" aria-expanded="false" hidden>Show all news</button></section>
 <section class="content-section">{section_heading('Selected publications', 'publications/', 'All publications')}{''.join(paper_card(p, compact=True) for p in selected)}</section>
 <section class="content-section" id="awards">{section_heading('Awards & professional activities')}<ul class="service-list">{''.join('<li>' + x + '</li>' for x in PROFILE['awards'])}</ul><details class="abstract"><summary>Peer review & professional service</summary>{PROFILE['service_html']}</details></section>
-<section class="content-section" id="scholarships">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p><div class="support-grid">{support}</div></section>
+<section class="content-section" id="scholarships">{section_heading("Scholarships & fellowships")}<p>Personal academic support and research fellowships.</p>{support}</section>
 <section class="content-section contact-inline" id="contact">{section_heading('Contact', 'contact/', 'Contact details')}<p>For research collaboration, student inquiries and questions about my work, contact me at <a href="mailto:{esc(PROFILE['email'])}">{esc(PROFILE['email'])}</a>.</p><p>{esc(PROFILE['lab_name'])} (PAIRS)</p><div class="publication-links"><a class="resource-link" href="{LAB_URL}">PAIRS Lab ↗</a><a class="resource-link" href="mailto:{esc(PROFILE['email'])}?subject=Research%20collaboration">Email me ↗</a></div></section>'''
     render_page("", "About", "Thanh Nguyen Canh is a PhD candidate at JAIST working on semantic SLAM, robot learning and autonomous navigation.", content)
     add_search(PROFILE['lab_short_name'], "About", "index.html", PROFILE['lab_name'] + " " + PROFILE['name'])

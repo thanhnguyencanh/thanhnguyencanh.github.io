@@ -274,4 +274,59 @@
       if (event.key === "Escape") closeMenu();
     });
   }
+  // ---- 3D ring (scholarships): same layout as the PAIRS Lab member rings ----
+  document.querySelectorAll("[data-ring]").forEach((root) => {
+    const cards = [...root.querySelectorAll("[data-card]")];
+    const dots = [...root.querySelectorAll("[data-dot]")];
+    const details = [...root.nextElementSibling.querySelectorAll("[data-detail]")];
+    let active = 0;
+    const layout = () => {
+      const n = cards.length;
+      const width = root.clientWidth || 900;
+      const unit = Math.max(0.42, Math.min(1, width / 1000));
+      const spread = (cards[0].offsetWidth || 240) / 240;
+      const maxVisible = width < 600 ? 2 : 3;
+      cards.forEach((card, i) => {
+        let o = i - active;
+        if (o > n / 2) o -= n;
+        if (o < -n / 2) o += n;
+        const a = Math.abs(o);
+        const s = o < 0 ? -1 : 1;
+        const x = a === 0 ? 0 : s * (200 + (a - 1) * 85) * unit * spread;
+        const z = a === 0 ? 40 : -80 - a * 60;
+        const ry = a === 0 ? 0 : -s * Math.min(16 + a * 4, 34);
+        card.style.transform = `translateX(${x}px) translateY(${a === 0 ? 0 : 22 * unit}px) translateZ(${z}px) rotateY(${ry}deg) scale(${a === 0 ? 1.06 : 0.88})`;
+        card.style.zIndex = String(100 - a);
+        card.style.opacity = a > maxVisible ? "0" : "1";
+        card.style.pointerEvents = a > maxVisible ? "none" : "";
+        card.classList.toggle("is-active", a === 0);
+        card.tabIndex = a === 0 ? 0 : -1;
+      });
+      dots.forEach((d, i) => d.setAttribute("aria-current", String(i === active)));
+      details.forEach((d, i) => (d.hidden = i !== active));
+    };
+    const go = (i) => {
+      active = (i + cards.length) % cards.length;
+      layout();
+    };
+    cards.forEach((card, i) => card.addEventListener("click", () => go(i)));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => go(i)));
+    root.querySelector("[data-prev]").addEventListener("click", () => go(active - 1));
+    root.querySelector("[data-next]").addEventListener("click", () => go(active + 1));
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { go(active - 1); e.preventDefault(); }
+      if (e.key === "ArrowRight") { go(active + 1); e.preventDefault(); }
+    });
+    let startX = null;
+    root.addEventListener("pointerdown", (e) => (startX = e.clientX));
+    root.addEventListener("pointerup", (e) => {
+      if (startX === null) return;
+      const dx = e.clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 40) go(active + (dx < 0 ? 1 : -1));
+    });
+    window.addEventListener("resize", layout);
+    root.classList.add("is-ready");
+    layout();
+  });
 })();

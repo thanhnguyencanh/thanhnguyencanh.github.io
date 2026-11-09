@@ -1810,3 +1810,43 @@ kbd {
     padding: 15px 0;
   }
 }
+
+/* Scholarships & fellowships: grid without JavaScript, 3D ring with it */
+.ring-stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.ring-card { padding: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.ring-tile { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 22px 24px; border-top: 4px solid var(--kind); border-radius: var(--radius); }
+.ring-tile strong { color: var(--heading); font-size: 1.7rem; font-weight: 500; line-height: 1.15; }
+.ring-tile .section-kicker { margin: 0; color: var(--kind); }
+.ring-tile .funding-label { margin: 0; color: var(--muted); font-size: 0.95rem; letter-spacing: 0.08em; }
+.ring-full { color: var(--muted); font-size: 0.88rem; line-height: 1.35; }
+.kind-fellowship { --kind: #0076df; }
+.kind-scholarship { --kind: #c77700; }
+html[data-theme="dark"] .kind-fellowship { --kind: rgb(123, 204, 228); }
+html[data-theme="dark"] .kind-scholarship { --kind: #f0b45c; }
+.ring-arrow, .ring-dots, .ring-details { display: none; }
+.js .ring.is-ready { position: relative; height: 300px; overflow: hidden; outline: none; perspective: 1400px; }
+.js .ring.is-ready .ring-stage { position: absolute; inset: 0; display: block; transform-style: preserve-3d; pointer-events: none; }
+.js .ring.is-ready .ring-card { position: absolute; top: 34px; left: 50%; width: 250px; height: 200px; margin-left: -125px; pointer-events: auto;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s; will-change: transform; }
+.js .ring.is-ready .ring-card.is-active { border-color: var(--kind); }
+.js .ring.is-ready .ring-full { display: none; }
+.js .ring.is-ready .ring-arrow { position: absolute; top: 50%; z-index: 200; display: grid; place-items: center; width: 40px; height: 40px; margin-top: -30px;
+  border: 1px solid var(--border); border-radius: 50%; color: var(--text); background: var(--surface); font-size: 0.8rem; cursor: pointer; }
+.js .ring.is-ready .ring-prev { left: 6px; }
+.js .ring.is-ready .ring-next { right: 6px; }
+.js .ring.is-ready .ring-dots { position: absolute; bottom: 12px; left: 0; right: 0; z-index: 200; display: flex; justify-content: center; gap: 6px; }
+.js .ring.is-ready .ring-dots button { width: 10px; height: 10px; padding: 0; border: 1px solid var(--muted); border-radius: 50%; background: transparent; cursor: pointer; }
+.js .ring.is-ready .ring-dots button[aria-current="true"] { border-color: var(--accent); background: var(--accent); }
+.js .ring.is-ready + .ring-details { display: block; min-height: 64px; margin-top: 10px; text-align: center; }
+.ring-detail { margin: 0; }
+.ring-detail[hidden] { display: none; }
+.ring-detail .section-kicker { display: block; margin-bottom: 4px; }
+.ring-detail strong { color: var(--heading); font-size: 1.1rem; font-weight: 500; }
+@media (max-width: 640px) {
+  .ring-stage { grid-template-columns: 1fr; }
+  .js .ring.is-ready { height: 260px; }
+  .js .ring.is-ready .ring-card { width: 200px; height: 170px; margin-left: -100px; }
+  .ring-tile strong { font-size: 1.4rem; }
+}
+.js .ring.is-ready .ring-card:not(.is-active) .ring-tile { filter: saturate(0.7); }
+.js .ring.is-ready .ring-card:not(.is-active) strong { color: var(--muted); }
