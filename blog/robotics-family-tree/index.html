@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A family tree of robotics | Thanh Nguyen Canh</title>
+    <meta
+      name="description"
+      content="Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the branches that rose and faded."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/robotics-family-tree/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta property="og:title" content="A family tree of robotics | Thanh Nguyen Canh" />
+    <meta
+      property="og:description"
+      content="Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the branches that rose and faded."
+    />
+    <meta
+      property="og:url"
+      content="https://thanhnguyencanh.github.io/blog/robotics-family-tree/"
+    />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/robotics-family-tree/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A family tree of robotics" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/robotics-family-tree/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=6ed7e6884cbc" />
+    <script src="../../assets/search-index.js?v=6ed7e6884cbc" defer></script>
+    <script src="../../assets/site.js?v=6ed7e6884cbc" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=6ed7e6884cbc" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A family tree of robotics",
+        "alternativeHeadline": "Cây phả hệ robot học",
+        "description": "Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the branches that rose and faded.",
+        "datePublished": "2026-11-10",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/robotics-family-tree/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/robotics-family-tree/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en">A family tree of robotics</span
+          ><span class="t-vi">Cây phả hệ robot học</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            ><span data-stat="items"></span> papers from eight robotics conferences and journals,
+            sorted into one family tree of fields and branches.</span
+          ><span class="t-vi"
+            ><span data-stat="items"></span> bài báo từ tám hội nghị và tạp chí robot, sắp xếp vào
+            một cây phả hệ gồm các lĩnh vực và nhánh.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body" id="ft">
+        <section>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd>
+            </div>
+            <div>
+              <dt>8</dt>
+              <dd><span class="t-en">venues</span><span class="t-vi">hội nghị và tạp chí</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">fields</span><span class="t-vi">lĩnh vực</span></dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <div class="post-prose">
+            <p class="t-en">
+              Robotics now publishes tens of thousands of papers a year across its conferences and
+              journals. This post puts every paper of eight major venues (ICRA, IROS, RA-L, T-RO,
+              IJRR, RSS, CoRL and Science Robotics) into one family tree of fields and branches, so
+              you can see what the field works on and how that changed over a decade.
+            </p>
+            <p class="t-vi">
+              Ngày nay, lĩnh vực robot công bố hàng chục nghìn bài báo mỗi năm qua các hội nghị và
+              tạp chí. Bài viết này đặt mọi bài báo của tám hội nghị và tạp chí lớn (ICRA, IROS,
+              RA-L, T-RO, IJRR, RSS, CoRL và Science Robotics) vào một cây phả hệ gồm các lĩnh vực
+              và nhánh, để bạn thấy cộng đồng đang nghiên cứu gì và điều đó đã thay đổi ra sao trong
+              một thập kỷ.
+            </p>
+            <p class="t-en">
+              Pick a field or a branch to see its papers and how many appeared each year, or search
+              for a word or an author. To search all venues, including vision and machine learning,
+              open the <a href="../../explorer/">Paper Explorer</a>.
+            </p>
+            <p class="t-vi">
+              Chọn một lĩnh vực hoặc một nhánh để xem các bài báo và số lượng mỗi năm, hoặc tìm theo
+              từ khóa hay tác giả. Để tìm trên mọi hội nghị, kể cả thị giác máy tính và học máy, hãy
+              mở <a href="../../explorer/">Paper Explorer</a>.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <p class="ft-note">
+            <span class="t-en"
+              >Each paper has one branch, chosen by keyword rules on its title. Papers come from the
+              dblp bibliography; the newest proceedings of some venues are not in dblp yet.</span
+            ><span class="t-vi"
+              >Mỗi bài báo thuộc một nhánh, được chọn bằng quy tắc từ khóa trên tiêu đề. Dữ liệu lấy
+              từ thư mục dblp; kỷ yếu mới nhất của một số hội nghị chưa có trong dblp.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">A decade of robotics</span
+            ><span class="t-vi">Một thập kỷ robot học</span>
+          </h2>
+          <div class="ft-controls">
+            <p class="post-prose">
+              <span class="t-en">The share of each field in every year.</span
+              ><span class="t-vi">Tỷ lệ của mỗi lĩnh vực trong từng năm.</span>
+            </p>
+            <div class="ft-tabs" role="group" aria-label="Share or count / Tỷ lệ hoặc số lượng">
+              <button class="filter-chip" type="button" data-chartmode="share"></button
+              ><button class="filter-chip" type="button" data-chartmode="count"></button>
+            </div>
+          </div>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span>
+          </h2>
+          <ul class="post-prose">
+            <li data-fact="big"></li>
+            <li data-fact="up"></li>
+            <li data-fact="down"></li>
+            <li data-fact="other"></li>
+          </ul>
+        </section>
+      </div>
+      <script src="data.js?v=3ba6e9bd"></script>
+      <script src="../../assets/blog.js?v=6ed7e6884cbc"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

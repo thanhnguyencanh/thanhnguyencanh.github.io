@@ -1,0 +1,41 @@
+<div class="post-body" id="ft">
+  <section>
+    <dl class="ft-stats">
+      <div><dt data-stat="items"></dt><dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd></div>
+      <div><dt>8</dt><dd><span class="t-en">venues</span><span class="t-vi">hội nghị và tạp chí</span></dd></div>
+      <div><dt data-stat="lineages"></dt><dd><span class="t-en">fields</span><span class="t-vi">lĩnh vực</span></dd></div>
+      <div><dt data-stat="branches"></dt><dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd></div>
+      <div><dt data-stat="span"></dt><dd><span class="t-en">years covered</span><span class="t-vi">giai đoạn</span></dd></div>
+    </dl>
+    <div class="post-prose">
+      <p class="t-en">Robotics now publishes tens of thousands of papers a year across its conferences and journals. This post puts every paper of eight major venues (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) into one family tree of fields and branches, so you can see what the field works on and how that changed over a decade.</p>
+      <p class="t-vi">Ngày nay, lĩnh vực robot công bố hàng chục nghìn bài báo mỗi năm qua các hội nghị và tạp chí. Bài viết này đặt mọi bài báo của tám hội nghị và tạp chí lớn (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL và Science Robotics) vào một cây phả hệ gồm các lĩnh vực và nhánh, để bạn thấy cộng đồng đang nghiên cứu gì và điều đó đã thay đổi ra sao trong một thập kỷ.</p>
+      <p class="t-en">Pick a field or a branch to see its papers and how many appeared each year, or search for a word or an author. To search all venues, including vision and machine learning, open the <a href="../../explorer/">Paper Explorer</a>.</p>
+      <p class="t-vi">Chọn một lĩnh vực hoặc một nhánh để xem các bài báo và số lượng mỗi năm, hoặc tìm theo từ khóa hay tác giả. Để tìm trên mọi hội nghị, kể cả thị giác máy tính và học máy, hãy mở <a href="../../explorer/">Paper Explorer</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">Explore the tree</span><span class="t-vi">Khám phá cây</span></h2>
+    <div class="ft-controls">
+      <div class="search-field"><label class="sr-only" for="ft-q">Search / Tìm kiếm</label><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="ft-q" type="search" autocomplete="off"></div>
+      <span class="ft-count" id="ft-count" role="status"></span>
+    </div>
+    <div class="ft-grid"><nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav><div class="ft-panel" id="ft-panel" aria-live="polite"></div></div>
+    <p class="ft-note"><span class="t-en">Each paper has one branch, chosen by keyword rules on its title. Papers come from the dblp bibliography; the newest proceedings of some venues are not in dblp yet.</span><span class="t-vi">Mỗi bài báo thuộc một nhánh, được chọn bằng quy tắc từ khóa trên tiêu đề. Dữ liệu lấy từ thư mục dblp; kỷ yếu mới nhất của một số hội nghị chưa có trong dblp.</span></p>
+  </section>
+
+  <section>
+    <h2><span class="t-en">A decade of robotics</span><span class="t-vi">Một thập kỷ robot học</span></h2>
+    <div class="ft-controls">
+      <p class="post-prose"><span class="t-en">The share of each field in every year.</span><span class="t-vi">Tỷ lệ của mỗi lĩnh vực trong từng năm.</span></p>
+      <div class="ft-tabs" role="group" aria-label="Share or count / Tỷ lệ hoặc số lượng"><button class="filter-chip" type="button" data-chartmode="share"></button><button class="filter-chip" type="button" data-chartmode="count"></button></div>
+    </div>
+    <div class="ft-chart" id="ft-chart"></div>
+  </section>
+
+  <section>
+    <h2><span class="t-en">What stands out</span><span class="t-vi">Điều đáng chú ý</span></h2>
+    <ul class="post-prose"><li data-fact="big"></li><li data-fact="up"></li><li data-fact="down"></li><li data-fact="other"></li></ul>
+  </section>
+</div>

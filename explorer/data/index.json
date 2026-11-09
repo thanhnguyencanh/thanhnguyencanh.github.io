@@ -1,0 +1,531 @@
+{
+ "generated": "2026-11-10",
+ "source": "dblp XML dump (CC0)",
+ "total": 139002,
+ "tagged": 94742,
+ "codes": [
+  [
+   "~n/",
+   "http://papers.nips.cc/paper_files/paper/"
+  ],
+  [
+   "~N/",
+   "https://proceedings.neurips.cc/paper_files/paper/"
+  ],
+  [
+   "~M/",
+   "https://proceedings.neurips.cc/paper/"
+  ],
+  [
+   "~i/",
+   "https://proceedings.iclr.cc/paper_files/paper/"
+  ],
+  [
+   "~c/",
+   "https://openaccess.thecvf.com/content/"
+  ],
+  [
+   "~p/",
+   "https://proceedings.mlr.press/"
+  ],
+  [
+   "~q/",
+   "http://proceedings.mlr.press/"
+  ],
+  [
+   "~o/",
+   "https://openreview.net/forum?id="
+  ],
+  [
+   "~d/",
+   "https://dblp.org/rec/"
+  ],
+  [
+   "~AC",
+   "-Abstract-Conference.html"
+  ],
+  [
+   "~AD",
+   "-Abstract-Datasets_and_Benchmarks.html"
+  ],
+  [
+   "~Ab",
+   "-Abstract.html"
+  ],
+  [
+   "~ph",
+   "_paper.html"
+  ]
+ ],
+ "years": [
+  2015,
+  2026
+ ],
+ "fields": [
+  {
+   "id": "rob",
+   "name": "Robotics"
+  },
+  {
+   "id": "cv",
+   "name": "Computer vision"
+  },
+  {
+   "id": "ml",
+   "name": "Machine learning"
+  }
+ ],
+ "venues": [
+  {
+   "id": "icra",
+   "field": "rob",
+   "short": "ICRA",
+   "name": "IEEE International Conference on Robotics and Automation",
+   "count": 14235,
+   "years": {
+    "2015": 940,
+    "2016": 693,
+    "2017": 795,
+    "2018": 817,
+    "2019": 1024,
+    "2020": 1073,
+    "2021": 1386,
+    "2022": 929,
+    "2023": 1341,
+    "2024": 1760,
+    "2025": 1604,
+    "2026": 1873
+   }
+  },
+  {
+   "id": "iros",
+   "field": "rob",
+   "short": "IROS",
+   "name": "IEEE/RSJ International Conference on Intelligent Robots and Systems",
+   "count": 12834,
+   "years": {
+    "2015": 970,
+    "2016": 830,
+    "2017": 878,
+    "2018": 1086,
+    "2019": 934,
+    "2020": 1128,
+    "2021": 1032,
+    "2022": 1214,
+    "2023": 1196,
+    "2024": 1581,
+    "2025": 1985
+   }
+  },
+  {
+   "id": "rss",
+   "field": "rob",
+   "short": "RSS",
+   "name": "Robotics: Science and Systems",
+   "count": 841,
+   "years": {
+    "2015": 49,
+    "2016": 47,
+    "2017": 75,
+    "2018": 71,
+    "2019": 84,
+    "2020": 103,
+    "2021": 92,
+    "2022": 74,
+    "2023": 112,
+    "2024": 134
+   }
+  },
+  {
+   "id": "corl",
+   "field": "rob",
+   "short": "CoRL",
+   "name": "Conference on Robot Learning",
+   "count": 1225,
+   "years": {
+    "2017": 49,
+    "2018": 75,
+    "2019": 110,
+    "2020": 165,
+    "2021": 166,
+    "2022": 197,
+    "2023": 199,
+    "2024": 264
+   }
+  },
+  {
+   "id": "ral",
+   "field": "rob",
+   "short": "RA-L",
+   "name": "IEEE Robotics and Automation Letters",
+   "count": 11273,
+   "years": {
+    "2016": 157,
+    "2017": 301,
+    "2018": 573,
+    "2019": 598,
+    "2020": 895,
+    "2021": 1119,
+    "2022": 1610,
+    "2023": 1083,
+    "2024": 1490,
+    "2025": 1666,
+    "2026": 1781
+   }
+  },
+  {
+   "id": "tro",
+   "field": "rob",
+   "short": "T-RO",
+   "name": "IEEE Transactions on Robotics",
+   "count": 2221,
+   "years": {
+    "2015": 124,
+    "2016": 119,
+    "2017": 116,
+    "2018": 122,
+    "2019": 111,
+    "2020": 120,
+    "2021": 148,
+    "2022": 235,
+    "2023": 283,
+    "2024": 270,
+    "2025": 364,
+    "2026": 209
+   }
+  },
+  {
+   "id": "ijrr",
+   "field": "rob",
+   "short": "IJRR",
+   "name": "The International Journal of Robotics Research",
+   "count": 951,
+   "years": {
+    "2015": 91,
+    "2016": 86,
+    "2017": 82,
+    "2018": 87,
+    "2019": 84,
+    "2020": 88,
+    "2021": 78,
+    "2022": 49,
+    "2023": 61,
+    "2024": 94,
+    "2025": 98,
+    "2026": 53
+   }
+  },
+  {
+   "id": "scirob",
+   "field": "rob",
+   "short": "Sci. Robotics",
+   "name": "Science Robotics",
+   "count": 929,
+   "years": {
+    "2016": 6,
+    "2017": 48,
+    "2018": 67,
+    "2019": 81,
+    "2020": 83,
+    "2021": 123,
+    "2022": 90,
+    "2023": 95,
+    "2024": 134,
+    "2025": 130,
+    "2026": 72
+   }
+  },
+  {
+   "id": "cvpr",
+   "field": "cv",
+   "short": "CVPR",
+   "name": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+   "count": 21477,
+   "years": {
+    "2015": 601,
+    "2016": 643,
+    "2017": 783,
+    "2018": 979,
+    "2019": 1294,
+    "2020": 1465,
+    "2021": 1660,
+    "2022": 2071,
+    "2023": 2353,
+    "2024": 2715,
+    "2025": 2871,
+    "2026": 4042
+   }
+  },
+  {
+   "id": "iccv",
+   "field": "cv",
+   "short": "ICCV",
+   "name": "IEEE/CVF International Conference on Computer Vision",
+   "count": 8688,
+   "years": {
+    "2015": 526,
+    "2017": 621,
+    "2019": 1075,
+    "2021": 1611,
+    "2023": 2156,
+    "2025": 2699
+   }
+  },
+  {
+   "id": "eccv",
+   "field": "cv",
+   "short": "ECCV",
+   "name": "European Conference on Computer Vision",
+   "count": 8895,
+   "years": {
+    "2016": 415,
+    "2018": 776,
+    "2020": 1358,
+    "2022": 1645,
+    "2024": 2386,
+    "2026": 2315
+   }
+  },
+  {
+   "id": "neurips",
+   "field": "ml",
+   "short": "NeurIPS",
+   "name": "Conference on Neural Information Processing Systems",
+   "count": 25178,
+   "years": {
+    "2015": 403,
+    "2016": 566,
+    "2017": 677,
+    "2018": 1009,
+    "2019": 1426,
+    "2020": 1898,
+    "2021": 2508,
+    "2022": 2834,
+    "2023": 3540,
+    "2024": 4494,
+    "2025": 5823
+   }
+  },
+  {
+   "id": "icml",
+   "field": "ml",
+   "short": "ICML",
+   "name": "International Conference on Machine Learning",
+   "count": 13690,
+   "years": {
+    "2015": 270,
+    "2016": 322,
+    "2017": 434,
+    "2018": 621,
+    "2019": 773,
+    "2020": 1085,
+    "2021": 1183,
+    "2022": 1234,
+    "2023": 1828,
+    "2024": 2610,
+    "2025": 3330
+   }
+  },
+  {
+   "id": "iclr",
+   "field": "ml",
+   "short": "ICLR",
+   "name": "International Conference on Learning Representations",
+   "count": 16565,
+   "years": {
+    "2017": 198,
+    "2018": 336,
+    "2019": 502,
+    "2020": 687,
+    "2021": 860,
+    "2022": 1094,
+    "2023": 1573,
+    "2024": 2260,
+    "2025": 3704,
+    "2026": 5351
+   }
+  }
+ ],
+ "topics": [
+  {
+   "id": "slam",
+   "name": "SLAM & localization",
+   "group": "Robotics",
+   "count": 5161
+  },
+  {
+   "id": "manip",
+   "name": "Manipulation & grasping",
+   "group": "Robotics",
+   "count": 4731
+  },
+  {
+   "id": "loco",
+   "name": "Legged & humanoid robots",
+   "group": "Robotics",
+   "count": 2413
+  },
+  {
+   "id": "nav",
+   "name": "Navigation & motion planning",
+   "group": "Robotics",
+   "count": 5597
+  },
+  {
+   "id": "drive",
+   "name": "Autonomous driving",
+   "group": "Robotics",
+   "count": 3131
+  },
+  {
+   "id": "aerial",
+   "name": "Aerial, marine & field robots",
+   "group": "Robotics",
+   "count": 3286
+  },
+  {
+   "id": "hri",
+   "name": "Human-robot interaction",
+   "group": "Robotics",
+   "count": 2168
+  },
+  {
+   "id": "multi",
+   "name": "Multi-robot & multi-agent",
+   "group": "Robotics",
+   "count": 2428
+  },
+  {
+   "id": "medical",
+   "name": "Medical & surgical",
+   "group": "Robotics",
+   "count": 1810
+  },
+  {
+   "id": "soft",
+   "name": "Soft robots & mechanisms",
+   "group": "Robotics",
+   "count": 1924
+  },
+  {
+   "id": "touch",
+   "name": "Touch & force sensing",
+   "group": "Robotics",
+   "count": 1527
+  },
+  {
+   "id": "rl",
+   "name": "Reinforcement learning",
+   "group": "Learning",
+   "count": 6265
+  },
+  {
+   "id": "il",
+   "name": "Imitation learning",
+   "group": "Learning",
+   "count": 1507
+  },
+  {
+   "id": "llm",
+   "name": "LLMs, VLMs & foundation models",
+   "group": "Learning",
+   "count": 8648
+  },
+  {
+   "id": "gen",
+   "name": "Diffusion & generative models",
+   "group": "Learning",
+   "count": 7786
+  },
+  {
+   "id": "tf",
+   "name": "Transformers & attention",
+   "group": "Learning",
+   "count": 5274
+  },
+  {
+   "id": "gnn",
+   "name": "Graph neural networks",
+   "group": "Learning",
+   "count": 955
+  },
+  {
+   "id": "ssl",
+   "name": "Self-supervised & contrastive",
+   "group": "Learning",
+   "count": 2803
+  },
+  {
+   "id": "transfer",
+   "name": "Few-shot, transfer & continual",
+   "group": "Learning",
+   "count": 5294
+  },
+  {
+   "id": "robust",
+   "name": "Uncertainty, robustness & safety",
+   "group": "Learning",
+   "count": 12442
+  },
+  {
+   "id": "theory",
+   "name": "Optimization & theory",
+   "group": "Learning",
+   "count": 7043
+  },
+  {
+   "id": "eff",
+   "name": "Efficient models & compression",
+   "group": "Learning",
+   "count": 10462
+  },
+  {
+   "id": "det",
+   "name": "Object detection",
+   "group": "Vision",
+   "count": 6049
+  },
+  {
+   "id": "seg",
+   "name": "Segmentation",
+   "group": "Vision",
+   "count": 4142
+  },
+  {
+   "id": "3d",
+   "name": "3D reconstruction, NeRF & Gaussians",
+   "group": "Vision",
+   "count": 8807
+  },
+  {
+   "id": "depth",
+   "name": "Depth, stereo & point clouds",
+   "group": "Vision",
+   "count": 4978
+  },
+  {
+   "id": "pose",
+   "name": "Pose, tracking & motion",
+   "group": "Vision",
+   "count": 4065
+  },
+  {
+   "id": "video",
+   "name": "Video understanding",
+   "group": "Vision",
+   "count": 5800
+  },
+  {
+   "id": "imgen",
+   "name": "Image & video generation",
+   "group": "Vision",
+   "count": 2934
+  },
+  {
+   "id": "human",
+   "name": "Humans, faces & bodies",
+   "group": "Vision",
+   "count": 2664
+  }
+ ]
+}

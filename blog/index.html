@@ -48,10 +48,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
     />
-    <link rel="stylesheet" href="../stylesheet.css?v=e363094eb6f4" />
-    <script src="../assets/search-index.js?v=e363094eb6f4" defer></script>
-    <script src="../assets/site.js?v=e363094eb6f4" defer></script>
-    <link rel="stylesheet" href="../assets/blog.css?v=e363094eb6f4" />
+    <link rel="stylesheet" href="../stylesheet.css?v=6ed7e6884cbc" />
+    <script src="../assets/search-index.js?v=6ed7e6884cbc" defer></script>
+    <script src="../assets/site.js?v=6ed7e6884cbc" defer></script>
+    <link rel="stylesheet" href="../assets/blog.css?v=6ed7e6884cbc" />
     <script>
       try {
         const q = new URLSearchParams(location.search).get("lang");
@@ -90,6 +90,7 @@
           <a href="../index.html">About</a>
           <a href="../publications/">Publications</a>
           <a href="../blog/" aria-current="page">Blog</a>
+          <a href="../explorer/">Paper Explorer</a>
           <a href="../teaching/">Teaching</a>
           <a href="../contact/">Contact</a>
           <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
@@ -152,7 +153,7 @@
         </p>
       </header>
       <div class="blog-toolbar">
-        <span><span class="t-en">2 posts</span><span class="t-vi">2 bài viết</span></span>
+        <span><span class="t-en">3 posts</span><span class="t-vi">3 bài viết</span></span>
         <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
           <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
             English</button
@@ -161,6 +162,58 @@
           </button>
         </div>
       </div>
+      <article class="blog-entry" id="robotics-family-tree">
+        <a class="blog-cover" href="robotics-family-tree/" tabindex="-1" aria-hidden="true"
+          ><img
+            class="cover-light"
+            src="robotics-family-tree/cover.svg?v=6527ad87"
+            alt=""
+            width="1200"
+            height="630"
+            loading="lazy"
+            decoding="async" /><img
+            class="cover-dark"
+            src="robotics-family-tree/cover-dark.svg?v=9ec2e564"
+            alt=""
+            width="1200"
+            height="630"
+            loading="lazy"
+            decoding="async"
+        /></a>
+        <div>
+          <div class="publication-venue">
+            <span class="venue-badge"
+              ><span class="t-en">Interactive map</span
+              ><span class="t-vi">Bản đồ tương tác</span></span
+            >
+          </div>
+          <h2>
+            <a href="robotics-family-tree/"
+              ><span class="t-en">A family tree of robotics</span
+              ><span class="t-vi">Cây phả hệ robot học</span></a
+            >
+          </h2>
+          <p>
+            <span class="t-en"
+              >Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR,
+              RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the
+              branches that rose and faded.</span
+            ><span class="t-vi"
+              >Mọi bài báo của tám hội nghị và tạp chí robot lớn từ năm 2015 (ICRA, IROS, RA-L,
+              T-RO, IJRR, RSS, CoRL và Science Robotics) trong một cây phả hệ gồm các lĩnh vực và
+              nhánh, cùng các nhánh đang lên và đang giảm.</span
+            >
+          </p>
+          <div class="research-tags t-en">
+            <span class="tag">Robotics</span><span class="tag">dblp</span
+            ><span class="tag">Interactive</span>
+          </div>
+          <div class="research-tags t-vi">
+            <span class="tag">Robot học</span><span class="tag">dblp</span
+            ><span class="tag">Tương tác</span>
+          </div>
+        </div>
+      </article>
       <article class="blog-entry" id="robot-learning-family-tree">
         <a class="blog-cover" href="robot-learning-family-tree/" tabindex="-1" aria-hidden="true"
           ><img
@@ -263,7 +316,7 @@
           </div>
         </div>
       </article>
-      <script src="../assets/blog.js?v=e363094eb6f4"></script>
+      <script src="../assets/blog.js?v=6ed7e6884cbc"></script>
     </main>
     <footer class="site-footer">
       <div class="footer-inner">

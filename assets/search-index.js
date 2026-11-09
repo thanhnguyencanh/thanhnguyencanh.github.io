@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "A family tree of robotics",
+    category: "Blog",
+    url: "blog/robotics-family-tree/",
+    text: "Cây phả hệ robot học Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the branches that rose and faded. Mọi bài báo của tám hội nghị và tạp chí robot lớn từ năm 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL và Science Robotics) trong một cây phả hệ gồm các lĩnh vực và nhánh, cùng các nhánh đang lên và đang giảm. Robotics dblp Interactive Robot học dblp Tương tác",
+  },
+  {
     title: "A family tree of robot learning",
     category: "Blog",
     url: "blog/robot-learning-family-tree/",
@@ -582,6 +588,12 @@ window.siteSearch = [
     category: "Blog",
     url: "blog/slam-family-tree/",
     text: "Cây phả hệ SLAM thị giác Every SLAM system compared in our four surveys, in one interactive family tree of seven lineages: from semantic maps and neural fields to open-vocabulary, collaborative and endoscopic SLAM. Tất cả hệ thống SLAM được so sánh trong bốn bài khảo sát của chúng tôi, trong một cây phả hệ tương tác gồm bảy dòng: từ bản đồ ngữ nghĩa và trường nơ-ron đến SLAM từ vựng mở, SLAM cộng tác và SLAM nội soi. SLAM Survey Interactive SLAM Khảo sát Tương tác",
+  },
+  {
+    title: "Paper Explorer",
+    category: "Page",
+    url: "explorer/",
+    text: "Search 139,002 papers from ICRA, IROS, RSS, CoRL, RA-L, T-RO, IJRR, Sci. Robotics, CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR, 2015–2026, by title, author, venue, year and topic.",
   },
   {
     title: "I213E: Discrete Signal Processing",

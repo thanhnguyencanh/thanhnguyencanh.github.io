@@ -290,7 +290,7 @@ def nodes_of(tree, extra_leaves=()):
         out.append({"id": lid, "parent": None, "en": en, "vi": vi, "den": den, "dvi": dvi})
     for n in out:
         if n["id"] in (OTHER_METHOD[0], "t-other"):
-            n["color"] = "#9a9a9a"  # "Other" stays neutral grey in charts and covers
+            n["color"], n["other"] = "#9a9a9a", True  # "Other" stays grey in charts and covers, and is not counted as a group
     return out
 
 

@@ -1,5 +1,37 @@
 [
   {
+    "slug": "robotics-family-tree",
+    "date": "2026-11-10",
+    "kind": {
+      "en": "Interactive map",
+      "vi": "Bản đồ tương tác"
+    },
+    "title": {
+      "en": "A family tree of robotics",
+      "vi": "Cây phả hệ robot học"
+    },
+    "summary": {
+      "en": "Every paper of eight major robotics venues since 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL and Science Robotics) in one family tree of fields and branches, with the branches that rose and faded.",
+      "vi": "Mọi bài báo của tám hội nghị và tạp chí robot lớn từ năm 2015 (ICRA, IROS, RA-L, T-RO, IJRR, RSS, CoRL và Science Robotics) trong một cây phả hệ gồm các lĩnh vực và nhánh, cùng các nhánh đang lên và đang giảm."
+    },
+    "lead": {
+      "en": "<span data-stat=\"items\"></span> papers from eight robotics conferences and journals, sorted into one family tree of fields and branches.",
+      "vi": "<span data-stat=\"items\"></span> bài báo từ tám hội nghị và tạp chí robot, sắp xếp vào một cây phả hệ gồm các lĩnh vực và nhánh."
+    },
+    "tags": {
+      "en": [
+        "Robotics",
+        "dblp",
+        "Interactive"
+      ],
+      "vi": [
+        "Robot học",
+        "dblp",
+        "Tương tác"
+      ]
+    }
+  },
+  {
     "slug": "robot-learning-family-tree",
     "date": "2026-11-10",
     "kind": {

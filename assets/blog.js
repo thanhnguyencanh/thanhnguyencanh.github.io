@@ -20,8 +20,38 @@
   switches.forEach(function (b) { b.addEventListener("click", function () { applyLang(b.dataset.setLang, true); }); });
   applyLang(lang(), false);
 
-  var D = window.FAMILY, host = document.getElementById("ft");
-  if (!D || !host) return;
+  var host = document.getElementById("ft");
+  if (!window.FAMILY || !host) return;
+  if (window.FAMILY.shards) loadShards(window.FAMILY).then(start, function (e) {
+    var p = document.getElementById("ft-panel"); if (p) p.textContent = "Could not load the papers (" + e + "). Please reload the page.";
+  }); else start(window.FAMILY);
+
+  // Papers kept in the Paper Explorer files: the post brings one branch label per paper, in file order.
+  function loadShards(F) {
+    var S0 = F.shards, wait = document.getElementById("ft-panel");
+    if (wait) wait.textContent = "Loading papers…";
+    var get = function (name) { return fetch(S0.base + name).then(function (r) { if (!r.ok) throw r.status; return r.json(); }); };
+    return get("index.json").then(function (index) {
+      var codes = index.codes || [];
+      var expand = function (l) { if (/^10\./.test(l)) return "https://doi.org/" + l; codes.forEach(function (c) { l = l.split(c[0]).join(c[1]); }); return l; };
+      return Promise.all(S0.venues.map(function (v) { return get(v + ".json"); })).then(function (files) {
+        var items = [];
+        files.forEach(function (d, k) {
+          var v = S0.venues[k], lab = S0.labels[v];
+          if (d.t.length !== S0.counts[v] || lab.length !== d.t.length) throw "the paper list changed; run scripts/make_blog_robotics_tree.py again";
+          for (var i = 0; i < d.t.length; i++) {
+            items.push({ title: d.t[i], authors: d.a[i], year: d.y[i], venue: S0.names[v] + " " + d.y[i], url: expand(d.l[i]), n: S0.leaves[S0.alphabet.indexOf(lab[i])] });
+          }
+        });
+        items.sort(function (a, b) { return a.year - b.year || a.title.localeCompare(b.title); });
+        items.forEach(function (it, i) { it.id = i; });
+        F.items = items;
+        return F;
+      });
+    });
+  }
+
+  function start(D) {
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var COLORS = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#8C7B00", "#7E57C2", "#5D7087"];
@@ -87,7 +117,7 @@
   // ---- stats ----
   function stats() {
     var tr = trees[0];
-    var set = { items: num(D.items.length), lineages: tr.top.length, branches: tr.def.nodes.length - tr.top.length, span: Y0 + "–" + Y1,
+    var set = { items: num(D.items.length), lineages: tr.top.filter(function (n) { return !n.other; }).length, branches: tr.def.nodes.length - tr.top.length, span: Y0 + "–" + Y1,
                 sources: D.sources ? Object.keys(D.sources).length : 0, editions: new Set(years).size };
     document.querySelectorAll("[data-stat]").forEach(function (el) { el.textContent = set[el.dataset.stat]; });
     document.querySelectorAll("[data-fact]").forEach(function (el) { var f = (D.facts || {})[el.dataset.fact]; if (f) el.innerHTML = esc(label(f)).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); });
@@ -290,8 +320,8 @@
     if (b.classList.contains("ft-row") && id) st.open[id] = true;
     selectNode(id);
   });
-  var qi = $("#ft-q");
-  if (qi) { qi.value = st.q; qi.addEventListener("input", function () { st.q = qi.value.trim(); st.item = null; st.show = 12; render(); }); }
+  var qi = $("#ft-q"), qt = 0;
+  if (qi) { qi.value = st.q; qi.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { st.q = qi.value.trim(); st.item = null; st.show = 12; render(); }, D.items.length > 3000 ? 160 : 0); }); }
   document.addEventListener("langchange", function () { render(); stats(); });
   // initial selection from ?path=
   var p0 = params.get("path");
@@ -299,4 +329,5 @@
   else if (p0 && T().byId[p0]) selectNode(p0);
   else { T().top.forEach(function (n) { st.open[n.id] = true; }); render(); }
   stats();
+  }
 })();

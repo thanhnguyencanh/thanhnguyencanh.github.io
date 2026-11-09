@@ -13,14 +13,15 @@ from about_page import about_intro
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PAPERS = json.loads((ROOT / "data/publications.json").read_text())
-PAGES = [("", "About"), ("publications", "Publications"), ("blog", "Blog"), ("teaching", "Teaching"), ("contact", "Contact")]
+PAGES = [("", "About"), ("publications", "Publications"), ("blog", "Blog"), ("explorer", "Paper Explorer"), ("teaching", "Teaching"), ("contact", "Contact")]
 LAB_URL = "https://pairs-lab.github.io/"  # research, people, projects, datasets and positions live on the lab site
 SEARCH = []
 
 
 def asset_revision():
     """Give generated pages fresh CSS and scripts whenever their sources change."""
-    sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js", ROOT / "assets/blog.css", ROOT / "assets/blog.js"]
+    sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js", ROOT / "assets/blog.css", ROOT / "assets/blog.js",
+               ROOT / "assets/explorer.css", ROOT / "assets/explorer.js"]
     sources += sorted((ROOT / "data").glob("*.json"))
     sources += sorted((ROOT / "scripts").glob("*.py"))
     digest = hashlib.sha256()
@@ -326,6 +327,37 @@ def blog():
         add_search(p["title"]["en"], "Blog", slug + "/", " ".join([p["title"]["vi"], p["summary"]["en"], p["summary"]["vi"], *p["tags"]["en"], *p["tags"]["vi"]]))
 
 
+# ---------- paper explorer ----------
+# explorer/data/*.json is written by scripts/make_paper_explorer.py from the dblp XML dump.
+
+def explorer():
+    index = json.loads((ROOT / "explorer/data/index.json").read_text(encoding="utf-8"))
+    venues, (y0, y1) = index["venues"], index["years"]
+    names = ", ".join(v["short"] for v in venues)
+    search_icon = '<svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>'
+    intro = (f'Search <span data-px="total">{index["total"]:,}</span> papers from {len(venues)} robotics, computer vision and machine learning venues, {y0}–{y1}. '
+             "Filter by field, venue, year and topic, and see how a topic grows over time.")
+    sorts = [("year-desc", "Newest first"), ("year-asc", "Oldest first"), ("match", "Best match"), ("title", "Title A–Z")]
+    content = heading("Paper Explorer", intro, "Robotics · Vision · Machine learning") + f'''<div class="px" id="px" data-base="data/">
+<div class="px-search search-field"><label class="sr-only" for="px-q">Search papers</label>{search_icon}<input id="px-q" type="search" autocomplete="off" placeholder="Search titles and authors, e.g. evidential, &quot;gaussian splatting&quot;, Chong"></div>
+<div class="px-filters">
+<div class="px-row"><span class="px-label">Field</span><div class="px-chips" id="px-fields"></div></div>
+<div class="px-row"><span class="px-label">Venue</span><div class="px-chips" id="px-venues"></div></div>
+<div class="px-row"><span class="px-label">Years</span><div class="px-inline"><select class="filter-select" id="px-from" aria-label="From year"></select><span>to</span><select class="filter-select" id="px-to" aria-label="To year"></select>
+<span class="px-label">Sort</span><select class="filter-select" id="px-sort" aria-label="Sort">{"".join(f'<option value="{v}">{t}</option>' for v, t in sorts)}</select>
+<button type="button" class="text-link px-clear" id="px-clear">Clear all</button></div></div>
+<details class="px-topics"><summary>Topics <span id="px-topic-count"></span></summary><div id="px-topic-chips"></div></details>
+</div>
+<p class="px-status" id="px-status" role="status">Loading papers…</p>
+<div class="px-overview"><div class="px-trend" id="px-trend"></div><div class="px-venuebars" id="px-venuebars"></div></div>
+<ol class="px-results" id="px-results"></ol>
+<div class="px-more"><button type="button" class="filter-chip" id="px-more" hidden>Show more</button></div>
+<p class="px-note">Venues: {esc(names)}. Data: the <a href="https://dblp.org/">dblp</a> computer science bibliography (CC0), downloaded <span data-px="date">{esc(index["generated"])}</span>; workshop papers are not included.<span id="px-coverage"></span> Topics come from keywords in titles, so a paper can be missing from a topic it belongs to.</p>
+</div><noscript><p>The Paper Explorer needs JavaScript.</p></noscript><script src="../assets/explorer.js?v={ASSET_REVISION}" defer></script>'''
+    render_page("explorer", "Paper Explorer", f"Search {index['total']:,} papers from {names}, {y0}–{y1}, by title, author, venue, year and topic.",
+                content, head=f'<link rel="stylesheet" href="../assets/explorer.css?v={ASSET_REVISION}">')
+
+
 def office_details(key, title):
     office = PROFILE["offices"][key]
     add_search(title + " office", "Contact", f"contact/#{key}",
@@ -376,6 +408,7 @@ def main():
     home()
     publications()
     blog()
+    explorer()
     teaching()
     contact()
     assets = ROOT / "assets"
