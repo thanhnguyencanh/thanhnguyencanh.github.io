@@ -334,6 +334,7 @@ def blog():
         scripts = f'<script src="data.js?v={fingerprint(folder / "data.js")}"></script>' if (folder / "data.js").is_file() else ""
         scripts += f'<script src="../../assets/blog.js?v={ASSET_REVISION}"></script>'
         body = (ROOT / "data/blog" / (p["slug"] + ".html")).read_text(encoding="utf-8")
+        body = re.sub(r'src="([\w-]+\.js)"', lambda m: f'src="{m.group(1)}?v={fingerprint(folder / m.group(1))}"' if (folder / m.group(1)).is_file() else m.group(0), body)  # the post's own scripts
         render_page(slug, p["title"]["en"], p["summary"]["en"], header + body + scripts, head=head, image=image, kind="article", search_category=None)
         add_search(p["title"]["en"], "Blog", slug + "/", " ".join([p["title"]["vi"], p["summary"]["en"], p["summary"]["vi"], *p["tags"]["en"], *p["tags"]["vi"]]))
 

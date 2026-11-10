@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feature-based and direct visual SLAM, explained | Thanh Nguyen Canh</title>
+    <meta
+      name="description"
+      content="How feature-based and direct visual SLAM work, where each one breaks, and how semi-direct and learned systems mix the two: an interactive demo of both errors, the most cited recent systems in T-RO, RA-L and IJRR, and a family tree of key systems."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link
+      rel="canonical"
+      href="https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta
+      property="og:title"
+      content="Feature-based and direct visual SLAM, explained | Thanh Nguyen Canh"
+    />
+    <meta
+      property="og:description"
+      content="How feature-based and direct visual SLAM work, where each one breaks, and how semi-direct and learned systems mix the two: an interactive demo of both errors, the most cited recent systems in T-RO, RA-L and IJRR, and a family tree of key systems."
+    />
+    <meta
+      property="og:url"
+      content="https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/"
+    />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Feature-based and direct visual SLAM, explained" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=1cdea6af82ab" />
+    <script src="../../assets/search-index.js?v=1cdea6af82ab" defer></script>
+    <script src="../../assets/site.js?v=1cdea6af82ab" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=1cdea6af82ab" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Feature-based and direct visual SLAM, explained",
+        "alternativeHeadline": "Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp",
+        "description": "How feature-based and direct visual SLAM work, where each one breaks, and how semi-direct and learned systems mix the two: an interactive demo of both errors, the most cited recent systems in T-RO, RA-L and IJRR, and a family tree of key systems.",
+        "datePublished": "2026-11-10",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/visual-slam-feature-vs-direct/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en">Feature-based and direct visual SLAM, explained</span
+          ><span class="t-vi">Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            >Every visual SLAM system has to decide what to measure in an image: where keypoints
+            are, or how bright pixels are. This post explains both families, lets you try their
+            errors, and maps <span data-stat="items"></span> key systems from MonoSLAM to
+            MASt3R-SLAM.</span
+          ><span class="t-vi"
+            >Mọi hệ SLAM thị giác đều phải chọn đo gì trên ảnh: vị trí các điểm đặc trưng, hay độ
+            sáng của các điểm ảnh. Bài viết này giải thích cả hai họ, cho bạn thử hai loại sai số và
+            vẽ bản đồ <span data-stat="items"></span> hệ thống tiêu biểu từ MonoSLAM đến
+            MASt3R-SLAM.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body">
+        <section>
+          <h2>
+            <span class="t-en">What every visual SLAM system does</span
+            ><span class="t-vi">Mọi hệ SLAM thị giác đều làm gì</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              A visual SLAM system estimates where the camera is and builds a map of the scene at
+              the same time. Most systems split the work into parts that run together: tracking
+              estimates the pose of each new frame against the map, local mapping adds keyframes and
+              refines nearby poses and points with optimization, and loop closing recognizes places
+              seen before and removes the drift that built up on the way.
+            </p>
+            <p class="t-vi">
+              Một hệ SLAM thị giác vừa ước lượng camera đang ở đâu vừa xây dựng bản đồ của cảnh.
+              Phần lớn hệ thống chia công việc thành các phần chạy song song: theo dõi (tracking)
+              ước lượng tư thế của mỗi khung hình mới so với bản đồ, lập bản đồ cục bộ thêm khung
+              hình khóa và tinh chỉnh các tư thế, các điểm lân cận bằng tối ưu, còn đóng vòng (loop
+              closing) nhận ra những nơi đã đi qua và loại bỏ sai số trôi tích lũy trên đường.
+            </p>
+            <p class="t-en">
+              Feature-based and direct systems share this structure. They differ in what the
+              front-end measures in an image:
+              <strong
+                >feature-based systems measure where keypoints are; direct systems measure how
+                bright pixels are.</strong
+              >
+              Everything else follows from that choice. Switch between the two:
+            </p>
+            <p class="t-vi">
+              Hệ dựa trên đặc trưng và hệ trực tiếp có chung cấu trúc này. Khác biệt nằm ở thứ mà
+              phần front-end đo trên ảnh:
+              <strong
+                >hệ dựa trên đặc trưng đo vị trí của các điểm đặc trưng; hệ trực tiếp đo độ sáng của
+                các điểm ảnh.</strong
+              >
+              Mọi thứ khác đều bắt nguồn từ lựa chọn đó. Hãy chuyển giữa hai cách:
+            </p>
+          </div>
+          <div class="vs-switch" role="group" aria-label="Family / Họ">
+            <button class="filter-chip" type="button" data-vs-mode="feature" aria-pressed="true">
+              <span class="t-en">Feature-based</span
+              ><span class="t-vi">Dựa trên đặc trưng</span></button
+            ><button class="filter-chip" type="button" data-vs-mode="direct" aria-pressed="false">
+              <span class="t-en">Direct</span><span class="t-vi">Trực tiếp</span>
+            </button>
+          </div>
+          <div class="vs-pipe" id="vs-pipe" data-mode="feature">
+            <div class="vs-step">
+              <b><span class="t-en">1. Front-end</span><span class="t-vi">1. Front-end</span></b>
+              <span class="vs-f"
+                ><span class="t-en"
+                  >Detect keypoints (FAST, ORB) and compute a descriptor for each.</span
+                ><span class="t-vi"
+                  >Phát hiện điểm đặc trưng (FAST, ORB) và tính bộ mô tả cho từng điểm.</span
+                ></span
+              >
+              <span class="vs-d"
+                ><span class="t-en">Select pixels with enough image gradient; no descriptors.</span
+                ><span class="t-vi"
+                  >Chọn các điểm ảnh có đủ gradient; không cần bộ mô tả.</span
+                ></span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">2. Data association</span
+                ><span class="t-vi">2. Liên kết dữ liệu</span></b
+              >
+              <span class="vs-f"
+                ><span class="t-en"
+                  >Match descriptors to the map and reject outliers with RANSAC.</span
+                ><span class="t-vi"
+                  >So khớp bộ mô tả với bản đồ và loại điểm ngoại lai bằng RANSAC.</span
+                ></span
+              >
+              <span class="vs-d"
+                ><span class="t-en"
+                  >Implicit: project each pixel with its depth and compare brightness.</span
+                ><span class="t-vi"
+                  >Ngầm định: chiếu mỗi điểm ảnh theo độ sâu của nó rồi so sánh độ sáng.</span
+                ></span
+              >
+            </div>
+            <div class="vs-step">
+              <b><span class="t-en">3. Tracking</span><span class="t-vi">3. Theo dõi</span></b>
+              <span class="vs-f"
+                ><span class="t-en"
+                  >Pose from 2D–3D matches (PnP), refined on the reprojection error.</span
+                ><span class="t-vi"
+                  >Tư thế từ các cặp khớp 2D–3D (PnP), tinh chỉnh theo sai số chiếu lại.</span
+                ></span
+              >
+              <span class="vs-d"
+                ><span class="t-en"
+                  >Pose by image alignment on the photometric error, coarse to fine.</span
+                ><span class="t-vi"
+                  >Tư thế bằng căn chỉnh ảnh theo sai số trắc quang, từ thô đến tinh.</span
+                ></span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">4. Local mapping</span
+                ><span class="t-vi">4. Lập bản đồ cục bộ</span></b
+              >
+              <span class="vs-f"
+                ><span class="t-en">Bundle adjustment of keyframe poses and 3D points.</span
+                ><span class="t-vi">Tối ưu bó các tư thế khung hình khóa và điểm 3D.</span></span
+              >
+              <span class="vs-d"
+                ><span class="t-en"
+                  >Windowed photometric optimization of poses, depths and brightness.</span
+                ><span class="t-vi"
+                  >Tối ưu trắc quang trong cửa sổ cho tư thế, độ sâu và độ sáng.</span
+                ></span
+              >
+            </div>
+            <div class="vs-step">
+              <b><span class="t-en">5. Loop closing</span><span class="t-vi">5. Đóng vòng</span></b>
+              <span class="vs-f"
+                ><span class="t-en"
+                  >Bag of words on the same descriptors, then pose-graph or global
+                  optimization.</span
+                ><span class="t-vi"
+                  >Túi từ trên chính các bộ mô tả đó, rồi tối ưu đồ thị tư thế hoặc tối ưu toàn
+                  cục.</span
+                ></span
+              >
+              <span class="vs-d"
+                ><span class="t-en"
+                  >Needs extra cues, for example descriptors added to selected points (LDSO).</span
+                ><span class="t-vi"
+                  >Cần thêm thông tin, ví dụ bộ mô tả gắn vào các điểm được chọn (LDSO).</span
+                ></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en"
+              >Feature-based SLAM: match keypoints, minimize the reprojection error</span
+            ><span class="t-vi"
+              >SLAM dựa trên đặc trưng: so khớp điểm, tối thiểu sai số chiếu lại</span
+            >
+          </h2>
+          <div class="post-prose t-en">
+            <p>
+              A feature-based (or indirect) system first turns each image into a small set of
+              keypoints, and then forgets the pixels:
+            </p>
+            <ol>
+              <li>
+                <strong>Detect</strong> corners that look different from their surroundings, for
+                example FAST corners as used by ORB.
+              </li>
+              <li>
+                <strong>Describe</strong> each keypoint with a short code that can be recognized in
+                another image; ORB uses a 256-bit binary descriptor, compared with the Hamming
+                distance.
+              </li>
+              <li>
+                <strong>Match</strong> descriptors between frames or against map points, and reject
+                wrong matches with RANSAC: PnP for the pose against the map, or the essential matrix
+                to initialize a monocular map.
+              </li>
+              <li>
+                <strong>Optimize</strong>: bundle adjustment moves poses and 3D points to make the
+                reprojection errors small, that is, the pixel distance between where a point is
+                observed and where the current estimate projects it.
+              </li>
+            </ol>
+          </div>
+          <div class="post-prose t-vi">
+            <p>
+              Một hệ dựa trên đặc trưng (hay gián tiếp) trước hết biến mỗi ảnh thành một tập nhỏ các
+              điểm đặc trưng, rồi bỏ qua các điểm ảnh còn lại:
+            </p>
+            <ol>
+              <li>
+                <strong>Phát hiện</strong> các góc trông khác biệt so với xung quanh, ví dụ góc FAST
+                mà ORB sử dụng.
+              </li>
+              <li>
+                <strong>Mô tả</strong> mỗi điểm bằng một mã ngắn để nhận ra nó trong ảnh khác; ORB
+                dùng bộ mô tả nhị phân 256 bit, so sánh bằng khoảng cách Hamming.
+              </li>
+              <li>
+                <strong>So khớp</strong> bộ mô tả giữa các khung hình hoặc với điểm trên bản đồ, và
+                loại cặp khớp sai bằng RANSAC: PnP để tìm tư thế so với bản đồ, hoặc ma trận thiết
+                yếu (essential matrix) để khởi tạo bản đồ với một camera.
+              </li>
+              <li>
+                <strong>Tối ưu</strong>: tối ưu bó (bundle adjustment) dịch chuyển tư thế và điểm 3D
+                để sai số chiếu lại nhỏ nhất, tức khoảng cách tính bằng điểm ảnh giữa vị trí một
+                điểm được quan sát và vị trí mà ước lượng hiện tại chiếu nó lên.
+              </li>
+            </ol>
+          </div>
+          <p class="vs-eq">
+            min<sub>T, X</sub> Σ<sub>i, j</sub> ρ( ‖ u<sub>ij</sub> − π(T<sub>i</sub> X<sub>j</sub>)
+            ‖² )
+          </p>
+          <p class="post-prose">
+            <span class="t-en"
+              >u<sub>ij</sub> is keypoint j observed in keyframe i, X<sub>j</sub> its 3D point,
+              T<sub>i</sub> the camera pose, π the camera projection, and ρ a robust kernel such as
+              Huber that limits the effect of wrong matches.</span
+            ><span class="t-vi"
+              >u<sub>ij</sub> là điểm đặc trưng j quan sát được trong khung hình khóa i, X<sub
+                >j</sub
+              >
+              là điểm 3D của nó, T<sub>i</sub> là tư thế camera, π là phép chiếu của camera, còn ρ
+              là hàm suy giảm bền vững như Huber để hạn chế ảnh hưởng của các cặp khớp sai.</span
+            >
+          </p>
+          <div class="vs-cols">
+            <div>
+              <h3><span class="t-en">Strengths</span><span class="t-vi">Điểm mạnh</span></h3>
+              <ul class="t-en">
+                <li>
+                  A correct match pins the solution even after a large motion: the error grows
+                  steadily with the distance from the truth.
+                </li>
+                <li>
+                  Descriptors tolerate brightness changes, so exposure changes do little harm.
+                </li>
+                <li>
+                  Relocalization and loop closure come almost for free: the same descriptors feed a
+                  bag-of-words place recognizer.
+                </li>
+                <li>Mature and well tested; ORB-SLAM3 is the usual reference.</li>
+              </ul>
+              <ul class="t-vi">
+                <li>
+                  Một cặp khớp đúng giữ chặt lời giải ngay cả khi chuyển động lớn: sai số tăng đều
+                  theo khoảng cách tới giá trị đúng.
+                </li>
+                <li>Bộ mô tả chịu được thay đổi độ sáng, nên thay đổi phơi sáng ít gây hại.</li>
+                <li>
+                  Tái định vị và đóng vòng gần như có sẵn: chính các bộ mô tả đó được dùng cho nhận
+                  dạng địa điểm bằng túi từ.
+                </li>
+                <li>Trưởng thành và được kiểm chứng kỹ; ORB-SLAM3 là mốc so sánh thường dùng.</li>
+              </ul>
+            </div>
+            <div>
+              <h3><span class="t-en">Limits</span><span class="t-vi">Hạn chế</span></h3>
+              <ul class="t-en">
+                <li>
+                  Needs corners: low texture, motion blur and repeated patterns starve or confuse
+                  it.
+                </li>
+                <li>Uses a small fraction of the pixels and gives a sparse map.</li>
+                <li>Detection and description cost time on every frame.</li>
+              </ul>
+              <ul class="t-vi">
+                <li>
+                  Cần có góc: vùng ít kết cấu, ảnh nhòe do chuyển động và hoa văn lặp lại làm nó
+                  thiếu hoặc nhầm điểm.
+                </li>
+                <li>Chỉ dùng một phần nhỏ điểm ảnh và cho bản đồ thưa.</li>
+                <li>Phát hiện và mô tả điểm tốn thời gian ở mỗi khung hình.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Direct SLAM: align intensities, minimize the photometric error</span
+            ><span class="t-vi"
+              >SLAM trực tiếp: căn chỉnh cường độ, tối thiểu sai số trắc quang</span
+            >
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              A direct method skips keypoints and descriptors. It takes pixels p of a reference
+              frame i, back-projects them with their depth d<sub>p</sub>, moves them into the new
+              frame j with the current pose estimate, and compares the brightness there with the
+              brightness at p:
+            </p>
+            <p class="t-vi">
+              Phương pháp trực tiếp bỏ qua điểm đặc trưng và bộ mô tả. Nó lấy các điểm ảnh p của
+              khung tham chiếu i, chiếu ngược chúng ra không gian theo độ sâu d<sub>p</sub>, đưa
+              sang khung mới j theo ước lượng tư thế hiện tại, rồi so sánh độ sáng ở đó với độ sáng
+              tại p:
+            </p>
+          </div>
+          <p class="vs-eq">
+            r<sub>p</sub> = I<sub>j</sub>[ π( T<sub>ji</sub> π<sup>−1</sup>(p, d<sub>p</sub>) ) ] −
+            I<sub>i</sub>[p]
+          </p>
+          <div class="post-prose">
+            <p class="t-en">
+              The pose (and, in a sliding window, the depths) that make these residuals small is the
+              estimate. Methods differ in how many pixels they use: all of them (dense, as in DTAM),
+              those with high gradient (semi-dense, as in LSD-SLAM), or a few thousand well-spread
+              points with gradient (sparse, as in DSO).
+            </p>
+            <p class="t-vi">
+              Tư thế (và trong cửa sổ trượt, cả độ sâu) làm các phần dư này nhỏ nhất chính là ước
+              lượng. Các phương pháp khác nhau ở số điểm ảnh sử dụng: tất cả (dày đặc, như DTAM),
+              những điểm có gradient cao (bán dày đặc, như LSD-SLAM), hoặc vài nghìn điểm có
+              gradient phân bố đều (thưa, như DSO).
+            </p>
+            <p class="t-en">
+              The whole idea rests on brightness constancy: the same point looks equally bright in
+              both images. Real cameras break it, through exposure changes, vignetting and a
+              non-linear response. DSO therefore uses a photometrically calibrated camera and gives
+              every frame an exposure time t and affine brightness parameters a, b:
+            </p>
+            <p class="t-vi">
+              Toàn bộ ý tưởng dựa trên giả thiết độ sáng không đổi: cùng một điểm trông sáng như
+              nhau trong cả hai ảnh. Camera thực phá vỡ giả thiết này qua thay đổi phơi sáng, hiện
+              tượng tối góc (vignetting) và hàm đáp ứng phi tuyến. Vì vậy DSO dùng camera đã hiệu
+              chuẩn trắc quang và gán cho mỗi khung hình thời gian phơi sáng t cùng các tham số độ
+              sáng affine a, b:
+            </p>
+          </div>
+          <p class="vs-eq">
+            r<sub>p</sub> = ( I<sub>j</sub>[p′] − b<sub>j</sub> ) − ( t<sub>j</sub> e<sup
+              >a<sub>j</sub></sup
+            >
+            ⁄ t<sub>i</sub> e<sup>a<sub>i</sub></sup> ) ( I<sub>i</sub>[p] − b<sub>i</sub> )
+          </p>
+          <div class="vs-cols">
+            <div>
+              <h3><span class="t-en">Strengths</span><span class="t-vi">Điểm mạnh</span></h3>
+              <ul class="t-en">
+                <li>Uses edges and weak texture where corners are rare.</li>
+                <li>Intensity gradients give sub-pixel precision from many pixels at once.</li>
+                <li>Can produce semi-dense or dense maps, and skips descriptor computation.</li>
+              </ul>
+              <ul class="t-vi">
+                <li>Tận dụng cạnh và vùng kết cấu yếu, nơi ít có góc.</li>
+                <li>
+                  Gradient cường độ cho độ chính xác dưới điểm ảnh từ rất nhiều điểm cùng lúc.
+                </li>
+                <li>Có thể tạo bản đồ bán dày đặc hoặc dày đặc, và không phải tính bộ mô tả.</li>
+              </ul>
+            </div>
+            <div>
+              <h3><span class="t-en">Limits</span><span class="t-vi">Hạn chế</span></h3>
+              <ul class="t-en">
+                <li>
+                  Narrow convergence basin: it needs a good initial guess, small motion between
+                  frames and coarse-to-fine image pyramids.
+                </li>
+                <li>Sensitive to exposure changes, rolling shutter and calibration errors.</li>
+                <li>No descriptors, so relocalization and loop closure need extra machinery.</li>
+              </ul>
+              <ul class="t-vi">
+                <li>
+                  Vùng hội tụ hẹp: cần ước lượng ban đầu tốt, chuyển động nhỏ giữa các khung hình và
+                  kim tự tháp ảnh từ thô đến tinh.
+                </li>
+                <li>
+                  Nhạy với thay đổi phơi sáng, màn trập cuộn (rolling shutter) và sai số hiệu chuẩn.
+                </li>
+                <li>Không có bộ mô tả, nên tái định vị và đóng vòng cần thêm cơ chế khác.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Try it: the two errors on one row of pixels</span
+            ><span class="t-vi">Thử nghiệm: hai loại sai số trên một hàng điểm ảnh</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              This toy uses one row of 320 pixels as the image. The second frame is the same row
+              moved by the camera motion, and possibly brighter or darker. The plots show the error
+              each family minimizes as a function of the guessed motion; the open circle is the
+              start (zero motion, as for a tracker without a motion prior) and the filled dot is
+              where gradient descent stops.
+            </p>
+            <p class="t-vi">
+              Mô hình đơn giản này dùng một hàng 320 điểm ảnh làm ảnh. Khung thứ hai là cùng hàng đó
+              bị dịch theo chuyển động của camera, có thể sáng hơn hoặc tối hơn. Hai biểu đồ cho
+              thấy sai số mà mỗi họ tối thiểu theo chuyển động phỏng đoán; vòng tròn rỗng là điểm
+              xuất phát (chuyển động bằng 0, như một bộ theo dõi không có dự đoán chuyển động) và
+              chấm đặc là nơi phương pháp giảm gradient dừng lại.
+            </p>
+          </div>
+          <div class="vs-demo" id="vs-demo">
+            <div class="vs-presets">
+              <span class="t-en">Try:</span><span class="t-vi">Thử:</span>
+              <button class="filter-chip" type="button" data-vs-preset="texture,25,0,1,0">
+                <span class="t-en">Large motion</span><span class="t-vi">Chuyển động lớn</span>
+              </button>
+              <button class="filter-chip" type="button" data-vs-preset="texture,25,2,1,0">
+                <span class="t-en">Large motion, coarser level</span
+                ><span class="t-vi">Chuyển động lớn, mức thô hơn</span>
+              </button>
+              <button class="filter-chip" type="button" data-vs-preset="texture,5,1,0.6,0">
+                <span class="t-en">Darker exposure</span><span class="t-vi">Phơi sáng tối hơn</span>
+              </button>
+              <button class="filter-chip" type="button" data-vs-preset="texture,5,1,0.6,1">
+                <span class="t-en">… with brightness model</span
+                ><span class="t-vi">… có mô hình độ sáng</span>
+              </button>
+              <button class="filter-chip" type="button" data-vs-preset="smooth,15,0,1,0">
+                <span class="t-en">Smooth wall, no corners</span
+                ><span class="t-vi">Tường trơn, không có góc</span>
+              </button>
+            </div>
+            <div class="vs-controls">
+              <label
+                ><span
+                  ><span class="t-en">Camera motion</span
+                  ><span class="t-vi">Chuyển động camera</span></span
+                ><input type="range" id="vs-motion" min="-40" max="40" step="1" value="8" /><output
+                  id="vs-motion-v"
+                ></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">Pyramid level</span
+                  ><span class="t-vi">Mức kim tự tháp</span></span
+                ><input type="range" id="vs-level" min="0" max="3" step="1" value="0" /><output
+                  id="vs-level-v"
+                ></output
+              ></label>
+              <label
+                ><span><span class="t-en">Exposure</span><span class="t-vi">Phơi sáng</span></span
+                ><input
+                  type="range"
+                  id="vs-gain"
+                  min="0.6"
+                  max="1.3"
+                  step="0.05"
+                  value="1" /><output id="vs-gain-v"></output
+              ></label>
+              <label class="vs-check"
+                ><input type="checkbox" id="vs-affine" />
+                <span class="t-en">Direct: model brightness (a·I + b)</span
+                ><span class="t-vi">Trực tiếp: mô hình hóa độ sáng (a·I + b)</span></label
+              >
+              <div class="vs-switch" role="group" aria-label="Scene / Cảnh">
+                <button class="filter-chip" type="button" data-vs-scene="texture">
+                  <span class="t-en">Textured scene</span
+                  ><span class="t-vi">Cảnh nhiều kết cấu</span></button
+                ><button class="filter-chip" type="button" data-vs-scene="smooth">
+                  <span class="t-en">Smooth scene</span><span class="t-vi">Cảnh trơn</span>
+                </button>
+              </div>
+            </div>
+            <canvas
+              id="vs-strip"
+              width="960"
+              height="104"
+              role="img"
+              aria-label="Frame 1 (top) and frame 2 (bottom) with matched keypoints / Khung 1 (trên) và khung 2 (dưới) với các điểm đã khớp"
+            ></canvas>
+            <p class="vs-strip-note">
+              <span class="t-en"
+                >Top: frame 1; bottom: frame 2, both at the chosen pyramid level. Ticks are
+                keypoints and lines are descriptor matches (red if wrong).</span
+              ><span class="t-vi"
+                >Trên: khung 1; dưới: khung 2, cả hai ở mức kim tự tháp đã chọn. Vạch nhỏ là điểm
+                đặc trưng, đường nối là cặp khớp theo bộ mô tả (màu đỏ nếu sai).</span
+              >
+            </p>
+            <div class="vs-plots">
+              <div class="vs-plot" id="vs-plot-f"></div>
+              <div class="vs-plot" id="vs-plot-d"></div>
+            </div>
+          </div>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>Basin.</strong> At full resolution the photometric error has many local
+              minima, and descent finds motions up to about 11 px in this row; matched keypoints
+              find every motion.
+            </li>
+            <li>
+              <strong>Pyramids.</strong> Blurring, as on a coarser pyramid level, removes fine
+              detail and widens the basin (about 31 px at level 1, the whole range at level 2).
+              Direct methods start coarse and refine at finer levels.
+            </li>
+            <li>
+              <strong>Exposure.</strong> A darker frame moves the direct minimum by about half a
+              pixel and leaves an error that cannot reach zero; modeling brightness fixes the
+              minimum. Here it also narrows the basin, because a and b can absorb part of a wrong
+              alignment, which is one reason DSO puts priors on them.
+            </li>
+            <li>
+              <strong>Texture.</strong> On a smooth surface there are no corners, so the feature
+              front-end loses track, while the direct error still has a clear minimum from weak
+              gradients.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Vùng hội tụ.</strong> Ở độ phân giải đầy đủ, sai số trắc quang có nhiều cực
+              tiểu cục bộ, và phương pháp giảm gradient chỉ tìm được chuyển động tới khoảng 11 px
+              trên hàng này; các điểm đặc trưng đã khớp tìm được mọi chuyển động.
+            </li>
+            <li>
+              <strong>Kim tự tháp ảnh.</strong> Làm mờ, như ở mức kim tự tháp thô hơn, xóa chi tiết
+              nhỏ và mở rộng vùng hội tụ (khoảng 31 px ở mức 1, toàn bộ dải ở mức 2). Phương pháp
+              trực tiếp bắt đầu ở mức thô rồi tinh chỉnh dần ở mức mịn hơn.
+            </li>
+            <li>
+              <strong>Phơi sáng.</strong> Khung tối hơn làm cực tiểu của phương pháp trực tiếp lệch
+              khoảng nửa điểm ảnh và để lại sai số không thể về 0; mô hình hóa độ sáng sửa được cực
+              tiểu. Ở đây nó cũng làm vùng hội tụ hẹp lại, vì a và b có thể "hấp thụ" một phần căn
+              chỉnh sai, đó là một lý do DSO đặt tiền nghiệm cho chúng.
+            </li>
+            <li>
+              <strong>Kết cấu.</strong> Trên bề mặt trơn không có góc, nên front-end đặc trưng mất
+              dấu, trong khi sai số trực tiếp vẫn có cực tiểu rõ ràng nhờ các gradient yếu.
+            </li>
+          </ul>
+          <p class="post-note">
+            <span class="t-en"
+              >A teaching toy, not a benchmark: one row of pixels, pure translation, no noise model.
+              Real systems add motion priors, robust weights and many more constraints.</span
+            ><span class="t-vi"
+              >Đây là mô hình minh họa, không phải phép đo hiệu năng: một hàng điểm ảnh, chỉ có tịnh
+              tiến, không có mô hình nhiễu. Hệ thống thực còn có dự đoán chuyển động, trọng số bền
+              vững và nhiều ràng buộc khác.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">In between: semi-direct, hybrid and learned systems</span
+            ><span class="t-vi">Ở giữa: hệ bán trực tiếp, lai và học sâu</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              <strong>Semi-direct.</strong> SVO tracks small patches around sparse points by direct
+              image alignment, which is fast and precise for small motions, then refines the patch
+              positions and optimizes poses and points on the reprojection error like a
+              feature-based system.
+            </p>
+            <p class="t-vi">
+              <strong>Bán trực tiếp.</strong> SVO theo dõi các mảnh ảnh nhỏ quanh các điểm thưa bằng
+              căn chỉnh ảnh trực tiếp, vừa nhanh vừa chính xác với chuyển động nhỏ, rồi tinh chỉnh
+              vị trí các mảnh và tối ưu tư thế, điểm theo sai số chiếu lại như một hệ dựa trên đặc
+              trưng.
+            </p>
+            <p class="t-en">
+              <strong>Hybrid.</strong> Many systems borrow from both sides: LDSO keeps DSO's direct
+              odometry but adds descriptors to selected points so that it can close loops; Basalt
+              and VINS-Mono track keypoints with optical flow (an intensity-based step) yet optimize
+              reprojection errors.
+            </p>
+            <p class="t-vi">
+              <strong>Lai.</strong> Nhiều hệ thống vay mượn từ cả hai phía: LDSO giữ phần đo hành
+              trình trực tiếp của DSO nhưng thêm bộ mô tả cho các điểm được chọn để có thể đóng
+              vòng; Basalt và VINS-Mono theo dõi điểm bằng dòng quang học (một bước dựa trên cường
+              độ) nhưng vẫn tối ưu sai số chiếu lại.
+            </p>
+            <p class="t-en">
+              <strong>Learned.</strong> Recent learned systems blur the line further. DROID-SLAM
+              predicts dense optical flow, much like per-pixel alignment, and then optimizes poses
+              and depths with a differentiable bundle adjustment over those correspondences; DPVO
+              and DPV-SLAM do the same with sparse patches. MASt3R-SLAM and VGGT-SLAM start from 3D
+              foundation models that predict point maps directly (see our post on
+              <a href="../fm-world-models-slam/">foundation models and world models for SLAM</a>).
+            </p>
+            <p class="t-vi">
+              <strong>Học sâu.</strong> Các hệ học sâu gần đây còn làm mờ ranh giới hơn nữa.
+              DROID-SLAM dự đoán dòng quang học dày đặc, khá giống căn chỉnh theo từng điểm ảnh, rồi
+              tối ưu tư thế và độ sâu bằng một lớp tối ưu bó khả vi trên các tương ứng đó; DPVO và
+              DPV-SLAM làm điều tương tự với các mảnh ảnh thưa. MASt3R-SLAM và VGGT-SLAM xuất phát
+              từ các mô hình nền tảng 3D dự đoán trực tiếp bản đồ điểm (xem bài
+              <a href="../fm-world-models-slam/">mô hình nền tảng và mô hình thế giới cho SLAM</a>).
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Side by side</span><span class="t-vi">So sánh song song</span></h2>
+          <div class="vs-table-wrap">
+            <table class="vs-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>
+                    <span class="t-en">Feature-based</span
+                    ><span class="t-vi">Dựa trên đặc trưng</span>
+                  </th>
+                  <th><span class="t-en">Direct</span><span class="t-vi">Trực tiếp</span></th>
+                  <th>
+                    <span class="t-en">Learned correspondence + BA</span
+                    ><span class="t-vi">Tương ứng học được + tối ưu bó</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="t-en">Measures</span><span class="t-vi">Đo gì</span></td>
+                  <td>
+                    <span class="t-en">Keypoint positions</span
+                    ><span class="t-vi">Vị trí điểm đặc trưng</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Pixel intensities</span
+                    ><span class="t-vi">Cường độ điểm ảnh</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Predicted flow or 3D points</span
+                    ><span class="t-vi">Dòng quang học hoặc điểm 3D dự đoán</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Error</span><span class="t-vi">Sai số</span></td>
+                  <td>
+                    <span class="t-en">Reprojection (pixels)</span
+                    ><span class="t-vi">Chiếu lại (điểm ảnh)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Photometric (brightness)</span
+                    ><span class="t-vi">Trắc quang (độ sáng)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Reprojection on predicted matches</span
+                    ><span class="t-vi">Chiếu lại trên các cặp khớp dự đoán</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Convergence</span><span class="t-vi">Hội tụ</span></td>
+                  <td>
+                    <span class="t-en">Wide, if matches are right</span
+                    ><span class="t-vi">Rộng, nếu cặp khớp đúng</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Narrow: needs pyramids and a good guess</span
+                    ><span class="t-vi">Hẹp: cần kim tự tháp ảnh và ước lượng tốt</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Wide: the network proposes the matches</span
+                    ><span class="t-vi">Rộng: mạng đề xuất cặp khớp</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Brightness changes</span
+                    ><span class="t-vi">Thay đổi độ sáng</span>
+                  </td>
+                  <td><span class="t-en">Tolerant</span><span class="t-vi">Chịu được</span></td>
+                  <td>
+                    <span class="t-en">Needs photometric calibration and a brightness model</span
+                    ><span class="t-vi">Cần hiệu chuẩn trắc quang và mô hình độ sáng</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Learned from data</span
+                    ><span class="t-vi">Học từ dữ liệu</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Low texture, blur</span
+                    ><span class="t-vi">Ít kết cấu, ảnh nhòe</span>
+                  </td>
+                  <td><span class="t-en">Weak</span><span class="t-vi">Yếu</span></td>
+                  <td>
+                    <span class="t-en">Better: uses edges and weak gradients</span
+                    ><span class="t-vi">Tốt hơn: dùng cạnh và gradient yếu</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Often robust</span><span class="t-vi">Thường bền vững</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Map</span><span class="t-vi">Bản đồ</span></td>
+                  <td>
+                    <span class="t-en">Sparse points</span><span class="t-vi">Điểm thưa</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Sparse, semi-dense or dense</span
+                    ><span class="t-vi">Thưa, bán dày đặc hoặc dày đặc</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Dense depth or patches</span
+                    ><span class="t-vi">Độ sâu dày đặc hoặc mảnh ảnh</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Loop closure</span><span class="t-vi">Đóng vòng</span></td>
+                  <td>
+                    <span class="t-en">Built in (bag of words)</span
+                    ><span class="t-vi">Có sẵn (túi từ)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Needs added descriptors</span
+                    ><span class="t-vi">Cần thêm bộ mô tả</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Depends on the system</span
+                    ><span class="t-vi">Tùy hệ thống</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Hardware</span><span class="t-vi">Phần cứng</span></td>
+                  <td>
+                    <span class="t-en">CPU, real time</span
+                    ><span class="t-vi">CPU, thời gian thực</span>
+                  </td>
+                  <td>
+                    <span class="t-en">CPU, real time (sparse)</span
+                    ><span class="t-vi">CPU, thời gian thực (bản thưa)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Usually a GPU</span><span class="t-vi">Thường cần GPU</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Examples</span><span class="t-vi">Ví dụ</span></td>
+                  <td>ORB-SLAM3, VINS-Mono, Basalt</td>
+                  <td>DSO, LSD-SLAM, DM-VIO</td>
+                  <td>DROID-SLAM, DPVO, MASt3R-SLAM</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">The state of the art in T-RO, RA-L and IJRR</span
+            ><span class="t-vi">Hiện trạng nghiên cứu trên T-RO, RA-L và IJRR</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >The most cited visual SLAM and odometry systems published in the three main robotics
+              journals since 2019:</span
+            ><span class="t-vi"
+              >Các hệ SLAM thị giác và đo hành trình được trích dẫn nhiều nhất trên ba tạp chí robot
+              chính từ năm 2019:</span
+            >
+          </p>
+          <div class="vs-table-wrap"><table class="vs-table" id="vs-sota"></table></div>
+          <p class="ft-note" id="vs-sota-note"></p>
+          <p class="post-prose">
+            <span class="t-en"
+              >The list shows where the field is going: feature-based systems are still the most
+              used (ORB-SLAM3), points and lines and learned detectors make them more robust
+              (PL-SLAM, AirSLAM), direct alignment returns in visual-inertial and LiDAR-visual
+              odometry (DM-VIO, FAST-LIVO2), and event cameras bring direct-style tracking to fast
+              motion and high dynamic range (ESVO, ESVO2).</span
+            ><span class="t-vi"
+              >Danh sách cho thấy hướng đi của lĩnh vực: hệ dựa trên đặc trưng vẫn được dùng nhiều
+              nhất (ORB-SLAM3), điểm kết hợp đường thẳng và bộ phát hiện học được giúp chúng bền
+              vững hơn (PL-SLAM, AirSLAM), căn chỉnh trực tiếp trở lại trong đo hành trình thị
+              giác-quán tính và LiDAR-thị giác (DM-VIO, FAST-LIVO2), còn camera sự kiện đưa cách
+              theo dõi kiểu trực tiếp vào chuyển động nhanh và dải động cao (ESVO, ESVO2).</span
+            >
+          </p>
+        </section>
+
+        <section id="ft">
+          <h2>
+            <span class="t-en">A family tree of visual SLAM systems</span
+            ><span class="t-vi">Cây phả hệ các hệ SLAM thị giác</span>
+          </h2>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">systems</span><span class="t-vi">hệ thống</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">families</span><span class="t-vi">họ</span></dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <p class="post-prose">
+            <span class="t-en"
+              >A selection of influential systems, not a complete list. Pick a family or a system to
+              see what it does and open its paper.</span
+            ><span class="t-vi"
+              >Một tuyển chọn các hệ thống có ảnh hưởng, không phải danh sách đầy đủ. Chọn một họ
+              hoặc một hệ thống để xem nó làm gì và mở bài báo.</span
+            >
+          </p>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <h3 class="vs-sub">
+            <span class="t-en">Over time</span><span class="t-vi">Theo thời gian</span>
+          </h3>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Which one should you use?</span
+            ><span class="t-vi">Nên dùng loại nào?</span>
+          </h2>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>A safe default</strong> for most robots and handheld cameras, with fast
+              motion, changing exposure, or the need to relocalize and reuse maps: a feature-based
+              system such as ORB-SLAM3.
+            </li>
+            <li>
+              <strong>Direct methods</strong> such as DSO or DM-VIO pay off with a global-shutter
+              camera that is calibrated, ideally photometrically too, smooth motion and scenes with
+              edges but few corners.
+            </li>
+            <li>
+              <strong>Add an IMU</strong> in either case if you can: it bridges fast motion and
+              gives metric scale to a single camera (VINS-Mono, Basalt, DM-VIO, ORB-SLAM3).
+            </li>
+            <li>
+              <strong>Learned systems</strong> such as DROID-SLAM or DPV-SLAM are often more robust
+              in hard sequences, at the cost of a GPU and more memory.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Lựa chọn an toàn</strong> cho phần lớn robot và camera cầm tay, khi chuyển
+              động nhanh, phơi sáng thay đổi, hoặc cần tái định vị và dùng lại bản đồ: một hệ dựa
+              trên đặc trưng như ORB-SLAM3.
+            </li>
+            <li>
+              <strong>Phương pháp trực tiếp</strong> như DSO hay DM-VIO phát huy tác dụng với camera
+              màn trập toàn cục (global shutter) đã hiệu chuẩn, tốt nhất là cả hiệu chuẩn trắc
+              quang, chuyển động mượt và cảnh có nhiều cạnh nhưng ít góc.
+            </li>
+            <li>
+              <strong>Thêm IMU</strong> trong cả hai trường hợp nếu có thể: nó giúp vượt qua chuyển
+              động nhanh và cho tỷ lệ thực khi chỉ có một camera (VINS-Mono, Basalt, DM-VIO,
+              ORB-SLAM3).
+            </li>
+            <li>
+              <strong>Hệ học sâu</strong> như DROID-SLAM hay DPV-SLAM thường bền vững hơn ở các
+              chuỗi khó, đổi lại cần GPU và nhiều bộ nhớ hơn.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Further reading</span><span class="t-vi">Đọc thêm</span></h2>
+          <ul class="post-prose">
+            <li>
+              <a href="../../explorer/?q=%22direct%20sparse%22"
+                ><span class="t-en">Direct sparse methods in the Paper Explorer</span
+                ><span class="t-vi">Các phương pháp trực tiếp thưa trong Paper Explorer</span></a
+              >
+              ·
+              <a href="../../explorer/?q=orb%20slam"
+                ><span class="t-en">ORB-SLAM and its descendants</span
+                ><span class="t-vi">ORB-SLAM và các hậu duệ</span></a
+              >
+              ·
+              <a href="../../explorer/?q=visual%20inertial%20odometry&amp;venues=tro,ral,ijrr"
+                ><span class="t-en">visual-inertial odometry in T-RO, RA-L and IJRR</span
+                ><span class="t-vi"
+                  >đo hành trình thị giác-quán tính trên T-RO, RA-L và IJRR</span
+                ></a
+              >
+            </li>
+            <li>
+              <a href="../slam-family-tree/"
+                ><span class="t-en">A family tree of visual SLAM</span
+                ><span class="t-vi">Cây phả hệ SLAM thị giác</span></a
+              >:
+              <span class="t-en"
+                >semantic, neural, collaborative and endoscopic SLAM from our surveys.</span
+              ><span class="t-vi"
+                >SLAM ngữ nghĩa, nơ-ron, cộng tác và nội soi từ các bài khảo sát của chúng
+                tôi.</span
+              >
+            </li>
+            <li>
+              <a href="https://thanhnguyencanh.github.io/Con-DSO/">Con-DSO</a>:
+              <span class="t-en"
+                >our work on RGB-D direct sparse odometry with learned consistency priors.</span
+              ><span class="t-vi"
+                >công trình của chúng tôi về đo hành trình trực tiếp thưa RGB-D với tiền nghiệm nhất
+                quán học được.</span
+              >
+            </li>
+          </ul>
+        </section>
+      </div>
+      <script src="demo-core.js?v=4b802c00"></script>
+      <script src="demo.js?v=db2adae1"></script>
+      <script src="data.js?v=ee0863cf"></script>
+      <script src="../../assets/blog.js?v=1cdea6af82ab"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

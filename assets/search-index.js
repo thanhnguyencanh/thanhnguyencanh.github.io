@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "Feature-based and direct visual SLAM, explained",
+    category: "Blog",
+    url: "blog/visual-slam-feature-vs-direct/",
+    text: "Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp How feature-based and direct visual SLAM work, where each one breaks, and how semi-direct and learned systems mix the two: an interactive demo of both errors, the most cited recent systems in T-RO, RA-L and IJRR, and a family tree of key systems. SLAM thị giác dựa trên đặc trưng và trực tiếp hoạt động thế nào, mỗi loại thất bại ở đâu, và các hệ bán trực tiếp, học sâu kết hợp hai cách ra sao: minh họa tương tác hai loại sai số, các hệ thống được trích dẫn nhiều nhất gần đây trên T-RO, RA-L, IJRR và cây phả hệ các hệ thống tiêu biểu. SLAM Visual odometry Interactive SLAM Đo hành trình thị giác Tương tác",
+  },
+  {
     title: "Foundation models and world models for SLAM",
     category: "Blog",
     url: "blog/fm-world-models-slam/",

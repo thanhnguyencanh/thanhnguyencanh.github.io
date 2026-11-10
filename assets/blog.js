@@ -176,6 +176,7 @@
     if (st.item !== null) {
       var it = D.items[st.item], node = leafOf(it, tr), h = crumbs(node);
       h += "<h3>" + esc(title(it)) + "</h3><div class=\"ft-metrics\"><span><b>" + it.year + "</b></span><span>" + esc(label(node)) + "</span></div>";
+      if (it.den) h += '<p class="ft-desc">' + esc(lang() === "vi" ? it.dvi || it.den : it.den) + "</p>";  // a short description, when the post gives one
       if (it.authors) h += '<p class="ft-desc"><b>' + t("authors") + ":</b> " + esc(it.authors) + (it.venue ? " · " + esc(it.venue) : "") + "</p>";
       if (trees.length > 1) h += '<p class="ft-desc">' + trees.map(function (x) { var l = leafOf(it, x); return "<b>" + esc(label(x.def)) + ":</b> " + (l.parent ? esc(label(x.byId[l.parent])) + " › " : "") + esc(label(l)); }).join("<br>") + "</p>";
       if (it.cite) h += '<p class="ft-desc"><b>' + t("ref") + ':</b></p><p class="ft-cite">' + esc(it.cite) + "</p>";

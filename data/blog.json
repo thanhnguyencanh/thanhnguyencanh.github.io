@@ -1,5 +1,37 @@
 [
   {
+    "slug": "visual-slam-feature-vs-direct",
+    "date": "2026-11-10",
+    "kind": {
+      "en": "Explainer",
+      "vi": "Giải thích"
+    },
+    "title": {
+      "en": "Feature-based and direct visual SLAM, explained",
+      "vi": "Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp"
+    },
+    "summary": {
+      "en": "How feature-based and direct visual SLAM work, where each one breaks, and how semi-direct and learned systems mix the two: an interactive demo of both errors, the most cited recent systems in T-RO, RA-L and IJRR, and a family tree of key systems.",
+      "vi": "SLAM thị giác dựa trên đặc trưng và trực tiếp hoạt động thế nào, mỗi loại thất bại ở đâu, và các hệ bán trực tiếp, học sâu kết hợp hai cách ra sao: minh họa tương tác hai loại sai số, các hệ thống được trích dẫn nhiều nhất gần đây trên T-RO, RA-L, IJRR và cây phả hệ các hệ thống tiêu biểu."
+    },
+    "lead": {
+      "en": "Every visual SLAM system has to decide what to measure in an image: where keypoints are, or how bright pixels are. This post explains both families, lets you try their errors, and maps <span data-stat=\"items\"></span> key systems from MonoSLAM to MASt3R-SLAM.",
+      "vi": "Mọi hệ SLAM thị giác đều phải chọn đo gì trên ảnh: vị trí các điểm đặc trưng, hay độ sáng của các điểm ảnh. Bài viết này giải thích cả hai họ, cho bạn thử hai loại sai số và vẽ bản đồ <span data-stat=\"items\"></span> hệ thống tiêu biểu từ MonoSLAM đến MASt3R-SLAM."
+    },
+    "tags": {
+      "en": [
+        "SLAM",
+        "Visual odometry",
+        "Interactive"
+      ],
+      "vi": [
+        "SLAM",
+        "Đo hành trình thị giác",
+        "Tương tác"
+      ]
+    }
+  },
+  {
     "slug": "fm-world-models-slam",
     "date": "2026-11-10",
     "kind": {
