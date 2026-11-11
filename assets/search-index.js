@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "Bundle adjustment, explained: from reprojection error to GPU solvers",
+    category: "Blog",
+    url: "blog/bundle-adjustment/",
+    text: "Giải thích tối ưu bó: từ sai số chiếu lại đến bộ giải trên GPU What bundle adjustment solves and how, with equations and figures: the reprojection error, Levenberg–Marquardt on SE(3), the Jacobians, the Schur complement, robust kernels and gauge freedom. With a 2D bundle adjuster that runs in the browser, the PyTorch library BAE, and 20 key papers. Tối ưu bó giải bài toán gì và giải thế nào, bằng phương trình và hình minh họa: sai số chiếu lại, Levenberg–Marquardt trên SE(3), ma trận Jacobian, phần bù Schur, hàm bền vững và bậc tự do gauge. Kèm một bộ tối ưu bó 2D chạy trong trình duyệt, thư viện PyTorch BAE và 20 bài báo chính. Bundle adjustment Optimization Interactive Tối ưu bó Tối ưu Tương tác",
+  },
+  {
     title: "World models and SLAM: fundamentals, key insights and open directions",
     category: "Blog",
     url: "blog/world-models-slam/",

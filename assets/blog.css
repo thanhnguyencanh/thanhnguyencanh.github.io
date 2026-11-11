@@ -845,3 +845,428 @@ html[data-theme="dark"] .wm-trend {
     grid-template-columns: 1fr;
   }
 }
+/* bundle adjustment */
+.ba-fig,
+.ba-demo {
+  --ba-cam: #0072b2;
+  --ba-pt: #c45100;
+  --ba-e: #cc79a7;
+  --ba-bad: #b3261e;
+}
+html[data-theme="dark"] .ba-fig,
+html[data-theme="dark"] .ba-demo {
+  --ba-cam: #56b4e9;
+  --ba-pt: #f0955a;
+  --ba-e: #e0a3c8;
+  --ba-bad: #ff8a80;
+}
+.ba-eq {
+  max-width: 760px;
+  margin: 12px 0 18px;
+  padding: 2px 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-left: 3px solid var(--border);
+  background: var(--surface-soft);
+}
+.ba-eq .katex-display {
+  margin: 0.7em 0;
+}
+.ba-eq .katex-display > .katex {
+  text-align: left;
+}
+.ba-fig {
+  max-width: 760px;
+  margin: 18px 0 26px;
+}
+.ba-fig-narrow {
+  max-width: 620px;
+}
+.ba-fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ba-scroll {
+  overflow-x: auto;
+}
+.ba-scroll > svg {
+  min-width: 520px;
+}
+.ba-fig-narrow .ba-scroll > svg {
+  min-width: 460px;
+}
+.ba-fig figcaption {
+  max-width: 760px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.ba-fig text {
+  fill: var(--muted);
+  font-size: 13px;
+}
+.ba-fig text.lab {
+  fill: var(--heading);
+}
+.ba-fig text.m {
+  fill: var(--heading);
+  font-family: "Latin Modern Roman", "STIX Two Text", "Times New Roman", Times, serif;
+  font-size: 17px;
+}
+.ba-fig text.m.q {
+  fill: var(--muted);
+  font-size: 15px;
+}
+.ba-fig text.m.res-t {
+  fill: var(--ba-bad);
+}
+.ba-fig .m .v {
+  font-weight: 700;
+}
+.ba-fig .m .s {
+  font-size: 0.7em;
+  font-style: italic;
+}
+.ba-fig .m .w {
+  fill: var(--muted);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 13px;
+}
+.ba-fig text.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+.ba-fig .ray {
+  stroke: var(--muted);
+  stroke-width: 1.1;
+}
+.ba-fig .ray-m {
+  stroke: var(--muted);
+  stroke-width: 1.3;
+  stroke-dasharray: 5 4;
+}
+.ba-fig .frustum,
+.ba-fig .wedge {
+  fill: var(--accent-soft);
+  stroke: var(--heading);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.ba-fig .plane {
+  stroke: var(--heading);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.ba-fig .res {
+  stroke: var(--ba-bad);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.ba-fig .pred {
+  fill: var(--surface);
+  stroke: var(--ba-cam);
+  stroke-width: 2;
+}
+.ba-fig .meas,
+.ba-fig .exp-h {
+  fill: var(--ba-cam);
+}
+.ba-fig .ctr,
+.ba-fig .pt {
+  fill: var(--heading);
+}
+.ba-fig .mani {
+  fill: none;
+  stroke: var(--heading);
+  stroke-width: 2;
+}
+.ba-fig .mani-step {
+  fill: none;
+  stroke: var(--ba-cam);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+}
+.ba-fig .tan {
+  stroke: var(--muted);
+  stroke-width: 1.2;
+  stroke-dasharray: 6 4;
+}
+.ba-fig .step {
+  stroke: var(--ba-pt);
+  stroke-width: 2.4;
+}
+.ba-fig .step-h {
+  fill: var(--ba-pt);
+}
+.ba-fig .exp {
+  fill: none;
+  stroke: var(--ba-cam);
+  stroke-width: 2;
+}
+.ba-fig .off {
+  fill: var(--surface);
+  stroke: var(--ba-pt);
+  stroke-width: 2;
+}
+.ba-fig .frame {
+  fill: var(--surface-soft);
+  stroke: var(--border);
+}
+.ba-fig .sep {
+  stroke: var(--muted);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 3;
+}
+.ba-fig .cell {
+  stroke: var(--border);
+  stroke-width: 0.5;
+}
+.ba-fig .arrow {
+  stroke: var(--muted);
+  stroke-width: 1.6;
+}
+.ba-fig .arrow-h {
+  fill: var(--muted);
+}
+.ba-mc,
+.ft-legend i.ba-mc {
+  fill: var(--ba-cam);
+  background: var(--ba-cam);
+}
+.ba-mp,
+.ft-legend i.ba-mp {
+  fill: var(--ba-pt);
+  background: var(--ba-pt);
+}
+.ba-me,
+.ft-legend i.ba-me {
+  fill: var(--ba-e);
+  background: var(--ba-e);
+}
+.ba-k {
+  fill: none;
+  stroke-width: 2.2;
+}
+.ba-k-ls {
+  stroke: var(--muted);
+  stroke-dasharray: 6 4;
+}
+.ba-k-hu {
+  stroke: var(--ba-cam);
+}
+.ba-k-ca {
+  stroke: var(--ba-pt);
+}
+.ft-legend i.ba-k-ls {
+  background: var(--muted);
+}
+.ft-legend i.ba-k-hu {
+  background: var(--ba-cam);
+}
+.ft-legend i.ba-k-ca {
+  background: var(--ba-pt);
+}
+.ba-fig .grid,
+.ba-demo .grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.ba-loop,
+.ba-pipe4 {
+  margin: 8px 0 14px;
+}
+.ba-pipe4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+/* the 2D demo */
+.ba-demo {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.ba-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-bottom: 10px;
+  font-size: 0.86rem;
+}
+.ba-bar > span {
+  color: var(--muted);
+}
+.ba-bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.ba-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.ba-stats p {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+.ba-stats .ba-small {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.ba-costplot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+.ba-demo svg text {
+  fill: var(--muted);
+  font-size: 12px;
+}
+.ba-demo svg text.lab,
+.ba-demo svg text.ba-lab {
+  fill: var(--heading);
+}
+.ba-ray {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.ba-ray-out {
+  stroke: var(--ba-bad);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+.ba-err {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.ba-pt-true {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4;
+}
+.ba-pt {
+  fill: var(--ba-cam);
+  stroke: var(--surface);
+  stroke-width: 1;
+}
+.ba-cam-true {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 2;
+}
+.ba-cam {
+  fill: var(--ba-cam);
+  fill-opacity: 0.25;
+  stroke: var(--ba-cam);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.ba-fixed {
+  fill: none;
+  stroke: var(--heading);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+.ba-cost {
+  fill: none;
+  stroke: var(--ba-cam);
+  stroke-width: 2;
+}
+.ba-cost-dot {
+  fill: var(--ba-cam);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.ba-split {
+  stroke: var(--muted);
+  stroke-width: 0.6;
+  stroke-dasharray: 2 2;
+}
+.ba-legend i.ba-sw-est {
+  background: var(--ba-cam);
+}
+.ba-legend i.ba-sw-true {
+  border: 1.5px dashed var(--muted);
+}
+.ba-legend i.ba-sw-out {
+  height: 0;
+  border-top: 2px dashed var(--ba-bad);
+  border-radius: 0;
+}
+.ba-legend i.ba-sw-fixed {
+  border: 1px dashed var(--heading);
+  border-radius: 50%;
+}
+.ba-mats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 14px;
+  align-items: end;
+}
+.ba-mats figure {
+  margin: 0;
+}
+.ba-mats svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.ba-mats figcaption {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.ba-code {
+  max-width: 860px;
+  margin: 12px 0 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--code-bg);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.ba-code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+.ba-code-note {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.post-prose code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--code-bg);
+  font-size: 0.88em;
+}
+@media (max-width: 860px) {
+  .ba-pipe4 {
+    grid-template-columns: 1fr;
+  }
+  .ba-grid {
+    grid-template-columns: 1fr;
+  }
+  .ba-mats {
+    gap: 8px;
+  }
+}
