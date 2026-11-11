@@ -57,10 +57,10 @@
   var COLORS = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#8C7B00", "#7E57C2", "#5D7087"];
   var S = {
     en: { search: "Search", all: "All", more: "Show more", covered: "Covered in", ref: "Reference", none: "Nothing matches this search.", years: "years",
-          share: "Share", count: "Count", of: "of", shown: "shown", in: "in", authors: "Authors", open: "Open paper", method: "Method", task: "Task",
+          share: "Share", count: "Count", of: "of", shown: "shown", in: "in", authors: "Authors", open: "Open paper", site: "Dataset page", method: "Method", task: "Task",
           clear: "Clear filter", cell: "Filtered by", subtree: "Inside" },
     vi: { search: "Tìm kiếm", all: "Tất cả", more: "Xem thêm", covered: "Có trong", ref: "Tài liệu", none: "Không có kết quả phù hợp.", years: "năm",
-          share: "Tỷ lệ", count: "Số lượng", of: "trên", shown: "đang hiển thị", in: "trong", authors: "Tác giả", open: "Mở bài báo", method: "Phương pháp", task: "Nhiệm vụ",
+          share: "Tỷ lệ", count: "Số lượng", of: "trên", shown: "đang hiển thị", in: "trong", authors: "Tác giả", open: "Mở bài báo", site: "Trang bộ dữ liệu", method: "Phương pháp", task: "Nhiệm vụ",
           clear: "Bỏ lọc", cell: "Lọc theo", subtree: "Bên trong" }
   };
   var t = function (k) { return S[lang()][k]; };
@@ -181,7 +181,8 @@
       if (trees.length > 1) h += '<p class="ft-desc">' + trees.map(function (x) { var l = leafOf(it, x); return "<b>" + esc(label(x.def)) + ":</b> " + (l.parent ? esc(label(x.byId[l.parent])) + " › " : "") + esc(label(l)); }).join("<br>") + "</p>";
       if (it.cite) h += '<p class="ft-desc"><b>' + t("ref") + ':</b></p><p class="ft-cite">' + esc(it.cite) + "</p>";
       if (it.sources) h += '<p class="ft-desc"><b>' + t("covered") + ':</b></p><div class="ft-src">' + it.sources.map(function (s) { return '<a class="resource-link" href="' + esc(D.sources[s].url) + '">' + esc(label(D.sources[s])) + " ↗</a>"; }).join("") + "</div>";
-      if (it.url) h += '<div class="ft-src"><a class="resource-link" href="' + esc(it.url) + '">' + t("open") + " ↗</a></div>";
+      if (it.url || it.site) h += '<div class="ft-src">' + (it.site ? '<a class="resource-link" href="' + esc(it.site) + '">' + t("site") + " ↗</a>" : "") +  // a post may add the project page
+        (it.url ? '<a class="resource-link" href="' + esc(it.url) + '">' + t("open") + " ↗</a>" : "") + "</div>";
       return h;
     }
     var nd = st.node ? tr.byId[st.node] : null, inside = list.filter(function (x) { return inNode(x, tr, nd); });

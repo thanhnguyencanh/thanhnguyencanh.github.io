@@ -1270,3 +1270,168 @@ html[data-theme="dark"] .ba-demo {
     gap: 8px;
   }
 }
+/* visual SLAM datasets */
+.vd-box,
+.vd-demo {
+  --vd-s: #0072b2;
+  --vd-p: #c45100;
+  --vd-c: #008b65;
+}
+html[data-theme="dark"] .vd-box,
+html[data-theme="dark"] .vd-demo {
+  --vd-s: #56b4e9;
+  --vd-p: #f0955a;
+  --vd-c: #3fd0a5;
+}
+.vd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+}
+.vd-chips > span {
+  min-width: 150px;
+  color: var(--muted);
+}
+.vd-count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.vd-table th,
+.vd-table td {
+  padding: 6px 8px;
+}
+.vd-table th.vd-group {
+  border-bottom: 2px solid var(--border);
+  font-size: 0.78rem;
+  text-align: center;
+}
+.vd-table th.vd-group.vd-sensors {
+  border-bottom-color: var(--vd-s);
+}
+.vd-table th.vd-group.vd-setting {
+  border-bottom-color: var(--vd-p);
+}
+.vd-table th.vd-group.vd-challenge {
+  border-bottom-color: var(--vd-c);
+}
+.vd-table th.vd-rot {
+  height: 132px;
+  padding: 4px 2px;
+  vertical-align: bottom;
+}
+.vd-table th.vd-rot span {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+.vd-table td.vd-dot {
+  width: 26px;
+  padding: 6px 2px;
+  text-align: center;
+}
+.vd-dot i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.vd-dot.vd-sensors i {
+  background: var(--vd-s);
+}
+.vd-dot.vd-setting i {
+  background: var(--vd-p);
+}
+.vd-dot.vd-challenge i {
+  background: var(--vd-c);
+}
+.vd-table td.vd-gt {
+  min-width: 190px;
+  font-size: 0.82rem;
+}
+.vd-gt span {
+  color: var(--muted);
+}
+.vd-gt-table td:first-child {
+  white-space: normal;
+}
+.vd-eval-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-top: 4px;
+}
+.vd-plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.vd-gt-path {
+  fill: none;
+  stroke: var(--muted);
+  stroke-linejoin: round;
+  stroke-opacity: 0.55;
+  stroke-width: 5;
+}
+.vd-est-path {
+  fill: none;
+  stroke: var(--vd-s);
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.vd-err {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.vd-start {
+  fill: var(--heading);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+.vd-jump {
+  fill: none;
+  stroke: var(--vd-p);
+  stroke-width: 2.5;
+}
+.vd-stats p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.ft-legend i.vd-sw-gt {
+  background: var(--muted);
+  opacity: 0.6;
+}
+.ft-legend i.vd-sw-est {
+  background: var(--vd-s);
+}
+.ft-legend i.vd-sw-start {
+  border-radius: 50%;
+  background: var(--heading);
+}
+@media (max-width: 860px) {
+  .vd-eval-grid {
+    grid-template-columns: 1fr;
+  }
+  .vd-chips > span {
+    min-width: 0;
+    width: 100%;
+  }
+}
+.vd-demo .vs-presets button span {
+  color: inherit;
+}

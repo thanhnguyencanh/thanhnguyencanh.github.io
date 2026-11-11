@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "Visual SLAM datasets: what each one tests and how to evaluate on it",
+    category: "Blog",
+    url: "blog/vslam-datasets/",
+    text: "Bộ dữ liệu SLAM thị giác: mỗi bộ kiểm tra điều gì và đánh giá ra sao 21 datasets for visual SLAM, from TUM RGB-D and KITTI to ScaleMaster and STONE: their sensors, settings and where their ground truth comes from, how ATE and RPE are computed, a demo of what each metric sees, and which dataset to use for which question. 21 bộ dữ liệu cho SLAM thị giác, từ TUM RGB-D và KITTI đến ScaleMaster và STONE: cảm biến, bối cảnh và nguồn gốc ground truth của từng bộ, cách tính ATE và RPE, một thử nghiệm cho thấy mỗi độ đo nhìn thấy gì, và nên dùng bộ nào cho câu hỏi nào. Datasets SLAM Evaluation Bộ dữ liệu SLAM Đánh giá",
+  },
+  {
     title: "Bundle adjustment, explained: from reprojection error to GPU solvers",
     category: "Blog",
     url: "blog/bundle-adjustment/",

@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Visual SLAM datasets: what each one tests and how to evaluate on it | Thanh Nguyen Canh
+    </title>
+    <meta
+      name="description"
+      content="21 datasets for visual SLAM, from TUM RGB-D and KITTI to ScaleMaster and STONE: their sensors, settings and where their ground truth comes from, how ATE and RPE are computed, a demo of what each metric sees, and which dataset to use for which question."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/vslam-datasets/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta
+      property="og:title"
+      content="Visual SLAM datasets: what each one tests and how to evaluate on it | Thanh Nguyen Canh"
+    />
+    <meta
+      property="og:description"
+      content="21 datasets for visual SLAM, from TUM RGB-D and KITTI to ScaleMaster and STONE: their sensors, settings and where their ground truth comes from, how ATE and RPE are computed, a demo of what each metric sees, and which dataset to use for which question."
+    />
+    <meta property="og:url" content="https://thanhnguyencanh.github.io/blog/vslam-datasets/" />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/vslam-datasets/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Visual SLAM datasets: what each one tests and how to evaluate on it"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/vslam-datasets/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=f3fdd208e540" />
+    <script src="../../assets/search-index.js?v=f3fdd208e540" defer></script>
+    <script src="../../assets/site.js?v=f3fdd208e540" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=f3fdd208e540" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Visual SLAM datasets: what each one tests and how to evaluate on it",
+        "alternativeHeadline": "Bộ dữ liệu SLAM thị giác: mỗi bộ kiểm tra điều gì và đánh giá ra sao",
+        "description": "21 datasets for visual SLAM, from TUM RGB-D and KITTI to ScaleMaster and STONE: their sensors, settings and where their ground truth comes from, how ATE and RPE are computed, a demo of what each metric sees, and which dataset to use for which question.",
+        "datePublished": "2026-11-11",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/vslam-datasets/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/vslam-datasets/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en"
+            >Visual SLAM datasets: what each one tests and how to evaluate on it</span
+          ><span class="t-vi"
+            >Bộ dữ liệu SLAM thị giác: mỗi bộ kiểm tra điều gì và đánh giá ra sao</span
+          >
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            >A visual SLAM result means little without the data behind it: which sensors, which
+            scenes, and above all where the ground truth comes from. This post compares
+            <span data-stat="items"></span> datasets, from indoor RGB-D rooms to cars, off-road
+            robots and simulated worlds, explains how ATE and RPE are computed, lets you try what
+            each metric sees, and suggests which dataset answers which question.</span
+          ><span class="t-vi"
+            >Một kết quả SLAM thị giác có ít ý nghĩa nếu không biết dữ liệu đứng sau nó: cảm biến
+            nào, cảnh nào, và trên hết là ground truth đến từ đâu. Bài viết này so sánh
+            <span data-stat="items"></span> bộ dữ liệu, từ phòng RGB-D trong nhà đến ô tô, robot địa
+            hình và thế giới mô phỏng, giải thích cách tính ATE và RPE, cho bạn thử xem mỗi độ đo
+            nhìn thấy gì, và gợi ý bộ dữ liệu nào trả lời câu hỏi nào.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body">
+        <section>
+          <h2>
+            <span class="t-en">What a dataset decides</span
+            ><span class="t-vi">Bộ dữ liệu quyết định điều gì</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              An accuracy number for a visual SLAM system is a statement about a dataset as much as
+              about the method: which sensors it had, where it moved, and what the estimate was
+              compared with. The same system can look excellent on one benchmark and fail on
+              another, and a reference trajectory is only as good as the way it was measured. Five
+              questions tell you what a dataset can and cannot show:
+            </p>
+            <p class="t-vi">
+              Một con số về độ chính xác của hệ SLAM thị giác nói về bộ dữ liệu không kém gì về
+              phương pháp: hệ có những cảm biến nào, di chuyển ở đâu, và ước lượng được so với cái
+              gì. Cùng một hệ có thể rất tốt trên bộ đánh giá này nhưng thất bại trên bộ khác, và
+              một quỹ đạo tham chiếu chỉ tốt bằng cách nó được đo. Năm câu hỏi cho biết một bộ dữ
+              liệu có thể và không thể cho thấy điều gì:
+            </p>
+          </div>
+          <div class="vs-pipe">
+            <div class="vs-step">
+              <b><span class="t-en">1. Sensors</span><span class="t-vi">1. Cảm biến</span></b
+              ><span class="t-en"
+                >Which cameras, IMU, depth or LiDAR; synchronized and calibrated, photometrically
+                too for direct methods?</span
+              ><span class="t-vi"
+                >Những camera, IMU, cảm biến độ sâu hay LiDAR nào; có đồng bộ và hiệu chuẩn không,
+                kể cả hiệu chuẩn trắc quang cho phương pháp trực tiếp?</span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">2. Ground truth</span
+                ><span class="t-vi">2. Ground truth</span></b
+              ><span class="t-en"
+                >Where does the reference come from, and does it cover the whole trajectory?</span
+              ><span class="t-vi"
+                >Quỹ đạo tham chiếu đến từ đâu, và có phủ toàn bộ quỹ đạo không?</span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">3. Scene and motion</span
+                ><span class="t-vi">3. Cảnh và chuyển động</span></b
+              ><span class="t-en"
+                >Indoor or outdoor; carried by hand, a robot, a car or a drone; how fast and how
+                far?</span
+              ><span class="t-vi"
+                >Trong nhà hay ngoài trời; cầm tay, trên robot, ô tô hay drone; nhanh đến đâu và xa
+                đến đâu?</span
+              >
+            </div>
+            <div class="vs-step">
+              <b><span class="t-en">4. Challenge</span><span class="t-vi">4. Thách thức</span></b
+              ><span class="t-en"
+                >Moving objects, darkness, little texture, change over months, large scale.</span
+              ><span class="t-vi"
+                >Vật chuyển động, bóng tối, ít kết cấu, thay đổi qua nhiều tháng, quy mô lớn.</span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">5. Protocol and license</span
+                ><span class="t-vi">5. Quy trình và giấy phép</span></b
+              ><span class="t-en"
+                >Public or hidden test ground truth, an online benchmark, and whether commercial use
+                is allowed.</span
+              ><span class="t-vi"
+                >Ground truth của tập kiểm tra công khai hay được giữ kín, có bảng xếp hạng trực
+                tuyến không, và có được dùng cho mục đích thương mại không.</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en"><span data-stat="items"></span> datasets at a glance</span
+            ><span class="t-vi">Tổng quan <span data-stat="items"></span> bộ dữ liệu</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >Each row is one dataset, with its sensors, setting, challenges and the source of its
+              ground truth. Pick one or more features to keep only the datasets that have all of
+              them; the name links to the dataset's page.</span
+            ><span class="t-vi"
+              >Mỗi hàng là một bộ dữ liệu, với cảm biến, bối cảnh, thách thức và nguồn ground truth.
+              Chọn một hoặc nhiều đặc điểm để chỉ giữ lại những bộ có đủ tất cả; tên bộ dữ liệu dẫn
+              đến trang của nó.</span
+            >
+          </p>
+          <div class="vd-box" id="vd-table"></div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Where the ground truth comes from</span
+            ><span class="t-vi">Ground truth đến từ đâu</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >The reference trajectory sets the floor for every error you report: a method cannot
+              be shown to be more accurate than its reference. The datasets above use eight
+              kinds:</span
+            ><span class="t-vi"
+              >Quỹ đạo tham chiếu đặt ra giới hạn dưới cho mọi sai số bạn báo cáo: không thể chứng
+              minh một phương pháp chính xác hơn chính tham chiếu của nó. Các bộ dữ liệu ở trên dùng
+              tám loại:</span
+            >
+          </p>
+          <div class="vs-table-wrap">
+            <table class="vs-table vd-gt-table">
+              <thead>
+                <tr>
+                  <th><span class="t-en">Source</span><span class="t-vi">Nguồn</span></th>
+                  <th>
+                    <span class="t-en">How it works</span><span class="t-vi">Cách hoạt động</span>
+                  </th>
+                  <th><span class="t-en">Used by</span><span class="t-vi">Được dùng bởi</span></th>
+                  <th>
+                    <span class="t-en">Watch out for</span><span class="t-vi">Cần lưu ý</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="t-en">Motion capture</span
+                    ><span class="t-vi">Hệ bắt chuyển động</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Fixed cameras track markers on the sensor rig (100 Hz in TUM RGB-D, 120 Hz in
+                      TUM VI).</span
+                    ><span class="t-vi"
+                      >Các camera cố định theo dõi điểm đánh dấu trên giá cảm biến (100 Hz trong TUM
+                      RGB-D, 120 Hz trong TUM VI).</span
+                    >
+                  </td>
+                  <td>
+                    TUM RGB-D, TUM VI, Bonn, ETH3D, OpenLORIS (<span class="t-en">office</span
+                    ><span class="t-vi">văn phòng</span>)
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Works only inside the capture volume: TUM VI has it for the whole path only
+                      in its room sequences.</span
+                    ><span class="t-vi"
+                      >Chỉ hoạt động trong vùng thu: TUM VI chỉ có ground truth cho toàn bộ quỹ đạo
+                      ở các chuỗi trong phòng.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Total station</span><span class="t-vi">Máy toàn đạc</span>
+                  </td>
+                  <td>
+                    <span class="t-en">A surveying instrument tracks a prism on the platform.</span
+                    ><span class="t-vi"
+                      >Một thiết bị trắc địa theo dõi lăng kính gắn trên robot.</span
+                    >
+                  </td>
+                  <td>
+                    OIVIO (<span class="t-en">3 sequences</span><span class="t-vi">3 chuỗi</span>)
+                  </td>
+                  <td>
+                    <span class="t-en">Gives positions (here at 10 Hz), not orientations.</span
+                    ><span class="t-vi">Cho vị trí (ở đây 10 Hz), không cho hướng.</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GNSS/INS</td>
+                  <td>
+                    <span class="t-en"
+                      >Satellite positioning fused with inertial sensing, sometimes also with visual
+                      odometry.</span
+                    ><span class="t-vi"
+                      >Định vị vệ tinh hợp nhất với cảm biến quán tính, đôi khi cả với đo hành trình
+                      thị giác.</span
+                    >
+                  </td>
+                  <td>KITTI, SemanticKITTI, 4Seasons</td>
+                  <td>
+                    <span class="t-en"
+                      >Errors dominate over short distances: in 2013 KITTI moved its evaluation from
+                      segments as short as 5 m to segments of 100 to 800 m for this reason.</span
+                    ><span class="t-vi"
+                      >Sai số lấn át trên quãng ngắn: năm 2013 KITTI chuyển việc đánh giá từ các
+                      đoạn ngắn chỉ 5 m sang các đoạn 100 đến 800 m vì lý do này.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Structure from motion with GPS</span
+                    ><span class="t-vi">Cấu trúc từ chuyển động kèm GPS</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Bundle adjustment over all images, regularized by GPS, with LiDAR loop
+                      closures.</span
+                    ><span class="t-vi"
+                      >Tối ưu bó trên mọi ảnh, có ràng buộc theo GPS, kèm các vòng lặp từ
+                      LiDAR.</span
+                    >
+                  </td>
+                  <td>KITTI-360</td>
+                  <td>
+                    <span class="t-en"
+                      >A visual estimate itself, made offline with all images and GPS.</span
+                    ><span class="t-vi"
+                      >Bản thân nó cũng là một ước lượng thị giác, được tính ngoại tuyến với mọi ảnh
+                      và GPS.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">LiDAR and laser scans</span
+                    ><span class="t-vi">LiDAR và quét laser</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Poses from an offline LiDAR SLAM, or camera images registered to a
+                      laser-scanned model.</span
+                    ><span class="t-vi"
+                      >Tư thế từ LiDAR SLAM ngoại tuyến, hoặc ảnh camera được đăng ký vào mô hình
+                      quét laser.</span
+                    >
+                  </td>
+                  <td>OpenLORIS, RELLIS-3D, AutoSense, ScanNet++</td>
+                  <td>
+                    <span class="t-en">The reference has its own errors; check what built it.</span
+                    ><span class="t-vi"
+                      >Tham chiếu có sai số riêng; hãy kiểm tra nó được tạo bằng gì.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">The dataset's own reconstruction</span
+                    ><span class="t-vi">Bản tái tạo của chính bộ dữ liệu</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >RGB-D reconstruction, or odometry corrected with loop closures.</span
+                    ><span class="t-vi"
+                      >Tái tạo RGB-D, hoặc đo hành trình được hiệu chỉnh bằng đóng vòng.</span
+                    >
+                  </td>
+                  <td>ScanNet, RGB-D Scenes v2, ScaleMaster</td>
+                  <td>
+                    <span class="t-en"
+                      >A reference, not an independent measurement: errors smaller than its own
+                      accuracy mean little.</span
+                    ><span class="t-vi"
+                      >Là tham chiếu, không phải phép đo độc lập: sai số nhỏ hơn độ chính xác của
+                      chính nó không có nhiều ý nghĩa.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Start equals end</span
+                    ><span class="t-vi">Điểm đầu trùng điểm cuối</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >The path ends where it started; the drift is measured between the start and
+                      end segments.</span
+                    ><span class="t-vi"
+                      >Quỹ đạo kết thúc tại nơi bắt đầu; sai số trôi được đo giữa đoạn đầu và đoạn
+                      cuối.</span
+                    >
+                  </td>
+                  <td>
+                    TUM monoVO, OIVIO, TUM VI (<span class="t-en">outside the room</span
+                    ><span class="t-vi">ngoài phòng</span>)
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Measures the accumulated drift, not the shape of the path in between.</span
+                    ><span class="t-vi"
+                      >Đo sai số trôi tích lũy, không đo hình dạng quỹ đạo ở giữa.</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Synthetic</span><span class="t-vi">Tổng hợp</span></td>
+                  <td>
+                    <span class="t-en">The renderer knows the camera exactly.</span
+                    ><span class="t-vi">Trình kết xuất biết chính xác camera.</span>
+                  </td>
+                  <td>ICL-NUIM, TartanAir</td>
+                  <td>
+                    <span class="t-en"
+                      >Exact, but noise, blur and lighting are only as real as the renderer.</span
+                    ><span class="t-vi"
+                      >Chính xác tuyệt đối, nhưng nhiễu, nhòe và ánh sáng chỉ thật bằng trình kết
+                      xuất.</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="ft-note">
+            <span class="t-en"
+              >RUGD and STONE provide labels for perception and no reference trajectories.</span
+            ><span class="t-vi"
+              >RUGD và STONE cung cấp nhãn cho tri giác và không có quỹ đạo tham chiếu.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">How results are reported</span
+            ><span class="t-vi">Kết quả được báo cáo thế nào</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              The estimate and the ground truth live in different coordinate frames, so they are
+              first aligned. With ground-truth positions \(\mathbf{p}_i\) and estimated positions
+              \(\hat{\mathbf{p}}_i\), associated by timestamp, the Umeyama (or Horn) method finds
+              the rotation, translation and, for a single camera, the scale that fit best:
+            </p>
+            <p class="t-vi">
+              Ước lượng và ground truth nằm trong các hệ tọa độ khác nhau, nên trước hết phải được
+              căn chỉnh. Với vị trí thật \(\mathbf{p}_i\) và vị trí ước lượng
+              \(\hat{\mathbf{p}}_i\), ghép cặp theo dấu thời gian, phương pháp Umeyama (hoặc Horn)
+              tìm phép quay, phép tịnh tiến và, với một camera đơn, cả tỉ lệ khớp nhất:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$(s^*, \mathbf{R}^*, \mathbf{t}^*) = \arg\min_{s,\,\mathbf{R},\,\mathbf{t}}\;
+            \sum_{i=1}^{n} \big\|\mathbf{p}_i - (s\,\mathbf{R}\,\hat{\mathbf{p}}_i +
+            \mathbf{t})\big\|^2$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Fixing \(s = 1\) gives an SE(3) alignment, right for stereo, RGB-D and visual-inertial
+              systems, which observe metric scale. A monocular camera cannot see scale, so its
+              estimate is aligned with Sim(3), with free \(s\). The
+              <strong>absolute trajectory error</strong> (ATE) is the root mean square of what
+              remains:
+            </p>
+            <p class="t-vi">
+              Cố định \(s = 1\) cho phép căn chỉnh SE(3), phù hợp với hệ stereo, RGB-D và thị
+              giác-quán tính, vốn quan sát được tỉ lệ thực. Camera đơn không thấy được tỉ lệ, nên
+              ước lượng của nó được căn chỉnh bằng Sim(3), với \(s\) tự do.
+              <strong>Sai số quỹ đạo tuyệt đối</strong> (ATE) là căn bậc hai trung bình bình phương
+              của phần còn lại:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\text{ATE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n} \big\|\mathbf{p}_i -
+            (s^*\mathbf{R}^*\hat{\mathbf{p}}_i + \mathbf{t}^*)\big\|^2}$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              ATE measures the global consistency of the whole trajectory, so it rewards loop
+              closure. The <strong>relative pose error</strong> (RPE) compares motions over a fixed
+              interval \(\Delta\) instead, so it measures local drift and needs no global alignment.
+              With ground-truth poses \(\mathbf{Q}_i\) and estimated poses \(\hat{\mathbf{P}}_i\),
+              as in the TUM RGB-D benchmark:
+            </p>
+            <p class="t-vi">
+              ATE đo độ nhất quán toàn cục của cả quỹ đạo, nên nó ưu ái việc đóng vòng.
+              <strong>Sai số tư thế tương đối</strong> (RPE) thì so sánh chuyển động trên một khoảng
+              cố định \(\Delta\), nên nó đo sai số trôi cục bộ và không cần căn chỉnh toàn cục. Với
+              tư thế thật \(\mathbf{Q}_i\) và tư thế ước lượng \(\hat{\mathbf{P}}_i\), như trong bộ
+              đánh giá TUM RGB-D:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\mathbf{E}_i =
+            \big(\mathbf{Q}_i^{-1}\mathbf{Q}_{i+\Delta}\big)^{-1}\big(\hat{\mathbf{P}}_i^{-1}\hat{\mathbf{P}}_{i+\Delta}\big),
+            \qquad \text{RPE}_{\text{trans}} = \sqrt{\frac{1}{m}\sum_{i=1}^{m}
+            \big\|\operatorname{trans}(\mathbf{E}_i)\big\|^2}$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              KITTI uses relative errors over distance rather than time: for all subsequences of
+              100, 200, … 800 m it averages the translation error as a percentage of the distance
+              and the rotation error in degrees per metre. Other benchmarks add their own scores:
+              OpenLORIS scores robustness separately from accuracy, TUM monoVO measures the drift
+              between the start and end segments, and Bonn, ICL-NUIM and ScaleMaster provide
+              reference models to score the map as well, ScaleMaster for example with the Chamfer
+              distance.
+            </p>
+            <p class="t-vi">
+              KITTI dùng sai số tương đối theo quãng đường thay vì thời gian: với mọi đoạn con dài
+              100, 200, … 800 m, nó lấy trung bình sai số tịnh tiến tính theo phần trăm quãng đường
+              và sai số quay tính theo độ trên mét. Các bộ đánh giá khác có thêm điểm số riêng:
+              OpenLORIS chấm độ bền vững tách biệt với độ chính xác, TUM monoVO đo sai số trôi giữa
+              đoạn đầu và đoạn cuối, còn Bonn, ICL-NUIM và ScaleMaster cung cấp mô hình tham chiếu
+              để chấm cả bản đồ, ví dụ ScaleMaster dùng khoảng cách Chamfer.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Try it: what ATE and RPE see</span
+            ><span class="t-vi">Thử nghiệm: ATE và RPE nhìn thấy gì</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              A ground-truth loop of 53 m (grey) and an estimate (blue) built from the same motions
+              with the errors you choose, aligned to the truth by the Umeyama method above. Thin
+              lines connect matching poses; the orange ring marks the rotation error.
+            </p>
+            <p class="t-vi">
+              Một vòng ground truth dài 53 m (màu xám) và một ước lượng (màu xanh) dựng từ chính các
+              chuyển động đó với các sai số bạn chọn, được căn chỉnh với giá trị thật bằng phương
+              pháp Umeyama ở trên. Các đường mảnh nối các tư thế tương ứng; vòng tròn màu cam đánh
+              dấu sai số quay.
+            </p>
+          </div>
+          <div class="vs-demo vd-demo" id="vd-eval">
+            <div class="vs-presets">
+              <span class="t-en">Try:</span><span class="t-vi">Thử:</span>
+              <button class="filter-chip" type="button" data-vd-preset="mono">
+                <span class="t-en">Monocular: unknown scale</span
+                ><span class="t-vi">Đơn camera: tỉ lệ chưa biết</span>
+              </button>
+              <button class="filter-chip" type="button" data-vd-preset="sdrift">
+                <span class="t-en">Scale drift</span><span class="t-vi">Trôi tỉ lệ</span>
+              </button>
+              <button class="filter-chip" type="button" data-vd-preset="ydrift">
+                <span class="t-en">Heading drift</span><span class="t-vi">Trôi hướng</span>
+              </button>
+              <button class="filter-chip" type="button" data-vd-preset="mid">
+                <span class="t-en">One rotation error, middle</span
+                ><span class="t-vi">Một sai số quay, ở giữa</span>
+              </button>
+              <button class="filter-chip" type="button" data-vd-preset="end">
+                <span class="t-en">One rotation error, near the end</span
+                ><span class="t-vi">Một sai số quay, gần cuối</span>
+              </button>
+              <button class="filter-chip" type="button" data-vd-preset="noise">
+                <span class="t-en">Noise only</span><span class="t-vi">Chỉ có nhiễu</span>
+              </button>
+            </div>
+            <div class="vs-switch" role="group" aria-label="Alignment / Căn chỉnh">
+              <button class="filter-chip" type="button" data-vd-align="se">
+                <span class="t-en">Align: rotation and translation (SE)</span
+                ><span class="t-vi">Căn chỉnh: quay và tịnh tiến (SE)</span></button
+              ><button class="filter-chip" type="button" data-vd-align="sim">
+                <span class="t-en">Align: also scale (Sim)</span
+                ><span class="t-vi">Căn chỉnh: thêm tỉ lệ (Sim)</span>
+              </button>
+            </div>
+            <div class="vs-controls">
+              <label
+                ><span><span class="t-en">Scale</span><span class="t-vi">Tỉ lệ</span></span
+                ><input
+                  type="range"
+                  id="vd-scale"
+                  min="0.3"
+                  max="1.5"
+                  step="0.05"
+                  value="1" /><output id="vd-scale-v"></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">Scale drift</span><span class="t-vi">Trôi tỉ lệ</span></span
+                ><input
+                  type="range"
+                  id="vd-scaleDrift"
+                  min="-5"
+                  max="5"
+                  step="0.5"
+                  value="0" /><output id="vd-scaleDrift-v"></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">Heading drift</span><span class="t-vi">Trôi hướng</span></span
+                ><input
+                  type="range"
+                  id="vd-yawDrift"
+                  min="-0.5"
+                  max="0.5"
+                  step="0.05"
+                  value="0" /><output id="vd-yawDrift-v"></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">Rotation error</span
+                  ><span class="t-vi">Sai số quay</span></span
+                ><input type="range" id="vd-jump" min="0" max="20" step="1" value="0" /><output
+                  id="vd-jump-v"
+                ></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">… where on the path</span
+                  ><span class="t-vi">… ở đâu trên quỹ đạo</span></span
+                ><input type="range" id="vd-at" min="0" max="100" step="5" value="50" /><output
+                  id="vd-at-v"
+                ></output
+              ></label>
+              <label
+                ><span
+                  ><span class="t-en">Noise per step</span
+                  ><span class="t-vi">Nhiễu mỗi bước</span></span
+                ><input type="range" id="vd-noise" min="0" max="5" step="0.5" value="0" /><output
+                  id="vd-noise-v"
+                ></output
+              ></label>
+            </div>
+            <div class="vd-eval-grid">
+              <svg
+                class="vd-plot"
+                viewBox="0 0 520 340"
+                role="img"
+                aria-label="Ground truth and aligned estimate / Ground truth và ước lượng đã căn chỉnh"
+              >
+                <g id="vd-plot"></g>
+              </svg>
+              <div class="vd-stats" id="vd-stats" aria-live="polite"></div>
+            </div>
+            <div class="ft-legend">
+              <span
+                ><i class="vd-sw-gt"></i><span class="t-en">ground truth</span
+                ><span class="t-vi">ground truth</span></span
+              ><span
+                ><i class="vd-sw-est"></i><span class="t-en">aligned estimate</span
+                ><span class="t-vi">ước lượng đã căn chỉnh</span></span
+              ><span
+                ><i class="vd-sw-start"></i><span class="t-en">start</span
+                ><span class="t-vi">điểm xuất phát</span></span
+              >
+            </div>
+          </div>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>Scale.</strong> An estimate at half the true scale has an ATE of 3.87 m with
+              an SE alignment and 0.00 m with Sim, which finds s = 2. This is why monocular results
+              are reported after a Sim(3) alignment, and why such an ATE says nothing about metric
+              scale.
+            </li>
+            <li>
+              <strong>Scale drift.</strong> A scale that grows by 3% every 10 m gives 0.75 m with SE
+              and still 0.34 m with Sim: one scale cannot fit a trajectory whose scale changes.
+              ScaleMaster tests exactly this in large buildings.
+            </li>
+            <li>
+              <strong>Where the error happens.</strong> The same 10° rotation error gives an ATE of
+              0.18 m near either end of the loop and 0.84 m in the middle, because the error splits
+              the trajectory into two rigid parts and one alignment cannot fit both: near an end one
+              part is short, in the middle both are long. The rotation RPE changes much less (0.56
+              to 0.84 °/m), so report both.
+            </li>
+            <li>
+              <strong>Drift versus noise.</strong> A heading drift of 0.3 °/m gives an ATE of 0.64 m
+              but a translation RPE of only 1.3 %; 2 cm of noise per step does the opposite, with an
+              RPE of 3.7 % and an ATE of 0.19 m.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Tỉ lệ.</strong> Một ước lượng chỉ bằng nửa tỉ lệ thật có ATE 3,87 m với căn
+              chỉnh SE và 0,00 m với Sim, khi Sim tìm được s = 2. Đó là lý do kết quả đơn camera
+              được báo cáo sau căn chỉnh Sim(3), và vì sao ATE như vậy không nói gì về tỉ lệ thực.
+            </li>
+            <li>
+              <strong>Trôi tỉ lệ.</strong> Tỉ lệ tăng 3% sau mỗi 10 m cho ATE 0,75 m với SE và vẫn
+              còn 0,34 m với Sim: một tỉ lệ duy nhất không khớp được quỹ đạo có tỉ lệ thay đổi.
+              ScaleMaster kiểm tra đúng điều này trong các tòa nhà lớn.
+            </li>
+            <li>
+              <strong>Sai số xảy ra ở đâu.</strong> Cùng một sai số quay 10° cho ATE 0,18 m khi nằm
+              gần một trong hai đầu vòng và 0,84 m khi nằm ở giữa, vì sai số chia quỹ đạo thành hai
+              phần cứng và một phép căn chỉnh không khớp được cả hai: gần một đầu thì một phần rất
+              ngắn, ở giữa thì cả hai phần đều dài. RPE về quay thay đổi ít hơn nhiều (0,56 đến 0,84
+              °/m), nên hãy báo cáo cả hai.
+            </li>
+            <li>
+              <strong>Trôi và nhiễu.</strong> Trôi hướng 0,3 °/m cho ATE 0,64 m nhưng RPE tịnh tiến
+              chỉ 1,3 %; nhiễu 2 cm mỗi bước thì ngược lại, với RPE 3,7 % và ATE 0,19 m.
+            </li>
+          </ul>
+          <p class="post-note">
+            <span class="t-en"
+              >A teaching toy, not a benchmark: a 2D loop of 400 poses, RPE over 5 m. The numbers
+              above come from running this page's code (eval-core.js) in Node.</span
+            ><span class="t-vi"
+              >Đây là mô hình minh họa, không phải phép đo hiệu năng: một vòng 2D gồm 400 tư thế,
+              RPE trên 5 m. Các con số ở trên có được khi chạy chính mã của trang này (eval-core.js)
+              trong Node.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Which dataset for which question</span
+            ><span class="t-vi">Bộ dữ liệu nào cho câu hỏi nào</span>
+          </h2>
+          <div class="vs-table-wrap">
+            <table class="vs-table">
+              <thead>
+                <tr>
+                  <th><span class="t-en">To test</span><span class="t-vi">Để kiểm tra</span></th>
+                  <th><span class="t-en">Start with</span><span class="t-vi">Bắt đầu với</span></th>
+                  <th><span class="t-en">Then</span><span class="t-vi">Sau đó</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="t-en">Indoor RGB-D tracking</span
+                    ><span class="t-vi">Theo dõi RGB-D trong nhà</span>
+                  </td>
+                  <td>TUM RGB-D, ETH3D SLAM</td>
+                  <td>
+                    <span class="t-en">ICL-NUIM (synthetic, with a surface model)</span
+                    ><span class="t-vi">ICL-NUIM (tổng hợp, có mô hình bề mặt)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Monocular and direct methods</span
+                    ><span class="t-vi">Phương pháp đơn camera và trực tiếp</span>
+                  </td>
+                  <td>
+                    <span class="t-en">TUM monoVO (photometric calibration)</span
+                    ><span class="t-vi">TUM monoVO (hiệu chuẩn trắc quang)</span>
+                  </td>
+                  <td>TUM VI, ScaleMaster</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Visual-inertial odometry</span
+                    ><span class="t-vi">Đo hành trình thị giác-quán tính</span>
+                  </td>
+                  <td>TUM VI, ETH3D SLAM</td>
+                  <td>
+                    OpenLORIS, 4Seasons,
+                    <a href="https://doi.org/10.1177/0278364915620033">EuRoC MAV</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Moving people and objects</span
+                    ><span class="t-vi">Người và vật chuyển động</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Bonn RGB-D Dynamic, TUM RGB-D (dynamic objects)</span
+                    ><span class="t-vi">Bonn RGB-D Dynamic, TUM RGB-D (nhóm vật chuyển động)</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >OpenLORIS, TartanAir, SemanticKITTI (moving-object labels)</span
+                    ><span class="t-vi"
+                      >OpenLORIS, TartanAir, SemanticKITTI (nhãn vật chuyển động)</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Long-term change and relocalization</span
+                    ><span class="t-vi">Thay đổi dài hạn và tái định vị</span>
+                  </td>
+                  <td>OpenLORIS-Scene, 4Seasons</td>
+                  <td>–</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Driving at city scale</span
+                    ><span class="t-vi">Lái xe ở quy mô thành phố</span>
+                  </td>
+                  <td>KITTI odometry, KITTI-360</td>
+                  <td>
+                    <span class="t-en">4Seasons (seasons, night)</span
+                    ><span class="t-vi">4Seasons (các mùa, ban đêm)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Darkness</span><span class="t-vi">Bóng tối</span></td>
+                  <td>OIVIO</td>
+                  <td>
+                    <span class="t-en"
+                      >TUM VI (slides), ScaleMaster (night, low light), TartanAir</span
+                    ><span class="t-vi"
+                      >TUM VI (ống trượt), ScaleMaster (ban đêm, thiếu sáng), TartanAir</span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Scale over long indoor routes</span
+                    ><span class="t-vi">Tỉ lệ trên lộ trình dài trong nhà</span>
+                  </td>
+                  <td>ScaleMaster</td>
+                  <td>
+                    <span class="t-en">TUM monoVO (drift over long loops)</span
+                    ><span class="t-vi">TUM monoVO (sai số trôi trên các vòng dài)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Semantic SLAM and scene graphs</span
+                    ><span class="t-vi">SLAM ngữ nghĩa và đồ thị cảnh</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >KITTI-360 (semantic SLAM benchmark), AutoSense (walls, rooms, floors)</span
+                    ><span class="t-vi"
+                      >KITTI-360 (bảng xếp hạng SLAM ngữ nghĩa), AutoSense (tường, phòng,
+                      tầng)</span
+                    >
+                  </td>
+                  <td>SemanticKITTI, ScanNet, ScanNet++, RGB-D Scenes v2</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Dense reconstruction</span
+                    ><span class="t-vi">Tái tạo dày đặc</span>
+                  </td>
+                  <td>
+                    <span class="t-en">ICL-NUIM, Bonn (laser-scanned model)</span
+                    ><span class="t-vi">ICL-NUIM, Bonn (mô hình quét laser)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">ScanNet++, ScaleMaster (LiDAR maps)</span
+                    ><span class="t-vi">ScanNet++, ScaleMaster (bản đồ LiDAR)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Off-road robots</span
+                    ><span class="t-vi">Robot địa hình</span>
+                  </td>
+                  <td>RELLIS-3D</td>
+                  <td>
+                    <span class="t-en">STONE, RUGD (perception only, no trajectories)</span
+                    ><span class="t-vi">STONE, RUGD (chỉ cho tri giác, không có quỹ đạo)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Training learned odometry</span
+                    ><span class="t-vi">Huấn luyện đo hành trình học sâu</span>
+                  </td>
+                  <td>TartanAir</td>
+                  <td>ScanNet, ScanNet++</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Good practice</span><span class="t-vi">Thực hành tốt</span></h2>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>Same evaluation for everyone.</strong> Use one script, one timestamp
+              association, one alignment (SE(3) for metric sensors, Sim(3) only for monocular) and
+              the same sequences for every method you compare.
+            </li>
+            <li>
+              <strong>Count failures.</strong> Report the sequences where tracking was lost instead
+              of dropping them; a mean over the sequences that worked hides the most important
+              result.
+            </li>
+            <li>
+              <strong>Run more than once.</strong> Multi-threaded SLAM is not deterministic; give
+              the mean and spread over several runs (vS-Graphs, for example, reports eight per
+              sequence).
+            </li>
+            <li>
+              <strong>Respect the test split.</strong> KITTI keeps the ground truth of sequences
+              11–21 hidden and asks that minor variants of existing methods be evaluated on a split
+              of the training set; ETH3D also scores its test sequences online.
+            </li>
+            <li>
+              <strong>Check the license.</strong> KITTI-360, RELLIS-3D and 4Seasons are CC BY-NC-SA
+              and ScanNet++ is for non-commercial research under signed terms, while TUM RGB-D, TUM
+              monoVO, TUM VI and TartanAir are CC BY 4.0.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Cùng một cách đánh giá cho mọi phương pháp.</strong> Dùng một script, một cách
+              ghép cặp dấu thời gian, một kiểu căn chỉnh (SE(3) cho cảm biến đo được tỉ lệ thực,
+              Sim(3) chỉ cho đơn camera) và cùng các chuỗi cho mọi phương pháp được so sánh.
+            </li>
+            <li>
+              <strong>Đếm cả thất bại.</strong> Báo cáo các chuỗi bị mất dấu thay vì bỏ chúng đi;
+              trung bình trên các chuỗi chạy được che mất kết quả quan trọng nhất.
+            </li>
+            <li>
+              <strong>Chạy nhiều lần.</strong> SLAM đa luồng không tất định; hãy đưa ra trung bình
+              và độ phân tán qua nhiều lần chạy (ví dụ vS-Graphs báo cáo tám lần cho mỗi chuỗi).
+            </li>
+            <li>
+              <strong>Tôn trọng tập kiểm tra.</strong> KITTI giữ kín ground truth của các chuỗi
+              11–21 và yêu cầu các biến thể nhỏ của phương pháp đã có được đánh giá trên một phần
+              của tập huấn luyện; ETH3D cũng chấm điểm tập kiểm tra trực tuyến.
+            </li>
+            <li>
+              <strong>Kiểm tra giấy phép.</strong> KITTI-360, RELLIS-3D và 4Seasons dùng CC
+              BY-NC-SA, ScanNet++ chỉ cho nghiên cứu phi thương mại theo điều khoản có chữ ký, còn
+              TUM RGB-D, TUM monoVO, TUM VI và TartanAir dùng CC BY 4.0.
+            </li>
+          </ul>
+        </section>
+
+        <section id="ft">
+          <h2>
+            <span class="t-en">The datasets, one by one</span
+            ><span class="t-vi">Từng bộ dữ liệu</span>
+          </h2>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">datasets</span><span class="t-vi">bộ dữ liệu</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">settings</span><span class="t-vi">bối cảnh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <p class="post-prose">
+            <span class="t-en"
+              >Browse by setting or by ground truth, search by name, sensor or author, and pick a
+              dataset to read what it contains and open its page and paper.</span
+            ><span class="t-vi"
+              >Duyệt theo bối cảnh hoặc theo ground truth, tìm theo tên, cảm biến hoặc tác giả, rồi
+              chọn một bộ dữ liệu để xem nội dung và mở trang cùng bài báo của nó.</span
+            >
+          </p>
+          <div class="ft-controls">
+            <div class="ft-tabs" role="group" aria-label="Tree / Cây">
+              <button class="filter-chip" type="button" data-tree="0"></button
+              ><button class="filter-chip" type="button" data-tree="1"></button>
+            </div>
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <h3 class="vs-sub">
+            <span class="t-en">Over time</span><span class="t-vi">Theo thời gian</span>
+          </h3>
+          <div class="ft-chart" id="ft-chart"></div>
+          <h3 class="vs-sub">
+            <span class="t-en">Setting × ground truth</span
+            ><span class="t-vi">Bối cảnh × ground truth</span>
+          </h3>
+          <p class="post-prose">
+            <span class="t-en"
+              >Each cell counts the datasets of one setting that use one kind of ground truth. Click
+              a cell to filter the list above; click it again to clear.</span
+            ><span class="t-vi"
+              >Mỗi ô đếm số bộ dữ liệu thuộc một bối cảnh dùng một loại ground truth. Nhấn vào một ô
+              để lọc danh sách ở trên; nhấn lại để bỏ lọc.</span
+            >
+          </p>
+          <div class="ft-matrix-wrap" id="ft-matrix"></div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Further reading</span><span class="t-vi">Đọc thêm</span></h2>
+          <ul class="post-prose">
+            <li>
+              <a href="https://cvg.cit.tum.de/data/datasets/rgbd-dataset/tools"
+                ><span class="t-en">TUM RGB-D evaluation tools</span
+                ><span class="t-vi">Công cụ đánh giá TUM RGB-D</span></a
+              >:
+              <span class="t-en"
+                >the reference scripts for ATE and RPE, used by Bonn and ICL-NUIM too.</span
+              ><span class="t-vi"
+                >các script chuẩn cho ATE và RPE, cũng được Bonn và ICL-NUIM sử dụng.</span
+              >
+            </li>
+            <li>
+              <a href="../../explorer/?q=dataset%20slam"
+                ><span class="t-en">SLAM datasets in the Paper Explorer</span
+                ><span class="t-vi">Các bộ dữ liệu SLAM trong Paper Explorer</span></a
+              >
+              ·
+              <a href="../../explorer/?q=benchmark%20odometry"
+                ><span class="t-en">odometry benchmarks</span
+                ><span class="t-vi">bộ đánh giá đo hành trình</span></a
+              >
+            </li>
+            <li>
+              <a href="../visual-slam-feature-vs-direct/"
+                ><span class="t-en">Feature-based and direct visual SLAM, explained</span
+                ><span class="t-vi"
+                  >Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp</span
+                ></a
+              >: <span class="t-en">the methods these datasets are used to compare.</span
+              ><span class="t-vi"
+                >các phương pháp mà những bộ dữ liệu này được dùng để so sánh.</span
+              >
+            </li>
+            <li>
+              <a href="../bundle-adjustment/"
+                ><span class="t-en">Bundle adjustment, explained</span
+                ><span class="t-vi">Giải thích tối ưu bó</span></a
+              >:
+              <span class="t-en"
+                >the optimization behind KITTI-360's reference poses and most SLAM back-ends.</span
+              ><span class="t-vi"
+                >bài toán tối ưu đứng sau tư thế tham chiếu của KITTI-360 và phần lớn back-end
+                SLAM.</span
+              >
+            </li>
+          </ul>
+        </section>
+      </div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css"
+        integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+        crossorigin="anonymous"
+      />
+      <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"
+        integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"
+        integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+        crossorigin="anonymous"
+      ></script>
+      <script src="eval-core.js?v=b7b461a3"></script>
+      <script src="vd.js?v=9937b154"></script>
+      <script src="data.js?v=b336ec9a"></script>
+      <script src="../../assets/blog.js?v=f3fdd208e540"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

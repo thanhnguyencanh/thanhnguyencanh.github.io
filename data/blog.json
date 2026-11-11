@@ -1,5 +1,37 @@
 [
   {
+    "slug": "vslam-datasets",
+    "date": "2026-11-11",
+    "kind": {
+      "en": "Guide",
+      "vi": "Hướng dẫn"
+    },
+    "title": {
+      "en": "Visual SLAM datasets: what each one tests and how to evaluate on it",
+      "vi": "Bộ dữ liệu SLAM thị giác: mỗi bộ kiểm tra điều gì và đánh giá ra sao"
+    },
+    "summary": {
+      "en": "21 datasets for visual SLAM, from TUM RGB-D and KITTI to ScaleMaster and STONE: their sensors, settings and where their ground truth comes from, how ATE and RPE are computed, a demo of what each metric sees, and which dataset to use for which question.",
+      "vi": "21 bộ dữ liệu cho SLAM thị giác, từ TUM RGB-D và KITTI đến ScaleMaster và STONE: cảm biến, bối cảnh và nguồn gốc ground truth của từng bộ, cách tính ATE và RPE, một thử nghiệm cho thấy mỗi độ đo nhìn thấy gì, và nên dùng bộ nào cho câu hỏi nào."
+    },
+    "lead": {
+      "en": "A visual SLAM result means little without the data behind it: which sensors, which scenes, and above all where the ground truth comes from. This post compares <span data-stat=\"items\"></span> datasets, from indoor RGB-D rooms to cars, off-road robots and simulated worlds, explains how ATE and RPE are computed, lets you try what each metric sees, and suggests which dataset answers which question.",
+      "vi": "Một kết quả SLAM thị giác có ít ý nghĩa nếu không biết dữ liệu đứng sau nó: cảm biến nào, cảnh nào, và trên hết là ground truth đến từ đâu. Bài viết này so sánh <span data-stat=\"items\"></span> bộ dữ liệu, từ phòng RGB-D trong nhà đến ô tô, robot địa hình và thế giới mô phỏng, giải thích cách tính ATE và RPE, cho bạn thử xem mỗi độ đo nhìn thấy gì, và gợi ý bộ dữ liệu nào trả lời câu hỏi nào."
+    },
+    "tags": {
+      "en": [
+        "Datasets",
+        "SLAM",
+        "Evaluation"
+      ],
+      "vi": [
+        "Bộ dữ liệu",
+        "SLAM",
+        "Đánh giá"
+      ]
+    }
+  },
+  {
     "slug": "bundle-adjustment",
     "date": "2026-11-11",
     "kind": {
