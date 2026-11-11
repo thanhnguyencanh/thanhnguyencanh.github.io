@@ -572,6 +572,12 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title: "World models and SLAM: fundamentals, key insights and open directions",
+    category: "Blog",
+    url: "blog/world-models-slam/",
+    text: "Mô hình thế giới và SLAM: nền tảng, ý tưởng cốt lõi và hướng mở SLAM estimates the world as it is; a world model predicts how it will change. What world models are, why probabilistic SLAM already is one, six insights from recent work, eight open directions, and how fast the field is growing. SLAM ước lượng thế giới như hiện tại; mô hình thế giới dự đoán nó sẽ thay đổi ra sao. Mô hình thế giới là gì, vì sao SLAM xác suất vốn đã là một mô hình thế giới, sáu ý tưởng cốt lõi, tám hướng mở và tốc độ phát triển của lĩnh vực. World models SLAM Research directions Mô hình thế giới SLAM Hướng nghiên cứu",
+  },
+  {
     title: "Feature-based and direct visual SLAM, explained",
     category: "Blog",
     url: "blog/visual-slam-feature-vs-direct/",

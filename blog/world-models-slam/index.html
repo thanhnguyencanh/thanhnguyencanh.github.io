@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      World models and SLAM: fundamentals, key insights and open directions | Thanh Nguyen Canh
+    </title>
+    <meta
+      name="description"
+      content="SLAM estimates the world as it is; a world model predicts how it will change. What world models are, why probabilistic SLAM already is one, six insights from recent work, eight open directions, and how fast the field is growing."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/world-models-slam/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta
+      property="og:title"
+      content="World models and SLAM: fundamentals, key insights and open directions | Thanh Nguyen Canh"
+    />
+    <meta
+      property="og:description"
+      content="SLAM estimates the world as it is; a world model predicts how it will change. What world models are, why probabilistic SLAM already is one, six insights from recent work, eight open directions, and how fast the field is growing."
+    />
+    <meta property="og:url" content="https://thanhnguyencanh.github.io/blog/world-models-slam/" />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/world-models-slam/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="World models and SLAM: fundamentals, key insights and open directions"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/world-models-slam/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=f57b27ca4929" />
+    <script src="../../assets/search-index.js?v=f57b27ca4929" defer></script>
+    <script src="../../assets/site.js?v=f57b27ca4929" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=f57b27ca4929" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "World models and SLAM: fundamentals, key insights and open directions",
+        "alternativeHeadline": "Mô hình thế giới và SLAM: nền tảng, ý tưởng cốt lõi và hướng mở",
+        "description": "SLAM estimates the world as it is; a world model predicts how it will change. What world models are, why probabilistic SLAM already is one, six insights from recent work, eight open directions, and how fast the field is growing.",
+        "datePublished": "2026-11-11",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/world-models-slam/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/world-models-slam/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en"
+            >World models and SLAM: fundamentals, key insights and open directions</span
+          ><span class="t-vi">Mô hình thế giới và SLAM: nền tảng, ý tưởng cốt lõi và hướng mở</span>
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            >SLAM estimates the world as it is; a world model predicts how it will change. This post
+            explains what world models are, why probabilistic SLAM already is one, six insights from
+            recent work and eight open directions, with a reading map of
+            <span data-stat="items"></span> key papers.</span
+          ><span class="t-vi"
+            >SLAM ước lượng thế giới như hiện tại; mô hình thế giới dự đoán nó sẽ thay đổi ra sao.
+            Bài viết này giải thích mô hình thế giới là gì, vì sao SLAM xác suất vốn đã là một mô
+            hình thế giới, sáu ý tưởng cốt lõi từ các công trình gần đây và tám hướng mở, kèm bản đồ
+            đọc gồm <span data-stat="items"></span> bài báo chính.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body">
+        <section>
+          <h2><span class="t-en">1. Fundamentals</span><span class="t-vi">1. Nền tảng</span></h2>
+          <h3 class="vs-sub">
+            <span class="t-en">What a world model is</span
+            ><span class="t-vi">Mô hình thế giới là gì</span>
+          </h3>
+          <div class="post-prose">
+            <p class="t-en">
+              A world model is a model of how an environment works that an agent can run forward in
+              its head. In its most common form it has three learned parts: an
+              <strong>encoder</strong> that infers a compact state from what the agent has seen, a
+              <strong>dynamics model</strong> that predicts the next state from the current state
+              and an action, and a <strong>decoder</strong> that predicts what the agent would
+              observe in that state. It is trained mostly by predicting observations, so unlabeled
+              experience is enough, and it is used to plan or to learn behaviour by imagining the
+              future instead of trying everything in the real world (World Models, 2018; PlaNet,
+              2019; Dreamer, 2020).
+            </p>
+            <p class="t-vi">
+              Mô hình thế giới là một mô hình về cách môi trường vận hành mà tác tử có thể "chạy thử
+              trong đầu". Ở dạng phổ biến nhất, nó gồm ba phần được học: một
+              <strong>bộ mã hóa</strong> suy ra trạng thái nén từ những gì tác tử đã thấy, một
+              <strong>mô hình động lực học</strong> dự đoán trạng thái kế tiếp từ trạng thái hiện
+              tại và hành động, và một <strong>bộ giải mã</strong> dự đoán tác tử sẽ quan sát thấy
+              gì ở trạng thái đó. Nó được huấn luyện chủ yếu bằng cách dự đoán quan sát, nên chỉ cần
+              dữ liệu không nhãn, và được dùng để lập kế hoạch hoặc học hành vi bằng cách tưởng
+              tượng tương lai thay vì thử mọi thứ ngoài thế giới thực (World Models, 2018; PlaNet,
+              2019; Dreamer, 2020).
+            </p>
+          </div>
+          <p class="vs-eq">
+            s<sub>t</sub> ~ q(s<sub>t</sub> | s<sub>t−1</sub>, a<sub>t−1</sub>, o<sub>t</sub>)
+            &nbsp;·&nbsp; ŝ<sub>t</sub> ~ p(s<sub>t</sub> | s<sub>t−1</sub>, a<sub>t−1</sub>)
+            &nbsp;·&nbsp; o<sub>t</sub> ~ p(o<sub>t</sub> | s<sub>t</sub>)
+          </p>
+          <p class="vs-eq">
+            max Σ<sub>t</sub> ln p(o<sub>t</sub> | s<sub>t</sub>) − KL[ q(s<sub>t</sub> |
+            s<sub>t−1</sub>, a<sub>t−1</sub>, o<sub>t</sub>) ‖ p(s<sub>t</sub> | s<sub>t−1</sub>,
+            a<sub>t−1</sub>) ]
+          </p>
+          <div class="post-prose">
+            <p class="t-en">
+              This is the recurrent state-space model of PlaNet and Dreamer: o is the observation, a
+              the action and s the latent state. The first term asks the state to explain the image;
+              the second asks the prediction made <em>before</em> seeing the image to agree with the
+              state inferred <em>after</em> seeing it. In other words, the model is trained to
+              predict.
+            </p>
+            <p class="t-vi">
+              Đây là mô hình không gian trạng thái hồi quy của PlaNet và Dreamer: o là quan sát, a
+              là hành động và s là trạng thái ẩn. Số hạng thứ nhất yêu cầu trạng thái giải thích
+              được ảnh; số hạng thứ hai yêu cầu dự đoán đưa ra <em>trước</em> khi thấy ảnh khớp với
+              trạng thái suy ra <em>sau</em> khi thấy ảnh. Nói cách khác, mô hình được huấn luyện để
+              dự đoán.
+            </p>
+          </div>
+
+          <h3 class="vs-sub">
+            <span class="t-en">SLAM was a world model all along</span
+            ><span class="t-vi">SLAM vốn đã là một mô hình thế giới</span>
+          </h3>
+          <div class="post-prose">
+            <p class="t-en">
+              Probabilistic SLAM has the same three parts, written by hand instead of learned
+              (Durrant-Whyte and Bailey, 2006):
+            </p>
+            <p class="t-vi">
+              SLAM xác suất có đúng ba phần như vậy, nhưng được viết tay thay vì học (Durrant-Whyte
+              và Bailey, 2006):
+            </p>
+          </div>
+          <p class="vs-eq">
+            p(x<sub>t</sub> | x<sub>t−1</sub>, u<sub>t</sub>) &nbsp;·&nbsp; p(z<sub>t</sub> |
+            x<sub>t</sub>, m) &nbsp;·&nbsp; p(x<sub>0:t</sub>, m | z<sub>1:t</sub>, u<sub>1:t</sub>)
+          </p>
+          <div class="post-prose">
+            <p class="t-en">
+              Here x is the robot pose, m the map, u the odometry or control and z the measurements.
+              The motion model plays the role of the dynamics, the observation model the role of the
+              decoder, and filters or factor graphs (such as iSAM2) do the inference. The structure
+              is the same; what differs are three assumptions. In SLAM the parts are
+              <strong>designed rather than learned</strong>, the world is
+              <strong>static</strong> (the map does not move), and the model is used to estimate
+              <strong>the present</strong> rather than to predict the future.
+            </p>
+            <p class="t-vi">
+              Ở đây x là tư thế robot, m là bản đồ, u là đo hành trình hoặc lệnh điều khiển và z là
+              các phép đo. Mô hình chuyển động đóng vai động lực học, mô hình quan sát đóng vai bộ
+              giải mã, còn bộ lọc hoặc đồ thị nhân tử (như iSAM2) thực hiện suy luận. Cấu trúc giống
+              nhau; khác biệt nằm ở ba giả thiết. Trong SLAM, các phần được
+              <strong>thiết kế chứ không học</strong>, thế giới <strong>tĩnh</strong> (bản đồ không
+              thay đổi), và mô hình được dùng để ước lượng <strong>hiện tại</strong> chứ không dự
+              đoán tương lai.
+            </p>
+          </div>
+          <div class="vs-switch" role="group" aria-label="View / Góc nhìn">
+            <button class="filter-chip" type="button" data-wm-mode="slam" aria-pressed="true">
+              <span class="t-en">Classic SLAM</span><span class="t-vi">SLAM cổ điển</span></button
+            ><button class="filter-chip" type="button" data-wm-mode="wm" aria-pressed="false">
+              <span class="t-en">Learned world model</span
+              ><span class="t-vi">Mô hình thế giới học được</span>
+            </button>
+          </div>
+          <div class="wm-loop" id="wm-loop" data-mode="slam">
+            <div class="vs-step">
+              <b><span class="t-en">1. Observe</span><span class="t-vi">1. Quan sát</span></b>
+              <span class="wm-s"
+                ><span class="t-en">Camera, IMU and wheel measurements arrive.</span
+                ><span class="t-vi">Phép đo từ camera, IMU và bánh xe được đưa vào.</span></span
+              >
+              <span class="wm-w"
+                ><span class="t-en">Images arrive, with the action just taken.</span
+                ><span class="t-vi">Ảnh được đưa vào, cùng hành động vừa thực hiện.</span></span
+              >
+            </div>
+            <div class="vs-step">
+              <b
+                ><span class="t-en">2. Infer the state</span
+                ><span class="t-vi">2. Suy ra trạng thái</span></b
+              >
+              <span class="wm-s"
+                ><span class="t-en">A filter or factor graph updates the pose and the map.</span
+                ><span class="t-vi"
+                  >Bộ lọc hoặc đồ thị nhân tử cập nhật tư thế và bản đồ.</span
+                ></span
+              >
+              <span class="wm-w"
+                ><span class="t-en">An encoder updates a latent state from the history.</span
+                ><span class="t-vi">Bộ mã hóa cập nhật trạng thái ẩn từ lịch sử.</span></span
+              >
+            </div>
+            <div class="vs-step">
+              <b><span class="t-en">3. Predict</span><span class="t-vi">3. Dự đoán</span></b>
+              <span class="wm-s"
+                ><span class="t-en"
+                  >The motion model predicts the next pose; the map is assumed fixed.</span
+                ><span class="t-vi"
+                  >Mô hình chuyển động dự đoán tư thế kế tiếp; bản đồ được giả định cố định.</span
+                ></span
+              >
+              <span class="wm-w"
+                ><span class="t-en"
+                  >The dynamics model imagines several steps ahead, moving objects included.</span
+                ><span class="t-vi"
+                  >Mô hình động lực học tưởng tượng nhiều bước phía trước, kể cả vật thể đang chuyển
+                  động.</span
+                ></span
+              >
+            </div>
+            <div class="vs-step">
+              <b><span class="t-en">4. Use it</span><span class="t-vi">4. Sử dụng</span></b>
+              <span class="wm-s"
+                ><span class="t-en">A separate planner reads the pose and the map.</span
+                ><span class="t-vi">Một bộ lập kế hoạch riêng đọc tư thế và bản đồ.</span></span
+              >
+              <span class="wm-w"
+                ><span class="t-en"
+                  >The agent plans, or learns a policy, by rolling the model forward.</span
+                ><span class="t-vi"
+                  >Tác tử lập kế hoạch, hoặc học chính sách, bằng cách cho mô hình chạy về phía
+                  trước.</span
+                ></span
+              >
+            </div>
+          </div>
+          <div class="vs-table-wrap">
+            <table class="vs-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>
+                    <span class="t-en">Classic SLAM</span><span class="t-vi">SLAM cổ điển</span>
+                  </th>
+                  <th>
+                    <span class="t-en">Learned world model</span
+                    ><span class="t-vi">Mô hình thế giới học được</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="t-en">State</span><span class="t-vi">Trạng thái</span></td>
+                  <td>
+                    <span class="t-en">Pose and map: explicit geometry</span
+                    ><span class="t-vi">Tư thế và bản đồ: hình học tường minh</span>
+                  </td>
+                  <td>
+                    <span class="t-en">A latent vector, or a learned 3D representation</span
+                    ><span class="t-vi">Vectơ ẩn, hoặc biểu diễn 3D học được</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Dynamics</span><span class="t-vi">Động lực học</span></td>
+                  <td>
+                    <span class="t-en">Kinematic motion model; the world does not move</span
+                    ><span class="t-vi">Mô hình chuyển động động học; thế giới đứng yên</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Learned; the world itself can change</span
+                    ><span class="t-vi">Học được; bản thân thế giới có thể thay đổi</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Observation model</span
+                    ><span class="t-vi">Mô hình quan sát</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Projection or ray casting</span
+                    ><span class="t-vi">Phép chiếu hoặc dò tia</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Learned decoder, renderer or video generator</span
+                    ><span class="t-vi">Bộ giải mã, bộ kết xuất hoặc bộ sinh video học được</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Inference</span><span class="t-vi">Suy luận</span></td>
+                  <td>
+                    <span class="t-en">Filter or factor graph</span
+                    ><span class="t-vi">Bộ lọc hoặc đồ thị nhân tử</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Learned encoder (amortized inference)</span
+                    ><span class="t-vi">Bộ mã hóa học được (suy luận khấu hao)</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Comes from</span><span class="t-vi">Nguồn gốc</span></td>
+                  <td>
+                    <span class="t-en">Hand design and tuning</span
+                    ><span class="t-vi">Thiết kế và tinh chỉnh thủ công</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Predicting observations from data</span
+                    ><span class="t-vi">Học dự đoán quan sát từ dữ liệu</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Looks at</span><span class="t-vi">Hướng tới</span></td>
+                  <td><span class="t-en">The present</span><span class="t-vi">Hiện tại</span></td>
+                  <td>
+                    <span class="t-en">The future, through imagined rollouts</span
+                    ><span class="t-vi">Tương lai, qua các lần chạy thử tưởng tượng</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Guarantees</span><span class="t-vi">Bảo đảm</span></td>
+                  <td>
+                    <span class="t-en">Metric accuracy, with uncertainty</span
+                    ><span class="t-vi">Độ chính xác theo mét, kèm độ bất định</span>
+                  </td>
+                  <td>
+                    <span class="t-en"
+                      >Plausible predictions; metric accuracy is not guaranteed</span
+                    ><span class="t-vi">Dự đoán hợp lý; không bảo đảm chính xác theo mét</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="t-en">Used for</span><span class="t-vi">Dùng để</span></td>
+                  <td>
+                    <span class="t-en">Localization and mapping</span
+                    ><span class="t-vi">Định vị và lập bản đồ</span>
+                  </td>
+                  <td>
+                    <span class="t-en">Planning, simulation and generating data</span
+                    ><span class="t-vi">Lập kế hoạch, mô phỏng và sinh dữ liệu</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="vs-sub">
+            <span class="t-en">Four kinds of world models you will meet in SLAM papers</span
+            ><span class="t-vi">Bốn loại mô hình thế giới thường gặp trong các bài về SLAM</span>
+          </h3>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>Latent dynamics models</strong> (World Models, PlaNet, Dreamer, TD-MPC2): very
+              good for control, but the state is a vector without explicit geometry, so long-term
+              spatial memory is weak.
+            </li>
+            <li>
+              <strong>Generative video world models</strong> (Genie, UniSim, and driving models such
+              as DriveDreamer and Vista): predict images from actions and can act as simulators;
+              keeping the world consistent over long horizons is hard.
+            </li>
+            <li>
+              <strong>3D occupancy world models</strong> (4D occupancy forecasting, Copilot4D, UnO,
+              OccWorld, GaussianWorld): forecast geometry, mostly for driving; the closest thing to
+              a SLAM map that moves.
+            </li>
+            <li>
+              <strong>Explicit 3D maps as the world state</strong> (Hydra, ConceptGraphs, 3D-Mem),
+              now often built with geometry foundation models (DUSt3R, MASt3R, VGGT): the map is the
+              memory.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Mô hình động lực học ẩn</strong> (World Models, PlaNet, Dreamer, TD-MPC2): rất
+              tốt cho điều khiển, nhưng trạng thái là một vectơ không có hình học tường minh, nên bộ
+              nhớ không gian dài hạn yếu.
+            </li>
+            <li>
+              <strong>Mô hình thế giới sinh video</strong> (Genie, UniSim, và các mô hình lái xe như
+              DriveDreamer, Vista): dự đoán ảnh theo hành động và có thể đóng vai bộ mô phỏng; giữ
+              thế giới nhất quán trong thời gian dài là điều khó.
+            </li>
+            <li>
+              <strong>Mô hình thế giới chiếm chỗ 3D</strong> (dự báo chiếm chỗ 4D, Copilot4D, UnO,
+              OccWorld, GaussianWorld): dự báo hình học, chủ yếu cho lái xe; gần nhất với một bản đồ
+              SLAM biết chuyển động.
+            </li>
+            <li>
+              <strong>Bản đồ 3D tường minh làm trạng thái thế giới</strong> (Hydra, ConceptGraphs,
+              3D-Mem), ngày càng được xây bằng mô hình nền tảng hình học (DUSt3R, MASt3R, VGGT): bản
+              đồ chính là bộ nhớ.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">2. Key insights</span
+            ><span class="t-vi">2. Những ý tưởng cốt lõi</span>
+          </h2>
+          <ol class="post-prose wm-points t-en">
+            <li>
+              <strong
+                >SLAM is a world model with three assumptions: designed, static and
+                present-only.</strong
+              >
+              Relaxing each one is a research direction: learn the models from data, let the world
+              change, and predict ahead.
+            </li>
+            <li>
+              <strong>Prediction is free supervision.</strong> Predicting the next frame or the next
+              occupancy needs no labels, and it trains the state, its dynamics and the geometry
+              together. Driving world models learn 4D occupancy and future point clouds from raw
+              LiDAR sequences (4D occupancy forecasting, 2023; Copilot4D and UnO, 2024).
+            </li>
+            <li>
+              <strong>World models need memory, and memory is a map.</strong> A video model that
+              only sees its last frames forgets what it generated: when the camera comes back, it
+              may imagine a different room. Recent work adds memory indexed by geometry, such as
+              past views with their poses (WorldMem), views indexed by 3D surfels (VMem) and
+              explicit spatial or 3D geometric memories (long-term spatial memory, Spatia,
+              WorldStereo). That memory is SLAM's map, and coming back to a place is a loop closure.
+            </li>
+            <li>
+              <strong>Geometry foundation models turn reconstruction into prediction.</strong>
+              DUSt3R, MASt3R and VGGT predict 3D points and cameras from images in one forward pass.
+              They now serve as SLAM front-ends (MASt3R-SLAM, VGGT-SLAM), and the same kind of 3D
+              reconstruction is what recent video world models keep as their memory.
+            </li>
+            <li>
+              <strong>Actions turn a video generator into a world model.</strong> To plan, a
+              prediction must depend on what the robot does. Genie infers latent actions from
+              unlabeled video, UniSim responds to language and robot actions, and driving models
+              condition the future on the ego trajectory (SparseWorld-TC, implicit residual world
+              models for planning).
+            </li>
+            <li>
+              <strong>Plausible is not the same as correct.</strong> A generative prior fills unseen
+              space with something likely. For localization and mapping, a confidently imagined wall
+              in the wrong place is an error, not a detail. Keep observed and imagined content
+              apart, and give imagined content its own uncertainty.
+            </li>
+          </ol>
+          <ol class="post-prose wm-points t-vi">
+            <li>
+              <strong
+                >SLAM là một mô hình thế giới với ba giả thiết: được thiết kế, tĩnh và chỉ nhìn hiện
+                tại.</strong
+              >
+              Nới lỏng từng giả thiết là một hướng nghiên cứu: học các mô hình từ dữ liệu, cho phép
+              thế giới thay đổi, và dự đoán về phía trước.
+            </li>
+            <li>
+              <strong>Dự đoán là nguồn giám sát miễn phí.</strong> Dự đoán khung hình hoặc trạng
+              thái chiếm chỗ kế tiếp không cần nhãn, và nó huấn luyện cùng lúc trạng thái, động lực
+              học và hình học. Các mô hình thế giới cho lái xe học chiếm chỗ 4D và đám mây điểm
+              tương lai từ chuỗi LiDAR thô (dự báo chiếm chỗ 4D, 2023; Copilot4D và UnO, 2024).
+            </li>
+            <li>
+              <strong>Mô hình thế giới cần bộ nhớ, và bộ nhớ chính là bản đồ.</strong> Một mô hình
+              video chỉ nhìn vài khung hình gần nhất sẽ quên những gì nó đã sinh ra: khi camera quay
+              lại, nó có thể tưởng tượng ra một căn phòng khác. Các công trình gần đây thêm bộ nhớ
+              được đánh chỉ mục theo hình học, như các góc nhìn cũ kèm tư thế (WorldMem), góc nhìn
+              đánh chỉ mục theo surfel 3D (VMem) và các bộ nhớ không gian hay hình học 3D tường minh
+              (bộ nhớ không gian dài hạn, Spatia, WorldStereo). Bộ nhớ đó chính là bản đồ của SLAM,
+              và việc quay lại một nơi cũ chính là đóng vòng.
+            </li>
+            <li>
+              <strong>Mô hình nền tảng hình học biến tái tạo thành dự đoán.</strong> DUSt3R, MASt3R
+              và VGGT dự đoán điểm 3D và camera từ ảnh chỉ trong một lượt truyền thẳng. Chúng nay
+              được dùng làm front-end cho SLAM (MASt3R-SLAM, VGGT-SLAM), và cũng chính kiểu tái tạo
+              3D này là thứ các mô hình thế giới video gần đây giữ làm bộ nhớ.
+            </li>
+            <li>
+              <strong>Hành động biến một bộ sinh video thành mô hình thế giới.</strong> Để lập kế
+              hoạch, dự đoán phải phụ thuộc vào việc robot làm. Genie suy ra hành động tiềm ẩn từ
+              video không nhãn, UniSim phản hồi theo ngôn ngữ và hành động robot, còn các mô hình
+              lái xe dự đoán tương lai theo quỹ đạo của xe (SparseWorld-TC, mô hình thế giới phần dư
+              ngầm định cho lập kế hoạch).
+            </li>
+            <li>
+              <strong>Hợp lý không có nghĩa là đúng.</strong> Một tiền nghiệm sinh sẽ lấp vùng chưa
+              thấy bằng thứ có khả năng xảy ra. Với định vị và lập bản đồ, một bức tường được tưởng
+              tượng tự tin nhưng sai chỗ là lỗi, không phải chi tiết nhỏ. Hãy tách phần quan sát
+              được khỏi phần tưởng tượng, và gán cho phần tưởng tượng độ bất định riêng.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">3. Open directions</span><span class="t-vi">3. Các hướng mở</span>
+          </h2>
+          <div class="wm-open">
+            <div>
+              <h3>
+                <span class="t-en">Loop closure for world models</span
+                ><span class="t-vi">Đóng vòng cho mô hình thế giới</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >How should a generative world model notice that it is back in a known place, and
+                  correct itself instead of drifting? SLAM has decades of tools for this, such as
+                  place recognition and pose graphs, that video models barely use.</span
+                ><span class="t-vi"
+                  >Làm sao để một mô hình thế giới sinh nhận ra nó đã quay lại một nơi quen thuộc,
+                  và tự sửa thay vì trôi dần? SLAM có hàng chục năm công cụ cho việc này, như nhận
+                  dạng địa điểm và đồ thị tư thế, mà các mô hình video hầu như chưa dùng.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Metric grounding and calibrated uncertainty</span
+                ><span class="t-vi">Gắn với hệ mét và độ bất định hiệu chuẩn</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Which parts of a predicted map can a robot trust? Uncertainty should be
+                  calibrated, separate observed from imagined content, and feed risk-aware
+                  planning.</span
+                ><span class="t-vi"
+                  >Robot có thể tin phần nào của một bản đồ được dự đoán? Độ bất định cần được hiệu
+                  chuẩn, tách phần quan sát khỏi phần tưởng tượng, và đưa vào lập kế hoạch có tính
+                  đến rủi ro.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">A world that changes</span
+                ><span class="t-vi">Một thế giới luôn thay đổi</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Classic SLAM treats moving things as outliers. A world model should predict where
+                  objects go and what persists over hours and days: lifelong maps that expect change
+                  instead of fighting it.</span
+                ><span class="t-vi"
+                  >SLAM cổ điển coi vật chuyển động là điểm ngoại lai. Một mô hình thế giới nên dự
+                  đoán vật sẽ đi đâu và cái gì còn tồn tại sau nhiều giờ, nhiều ngày: bản đồ trọn
+                  đời đón đầu sự thay đổi thay vì chống lại nó.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Action-conditioned 3D models for manipulation</span
+                ><span class="t-vi">Mô hình 3D theo hành động cho thao tác</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Driving world models predict free space. Robots that manipulate need to predict
+                  contact, articulation and deformation in 3D, as a result of their own
+                  actions.</span
+                ><span class="t-vi"
+                  >Mô hình thế giới lái xe dự đoán không gian trống. Robot thao tác cần dự đoán tiếp
+                  xúc, khớp động và biến dạng trong 3D, như hệ quả từ chính hành động của nó.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Efficiency on the robot</span
+                ><span class="t-vi">Chạy hiệu quả trên robot</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Video world models run on large GPUs. Robots need real-time models with bounded
+                  memory, compact 3D latent maps and distilled predictors.</span
+                ><span class="t-vi"
+                  >Mô hình thế giới video chạy trên GPU lớn. Robot cần mô hình thời gian thực với bộ
+                  nhớ có giới hạn, bản đồ ẩn 3D gọn và bộ dự đoán được chưng cất.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Evaluation that matters for robots</span
+                ><span class="t-vi">Đánh giá có ý nghĩa cho robot</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Trajectory error measures the past and image metrics measure realism. Missing are
+                  benchmarks for consistency on revisits, the geometric accuracy of predictions,
+                  calibration, and whether the model actually helps a robot plan.</span
+                ><span class="t-vi"
+                  >Sai số quỹ đạo đo quá khứ, còn các chỉ số ảnh đo độ chân thực. Còn thiếu các
+                  chuẩn đánh giá về tính nhất quán khi quay lại, độ chính xác hình học của dự đoán,
+                  độ hiệu chuẩn, và việc mô hình có thực sự giúp robot lập kế hoạch hay không.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Semantics and language</span
+                ><span class="t-vi">Ngữ nghĩa và ngôn ngữ</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Open-vocabulary world models that answer both "where did I leave the cup?" and
+                  "what happens if I open this door?", by joining scene graphs with predictive
+                  models.</span
+                ><span class="t-vi"
+                  >Mô hình thế giới từ vựng mở trả lời được cả "mình để cái cốc ở đâu?" lẫn "chuyện
+                  gì xảy ra nếu mở cánh cửa này?", bằng cách kết hợp đồ thị cảnh với mô hình dự
+                  đoán.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Knowing when the model is wrong</span
+                ><span class="t-vi">Biết khi nào mô hình sai</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Detect situations the world model has never seen, and failures of its
+                  predictions, before the robot acts on them.</span
+                ><span class="t-vi"
+                  >Phát hiện các tình huống mô hình thế giới chưa từng gặp, và các dự đoán sai của
+                  nó, trước khi robot hành động dựa trên chúng.</span
+                >
+              </p>
+            </div>
+          </div>
+          <p class="post-prose">
+            <span class="t-en"
+              >Several of these questions, uncertainty and lifelong change in particular, are the
+              subject of our survey on
+              <a href="https://thanhnguyencanh.github.io/open-semanticSLAM-survey/"
+                >open-world semantic SLAM</a
+              >.</span
+            ><span class="t-vi"
+              >Một số câu hỏi trên, nhất là độ bất định và thay đổi dài hạn, là chủ đề của bài khảo
+              sát của chúng tôi về
+              <a href="https://thanhnguyencanh.github.io/open-semanticSLAM-survey/"
+                >SLAM ngữ nghĩa thế giới mở</a
+              >.</span
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">4. How fast is it growing?</span
+            ><span class="t-vi">4. Lĩnh vực đang phát triển nhanh đến đâu?</span>
+          </h2>
+          <p class="post-prose">
+            <span class="t-en"
+              >Papers with “world model” in the title in the 14 venues of the
+              <a href="../../explorer/?q=%22world%20model%22">Paper Explorer</a>, per year, split by
+              whether the title is about a 3D or spatial world.</span
+            ><span class="t-vi"
+              >Số bài có “world model” trong tiêu đề trên 14 hội nghị và tạp chí của
+              <a href="../../explorer/?q=%22world%20model%22">Paper Explorer</a>, theo năm, chia
+              theo việc tiêu đề có nói về thế giới 3D hay không gian hay không.</span
+            >
+          </p>
+          <div class="ft-chart wm-trend" id="wm-trend"></div>
+          <ul class="post-prose">
+            <li data-fact="growth"></li>
+            <li data-fact="rate"></li>
+            <li data-fact="spatial"></li>
+          </ul>
+          <p class="ft-note" id="wm-trend-note"></p>
+        </section>
+
+        <section id="ft">
+          <h2><span class="t-en">5. A reading map</span><span class="t-vi">5. Bản đồ đọc</span></h2>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd><span class="t-en">lineages</span><span class="t-vi">dòng</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <p class="post-prose">
+            <span class="t-en"
+              >Key papers behind the ideas above, from probabilistic SLAM to video world models with
+              3D memory. Pick one to see what it does and open it.</span
+            ><span class="t-vi"
+              >Các bài báo chính đứng sau những ý tưởng trên, từ SLAM xác suất đến mô hình thế giới
+              video có bộ nhớ 3D. Chọn một bài để xem nó làm gì và mở bài báo.</span
+            >
+          </p>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <h3 class="vs-sub">
+            <span class="t-en">Over time</span><span class="t-vi">Theo thời gian</span>
+          </h3>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Further reading</span><span class="t-vi">Đọc thêm</span></h2>
+          <ul class="post-prose">
+            <li>
+              <a href="../fm-world-models-slam/"
+                ><span class="t-en">Foundation models and world models for SLAM</span
+                ><span class="t-vi">Mô hình nền tảng và mô hình thế giới cho SLAM</span></a
+              >:
+              <span class="t-en"
+                >a family tree of 132 papers that combine SLAM or mapping with foundation or world
+                models.</span
+              ><span class="t-vi"
+                >cây phả hệ 132 bài kết hợp SLAM hoặc lập bản đồ với mô hình nền tảng hay mô hình
+                thế giới.</span
+              >
+            </li>
+            <li>
+              <a href="../visual-slam-feature-vs-direct/"
+                ><span class="t-en">Feature-based and direct visual SLAM, explained</span
+                ><span class="t-vi"
+                  >Giải thích SLAM thị giác dựa trên đặc trưng và trực tiếp</span
+                ></a
+              >: <span class="t-en">the classic front-ends that these models build on.</span
+              ><span class="t-vi">các front-end cổ điển làm nền cho những mô hình này.</span>
+            </li>
+            <li>
+              <a href="../../explorer/?q=%22world%20model%22&amp;topics=3d"
+                ><span class="t-en">World-model papers about 3D, in the Paper Explorer</span
+                ><span class="t-vi"
+                  >Các bài về mô hình thế giới liên quan đến 3D trong Paper Explorer</span
+                ></a
+              >
+            </li>
+          </ul>
+        </section>
+      </div>
+      <script src="wm.js?v=4b5fdd6b"></script>
+      <script src="data.js?v=67df18ee"></script>
+      <script src="../../assets/blog.js?v=f57b27ca4929"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

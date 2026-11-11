@@ -1,5 +1,37 @@
 [
   {
+    "slug": "world-models-slam",
+    "date": "2026-11-11",
+    "kind": {
+      "en": "Explainer",
+      "vi": "Giải thích"
+    },
+    "title": {
+      "en": "World models and SLAM: fundamentals, key insights and open directions",
+      "vi": "Mô hình thế giới và SLAM: nền tảng, ý tưởng cốt lõi và hướng mở"
+    },
+    "summary": {
+      "en": "SLAM estimates the world as it is; a world model predicts how it will change. What world models are, why probabilistic SLAM already is one, six insights from recent work, eight open directions, and how fast the field is growing.",
+      "vi": "SLAM ước lượng thế giới như hiện tại; mô hình thế giới dự đoán nó sẽ thay đổi ra sao. Mô hình thế giới là gì, vì sao SLAM xác suất vốn đã là một mô hình thế giới, sáu ý tưởng cốt lõi, tám hướng mở và tốc độ phát triển của lĩnh vực."
+    },
+    "lead": {
+      "en": "SLAM estimates the world as it is; a world model predicts how it will change. This post explains what world models are, why probabilistic SLAM already is one, six insights from recent work and eight open directions, with a reading map of <span data-stat=\"items\"></span> key papers.",
+      "vi": "SLAM ước lượng thế giới như hiện tại; mô hình thế giới dự đoán nó sẽ thay đổi ra sao. Bài viết này giải thích mô hình thế giới là gì, vì sao SLAM xác suất vốn đã là một mô hình thế giới, sáu ý tưởng cốt lõi từ các công trình gần đây và tám hướng mở, kèm bản đồ đọc gồm <span data-stat=\"items\"></span> bài báo chính."
+    },
+    "tags": {
+      "en": [
+        "World models",
+        "SLAM",
+        "Research directions"
+      ],
+      "vi": [
+        "Mô hình thế giới",
+        "SLAM",
+        "Hướng nghiên cứu"
+      ]
+    }
+  },
+  {
     "slug": "visual-slam-feature-vs-direct",
     "date": "2026-11-10",
     "kind": {
