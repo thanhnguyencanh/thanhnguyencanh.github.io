@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 import subprocess
+from collections import defaultdict
 from pathlib import Path
 
 from about_page import about_intro
@@ -13,7 +14,7 @@ from about_page import about_intro
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE = json.loads((ROOT / "data/profile.json").read_text())
 PAPERS = json.loads((ROOT / "data/publications.json").read_text())
-PAGES = [("", "About"), ("publications", "Publications"), ("blog", "Blog"), ("explorer", "Paper Explorer"), ("teaching", "Teaching"), ("contact", "Contact")]
+PAGES = [("", "About"), ("publications", "Publications"), ("blog", "Blog"), ("explorer", "Paper Explorer"), ("trends", "Trends"), ("teaching", "Teaching"), ("contact", "Contact")]
 LAB_URL = "https://pairs-lab.github.io/"  # research, people, projects, datasets and positions live on the lab site
 SEARCH = []
 
@@ -21,7 +22,7 @@ SEARCH = []
 def asset_revision():
     """Give generated pages fresh CSS and scripts whenever their sources change."""
     sources = [ROOT / "stylesheet.css", ROOT / "assets/site.js", ROOT / "assets/blog.css", ROOT / "assets/blog.js",
-               ROOT / "assets/explorer.css", ROOT / "assets/explorer.js"]
+               ROOT / "assets/explorer.css", ROOT / "assets/explorer.js", ROOT / "assets/trends.css", ROOT / "assets/trends.js"]
     sources += sorted((ROOT / "data").glob("*.json"))
     sources += sorted((ROOT / "scripts").glob("*.py"))
     digest = hashlib.sha256()
@@ -371,6 +372,34 @@ def explorer():
                 content, head=f'<link rel="stylesheet" href="../assets/explorer.css?v={ASSET_REVISION}">')
 
 
+# ---------- research trends ----------
+# trends/data.json is written by scripts/make_conference_trends.py from the Paper Explorer data.
+
+def trends():
+    path = ROOT / "trends/data.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    venues = data["venues"]
+    total = sum(sum(v["n"]) for v in venues)
+    y0, y1 = min(v["years"][0] for v in venues), max(v["years"][-1] for v in venues)
+    by_last = defaultdict(list)
+    for v in venues:
+        by_last[v["years"][-1]].append(v["short"])
+    names = lambda xs: ", ".join(xs[:-1]) + " and " + xs[-1] if len(xs) > 1 else xs[0]
+    coverage = "; ".join(f"{y} for {names(by_last[y])}" for y in sorted(by_last, reverse=True))
+    intro = (f"How the research topics of {len(venues)} top-tier robotics, computer vision and machine learning venues have changed, "
+             f"from {total:,} papers in dblp, {y0}–{y1}: papers per year, topics over time, and the title terms that rose or faded at each venue.")
+    content = heading("Research Trends", intro, "Conferences · Journals") + f'''<div class="tr" id="tr" data-src="data.json?v={fingerprint(path)}">
+<p class="tr-status" id="tr-status" role="status">Loading the trends…</p>
+<div class="tr-bar" id="tr-filter" role="group" aria-label="Show venues"></div>
+<div id="tr-cards"></div>
+<section class="tr-detail" id="tr-detail" aria-live="polite"></section>
+<section class="tr-compare"><div class="section-heading"><h2 class="section-title">Topics across venues</h2></div>
+<p class="tr-lead">The share of each venue's papers in its last two editions that name a topic. Select a column to open that venue's trends.</p><div class="tr-scroll" id="tr-compare"></div></section>
+<p class="tr-note">Data: titles, years and venues from the <a href="https://dblp.org/">dblp</a> computer science bibliography (CC0), downloaded {esc(data["generated"])}, the same data as the <a href="../explorer/">Paper Explorer</a>; workshop papers are not included. A venue's latest year is the last one in dblp: {esc(coverage)}. Topics come from keyword rules on titles, so a share is the share of titles that name the topic. Terms are words and two-word phrases of titles, with plurals folded and function words removed; words that describe a paper's format, such as &ldquo;Position:&rdquo; or &ldquo;Demonstrating&rdquo;, are left out. Rising and fading terms and topic shifts compare a venue's last two editions with its last two editions at least four years earlier. Journal volumes of the current year are incomplete.</p>
+</div><noscript><p>The Research Trends page needs JavaScript.</p></noscript><script src="../assets/trends.js?v={ASSET_REVISION}" defer></script>'''
+    render_page("trends", "Research Trends", intro, content, head=f'<link rel="stylesheet" href="../assets/trends.css?v={ASSET_REVISION}">')
+
+
 def office_details(key, title):
     office = PROFILE["offices"][key]
     add_search(title + " office", "Contact", f"contact/#{key}",
@@ -422,6 +451,7 @@ def main():
     publications()
     blog()
     explorer()
+    trends()
     teaching()
     contact()
     assets = ROOT / "assets"

@@ -1,0 +1,308 @@
+/* Research Trends: venue cards, the trend view of one venue, and topics across venues. Uses the site's colour variables. */
+.tr {
+  --tr-heat: #0072b2;
+  --tr-up: #0072b2;
+  --tr-down: #c45100;
+}
+html[data-theme="dark"] .tr {
+  --tr-heat: #56b4e9;
+  --tr-up: #56b4e9;
+  --tr-down: #f0955a;
+}
+.tr-status {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.tr-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 6px;
+}
+.tr-group {
+  margin: 26px 0 10px;
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+.tr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.tr-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.tr-card.is-on {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.tr-card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tr-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+.tr-kind {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tr-full {
+  min-height: 2.2em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.tr-big {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+}
+.tr-big b {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.tr-growth {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.tr-spark {
+  display: block;
+  width: 100%;
+  height: 34px;
+}
+.tr-spark rect {
+  fill: var(--tr-heat);
+  fill-opacity: 0.75;
+}
+.tr-line {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+.tr-line span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.tr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 0.85rem;
+}
+.tr-detail {
+  margin: 34px 0 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 84px;
+}
+.tr-dhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin-bottom: 14px;
+}
+.tr-dhead h2 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+.tr-dname {
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 300;
+}
+.tr-dmeta {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.tr-dmeta b {
+  color: var(--heading);
+  font-weight: 500;
+}
+.tr-dgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+}
+.tr-panel {
+  min-width: 0;
+  margin: 0;
+}
+.tr-panel.tr-wide {
+  grid-column: 1 / -1;
+}
+.tr-panel figcaption {
+  margin-bottom: 6px;
+  color: var(--heading);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.tr-panel figcaption span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.tr-panel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.tr-panel > .filter-chip {
+  margin-top: 8px;
+}
+.tr svg text {
+  fill: var(--muted);
+  font-size: 12px;
+}
+.tr svg text.tr-lab,
+.tr svg text.tr-col {
+  fill: var(--heading);
+}
+.tr svg text.tr-col {
+  font-weight: 500;
+}
+.tr svg text.tr-ghead {
+  fill: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tr-grid-l {
+  stroke: var(--border);
+}
+.tr-axis {
+  stroke: var(--muted);
+}
+.tr-bar {
+  fill: var(--tr-heat);
+}
+.tr-up {
+  fill: var(--tr-up);
+}
+.tr-down {
+  fill: var(--tr-down);
+}
+.tr-cell {
+  fill: var(--tr-heat);
+}
+.tr svg a:hover .tr-cell,
+.tr svg a:focus .tr-cell {
+  stroke: var(--heading);
+  stroke-width: 1.5;
+}
+.tr svg a:hover text.tr-lab {
+  fill: var(--accent);
+}
+.tr-scroll {
+  overflow-x: auto;
+}
+.tr-terms {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tr-terms li + li {
+  border-top: 1px solid var(--border);
+}
+.tr-terms a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px 116px;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 2px;
+  color: inherit;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+.tr-terms a:hover .tr-term {
+  color: var(--accent);
+}
+.tr-tspark {
+  width: 72px;
+  height: 18px;
+}
+.tr-tspark path {
+  fill: none;
+  stroke: var(--tr-heat);
+  stroke-width: 1.6;
+}
+.tr-val {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.tr-val.is-up {
+  color: var(--tr-up);
+}
+.tr-val.is-down {
+  color: var(--tr-down);
+}
+.tr-empty {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.tr-compare {
+  margin-top: 44px;
+}
+.tr-lead {
+  max-width: 760px;
+  color: var(--muted);
+}
+.tr-note {
+  max-width: 860px;
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.tr-error {
+  color: #b3261e;
+}
+@media (max-width: 760px) {
+  .tr-dgrid {
+    grid-template-columns: 1fr;
+  }
+  .tr-terms a {
+    grid-template-columns: minmax(0, 1fr) 60px 108px;
+  }
+}
+.tr-spark rect.is-partial,
+.tr-bar.is-partial {
+  fill-opacity: 0.35;
+}
+.tr-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.tr-ramp {
+  display: inline-block;
+  width: 120px;
+  height: 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--tr-heat));
+}

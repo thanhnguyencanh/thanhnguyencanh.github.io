@@ -633,6 +633,12 @@ window.siteSearch = [
     text: "Search 139,002 papers from ICRA, IROS, RSS, CoRL, RA-L, T-RO, IJRR, Sci. Robotics, CVPR, ICCV, ECCV, NeurIPS, ICML, ICLR, 2015–2026, by title, author, venue, year and topic.",
   },
   {
+    title: "Research Trends",
+    category: "Page",
+    url: "trends/",
+    text: "How the research topics of 14 top-tier robotics, computer vision and machine learning venues have changed, from 139,002 papers in dblp, 2015–2026: papers per year, topics over time, and the title terms that rose or faded at each venue.",
+  },
+  {
     title: "Robotics and Information Science",
     category: "Teaching",
     url: "teaching/#teaching-0",
