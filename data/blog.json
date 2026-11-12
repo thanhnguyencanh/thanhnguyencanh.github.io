@@ -1,5 +1,37 @@
 [
   {
+    "slug": "robot-learning-explained",
+    "date": "2026-11-12",
+    "kind": {
+      "en": "Explainer",
+      "vi": "Giải thích"
+    },
+    "title": {
+      "en": "Robot learning, explained: reinforcement learning, teacher–student distillation and the trends",
+      "vi": "Giải thích học robot: học tăng cường, chưng cất thầy–trò và xu hướng"
+    },
+    "summary": {
+      "en": "How robots learn policies from reward, demonstrations or a teacher: RL from the objective to PPO, sim-to-real, teacher–student distillation and DAgger, diffusion and flow-matching policies, vision-language-action models, and what paper titles say about the trends, with interactive figures.",
+      "vi": "Robot học chính sách từ phần thưởng, trình diễn hay từ người thầy như thế nào: RL từ hàm mục tiêu đến PPO, chuyển từ mô phỏng sang thực tế, chưng cất thầy–trò và DAgger, chính sách khuếch tán và flow matching, mô hình thị giác-ngôn ngữ-hành động, và tiêu đề bài báo nói gì về xu hướng, kèm các hình tương tác."
+    },
+    "lead": {
+      "en": "Robots learn a policy, a map from what they sense to what they do, from reward, from demonstrations or from another policy. This post explains reinforcement learning with its key equations, how policies trained in simulation reach real robots, why teacher–student distillation works and why the student must learn on its own states, and the diffusion and vision-language-action models behind the latest trend, with interactive figures and a reading map of <span data-stat=\"items\"></span> papers.",
+      "vi": "Robot học một chính sách, tức ánh xạ từ những gì nó cảm nhận đến những gì nó làm, từ phần thưởng, từ trình diễn hoặc từ một chính sách khác. Bài viết giải thích học tăng cường cùng các phương trình chính, cách chính sách học trong mô phỏng đến được robot thật, vì sao chưng cất thầy–trò hiệu quả và vì sao người trò phải học trên chính trạng thái của mình, cùng các mô hình khuếch tán và thị giác-ngôn ngữ-hành động đứng sau xu hướng mới nhất, kèm các hình tương tác và bản đồ đọc gồm <span data-stat=\"items\"></span> bài báo."
+    },
+    "tags": {
+      "en": [
+        "Robot learning",
+        "Reinforcement learning",
+        "Interactive"
+      ],
+      "vi": [
+        "Học robot",
+        "Học tăng cường",
+        "Tương tác"
+      ]
+    }
+  },
+  {
     "slug": "vslam-datasets",
     "date": "2026-11-11",
     "kind": {

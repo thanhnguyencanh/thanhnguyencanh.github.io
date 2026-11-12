@@ -1,0 +1,1346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Robot learning, explained: reinforcement learning, teacher–student distillation and the trends
+      | Thanh Nguyen Canh
+    </title>
+    <meta
+      name="description"
+      content="How robots learn policies from reward, demonstrations or a teacher: RL from the objective to PPO, sim-to-real, teacher–student distillation and DAgger, diffusion and flow-matching policies, vision-language-action models, and what paper titles say about the trends, with interactive figures."
+    />
+    <meta name="author" content="Thanh Nguyen Canh" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        const t = localStorage.getItem("theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        else if (matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
+    <link rel="icon" href="../../images/profile/thanh-icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../../images/profile/thanh-icon-180.png" />
+    <link rel="canonical" href="https://thanhnguyencanh.github.io/blog/robot-learning-explained/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Thanh Nguyen Canh" />
+    <meta
+      property="og:title"
+      content="Robot learning, explained: reinforcement learning, teacher–student distillation and the trends | Thanh Nguyen Canh"
+    />
+    <meta
+      property="og:description"
+      content="How robots learn policies from reward, demonstrations or a teacher: RL from the objective to PPO, sim-to-real, teacher–student distillation and DAgger, diffusion and flow-matching policies, vision-language-action models, and what paper titles say about the trends, with interactive figures."
+    />
+    <meta
+      property="og:url"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-explained/"
+    />
+    <meta
+      property="og:image"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-explained/cover.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Robot learning, explained: reinforcement learning, teacher–student distillation and the trends"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://thanhnguyencanh.github.io/blog/robot-learning-explained/cover.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../../stylesheet.css?v=763752e4ca42" />
+    <script src="../../assets/search-index.js?v=763752e4ca42" defer></script>
+    <script src="../../assets/site.js?v=763752e4ca42" defer></script>
+    <link rel="stylesheet" href="../../assets/blog.css?v=763752e4ca42" />
+    <script>
+      try {
+        const q = new URLSearchParams(location.search).get("lang");
+        let l = q === "vi" || q === "en" ? q : localStorage.getItem("blog-lang");
+        l = l === "vi" ? "vi" : "en";
+        document.documentElement.dataset.lang = l;
+        document.documentElement.lang = l;
+      } catch (e) {
+        document.documentElement.dataset.lang = "en";
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Robot learning, explained: reinforcement learning, teacher–student distillation and the trends",
+        "alternativeHeadline": "Giải thích học robot: học tăng cường, chưng cất thầy–trò và xu hướng",
+        "description": "How robots learn policies from reward, demonstrations or a teacher: RL from the objective to PPO, sim-to-real, teacher–student distillation and DAgger, diffusion and flow-matching policies, vision-language-action models, and what paper titles say about the trends, with interactive figures.",
+        "datePublished": "2026-11-12",
+        "inLanguage": ["en", "vi"],
+        "mainEntityOfPage": "https://thanhnguyencanh.github.io/blog/robot-learning-explained/",
+        "author": {
+          "@type": "Person",
+          "name": "Thanh Nguyen Canh",
+          "url": "https://thanhnguyencanh.github.io/"
+        },
+        "image": "https://thanhnguyencanh.github.io/blog/robot-learning-explained/cover.png"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../index.html"
+          ><span class="brand-name">Thanh Nguyen Canh</span></a
+        >
+        <button
+          class="nav-toggle icon-button"
+          type="button"
+          aria-controls="site-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+          <a href="../../index.html">About</a>
+          <a href="../../publications/">Publications</a>
+          <a href="../../blog/" aria-current="page">Blog</a>
+          <a href="../../explorer/">Paper Explorer</a>
+          <a href="../../teaching/">Teaching</a>
+          <a href="../../contact/">Contact</a>
+          <a href="https://pairs-lab.github.io/">PAIRS Lab <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="header-actions">
+          <button
+            id="open-search"
+            class="icon-button"
+            type="button"
+            aria-label="Search this website"
+            title="Search (Ctrl/⌘ K)"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 4.5 4.5" />
+            </svg></button
+          ><button
+            id="theme-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="Switch to dark theme"
+            title="Change theme"
+            hidden
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="page-shell" id="main-content" tabindex="-1">
+      <header class="page-heading post-heading">
+        <p class="eyebrow"><a href="../">Blog</a></p>
+        <h1>
+          <span class="t-en"
+            >Robot learning, explained: reinforcement learning, teacher–student distillation and the
+            trends</span
+          ><span class="t-vi"
+            >Giải thích học robot: học tăng cường, chưng cất thầy–trò và xu hướng</span
+          >
+        </h1>
+        <p class="page-intro">
+          <span class="t-en"
+            >Robots learn a policy, a map from what they sense to what they do, from reward, from
+            demonstrations or from another policy. This post explains reinforcement learning with
+            its key equations, how policies trained in simulation reach real robots, why
+            teacher–student distillation works and why the student must learn on its own states, and
+            the diffusion and vision-language-action models behind the latest trend, with
+            interactive figures and a reading map of <span data-stat="items"></span> papers.</span
+          ><span class="t-vi"
+            >Robot học một chính sách, tức ánh xạ từ những gì nó cảm nhận đến những gì nó làm, từ
+            phần thưởng, từ trình diễn hoặc từ một chính sách khác. Bài viết giải thích học tăng
+            cường cùng các phương trình chính, cách chính sách học trong mô phỏng đến được robot
+            thật, vì sao chưng cất thầy–trò hiệu quả và vì sao người trò phải học trên chính trạng
+            thái của mình, cùng các mô hình khuếch tán và thị giác-ngôn ngữ-hành động đứng sau xu
+            hướng mới nhất, kèm các hình tương tác và bản đồ đọc gồm
+            <span data-stat="items"></span> bài báo.</span
+          >
+        </p>
+        <div class="post-byline">
+          <span
+            ><a href="../../">Thanh Nguyen Canh</a> ·
+            <a href="https://pairs-lab.github.io/">PAIRS Lab</a></span
+          >
+          <div class="lang-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button class="filter-chip" type="button" data-set-lang="en" aria-pressed="true">
+              English</button
+            ><button class="filter-chip" type="button" data-set-lang="vi" aria-pressed="false">
+              Tiếng Việt
+            </button>
+          </div>
+        </div>
+      </header>
+      <div class="post-body">
+        <section>
+          <h2>
+            <span class="t-en">Three ways to get a policy</span
+            ><span class="t-vi">Ba cách để có một chính sách</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              A robot policy \(\pi_\theta(a \mid o)\) maps what the robot observes to what it does,
+              and its parameters \(\theta\) have to be learned from some signal. Almost every robot
+              learning method uses one of three:
+            </p>
+            <p class="t-vi">
+              Một chính sách robot \(\pi_\theta(a \mid o)\) ánh xạ những gì robot quan sát được
+              thành hành động, và tham số \(\theta\) của nó phải được học từ một tín hiệu nào đó.
+              Gần như mọi phương pháp học robot dùng một trong ba loại:
+            </p>
+          </div>
+          <div class="rl-three">
+            <div>
+              <h3><span class="t-en">Reward</span><span class="t-vi">Phần thưởng</span></h3>
+              <p>
+                <span class="t-en"
+                  ><b>Reinforcement learning.</b> The robot tries actions and is scored; it needs no
+                  examples, but many trials, usually in simulation.</span
+                ><span class="t-vi"
+                  ><b>Học tăng cường.</b> Robot thử các hành động và được chấm điểm; không cần ví dụ
+                  mẫu, nhưng cần rất nhiều lần thử, thường là trong mô phỏng.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3><span class="t-en">Demonstrations</span><span class="t-vi">Trình diễn</span></h3>
+              <p>
+                <span class="t-en"
+                  ><b>Imitation learning.</b> A person shows the task, for example by teleoperation,
+                  and the policy copies it; data is expensive and only covers what was shown.</span
+                ><span class="t-vi"
+                  ><b>Học bắt chước.</b> Con người làm mẫu nhiệm vụ, ví dụ bằng điều khiển từ xa, và
+                  chính sách sao chép lại; dữ liệu đắt và chỉ phủ những gì đã được làm mẫu.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Another policy</span
+                ><span class="t-vi">Một chính sách khác</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  ><b>Distillation.</b> A teacher that knows more, often a policy trained with RL on
+                  privileged simulator state, labels the actions for a student.</span
+                ><span class="t-vi"
+                  ><b>Chưng cất.</b> Một người thầy biết nhiều hơn, thường là chính sách học bằng RL
+                  trên trạng thái đặc quyền của trình mô phỏng, gán nhãn hành động cho người
+                  trò.</span
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Reinforcement learning, from the objective to PPO</span
+            ><span class="t-vi">Học tăng cường, từ hàm mục tiêu đến PPO</span>
+          </h2>
+          <figure class="ba-fig" id="rl-fig-loop">
+            <!--fig:loop--><!-- prettier-ignore -->
+            <div class="ba-scroll"><svg viewBox="0 0 640 170" role="img" aria-label="The reinforcement-learning loop / Vòng lặp học tăng cường"><rect class="node" x="40" y="55" width="210" height="96" rx="6"></rect><rect class="node" x="390" y="55" width="210" height="96" rx="6"></rect><text x="145" y="86" text-anchor="middle" class="lab big t-en">Policy</text><text x="145" y="86" text-anchor="middle" class="lab big t-vi">Chính sách</text><text x="145" y="114" text-anchor="middle" class="m"><tspan>π</tspan><tspan dy="4" class="s">θ</tspan><tspan dy="-4">(a | s)</tspan></text><text x="145" y="138" text-anchor="middle" class="t-en">the robot&#x27;s controller</text><text x="145" y="138" text-anchor="middle" class="t-vi">bộ điều khiển của robot</text><text x="495" y="86" text-anchor="middle" class="lab big t-en">Environment</text><text x="495" y="86" text-anchor="middle" class="lab big t-vi">Môi trường</text><text x="495" y="112" text-anchor="middle" class="t-en">simulator or real world</text><text x="495" y="112" text-anchor="middle" class="t-vi">trình mô phỏng hoặc thế giới thật</text><text x="495" y="134" text-anchor="middle" class="t-en">with a reward function</text><text x="495" y="134" text-anchor="middle" class="t-vi">với một hàm phần thưởng</text><line class="arrow" x1="250" y1="78" x2="388" y2="78"></line><path class="arrow-h" d="M388 78L379 82L379 74Z"></path><line class="arrow" x1="390" y1="128" x2="252" y2="128"></line><path class="arrow-h" d="M252 128L261 124L261 132.1Z"></path><text x="319" y="68" text-anchor="middle" class="m small"><tspan>action a</tspan><tspan dy="4" class="s">t</tspan></text><text x="319" y="150" text-anchor="middle" class="m small"><tspan>state s</tspan><tspan dy="4" class="s">t+1</tspan><tspan dy="-4">, reward r</tspan><tspan dy="4" class="s">t</tspan></text><path class="loopback" d="M110 55 C 110 18, 180 18, 180 53"></path><path class="arrow-h" d="M180 53L175.9 44L184.1 44Z"></path><text x="145" y="15" text-anchor="middle" class="t-en">update θ to raise the return</text><text x="145" y="15" text-anchor="middle" class="t-vi">cập nhật θ để tăng tổng phần thưởng</text></svg></div>
+            <!--/fig:loop-->
+            <figcaption>
+              <span class="t-en"
+                >Figure 1. The policy acts, the environment returns the next state and a reward, and
+                learning changes \(\theta\) so that the total reward grows.</span
+              ><span class="t-vi"
+                >Hình 1. Chính sách hành động, môi trường trả về trạng thái kế tiếp và phần thưởng,
+                và việc học thay đổi \(\theta\) để tổng phần thưởng tăng lên.</span
+              >
+            </figcaption>
+          </figure>
+          <div class="post-prose">
+            <p class="t-en">
+              The problem is a Markov decision process: states \(s\), actions \(a\), dynamics \(P(s'
+              \mid s, a)\), a reward \(r(s, a)\) and a discount \(\gamma\). RL maximizes the
+              expected discounted return of the trajectories \(\tau\) that the policy produces:
+            </p>
+            <p class="t-vi">
+              Bài toán là một quá trình quyết định Markov: trạng thái \(s\), hành động \(a\), động
+              lực học \(P(s' \mid s, a)\), phần thưởng \(r(s, a)\) và hệ số chiết khấu \(\gamma\).
+              RL tối đa hóa kỳ vọng tổng phần thưởng chiết khấu trên các quỹ đạo \(\tau\) mà chính
+              sách tạo ra:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$J(\theta) = \mathbb{E}_{\tau\sim\pi_\theta}\Big[\sum_{t=0}^{T-1}\gamma^t\, r(s_t,
+            a_t)\Big]$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Value functions say how good a state or an action is under the current policy, and
+              satisfy the Bellman equations:
+            </p>
+            <p class="t-vi">
+              Các hàm giá trị cho biết một trạng thái hay một hành động tốt đến đâu dưới chính sách
+              hiện tại, và thỏa mãn phương trình Bellman:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$Q^\pi(s,a) = r(s,a) + \gamma\,\mathbb{E}_{s'\sim P(\cdot\mid s,a)}\big[V^\pi(s')\big],
+            \qquad V^\pi(s) = \mathbb{E}_{a\sim\pi(\cdot\mid s)}\big[Q^\pi(s,a)\big]$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Policy-gradient methods raise the log-probability of actions that turned out better
+              than expected. The advantage \(\hat{A}_t\) measures "better than expected", and
+              generalized advantage estimation (GAE) computes it from the temporal-difference errors
+              \(\delta_t\) of a learned value function, with \(\lambda\) trading bias against
+              variance:
+            </p>
+            <p class="t-vi">
+              Các phương pháp gradient chính sách tăng log-xác suất của những hành động hóa ra tốt
+              hơn kỳ vọng. Lợi thế (advantage) \(\hat{A}_t\) đo mức "tốt hơn kỳ vọng", và ước lượng
+              lợi thế tổng quát (GAE) tính nó từ các sai số sai phân thời gian \(\delta_t\) của một
+              hàm giá trị học được, với \(\lambda\) cân bằng giữa độ chệch và phương sai:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\nabla_\theta J(\theta) = \mathbb{E}\Big[\sum_t \nabla_\theta \log \pi_\theta(a_t\mid
+            s_t)\,\hat{A}_t\Big]$$ $$\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t), \qquad \hat{A}_t =
+            \sum_{l=0}^{\infty}(\gamma\lambda)^l\,\delta_{t+l}$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              A step that is too large can ruin the policy, and with it the data it collects next.
+              TRPO bounds each step with a trust region; PPO gets a similar effect with a clipped
+              objective on the probability ratio \(\rho_t\) between the new and the old policy:
+            </p>
+            <p class="t-vi">
+              Một bước cập nhật quá lớn có thể làm hỏng chính sách, kéo theo cả dữ liệu mà nó thu
+              thập tiếp theo. TRPO giới hạn mỗi bước bằng một vùng tin cậy; PPO đạt hiệu quả tương
+              tự bằng một hàm mục tiêu có cắt ngưỡng trên tỉ số xác suất \(\rho_t\) giữa chính sách
+              mới và cũ:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$L^{\text{CLIP}}(\theta) = \mathbb{E}_t\Big[\min\big(\rho_t\hat{A}_t,\
+            \operatorname{clip}(\rho_t, 1-\epsilon, 1+\epsilon)\,\hat{A}_t\big)\Big], \qquad \rho_t
+            = \frac{\pi_\theta(a_t\mid s_t)}{\pi_{\theta_{\text{old}}}(a_t\mid s_t)}$$
+          </div>
+          <div class="vs-demo rl-ppo-demo">
+            <div class="vs-controls rl-one">
+              <label
+                ><span
+                  ><span class="t-en">Clip range</span><span class="t-vi">Ngưỡng cắt</span></span
+                ><input
+                  type="range"
+                  id="rl-eps"
+                  min="0.05"
+                  max="0.5"
+                  step="0.05"
+                  value="0.2" /><output id="rl-eps-v"></output
+              ></label>
+            </div>
+            <div id="rl-ppo"></div>
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              The plots show why the clip works. When an action was good (\(\hat{A} &gt; 0\)),
+              raising its probability beyond \(1+\epsilon\) times the old one earns nothing more, so
+              there is no gradient to push further; when it was bad, lowering it below
+              \(1-\epsilon\) earns nothing more. A common choice is \(\epsilon = 0.2\). Because PPO
+              is on-policy, it throws its data away after each update, which is acceptable when
+              simulation is cheap: Rudin et al. trained ANYmal to walk with thousands of simulated
+              robots on one GPU, in under four minutes on flat ground and twenty on rough terrain.
+            </p>
+            <p class="t-vi">
+              Hai biểu đồ cho thấy vì sao phép cắt có tác dụng. Khi một hành động tốt (\(\hat{A}
+              &gt; 0\)), tăng xác suất của nó vượt quá \(1+\epsilon\) lần xác suất cũ không đem lại
+              thêm gì, nên không còn gradient để đẩy tiếp; khi hành động tệ, giảm xuống dưới
+              \(1-\epsilon\) cũng không đem lại thêm gì. Một lựa chọn phổ biến là \(\epsilon =
+              0.2\). Vì PPO là phương pháp trên chính sách (on-policy), nó bỏ dữ liệu sau mỗi lần
+              cập nhật, điều chấp nhận được khi mô phỏng rẻ: Rudin và cộng sự huấn luyện ANYmal đi
+              bộ với hàng nghìn robot mô phỏng trên một GPU, trong chưa đến bốn phút trên nền phẳng
+              và hai mươi phút trên địa hình gồ ghề.
+            </p>
+            <p class="t-en">
+              Off-policy methods reuse old experience from a replay buffer, which matters when every
+              sample costs robot time. Soft actor-critic (SAC) also rewards the policy for staying
+              random, through its entropy \(\mathcal{H}\), which helps exploration:
+            </p>
+            <p class="t-vi">
+              Các phương pháp ngoài chính sách (off-policy) dùng lại kinh nghiệm cũ từ bộ đệm phát
+              lại, điều quan trọng khi mỗi mẫu đều tốn thời gian của robot. Soft actor-critic (SAC)
+              còn thưởng cho chính sách khi nó giữ được tính ngẫu nhiên, qua entropy
+              \(\mathcal{H}\), giúp việc khám phá:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$J_{\text{SAC}}(\pi) = \sum_{t}\mathbb{E}_{(s_t,a_t)\sim\rho_\pi}\big[r(s_t,a_t) +
+            \alpha\,\mathcal{H}\big(\pi(\cdot\mid s_t)\big)\big]$$
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">From simulation to the real robot</span
+            ><span class="t-vi">Từ mô phỏng đến robot thật</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              Simulators are fast but never exact: masses, friction, motor strength, latency and
+              appearance all differ on the real robot. Domain randomization trains for a whole
+              distribution of simulators at once, with parameters \(\xi\) drawn at random, so that
+              the real world looks like one more sample:
+            </p>
+            <p class="t-vi">
+              Trình mô phỏng nhanh nhưng không bao giờ chính xác tuyệt đối: khối lượng, ma sát, lực
+              động cơ, độ trễ và hình ảnh đều khác trên robot thật. Ngẫu nhiên hóa miền huấn luyện
+              cho cả một phân phối trình mô phỏng cùng lúc, với tham số \(\xi\) được lấy ngẫu nhiên,
+              để thế giới thật trông như chỉ là thêm một mẫu nữa:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\pi^* = \arg\max_\pi\ \mathbb{E}_{\xi\sim p(\xi)}\big[J(\pi;\xi)\big]$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Tobin et al. randomized textures, lighting and cameras so that a network trained only
+              on rendered images worked on real ones; Peng et al. randomized dynamics for a real
+              arm; Hwangbo et al. added a learned model of ANYmal's actuators; and OpenAI trained a
+              Shadow hand to reorient a block entirely in heavily randomized simulation. The catch
+              is that a policy which cannot observe \(\xi\) must work for every \(\xi\) at once,
+              which makes it cautious. If it could estimate \(\xi\), it could adapt. That is what
+              teacher–student training provides.
+            </p>
+            <p class="t-vi">
+              Tobin và cộng sự ngẫu nhiên hóa kết cấu, ánh sáng và camera để một mạng chỉ học từ ảnh
+              kết xuất vẫn chạy được trên ảnh thật; Peng và cộng sự ngẫu nhiên hóa động lực học cho
+              một cánh tay thật; Hwangbo và cộng sự thêm một mô hình học được của bộ truyền động
+              ANYmal; còn OpenAI huấn luyện bàn tay Shadow xoay một khối vật hoàn toàn trong mô
+              phỏng được ngẫu nhiên hóa mạnh. Điểm vướng là một chính sách không quan sát được
+              \(\xi\) phải chạy tốt với mọi \(\xi\) cùng lúc, nên nó trở nên dè dặt. Nếu ước lượng
+              được \(\xi\), nó có thể thích nghi. Đó là điều mà huấn luyện thầy–trò mang lại.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Teacher–student distillation</span
+            ><span class="t-vi">Chưng cất thầy–trò</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              The idea is to split one hard problem into two easier ones. In simulation, a
+              <strong>teacher</strong> may use privileged information that no real robot has: the
+              terrain map, friction, contact states, the exact pose of an object. With that, RL
+              becomes much easier. A <strong>student</strong> that sees only onboard sensors,
+              usually a short history of them, then learns to reproduce the teacher's actions by
+              supervised learning.
+            </p>
+            <p class="t-vi">
+              Ý tưởng là tách một bài toán khó thành hai bài toán dễ hơn. Trong mô phỏng,
+              <strong>người thầy</strong> được dùng thông tin đặc quyền mà không robot thật nào có:
+              bản đồ địa hình, ma sát, trạng thái tiếp xúc, tư thế chính xác của vật. Nhờ đó RL trở
+              nên dễ hơn nhiều. Sau đó <strong>người trò</strong>, chỉ thấy cảm biến trên robot,
+              thường là một đoạn lịch sử ngắn của chúng, học tái tạo hành động của người thầy bằng
+              học có giám sát.
+            </p>
+          </div>
+          <figure class="ba-fig" id="rl-fig-teacher">
+            <!--fig:teacher--><!-- prettier-ignore -->
+            <div class="ba-scroll"><svg viewBox="0 0 720 226" role="img" aria-label="Teacher-student distillation in three phases / Chưng cất thầy–trò qua ba giai đoạn"><rect class="panel" x="14" y="8" width="216" height="210"></rect><text x="122" y="30" text-anchor="middle" class="lab t-en">1. Teacher, in simulation</text><text x="122" y="30" text-anchor="middle" class="lab t-vi">1. Thầy, trong mô phỏng</text><rect class="panel" x="252" y="8" width="216" height="210"></rect><text x="360" y="30" text-anchor="middle" class="lab t-en">2. Student, in simulation</text><text x="360" y="30" text-anchor="middle" class="lab t-vi">2. Trò, trong mô phỏng</text><rect class="panel" x="490" y="8" width="216" height="210"></rect><text x="598" y="30" text-anchor="middle" class="lab t-en">3. Student, on the robot</text><text x="598" y="30" text-anchor="middle" class="lab t-vi">3. Trò, trên robot</text><rect class="node" x="34" y="92" width="176" height="48" rx="6"></rect><text x="122" y="122" text-anchor="middle" class="m"><tspan>π</tspan><tspan dy="4" class="s">T</tspan><tspan dy="-4">(a | o</tspan><tspan dy="4" class="s">t</tspan><tspan dy="-4">, x</tspan><tspan dy="4" class="s">t</tspan><tspan dy="-11" class="s">priv</tspan><tspan dy="7">)</tspan></text><text x="122" y="56" text-anchor="middle" class="t-en">privileged state:</text><text x="122" y="56" text-anchor="middle" class="t-vi">trạng thái đặc quyền:</text><text x="122" y="72" text-anchor="middle" class="small t-en">terrain, friction, contacts, object pose</text><text x="122" y="72" text-anchor="middle" class="small t-vi">địa hình, ma sát, tiếp xúc, tư thế vật</text><line class="arrow" x1="122" y1="78" x2="122" y2="90"></line><path class="arrow-h" d="M122 90L118 81L126 81Z"></path><text x="122" y="176" text-anchor="middle" class="t-en">trained by RL (e.g. PPO)</text><text x="122" y="176" text-anchor="middle" class="t-vi">huấn luyện bằng RL (ví dụ PPO)</text><text x="122" y="194" text-anchor="middle" class="t-en">on a reward</text><text x="122" y="194" text-anchor="middle" class="t-vi">theo một hàm phần thưởng</text><line class="arrow" x1="122" y1="160" x2="122" y2="142"></line><path class="arrow-h" d="M122 142L126 151L118 151Z"></path><rect class="node" x="272" y="92" width="176" height="48" rx="6"></rect><text x="360" y="122" text-anchor="middle" class="m"><tspan>π</tspan><tspan dy="4" class="s">S</tspan><tspan dy="-4">(a | o</tspan><tspan dy="4" class="s">t−H:t</tspan><tspan dy="-4">)</tspan></text><text x="360" y="56" text-anchor="middle" class="t-en">onboard sensors only:</text><text x="360" y="56" text-anchor="middle" class="t-vi">chỉ cảm biến trên robot:</text><text x="360" y="72" text-anchor="middle" class="small t-en">joints, IMU, camera history</text><text x="360" y="72" text-anchor="middle" class="small t-vi">khớp, IMU, lịch sử camera</text><line class="arrow" x1="360" y1="78" x2="360" y2="90"></line><path class="arrow-h" d="M360 90L355.9 81L364.1 81Z"></path><text x="360" y="166" text-anchor="middle" class="t-en">copies the teacher&#x27;s actions</text><text x="360" y="166" text-anchor="middle" class="t-vi">chép hành động của thầy</text><text x="360" y="184" text-anchor="middle" class="t-en">on its own states (DAgger)</text><text x="360" y="184" text-anchor="middle" class="t-vi">trên trạng thái của chính nó (DAgger)</text><line class="arrow" x1="210" y1="116" x2="270" y2="116"></line><path class="arrow-h" d="M270 116L261 120L261 112Z"></path><text x="240" y="108" text-anchor="middle" class="small t-en">labels</text><text x="240" y="108" text-anchor="middle" class="small t-vi">nhãn</text><rect class="node" x="510" y="92" width="176" height="48" rx="6"></rect><text x="598" y="122" text-anchor="middle" class="m"><tspan>π</tspan><tspan dy="4" class="s">S</tspan><tspan dy="-4">(a | o</tspan><tspan dy="4" class="s">t−H:t</tspan><tspan dy="-4">)</tspan></text><text x="598" y="166" text-anchor="middle" class="t-en">no privileged information</text><text x="598" y="166" text-anchor="middle" class="t-vi">không cần thông tin đặc quyền</text><text x="598" y="184" text-anchor="middle" class="t-en">is needed at run time</text><text x="598" y="184" text-anchor="middle" class="t-vi">khi chạy thật</text><line class="arrow" x1="448" y1="116" x2="508" y2="116"></line><path class="arrow-h" d="M508 116L499 120L499 112Z"></path><text x="478" y="108" text-anchor="middle" class="small t-en">deploy</text><text x="478" y="108" text-anchor="middle" class="small t-vi">triển khai</text></svg></div>
+            <!--/fig:teacher-->
+            <figcaption>
+              <span class="t-en"
+                >Figure 2. Teacher–student training. Only the student is deployed, so the privileged
+                information is needed only in simulation.</span
+              ><span class="t-vi"
+                >Hình 2. Huấn luyện thầy–trò. Chỉ người trò được triển khai, nên thông tin đặc quyền
+                chỉ cần có trong mô phỏng.</span
+              >
+            </figcaption>
+          </figure>
+          <div class="post-prose">
+            <p class="t-en">
+              The student either copies the teacher's actions directly, or, as in RMA, reproduces
+              the teacher's internal estimate of the environment. In RMA the teacher encodes 17
+              environment parameters \(e_t\) (friction, payload, motor strength and more) into a
+              latent \(z_t\); the student's adaptation module estimates it from the last \(k = 50\)
+              states and actions (0.5 s), and runs at 10 Hz next to the 100 Hz base policy on a
+              Unitree A1:
+            </p>
+            <p class="t-vi">
+              Người trò hoặc chép trực tiếp hành động của người thầy, hoặc, như trong RMA, tái tạo
+              ước lượng nội bộ của người thầy về môi trường. Trong RMA, người thầy mã hóa 17 tham số
+              môi trường \(e_t\) (ma sát, tải trọng, lực động cơ và các tham số khác) thành biến
+              tiềm ẩn \(z_t\); mô-đun thích nghi của người trò ước lượng nó từ \(k = 50\) trạng thái
+              và hành động gần nhất (0,5 giây), và chạy ở 10 Hz bên cạnh chính sách cơ sở 100 Hz
+              trên Unitree A1:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\min_\phi\ \mathbb{E}_{s\sim d^{\pi_S}}\Big[\big\|\pi_S(o_{t-H:t};\phi) - \pi_T(o_t,
+            x_t^{\text{priv}})\big\|^2\Big]$$ $$z_t = \mu(e_t), \quad a_t = \pi(x_t, a_{t-1}, z_t),
+            \qquad \hat{z}_t = \phi(x_{t-k:t-1}, a_{t-k:t-1}), \quad \min_\phi\ \big\|\hat{z}_t -
+            z_t\big\|^2$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Note the subscript in the first loss: the states come from \(d^{\pi_S}\), the
+              distribution the <em>student</em> visits. Copying the teacher only on the teacher's
+              own trajectories is behavior cloning, and it fails in a characteristic way: the
+              student makes a small mistake, reaches a state the teacher never visited, makes a
+              larger one there, and drifts away. DAgger fixes this by running the learner, asking
+              the expert to label the states it visits, and retraining on everything collected so
+              far, with \(\beta_i\) mixing in the expert early on:
+            </p>
+            <p class="t-vi">
+              Lưu ý chỉ số dưới trong hàm mất mát thứ nhất: các trạng thái lấy từ \(d^{\pi_S}\),
+              phân phối mà <em>người trò</em> đi qua. Chỉ chép người thầy trên quỹ đạo của chính
+              người thầy là behavior cloning, và nó thất bại theo một kiểu đặc trưng: người trò mắc
+              một lỗi nhỏ, đi đến trạng thái người thầy chưa từng qua, mắc lỗi lớn hơn ở đó, rồi
+              trôi xa dần. DAgger khắc phục bằng cách chạy người học, nhờ chuyên gia gán nhãn cho
+              các trạng thái nó đi qua, rồi huấn luyện lại trên toàn bộ dữ liệu đã thu, với
+              \(\beta_i\) trộn chuyên gia vào ở các vòng đầu:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\mathcal{D} \leftarrow \mathcal{D}\cup\big\{(o, \pi^*(s)) : s\sim d^{\pi_i}\big\},
+            \qquad \pi_i = \beta_i\,\pi^* + (1-\beta_i)\,\hat{\pi}_i$$ $$J(\hat\pi_{\text{BC}}) \le
+            J(\pi^*) + T^2\epsilon \qquad\qquad J(\hat\pi_{\text{DAgger}}) \le J(\pi^*) +
+            u\,T\,\epsilon_N + O(1)$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Here \(J\) is the expected total cost over \(T\) steps, with each step's cost in \([0,
+              1]\), \(\epsilon\) the learner's error rate on the expert's states, \(\epsilon_N\) the
+              error of the best policy on the aggregated data, and \(u\) a bound on how much one
+              mistake can add to the remaining cost. Behavior cloning's error can grow with the
+              square of the horizon; DAgger's grows linearly (Ross and Bagnell 2010; Ross, Gordon
+              and Bagnell 2011). RMA makes the same point in practice: data collected by unrolling
+              the teacher "will contain examples of only good trajectories", so the adaptation
+              module is trained on data collected with its own estimate in control.
+            </p>
+            <p class="t-vi">
+              Ở đây \(J\) là kỳ vọng tổng chi phí trên \(T\) bước, với chi phí mỗi bước nằm trong
+              \([0, 1]\), \(\epsilon\) là tỉ lệ lỗi của người học trên trạng thái của chuyên gia,
+              \(\epsilon_N\) là lỗi của chính sách tốt nhất trên dữ liệu đã gộp, và \(u\) là cận
+              trên của chi phí mà một lỗi có thể thêm vào phần còn lại. Sai số của behavior cloning
+              có thể tăng theo bình phương độ dài; của DAgger tăng tuyến tính (Ross và Bagnell 2010;
+              Ross, Gordon và Bagnell 2011). RMA cho thấy điều tương tự trong thực tế: dữ liệu thu
+              được khi chạy người thầy "chỉ chứa các quỹ đạo tốt", nên mô-đun thích nghi được huấn
+              luyện trên dữ liệu thu khi chính ước lượng của nó điều khiển robot.
+            </p>
+          </div>
+
+          <h3 class="vs-sub">
+            <span class="t-en">Try it: behavior cloning against DAgger</span
+            ><span class="t-vi">Thử nghiệm: behavior cloning so với DAgger</span>
+          </h3>
+          <div class="post-prose">
+            <p class="t-en">
+              A car must stay on an 80 m road. The teacher steers with the true lateral offset,
+              heading error and curvature, available only in simulation; the student sees noisy
+              estimates of them, as a lane detector would give, and copies the teacher's steering
+              from its nearest stored examples. Both students start from one teacher drive along the
+              centre line. Each round, behavior cloning gets one more teacher drive; DAgger instead
+              drives with its own student and asks the teacher to label the states it reached.
+            </p>
+            <p class="t-vi">
+              Một chiếc xe phải giữ mình trên con đường dài 80 m. Người thầy lái bằng độ lệch ngang,
+              sai số hướng và độ cong thật, chỉ có trong mô phỏng; người trò thấy các ước lượng có
+              nhiễu của chúng, như một bộ phát hiện làn đường sẽ cho, và chép cách lái của người
+              thầy từ các ví dụ gần nhất đã lưu. Cả hai người trò bắt đầu từ một lượt lái của người
+              thầy dọc tim đường. Mỗi vòng, behavior cloning nhận thêm một lượt lái của người thầy;
+              còn DAgger để chính người trò lái và nhờ người thầy gán nhãn cho các trạng thái nó đã
+              đến.
+            </p>
+          </div>
+          <div class="vs-demo rl-demo" id="rl-dagger">
+            <div class="ba-bar">
+              <button class="filter-chip" type="button" data-rl="round">
+                <span class="t-en">Next round</span><span class="t-vi">Vòng tiếp theo</span>
+              </button>
+              <button class="filter-chip" type="button" data-rl="run">
+                <span class="t-en">Run 6 rounds</span><span class="t-vi">Chạy 6 vòng</span>
+              </button>
+              <button class="filter-chip" type="button" data-rl="noise">
+                <span class="t-en">New noise</span><span class="t-vi">Nhiễu mới</span>
+              </button>
+              <button class="filter-chip" type="button" data-rl="reset">
+                <span class="t-en">Reset</span><span class="t-vi">Đặt lại</span>
+              </button>
+            </div>
+            <svg
+              class="rl-road"
+              id="rl-road-svg"
+              viewBox="0 0 640 400"
+              role="img"
+              aria-label="The road with the students' drives / Con đường và các lượt lái của người trò"
+            >
+              <g id="rl-road"></g>
+            </svg>
+            <div class="rl-dg-grid">
+              <div class="rl-dg-stats" id="rl-dg-stats" aria-live="polite"></div>
+              <svg
+                class="rl-small"
+                viewBox="0 0 320 180"
+                role="img"
+                aria-label="Share of the road completed per round / Phần đường đi hết theo vòng"
+              >
+                <g id="rl-curve"></g>
+              </svg>
+              <svg
+                class="rl-small"
+                viewBox="0 0 320 180"
+                role="img"
+                aria-label="Training states of both students / Trạng thái huấn luyện của hai người trò"
+              >
+                <g id="rl-data"></g>
+              </svg>
+            </div>
+            <div class="ft-legend">
+              <span
+                ><i class="rl-sw-bc"></i><span class="t-en">behavior cloning</span
+                ><span class="t-vi">behavior cloning</span></span
+              ><span><i class="rl-sw-dg"></i>DAgger</span
+              ><span
+                ><i class="rl-sw-road"></i><span class="t-en">road edges and centre line</span
+                ><span class="t-vi">mép đường và tim đường</span></span
+              >
+            </div>
+          </div>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>More demonstrations do not help.</strong> Over 20 runs with different noise,
+              one demonstration gets both students through 37% of the road on average. Six more
+              teacher drives lift behavior cloning only to 46%, because they all follow the same
+              centre line.
+            </li>
+            <li>
+              <strong>Labels on the student's states do.</strong> DAgger completes the whole road in
+              all 20 runs after two rounds, with fewer labels than behavior cloning (998 against
+              1,170 after two rounds of the default run).
+            </li>
+            <li>
+              <strong>The data shows why.</strong> Behavior cloning's training states sit in a thin
+              band around zero offset; DAgger's spread to the offsets and headings the student
+              actually reaches, where the teacher's labels say how to come back.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>Thêm trình diễn không giúp được.</strong> Qua 20 lần chạy với nhiễu khác nhau,
+              một lượt trình diễn giúp cả hai người trò đi được trung bình 37% con đường. Sáu lượt
+              lái nữa của người thầy chỉ đưa behavior cloning lên 46%, vì tất cả đều đi theo cùng
+              tim đường.
+            </li>
+            <li>
+              <strong>Nhãn trên trạng thái của người trò thì giúp được.</strong> DAgger đi hết con
+              đường ở cả 20 lần chạy sau hai vòng, với ít nhãn hơn behavior cloning (998 so với
+              1.170 sau hai vòng của lần chạy mặc định).
+            </li>
+            <li>
+              <strong>Dữ liệu cho thấy lý do.</strong> Các trạng thái huấn luyện của behavior
+              cloning nằm trong một dải hẹp quanh độ lệch bằng 0; của DAgger trải rộng ra các độ
+              lệch và hướng mà người trò thực sự gặp, nơi nhãn của người thầy chỉ cách quay về.
+            </li>
+          </ul>
+          <p class="post-note">
+            <span class="t-en"
+              >A teaching toy, not a benchmark: the student is a nearest-neighbour regressor, an
+              extreme stand-in for a network that has only seen data near the teacher's path. The
+              numbers above come from running this page's code (dagger-core.js) in Node.</span
+            ><span class="t-vi"
+              >Đây là mô hình minh họa, không phải phép đo hiệu năng: người trò là một bộ hồi quy
+              láng giềng gần nhất, một phiên bản cực đoan của mạng nơ-ron chỉ thấy dữ liệu gần quỹ
+              đạo của người thầy. Các con số ở trên có được khi chạy chính mã của trang này
+              (dagger-core.js) trong Node.</span
+            >
+          </p>
+
+          <h3 class="vs-sub">
+            <span class="t-en">Teachers and students in practice</span
+            ><span class="t-vi">Thầy và trò trong thực tế</span>
+          </h3>
+          <div class="vs-table-wrap">
+            <table class="vs-table">
+              <thead>
+                <tr>
+                  <th><span class="t-en">System</span><span class="t-vi">Hệ thống</span></th>
+                  <th>
+                    <span class="t-en">The teacher sees</span
+                    ><span class="t-vi">Người thầy thấy</span>
+                  </th>
+                  <th>
+                    <span class="t-en">The student sees</span
+                    ><span class="t-vi">Người trò thấy</span>
+                  </th>
+                  <th>
+                    <span class="t-en">The student learns by</span
+                    ><span class="t-vi">Người trò học bằng</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="t-en">Learning by Cheating (driving)</span
+                    ><span class="t-vi">Learning by Cheating (lái xe)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">the ground-truth layout and all traffic participants</span
+                    ><span class="t-vi">bố cục thật và mọi phương tiện giao thông</span>
+                  </td>
+                  <td>
+                    <span class="t-en">camera images</span><span class="t-vi">ảnh camera</span>
+                  </td>
+                  <td>
+                    <span class="t-en">imitating the privileged agent</span
+                    ><span class="t-vi">bắt chước tác tử đặc quyền</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Proprioceptive ANYmal</span
+                    ><span class="t-vi">ANYmal bản thể</span>
+                  </td>
+                  <td>
+                    <span class="t-en">privileged terrain information</span
+                    ><span class="t-vi">thông tin đặc quyền về địa hình</span>
+                  </td>
+                  <td>
+                    <span class="t-en">a history of proprioception</span
+                    ><span class="t-vi">lịch sử cảm biến bản thể</span>
+                  </td>
+                  <td>DAgger</td>
+                </tr>
+                <tr>
+                  <td>RMA (Unitree A1)</td>
+                  <td>
+                    <span class="t-en">17 environment parameters, as a latent z</span
+                    ><span class="t-vi">17 tham số môi trường, dưới dạng biến tiềm ẩn z</span>
+                  </td>
+                  <td>
+                    <span class="t-en">the last 0.5 s of states and actions</span
+                    ><span class="t-vi">0,5 giây trạng thái và hành động gần nhất</span>
+                  </td>
+                  <td>
+                    <span class="t-en">regressing z on its own data</span
+                    ><span class="t-vi">hồi quy z trên dữ liệu của chính nó</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Perceptive ANYmal</span
+                    ><span class="t-vi">ANYmal có tri giác</span>
+                  </td>
+                  <td>
+                    <span class="t-en">the privileged state</span
+                    ><span class="t-vi">trạng thái đặc quyền</span>
+                  </td>
+                  <td>
+                    <span class="t-en">proprioception and noisy terrain heights</span
+                    ><span class="t-vi">cảm biến bản thể và độ cao địa hình có nhiễu</span>
+                  </td>
+                  <td>
+                    <span class="t-en">imitating the teacher through a belief encoder</span
+                    ><span class="t-vi">bắt chước người thầy qua bộ mã hóa niềm tin</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="t-en">Visual dexterity (hand)</span
+                    ><span class="t-vi">Visual dexterity (bàn tay)</span>
+                  </td>
+                  <td>
+                    <span class="t-en">a low-dimensional privileged state</span
+                    ><span class="t-vi">trạng thái đặc quyền ít chiều</span>
+                  </td>
+                  <td>
+                    <span class="t-en">a single depth camera</span
+                    ><span class="t-vi">một camera độ sâu</span>
+                  </td>
+                  <td>
+                    <span class="t-en">supervised imitation, in two stages</span
+                    ><span class="t-vi">bắt chước có giám sát, qua hai giai đoạn</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Robot parkour</td>
+                  <td>
+                    <span class="t-en">privileged physics information</span
+                    ><span class="t-vi">thông tin vật lý đặc quyền</span>
+                  </td>
+                  <td>
+                    <span class="t-en">an egocentric depth camera</span
+                    ><span class="t-vi">camera độ sâu gắn trên robot</span>
+                  </td>
+                  <td>
+                    <span class="t-en">distillation into one vision policy</span
+                    ><span class="t-vi">chưng cất thành một chính sách thị giác</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Extreme parkour</td>
+                  <td>
+                    <span class="t-en">scandots (terrain points) and environment parameters</span
+                    ><span class="t-vi">scandots (các điểm địa hình) và tham số môi trường</span>
+                  </td>
+                  <td>
+                    <span class="t-en">one front depth camera</span
+                    ><span class="t-vi">một camera độ sâu phía trước</span>
+                  </td>
+                  <td>DAgger</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Imitation learning and expressive policies</span
+            ><span class="t-vi">Học bắt chước và chính sách giàu biểu đạt</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              Behavior cloning maximizes the likelihood of the demonstrated actions; with a Gaussian
+              of fixed variance this is plain mean-squared-error regression:
+            </p>
+            <p class="t-vi">
+              Behavior cloning tối đa hóa khả năng của các hành động đã được trình diễn; với một
+              phân phối Gauss có phương sai cố định, đó chính là hồi quy bình phương sai số trung
+              bình:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\min_\theta\ \mathbb{E}_{(o,a)\sim\mathcal{D}}\big[-\log\pi_\theta(a\mid o)\big]$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Human demonstrations are often multimodal: one person passes an obstacle on the left,
+              another on the right. Regression then predicts the average of the two, which goes
+              straight into the obstacle. Generative policies sample one mode instead. The figure
+              integrates the exact flow-matching velocity field for demonstrations at \(-1\) and
+              \(+1\): each noise sample flows to one of the two actions, and none ends in between.
+            </p>
+            <p class="t-vi">
+              Trình diễn của con người thường đa mode: người này vòng qua vật cản bên trái, người
+              kia bên phải. Hồi quy khi đó dự đoán trung bình của hai cách, tức là lao thẳng vào vật
+              cản. Chính sách sinh (generative) thì lấy mẫu một mode. Hình dưới tích phân trường vận
+              tốc flow matching chính xác cho các trình diễn tại \(-1\) và \(+1\): mỗi mẫu nhiễu
+              trôi về một trong hai hành động, và không mẫu nào dừng ở giữa.
+            </p>
+          </div>
+          <figure class="ba-fig rl-flow-fig">
+            <div id="rl-flow"></div>
+            <figcaption>
+              <span class="t-en"
+                >Figure 3. Sixty noise samples carried by the flow from \(\tau = 0\) to \(\tau =
+                1\).
+                <button class="filter-chip rl-inline" type="button" data-rl-flow>
+                  New samples
+                </button></span
+              ><span class="t-vi"
+                >Hình 3. Sáu mươi mẫu nhiễu được dòng chảy mang từ \(\tau = 0\) đến \(\tau = 1\).
+                <button class="filter-chip rl-inline" type="button" data-rl-flow>
+                  Mẫu mới
+                </button></span
+              >
+            </figcaption>
+          </figure>
+          <div class="post-prose">
+            <p class="t-en">
+              Diffusion Policy learns to remove noise from a whole sequence of future actions
+              \(A_t\), conditioned on the recent observations \(O_t\). It is trained to predict the
+              added noise, and samples by repeated denoising:
+            </p>
+            <p class="t-vi">
+              Diffusion Policy học cách khử nhiễu cho cả một chuỗi hành động tương lai \(A_t\), có
+              điều kiện theo các quan sát gần đây \(O_t\). Nó được huấn luyện để dự đoán phần nhiễu
+              đã thêm vào, và lấy mẫu bằng cách khử nhiễu lặp lại:
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$\mathcal{L} = \operatorname{MSE}\big(\varepsilon^k,\ \varepsilon_\theta(O_t, A_t^0 +
+            \varepsilon^k, k)\big), \qquad A_t^{k-1} = \alpha\big(A_t^k -
+            \gamma\,\varepsilon_\theta(O_t, A_t^k, k) + \mathcal{N}(0, \sigma^2 I)\big)$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Flow matching, used by π0, learns a velocity field instead. With noisy actions
+              \(A_t^\tau = \tau A_t + (1-\tau)\epsilon\), the network learns the direction \(A_t -
+              \epsilon\) from noise to data, and actions are generated by integrating it from \(\tau
+              = 0\) to \(\tau = 1\):
+            </p>
+            <p class="t-vi">
+              Flow matching, được π0 sử dụng, thì học một trường vận tốc. Với hành động nhiễu
+              \(A_t^\tau = \tau A_t + (1-\tau)\epsilon\), mạng học hướng \(A_t - \epsilon\) từ nhiễu
+              đến dữ liệu, và hành động được sinh ra bằng cách tích phân trường đó từ \(\tau = 0\)
+              đến \(\tau = 1\):
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$L^\tau(\theta) = \mathbb{E}\,\big\|v_\theta(A_t^\tau, o_t) - (A_t - \epsilon)\big\|^2,
+            \qquad A_t^{\tau+\delta} = A_t^\tau + \delta\, v_\theta(A_t^\tau, o_t)$$
+          </div>
+          <div class="post-prose">
+            <p class="t-en">
+              Both predict a chunk of actions at once rather than one step. Diffusion Policy
+              predicts \(T_p\) future steps from the last \(T_o\) observations and executes \(T_a\)
+              of them before replanning; ACT (action chunking with transformers) uses chunks to
+              reduce the compounding errors of imitation on low-cost arms.
+            </p>
+            <p class="t-vi">
+              Cả hai đều dự đoán một khối hành động cùng lúc thay vì từng bước. Diffusion Policy dự
+              đoán \(T_p\) bước tương lai từ \(T_o\) quan sát gần nhất và thực hiện \(T_a\) bước
+              trong số đó trước khi lập kế hoạch lại; ACT (action chunking với transformer) dùng các
+              khối hành động để giảm sai số tích lũy của học bắt chước trên các cánh tay giá rẻ.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Generalist policies: vision-language-action models</span
+            ><span class="t-vi">Chính sách tổng quát: mô hình thị giác-ngôn ngữ-hành động</span>
+          </h2>
+          <figure class="ba-fig" id="rl-fig-vla">
+            <!--fig:vla--><!-- prettier-ignore -->
+            <div class="ba-scroll"><svg viewBox="0 0 720 222" role="img" aria-label="A generalist robot policy / Một chính sách robot tổng quát"><rect class="node in" x="10" y="30" width="168" height="38" rx="6"></rect><text x="94" y="54" text-anchor="middle" class="small t-en">camera images</text><text x="94" y="54" text-anchor="middle" class="small t-vi">ảnh camera</text><line class="arrow" x1="178" y1="49" x2="226" y2="101"></line><path class="arrow-h" d="M226 101L216.9 97.1L222.9 91.6Z"></path><rect class="node in" x="10" y="82" width="168" height="38" rx="6"></rect><text x="94" y="106" text-anchor="middle" class="small t-en">instruction: “fold the shirt”</text><text x="94" y="106" text-anchor="middle" class="small t-vi">câu lệnh: “gấp áo”</text><line class="arrow" x1="178" y1="101" x2="226" y2="101"></line><path class="arrow-h" d="M226 101L217 105L217 97Z"></path><rect class="node in" x="10" y="134" width="168" height="38" rx="6"></rect><text x="94" y="158" text-anchor="middle" class="small t-en">robot state (joint angles)</text><text x="94" y="158" text-anchor="middle" class="small t-vi">trạng thái robot (góc khớp)</text><line class="arrow" x1="178" y1="153" x2="226" y2="101"></line><path class="arrow-h" d="M226 101L222.9 110.4L216.9 104.9Z"></path><rect class="node" x="228" y="54" width="190" height="96" rx="6"></rect><text x="323" y="92" text-anchor="middle" class="lab t-en">Vision-language model</text><text x="323" y="92" text-anchor="middle" class="lab t-vi">Mô hình thị giác-ngôn ngữ</text><text x="323" y="114" text-anchor="middle" class="small t-en">pretrained on web data</text><text x="323" y="114" text-anchor="middle" class="small t-vi">học trước trên dữ liệu web</text><rect class="node act" x="458" y="54" width="150" height="96" rx="6"></rect><text x="533" y="92" text-anchor="middle" class="lab t-en">Action expert</text><text x="533" y="92" text-anchor="middle" class="lab t-vi">Bộ phận hành động</text><text x="533" y="114" text-anchor="middle" class="small t-en">diffusion or flow</text><text x="533" y="114" text-anchor="middle" class="small t-vi">khuếch tán hoặc flow</text><line class="arrow" x1="418" y1="102" x2="456" y2="102"></line><path class="arrow-h" d="M456 102L447 106L447 98Z"></path><line class="arrow" x1="533" y1="196" x2="533" y2="152"></line><path class="arrow-h" d="M533 152L537 161L529 161Z"></path><text x="533" y="212" text-anchor="middle" class="small t-en">noise ε</text><text x="533" y="212" text-anchor="middle" class="small t-vi">nhiễu ε</text><line class="arrow" x1="608" y1="102" x2="646" y2="102"></line><path class="arrow-h" d="M646 102L637 106L637 98Z"></path><text x="680" y="92" text-anchor="middle" class="small t-en">action chunk</text><text x="680" y="92" text-anchor="middle" class="small t-vi">khối hành động</text><text x="680" y="114" text-anchor="middle" class="m small"><tspan>[a</tspan><tspan dy="4" class="s">t</tspan><tspan dy="-4">, …, a</tspan><tspan dy="4" class="s">t+H−1</tspan><tspan dy="-4">]</tspan></text></svg></div>
+            <!--/fig:vla-->
+            <figcaption>
+              <span class="t-en"
+                >Figure 4. A generalist policy in the style of π0: images, an instruction and the
+                robot state go into a pretrained vision-language model, and an action expert turns
+                noise into a chunk of H actions.</span
+              ><span class="t-vi"
+                >Hình 4. Một chính sách tổng quát theo kiểu π0: ảnh, câu lệnh và trạng thái robot đi
+                vào một mô hình thị giác-ngôn ngữ đã học trước, và bộ phận hành động biến nhiễu
+                thành một khối H hành động.</span
+              >
+            </figcaption>
+          </figure>
+          <div class="post-prose">
+            <p class="t-en">
+              The newest step is to train one policy for many robots and tasks, starting from a
+              model pretrained on web images and text. π0 writes it as a distribution over an action
+              chunk given the images \(I_t^{1..n}\), the language command \(\ell_t\) and the joint
+              angles \(q_t\):
+            </p>
+            <p class="t-vi">
+              Bước mới nhất là huấn luyện một chính sách cho nhiều robot và nhiệm vụ, xuất phát từ
+              một mô hình đã học trước trên ảnh và văn bản web. π0 viết nó dưới dạng phân phối trên
+              một khối hành động khi biết các ảnh \(I_t^{1..n}\), câu lệnh ngôn ngữ \(\ell_t\) và
+              các góc khớp \(q_t\):
+            </p>
+          </div>
+          <div class="ba-eq">
+            $$p\big(A_t \mid o_t\big), \qquad A_t = [a_t, a_{t+1}, \dots, a_{t+H-1}], \qquad o_t =
+            [I_t^1, \dots, I_t^n, \ell_t, q_t]$$
+          </div>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>RT-1 and RT-2.</strong> RT-1 trained a transformer on a large real-robot
+              dataset. RT-2 co-fine-tuned a vision-language model on robot data by writing actions
+              as text tokens, and named the result a vision-language-action (VLA) model.
+            </li>
+            <li>
+              <strong>Shared data.</strong> Open X-Embodiment pooled data from 22 robots and 21
+              institutions in one format; Octo is an open policy trained on 800k of its
+              trajectories, and DROID added a large in-the-wild manipulation dataset.
+            </li>
+            <li>
+              <strong>Open VLAs.</strong> OpenVLA is a 7B model on Llama 2 with DINOv2 and SigLIP
+              features, trained on 970k robot demonstrations, and it outperformed the 55B RT-2-X by
+              16.5% in absolute task success.
+            </li>
+            <li>
+              <strong>Flow-matching action experts.</strong> π0 attaches a flow-matching action
+              expert to a VLM and outputs chunks of H = 50 actions, at up to 50 Hz for dexterous
+              tasks such as folding laundry.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>RT-1 và RT-2.</strong> RT-1 huấn luyện một transformer trên bộ dữ liệu robot
+              thật quy mô lớn. RT-2 đồng tinh chỉnh một mô hình thị giác-ngôn ngữ trên dữ liệu robot
+              bằng cách viết hành động thành token văn bản, và gọi kết quả là mô hình thị giác-ngôn
+              ngữ-hành động (VLA).
+            </li>
+            <li>
+              <strong>Dữ liệu dùng chung.</strong> Open X-Embodiment gộp dữ liệu từ 22 robot và 21
+              tổ chức vào cùng một định dạng; Octo là chính sách mở huấn luyện trên 800 nghìn quỹ
+              đạo trong số đó, và DROID bổ sung một bộ dữ liệu thao tác quy mô lớn thu ngoài phòng
+              thí nghiệm.
+            </li>
+            <li>
+              <strong>VLA mở.</strong> OpenVLA là mô hình 7 tỉ tham số dựa trên Llama 2 với đặc
+              trưng DINOv2 và SigLIP, huấn luyện trên 970 nghìn lần trình diễn, và vượt RT-2-X 55 tỉ
+              tham số 16,5% về tỉ lệ hoàn thành nhiệm vụ tuyệt đối.
+            </li>
+            <li>
+              <strong>Bộ phận hành động flow matching.</strong> π0 gắn một bộ phận hành động dùng
+              flow matching vào VLM và xuất ra các khối H = 50 hành động, tới 50 Hz cho các việc
+              khéo léo như gấp quần áo.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">What the titles say</span
+            ><span class="t-vi">Tiêu đề bài báo nói gì</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              How often each idea appears in paper titles at five robotics venues that dblp covers
+              up to 2026 (ICRA, RA-L, T-RO, IJRR and Science Robotics), per 1,000 papers per year.
+              All panels share one axis.
+            </p>
+            <p class="t-vi">
+              Tần suất mỗi ý tưởng xuất hiện trong tiêu đề bài báo tại năm hội nghị và tạp chí robot
+              mà dblp có dữ liệu đến 2026 (ICRA, RA-L, T-RO, IJRR và Science Robotics), tính trên
+              1.000 bài mỗi năm. Mọi ô dùng chung một trục.
+            </p>
+          </div>
+          <div class="rl-trend" id="rl-trend"></div>
+          <p class="ft-note" id="rl-trend-note"></p>
+          <ul class="post-prose t-en">
+            <li>
+              <strong>RL went mainstream, then levelled off.</strong> From 6 per 1,000 titles in
+              2015 to 42 in 2021, and between 40 and 52 since.
+            </li>
+            <li>
+              <strong>Generative policies arrived fast.</strong> Diffusion and flow matching went
+              from 3 per 1,000 in 2023 to 42 in 2026.
+            </li>
+            <li>
+              <strong>Language and foundation models caught up with RL.</strong> From 1 per 1,000 in
+              2023 to 48 in 2026, as often as RL (49).
+            </li>
+            <li>
+              <strong>Distillation is growing quietly,</strong> from almost none before 2019 to 8
+              per 1,000 in 2026, while sim-to-real holds at 8 to 11.
+            </li>
+            <li>
+              <strong>Inside CoRL the picture is sharper.</strong> In our
+              <a href="../robot-learning-family-tree/">map of CoRL 2017–2025</a>, RL fell from 31%
+              of papers in 2017–2019 to 16% in 2023–2025, and foundation models rose from 1% before
+              2022 to 18% in 2025: RL is spreading to general robotics while learning venues move to
+              imitation and foundation models.
+            </li>
+          </ul>
+          <ul class="post-prose t-vi">
+            <li>
+              <strong>RL trở nên phổ biến, rồi chững lại.</strong> Từ 6 trên 1.000 tiêu đề năm 2015
+              lên 42 vào năm 2021, và dao động từ 40 đến 52 kể từ đó.
+            </li>
+            <li>
+              <strong>Chính sách sinh xuất hiện rất nhanh.</strong> Khuếch tán và flow matching tăng
+              từ 3 trên 1.000 năm 2023 lên 42 năm 2026.
+            </li>
+            <li>
+              <strong>Mô hình ngôn ngữ và nền tảng đuổi kịp RL.</strong> Từ 1 trên 1.000 năm 2023
+              lên 48 năm 2026, ngang với RL (49).
+            </li>
+            <li>
+              <strong>Chưng cất tăng lặng lẽ,</strong> từ gần như không có trước 2019 lên 8 trên
+              1.000 năm 2026, trong khi chuyển từ mô phỏng sang thực tế giữ ở mức 8 đến 11.
+            </li>
+            <li>
+              <strong>Trong CoRL, xu hướng rõ hơn.</strong> Trong
+              <a href="../robot-learning-family-tree/">bản đồ CoRL 2017–2025</a> của chúng tôi, RL
+              giảm từ 31% số bài giai đoạn 2017–2019 xuống 16% giai đoạn 2023–2025, còn mô hình nền
+              tảng tăng từ 1% trước 2022 lên 18% năm 2025: RL lan sang robot học nói chung, trong
+              khi các hội nghị về học chuyển sang học bắt chước và mô hình nền tảng.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>
+            <span class="t-en">Where robot learning is going</span
+            ><span class="t-vi">Học robot đang đi về đâu</span>
+          </h2>
+          <div class="post-prose">
+            <p class="t-en">
+              The methods above are converging rather than competing. Agile skills such as
+              locomotion and dexterity still come from RL in massively parallel simulation, made
+              deployable by teacher–student distillation. Manipulation from demonstrations moves to
+              generative action heads and to generalist models pretrained on web data. Open
+              questions sit at the joints between them:
+            </p>
+            <p class="t-vi">
+              Các phương pháp ở trên đang hội tụ chứ không cạnh tranh nhau. Các kỹ năng linh hoạt
+              như di chuyển và thao tác khéo léo vẫn đến từ RL trong mô phỏng song song quy mô lớn,
+              được làm cho triển khai được nhờ chưng cất thầy–trò. Thao tác học từ trình diễn chuyển
+              sang các đầu ra hành động dạng sinh và các mô hình tổng quát học trước trên dữ liệu
+              web. Các câu hỏi mở nằm ở chỗ giao nhau giữa chúng:
+            </p>
+          </div>
+          <div class="wm-open">
+            <div>
+              <h3><span class="t-en">Data</span><span class="t-vi">Dữ liệu</span></h3>
+              <p>
+                <span class="t-en"
+                  >Teleoperated robot data is slow to collect; human video (as in HumanPlus),
+                  simulation and shared datasets each cover part of the gap.</span
+                ><span class="t-vi"
+                  >Dữ liệu robot điều khiển từ xa thu chậm; video người (như HumanPlus), mô phỏng và
+                  các bộ dữ liệu dùng chung mỗi thứ lấp được một phần khoảng trống.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Improving after deployment</span
+                ><span class="t-vi">Cải thiện sau khi triển khai</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Imitation stops at the quality of its demonstrations; combining generalist
+                  policies with RL or interactive corrections, DAgger-style, is how they could keep
+                  improving.</span
+                ><span class="t-vi"
+                  >Học bắt chước dừng ở chất lượng của các trình diễn; kết hợp chính sách tổng quát
+                  với RL hoặc sửa lỗi tương tác kiểu DAgger là cách để chúng tiếp tục tiến bộ.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3><span class="t-en">Evaluation</span><span class="t-vi">Đánh giá</span></h3>
+              <p>
+                <span class="t-en"
+                  >Real-robot trials are slow and hard to compare across labs; learned simulators
+                  and world models may help, but have to be validated against reality.</span
+                ><span class="t-vi"
+                  >Thử nghiệm trên robot thật chậm và khó so sánh giữa các phòng thí nghiệm; trình
+                  mô phỏng học được và mô hình thế giới có thể giúp, nhưng phải được kiểm chứng với
+                  thực tế.</span
+                >
+              </p>
+            </div>
+            <div>
+              <h3>
+                <span class="t-en">Privileged information at scale</span
+                ><span class="t-vi">Thông tin đặc quyền ở quy mô lớn</span>
+              </h3>
+              <p>
+                <span class="t-en"
+                  >Teacher–student training needs a simulator that knows the state; extending it
+                  beyond locomotion and in-hand tasks needs simulators for cluttered, deformable and
+                  contact-rich scenes.</span
+                ><span class="t-vi"
+                  >Huấn luyện thầy–trò cần một trình mô phỏng biết trạng thái; mở rộng nó ra ngoài
+                  di chuyển và thao tác trong lòng bàn tay cần trình mô phỏng cho cảnh lộn xộn, vật
+                  biến dạng và nhiều tiếp xúc.</span
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="ft">
+          <h2><span class="t-en">A reading map</span><span class="t-vi">Bản đồ đọc</span></h2>
+          <dl class="ft-stats">
+            <div>
+              <dt data-stat="items"></dt>
+              <dd><span class="t-en">papers</span><span class="t-vi">bài báo</span></dd>
+            </div>
+            <div>
+              <dt data-stat="lineages"></dt>
+              <dd>
+                <span class="t-en">lines of work</span><span class="t-vi">hướng nghiên cứu</span>
+              </dd>
+            </div>
+            <div>
+              <dt data-stat="branches"></dt>
+              <dd><span class="t-en">branches</span><span class="t-vi">nhánh</span></dd>
+            </div>
+            <div>
+              <dt data-stat="span"></dt>
+              <dd><span class="t-en">years</span><span class="t-vi">giai đoạn</span></dd>
+            </div>
+          </dl>
+          <p class="post-prose">
+            <span class="t-en"
+              >The papers behind this post, from RL algorithms to generalist policies; a selection,
+              not a complete list. Pick a line of work or a paper to see what it did and open
+              it.</span
+            ><span class="t-vi"
+              >Các bài báo đứng sau bài viết này, từ thuật toán RL đến chính sách tổng quát; một
+              tuyển chọn, không phải danh sách đầy đủ. Chọn một hướng nghiên cứu hoặc một bài báo để
+              xem nó làm gì và mở bài báo.</span
+            >
+          </p>
+          <div class="ft-controls">
+            <div class="search-field">
+              <label class="sr-only" for="ft-q">Search / Tìm kiếm</label
+              ><svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m16 16 4.5 4.5" /></svg
+              ><input id="ft-q" type="search" autocomplete="off" />
+            </div>
+            <span class="ft-count" id="ft-count" role="status"></span>
+          </div>
+          <div class="ft-grid">
+            <nav class="ft-tree" id="ft-tree" aria-label="Tree"></nav>
+            <div class="ft-panel" id="ft-panel" aria-live="polite"></div>
+          </div>
+          <h3 class="vs-sub">
+            <span class="t-en">Over time</span><span class="t-vi">Theo thời gian</span>
+          </h3>
+          <div class="ft-chart" id="ft-chart"></div>
+        </section>
+
+        <section>
+          <h2><span class="t-en">Further reading</span><span class="t-vi">Đọc thêm</span></h2>
+          <ul class="post-prose">
+            <li>
+              <a href="../robot-learning-family-tree/"
+                ><span class="t-en">A family tree of robot learning</span
+                ><span class="t-vi">Cây phả hệ học robot</span></a
+              >: <span class="t-en">every CoRL paper from 2017 to 2025, by method and task.</span
+              ><span class="t-vi"
+                >mọi bài báo CoRL từ 2017 đến 2025, theo phương pháp và nhiệm vụ.</span
+              >
+            </li>
+            <li>
+              <a href="../world-models-slam/"
+                ><span class="t-en">World models and SLAM</span
+                ><span class="t-vi">Mô hình thế giới và SLAM</span></a
+              >:
+              <span class="t-en"
+                >models that predict how the world changes, from Dreamer to video models.</span
+              ><span class="t-vi"
+                >các mô hình dự đoán thế giới thay đổi ra sao, từ Dreamer đến mô hình video.</span
+              >
+            </li>
+            <li>
+              <a href="../../explorer/?q=teacher%20student"
+                ><span class="t-en">Teacher–student papers</span
+                ><span class="t-vi">Các bài về thầy–trò</span></a
+              >
+              ·
+              <a href="../../explorer/?q=diffusion%20policy"
+                ><span class="t-en">diffusion policies</span
+                ><span class="t-vi">chính sách khuếch tán</span></a
+              >
+              ·
+              <a href="../../explorer/?q=vision-language-action"
+                ><span class="t-en">VLA models</span><span class="t-vi">mô hình VLA</span></a
+              >
+              <span class="t-en">in the Paper Explorer</span
+              ><span class="t-vi">trong Paper Explorer</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css"
+        integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+        crossorigin="anonymous"
+      />
+      <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"
+        integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"
+        integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+        crossorigin="anonymous"
+      ></script>
+      <script src="dagger-core.js?v=34a26bc8"></script>
+      <script src="rl.js?v=7c04be1e"></script>
+      <script src="data.js?v=888c47c9"></script>
+      <script src="../../assets/blog.js?v=763752e4ca42"></script>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© Thanh Nguyen Canh <span aria-hidden="true">·</span> PAIRS Lab</p>
+        <div class="footer-links">
+          <a href="../../contact/">Contact</a><a href="mailto:thanhnc@jaist.ac.jp">Email</a
+          ><a href="../../CV_Thanh%20Nguyen%20Canh.pdf">CV</a
+          ><a href="https://github.com/thanhnguyencanh">GitHub</a>
+        </div>
+      </div>
+    </footer>
+    <dialog
+      id="site-search"
+      class="search-dialog"
+      aria-labelledby="search-title"
+      data-root="../../"
+    >
+      <div class="dialog-topline">
+        <h2 id="search-title">Search the website</h2>
+        <button id="close-search" class="icon-button" type="button" aria-label="Close search">
+          ×
+        </button>
+      </div>
+      <form class="search-form" role="search">
+        <label class="sr-only" for="site-query"
+          >Search publications, research, teaching and resources</label
+        ><input
+          id="site-query"
+          class="search-input"
+          type="search"
+          placeholder="Search publications, research, resources…"
+          autocomplete="off"
+        />
+      </form>
+      <p id="site-search-count" class="search-hint" role="status">
+        Type a title, author, topic or keyword.
+      </p>
+      <div id="site-search-results" class="search-results"></div>
+      <p class="search-hint">Ctrl/⌘ K to open <span aria-hidden="true">·</span> Esc to close</p>
+    </dialog>
+  </body>
+</html>

@@ -572,6 +572,13 @@ window.siteSearch = [
     text: "Interactive maps of research fields, tutorials and notes on SLAM and robot learning, in English and Vietnamese.",
   },
   {
+    title:
+      "Robot learning, explained: reinforcement learning, teacher–student distillation and the trends",
+    category: "Blog",
+    url: "blog/robot-learning-explained/",
+    text: "Giải thích học robot: học tăng cường, chưng cất thầy–trò và xu hướng How robots learn policies from reward, demonstrations or a teacher: RL from the objective to PPO, sim-to-real, teacher–student distillation and DAgger, diffusion and flow-matching policies, vision-language-action models, and what paper titles say about the trends, with interactive figures. Robot học chính sách từ phần thưởng, trình diễn hay từ người thầy như thế nào: RL từ hàm mục tiêu đến PPO, chuyển từ mô phỏng sang thực tế, chưng cất thầy–trò và DAgger, chính sách khuếch tán và flow matching, mô hình thị giác-ngôn ngữ-hành động, và tiêu đề bài báo nói gì về xu hướng, kèm các hình tương tác. Robot learning Reinforcement learning Interactive Học robot Học tăng cường Tương tác",
+  },
+  {
     title: "Visual SLAM datasets: what each one tests and how to evaluate on it",
     category: "Blog",
     url: "blog/vslam-datasets/",
