@@ -20,7 +20,7 @@
     "video": "",
     "links": {
       "website": "https://thanhnguyencanh.github.io/IRAF-SLAM/",
-      "code": "https://github.com/thanhnguyencanh/IRAF-SLAM"
+      "code": "https://github.com/pairs-lab/IRAF-SLAM"
     }
   },
   {
@@ -103,7 +103,7 @@
     "links": {
       "website": "https://thanhnguyencanh.github.io/ESRPCB/",
       "paper": "https://www.sciencedirect.com/science/article/abs/pii/S0952197625015490",
-      "code": "https://github.com/thanhnguyencanh/ESRPCB"
+      "code": "https://github.com/pairs-lab/ESRPCB"
     },
     "source_note": "Title and author order follow the primary paper: https://arxiv.org/abs/2506.13476. All original website authors and full abstract are retained."
   },
@@ -139,7 +139,7 @@
     "links": {
       "website": "https://thanhnguyencanh.github.io/DRL4Three-wayTSC/",
       "paper": "https://www.researchsquare.com/article/rs-3128875/v1",
-      "code": "https://github.com/thanhnguyencanh/DRL4Three-wayTSC"
+      "code": "https://github.com/pairs-lab/DRL4Three-wayTSC"
     }
   },
   {
@@ -197,7 +197,7 @@
     "links": {
       "website": "https://thanhnguyencanh.github.io/SGan-TEB/",
       "paper": "https://arxiv.org/abs/2411.01814",
-      "code": "https://github.com/thanhnguyencanh/SGan-TEB"
+      "code": "https://github.com/pairs-lab/SGan-TEB"
     }
   },
   {
@@ -215,7 +215,7 @@
     "links": {
       "website": "https://thanhnguyencanh.github.io/MonoCalibNet/",
       "paper": "https://www.researchsquare.com/article/rs-4019542/v1",
-      "code": "https://github.com/thanhnguyencanh/MonoCalibNet"
+      "code": "https://github.com/pairs-lab/MonoCalibNet"
     }
   },
   {
