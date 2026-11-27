@@ -375,7 +375,7 @@
   },
   {
     "id": "usgloc",
-    "title": "USGLoc: Uncertainty-Aware Semantic Visual Localization from 3D Gaussian Splatting",
+    "title": "USGLoc: Uncertainty-Aware Visual Localization via 3D Evidential Semantic Gaussian Splatting",
     "authors": ["Thanh Nguyen Canh", "Haolan Zhang", "Xiem HoangVan", "Nak Young Chong"],
     "year": 2026,
     "type": "preprint",
@@ -386,7 +386,10 @@
     "image": "",
     "video": "https://pairs-lab.github.io/images/demos/usgloc.mp4",
     "poster": "https://pairs-lab.github.io/images/demos/usgloc.jpg",
-    "links": {},
+    "links": {
+      "website": "https://thanhnguyencanh.github.io/usgloc/",
+      "code": "https://github.com/pairs-lab/usgloc"
+    },
     "cv_reference": "P9"
   },
   {
